@@ -6,7 +6,7 @@
 
 <html>
 <head>
-  <title>UserData</title>
+  <title>User Data</title>
 
   <style type="text/css">
     .tg {
@@ -62,7 +62,7 @@
     <td>${user.id}</td>
     <td>${user.login}</td>
     <td>${user.password}</td>
-    <td>${user.status}</td>
+    <td>${status}</td>
   </tr>
 </table>
 </body>

@@ -3,7 +3,7 @@ package org.tsys.sbb.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
     @Id
     @Column(name = "user_id")
@@ -17,7 +17,7 @@ public class User {
     private String password;
 
     @ManyToOne(optional = false)
-    @JoinColumn (name = "user_status_id")
+    @JoinColumn (name = "user_status_id", referencedColumnName = "user_status_id")
     private Status status;
 
     public int getId() {

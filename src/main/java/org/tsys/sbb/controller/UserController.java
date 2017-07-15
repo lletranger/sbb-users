@@ -59,7 +59,7 @@ public class UserController {
     @RequestMapping("userdata/{id}")
     public String userData(@PathVariable("id") int id, Model model){
         model.addAttribute("user", userService.getUserById(id));
-
+        model.addAttribute("status", userService.getUserById(id).getStatus().getStatus());
         return "userdata";
     }
 }

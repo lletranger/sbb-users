@@ -52,7 +52,7 @@
     </style>
 </head>
 <body>
-<a href="../../index.jsp">Back Menu</a>
+<a href="../../index.jsp">Back</a>
 
 <br/>
 <br/>

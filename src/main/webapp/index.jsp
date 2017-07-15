@@ -30,7 +30,7 @@
   </script>
 </head>
 <body onload="startTime()">
- <h1 align="center">Hello everyone!</h1>
+ <h1 align="center">T-Systems JavaSchool Task!</h1>
  <p align="center" style="font-size: 25px">Today is <span id="date"></span></p>
  <p align="center" style="font-size: 25px">Current time <span id="txt"></span></p>
  <p class="button-container" align="center" ><button style="height:25px;width:200px;font-size: large" onclick="location.href = '/users'">Users List</button></p>

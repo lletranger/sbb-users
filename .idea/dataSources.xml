@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="sbb-users-only@localhost" uuid="319f5bd3-bf28-4baf-a322-1251259b13ca">
+    <data-source source="LOCAL" name="trains@localhost" uuid="319f5bd3-bf28-4baf-a322-1251259b13ca">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/sbb-users-only</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/trains</jdbc-url>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="tinyInt1isBit" value="false" />

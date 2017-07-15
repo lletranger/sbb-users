@@ -16,8 +16,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "status")
-    private String status;
+    @ManyToOne(optional = false)
+    @JoinColumn (name = "user_status_id")
+    private Status status;
 
     public int getId() {
         return id;
@@ -43,11 +44,11 @@ public class User {
         this.password = password;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

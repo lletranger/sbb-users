@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UserController {
 
+//    private StationService stationService;
     private UserService userService;
 
     @Autowired
-    @Qualifier(value = "userService")
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
@@ -59,7 +59,7 @@ public class UserController {
     @RequestMapping("userdata/{id}")
     public String userData(@PathVariable("id") int id, Model model){
         model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("status", userService.getUserById(id).getStatus().getStatus());
+        model.addAttribute("status", userService.getUserById(id).getRole());
         return "userdata";
     }
 }

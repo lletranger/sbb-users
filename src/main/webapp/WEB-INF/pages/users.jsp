@@ -72,7 +72,7 @@
                 <td>${user.id}</td>
                 <td><a href="/userdata/${user.id}" target="_blank">${user.login}</a></td>
                 <td>${user.password}</td>
-                <td>${user.status}</td>
+                <td>${user.role}</td>
                 <td class="button-container"><button onclick="location.href = '/edit/${user.id}'">Edit</button></td>
                 <td class="button-container"><button onclick="location.href = '/remove/${user.id}'">Delete</button></td>
             </tr>
@@ -122,12 +122,12 @@
         </tr>
         <tr>
             <td>
-                <form:label path="status">
-                    <spring:message text="Status"/>
+                <form:label path="role">
+                    <spring:message text="Role"/>
                 </form:label>
             </td>
             <td>
-                <form:input path="status"/>
+                <form:input path="role"/>
             </td>
         </tr>
         <tr>

@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
@@ -14,15 +16,11 @@ public class UserDaoImpl implements UserDao {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
-    private SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    @PersistenceContext
+    private EntityManager em;
 
     public User getUserById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        User user = (User) session.load(User.class, id);
+        User user = (User) em.find(User.class, id);
         logger.info("User successfully loaded. User details: " + user);
 
         return user;
@@ -30,8 +28,7 @@ public class UserDaoImpl implements UserDao {
 
     @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {
-        Session session = sessionFactory.getCurrentSession();
-        List<User> userList = session.createQuery("FROM User").list();
+        List<User> userList = em.createQuery("FROM User").getResultList();
 
         for(User user : userList){
             logger.info("User list: " + user);
@@ -41,24 +38,21 @@ public class UserDaoImpl implements UserDao {
     }
 
     public void addUser(User user) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(user);
+        em.persist(user);
         logger.info("User successfully saved. User details: " + user);
     }
 
 
     public void editUser(User user) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(user);
+        em.merge(user);
         logger.info("User successfully update. User details: " + user);
     }
 
     public void deleteUser(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        User user = (User) session.load(User.class, id);
+        User user = (User) em.find(User.class, id);
 
         if(user !=null) {
-            session.delete(user);
+            em.remove(user);
         }
         logger.info("User successfully removed. User details: " + user);
     }

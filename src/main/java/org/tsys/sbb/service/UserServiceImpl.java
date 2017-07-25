@@ -1,5 +1,6 @@
 package org.tsys.sbb.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.tsys.sbb.dao.UserDao;
 import org.tsys.sbb.model.User;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
+    @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }

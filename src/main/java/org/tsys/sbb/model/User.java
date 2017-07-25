@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "login")
@@ -16,9 +16,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne(optional = false)
-    @JoinColumn (name = "user_status_id", referencedColumnName = "user_status_id")
-    private Status status;
+    @Column(name = "role")
+    private String role;
 
     public int getId() {
         return id;
@@ -44,21 +43,11 @@ public class User {
         this.password = password;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getRole() {
+        return role;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+    public void setRole(String role) {
+        this.role = role;
     }
 }

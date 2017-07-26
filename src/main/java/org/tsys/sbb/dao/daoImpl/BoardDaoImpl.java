@@ -58,6 +58,15 @@ public class BoardDaoImpl implements BoardDao {
         return list;
     }
 
+    @SuppressWarnings("unchecked")
+    public List<Board> getAllBoards() {
+        List<Board> list = em.createQuery("FROM Board").getResultList();
+        for(Board b : list) {
+            logger.info("Board list: " + b);
+        }
+        return list;
+    }
+
     public void addBoard(Board board) {
         em.persist(board);
         logger.info("Board saved: " + board);

@@ -59,10 +59,10 @@
     <th width="120">Status</th>
   </tr>
   <tr>
-    <td>${user.id}</td>
+    <td>${user.user_id}</td>
     <td>${user.login}</td>
     <td>${user.password}</td>
-    <td>${status}</td>
+    <td>${user.role}</td>
   </tr>
 </table>
 </body>

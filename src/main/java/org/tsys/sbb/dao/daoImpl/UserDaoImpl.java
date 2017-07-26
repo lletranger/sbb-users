@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
     public void deleteUser(int id) {
         User user = em.find(User.class, id);
 
-        if(user !=null) {
+        if(user != null) {
             em.remove(user);
         }
         logger.info("User is successfully removed. User details: " + user);

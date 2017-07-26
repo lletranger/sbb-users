@@ -24,9 +24,6 @@ public class Board {
     @Column(name = "to_id")
     private int to_id;
 
-    @Column(name = "role")
-    private String role;
-
     @Column(name = "departure")
     @Temporal(TemporalType.TIME)
     private Date departure;
@@ -74,14 +71,6 @@ public class Board {
         this.to_id = to_id;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Date getDeparture() {
         return departure;
     }
@@ -98,7 +87,6 @@ public class Board {
                 ", train_id=" + train_id +
                 ", from_id=" + from_id +
                 ", to_id=" + to_id +
-                ", role='" + role + '\'' +
                 ", departure=" + departure +
                 '}';
     }

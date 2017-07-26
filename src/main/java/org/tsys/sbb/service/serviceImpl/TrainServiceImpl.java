@@ -30,7 +30,5 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Transactional
-    public void addTrain(Train train) {
-        trainDao.addTrain(train);
-    }
+    public void addTrain(Train train) { trainDao.addTrain(train); }
 }

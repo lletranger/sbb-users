@@ -31,5 +31,47 @@
         </c:forEach>
     </table>
 </c:if>
+
+<h1>Add a Station</h1>
+
+<c:url var="addAction" value="/stations/add"/>
+
+<form:form action="${addAction}" commandName="station">
+    <table>
+        <tr>
+            <td>
+                <form:label path="name">
+                    <spring:message text="Name"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="x">
+                    <spring:message text="X coordinate"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="x"/>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="y">
+                    <spring:message text="Y coordinate"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="y"/>
+            </td>
+        </tr>
+        <tr>
+            <input type="submit" value="<spring:message text="Add Station"/>"/>
+            </td>
+        </tr>
+    </table>
+</form:form>
 </body>
 </html>

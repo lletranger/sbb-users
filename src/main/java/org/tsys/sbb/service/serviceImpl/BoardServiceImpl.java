@@ -35,12 +35,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Transactional
-    public List<Board> findBoardsByFromAndTo(int from_id, int to_id) {
-        return boardDao.findBoardsByFromAndTo(from_id, to_id);
-    }
+    public List<Board> findBoardsByFromAndTo(int from_id, int to_id) { return boardDao.findBoardsByFromAndTo(from_id, to_id); }
 
     @Transactional
-    public void addBoard(Board board) {
-        boardDao.addBoard(board);
-    }
+    public List<Board> getAllBoards() { return boardDao.getAllBoards(); }
+
+    @Transactional
+    public void addBoard(Board board) { boardDao.addBoard(board); }
 }

@@ -25,7 +25,5 @@ public class DelayServiceImpl implements DelayService {
     }
 
     @Transactional
-    public void addDelay(Delay delay) {
-        delayDao.addDelay(delay);
-    }
+    public void addDelay(Delay delay) { delayDao.addDelay(delay); }
 }

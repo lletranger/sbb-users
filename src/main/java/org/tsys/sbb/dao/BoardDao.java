@@ -10,5 +10,6 @@ public interface BoardDao {
     List<Board> findBoardsByName(String name);
     List<Board> findBoardsByFromOrTo(int id);
     List<Board> findBoardsByFromAndTo(int from_id, int to_id);
+    List<Board> getAllBoards();
     void addBoard(Board board);
 }

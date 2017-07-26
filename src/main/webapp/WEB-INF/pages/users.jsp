@@ -64,14 +64,12 @@
         <tr>
             <th width="40">ID</th>
             <th width="100">Login</th>
-            <th width="100">Password</th>
             <th width="80">Status</th>
         </tr>
         <c:forEach items="${allUsers}" var="user">
             <tr>
                 <td>${user.user_id}</td>
                 <td><a href="/userdata/${user.user_id}" target="_blank">${user.login}</a></td>
-                <td>${user.password}</td>
                 <td>${user.role}</td>
                 <td class="button-container"><button onclick="location.href = '/edit/${user.user_id}'">Edit</button></td>
                 <td class="button-container"><button onclick="location.href = '/remove/${user.user_id}'">Delete</button></td>
@@ -116,7 +114,13 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="password"/>
+                <c:if test="${!empty user.login}">
+                <form:password path="password" />
+                </c:if>
+                <c:if test="${empty user.login}">
+                    <form:input path="password"/>
+                </c:if>
+
             </td>
         </tr>
         <tr>
@@ -126,7 +130,10 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="role"/>
+                <form:select path="role">
+                    <form:option value="user" label="User" />
+                    <form:option value="admin" label="Admin" />
+                </form:select>
             </td>
         </tr>
         <tr>

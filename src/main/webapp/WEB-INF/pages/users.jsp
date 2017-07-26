@@ -69,17 +69,38 @@
         </tr>
         <c:forEach items="${allUsers}" var="user">
             <tr>
-                <td>${user.id}</td>
-                <td><a href="/userdata/${user.id}" target="_blank">${user.login}</a></td>
+                <td>${user.user_id}</td>
+                <td><a href="/userdata/${user.user_id}" target="_blank">${user.login}</a></td>
                 <td>${user.password}</td>
                 <td>${user.role}</td>
-                <td class="button-container"><button onclick="location.href = '/edit/${user.id}'">Edit</button></td>
-                <td class="button-container"><button onclick="location.href = '/remove/${user.id}'">Delete</button></td>
+                <td class="button-container"><button onclick="location.href = '/edit/${user.user_id}'">Edit</button></td>
+                <td class="button-container"><button onclick="location.href = '/remove/${user.user_id}'">Delete</button></td>
             </tr>
         </c:forEach>
     </table>
 </c:if>
 
+<h1>Stations List</h1>
+
+
+<c:if test="${!empty allStations}">
+    <table class="tg">
+        <tr>
+            <th width="40">ID</th>
+            <th width="100">Name</th>
+            <th width="50">X</th>
+            <th width="50">Y</th>
+        </tr>
+        <c:forEach items="${allStations}" var="station">
+            <tr>
+                <td>${station.station_id}</td>
+                <td>${station.name}</td>
+                <td>${station.x}</td>
+                <td>${station.y}</td>
+                </tr>
+        </c:forEach>
+    </table>
+</c:if>
 
 <h1>Add a User</h1>
 
@@ -90,13 +111,13 @@
         <c:if test="${!empty user.login}">
             <tr>
                 <td>
-                    <form:label path="id">
+                    <form:label path="user_id">
                         <spring:message text="ID"/>
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="id" readonly="true" size="8" disabled="true"/>
-                    <form:hidden path="id"/>
+                    <form:input path="user_id" readonly="true" size="8" disabled="true"/>
+                    <form:hidden path="user_id"/>
                 </td>
             </tr>
         </c:if>

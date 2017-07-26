@@ -5,10 +5,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 public class User {
+    
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int user_id;
 
     @Column(name = "login")
     private String login;
@@ -19,12 +20,15 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    public int getId() {
-        return id;
+    public User() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getLogin() {
@@ -49,5 +53,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", login='" + login + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

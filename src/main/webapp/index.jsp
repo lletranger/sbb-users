@@ -34,5 +34,6 @@
  <p align="center" style="font-size: 25px">Today is <span id="date"></span></p>
  <p align="center" style="font-size: 25px">Current time <span id="txt"></span></p>
  <p class="button-container" align="center" ><button style="height:25px;width:200px;font-size: large" onclick="location.href = '/users'">Users List</button></p>
+ <p class="button-container" align="center" ><button style="height:25px;width:200px;font-size: large" onclick="location.href = '/stations'">Stations List</button></p>
 </body>
 </html>

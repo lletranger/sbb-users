@@ -1,6 +1,5 @@
 package org.tsys.sbb.controller;
 
-import org.tsys.sbb.model.Station;
 import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.StationService;
 import org.tsys.sbb.service.UserService;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UserController {
 
-    private StationService stationService;
     private UserService userService;
 
     @Autowired
@@ -23,16 +21,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Autowired
-    public void setStationService(StationService stationService) {
-        this.stationService = stationService;
-    }
-
     @RequestMapping(value = "users", method = RequestMethod.GET)
     public String getAllUsers(Model model){
         model.addAttribute("user", new User());
         model.addAttribute("allUsers", userService.getAllUsers());
-        model.addAttribute("allStations", stationService.getAllStations());
         return "users";
     }
 
@@ -45,12 +37,6 @@ public class UserController {
         }
 
         return "redirect:/users";
-    }
-
-    @RequestMapping(value = "users/addStation", method = RequestMethod.POST)
-    public String addStation(@ModelAttribute("station") Station station){
-     stationService.addStaton(station);
-     return "redirect:/users";
     }
 
     @RequestMapping("remove/{id}")

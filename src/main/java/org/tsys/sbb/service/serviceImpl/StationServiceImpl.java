@@ -30,10 +30,8 @@ public class StationServiceImpl implements StationService {
     }
 
     @Transactional
-    public List<Station> getAllStations() {
-        return stationDao.getAllStations();
-    }
+    public List<Station> getAllStations() { return stationDao.getAllStations(); }
 
     @Transactional
-    public void addStaton(Station station) { stationDao.addStaton(station); }
+    public void addStation(Station station) { stationDao.addStation(station); }
 }

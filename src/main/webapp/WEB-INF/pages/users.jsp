@@ -80,28 +80,6 @@
     </table>
 </c:if>
 
-<h1>Stations List</h1>
-
-
-<c:if test="${!empty allStations}">
-    <table class="tg">
-        <tr>
-            <th width="40">ID</th>
-            <th width="100">Name</th>
-            <th width="50">X</th>
-            <th width="50">Y</th>
-        </tr>
-        <c:forEach items="${allStations}" var="station">
-            <tr>
-                <td>${station.station_id}</td>
-                <td>${station.name}</td>
-                <td>${station.x}</td>
-                <td>${station.y}</td>
-                </tr>
-        </c:forEach>
-    </table>
-</c:if>
-
 <h1>Add a User</h1>
 
 <c:url var="addAction" value="/users/add"/>

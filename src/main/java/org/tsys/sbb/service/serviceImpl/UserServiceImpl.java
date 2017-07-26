@@ -25,6 +25,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
+    public User getUserByLogin(String login) { return userDao.getUserByLogin(login); }
+
+    @Transactional
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
@@ -43,4 +46,5 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int id) {
        userDao.deleteUser(id);
     }
+
 }

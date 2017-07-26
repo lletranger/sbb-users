@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface DelayDao {
 
-    List<Delay> getDelaysByBoardId(int board_id);
+    Delay getDelayByBoardId(int board_id);
     void addDelay(Delay delay);
 }

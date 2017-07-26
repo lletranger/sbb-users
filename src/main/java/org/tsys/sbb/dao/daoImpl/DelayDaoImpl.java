@@ -19,14 +19,16 @@ public class DelayDaoImpl implements DelayDao {
     private EntityManager em;
 
     @SuppressWarnings("unchecked")
-    public List<Delay> getDelaysByBoardId(int board_id) {
+    public Delay getDelayByBoardId(int board_id) {
         List<Delay> list = em.createQuery("SELECT d FROM Delay d WHERE board_id=:board_id")
                     .setParameter("board_id", board_id)
                     .getResultList();
-        for(Delay d :list) {
-                logger.info("Delay for board with id " + board_id + " : " + d);
+        if(list.isEmpty()){
+            return null;
         }
-        return list;
+
+        logger.info("Delay for board with id " + board_id + " : " + list.get(0));
+        return list.get(0);
     }
 
     public void addDelay(Delay delay) {

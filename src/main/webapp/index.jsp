@@ -30,6 +30,7 @@
                     </button>
                     <a class="navbar-brand" href="index.jsp">
                     </a>
+                    <div><span id="txt"></span></div>
                     <h2></h2>
                 </div>
             </div>
@@ -54,7 +55,7 @@
                         </c:when>
                         <c:otherwise>
                             <a href="${pageContext.request.contextPath}/user/auth">
-                                <button class="btn btn-danger log-btn">Log in</button>
+                                <button class="btn btn-success log-btn">Log in</button>
                             </a>
                         </c:otherwise>
                     </c:choose>
@@ -81,7 +82,7 @@
 
     <div class="slogan">
         <h2>Middle-earth railroads</h2>
-        <h4>Go to mordor today!</h4>
+        <h4>Go to Mordor today!</h4>
     </div>
     <div class="page-scroll">
         <a href="${pageContext.request.contextPath}/user/registration" class="btn btn-circle">
@@ -101,7 +102,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
-                            <h3>Today</h3>
+                            <h3>Stations</h3>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -121,11 +122,11 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <img src="${pageContext.request.contextPath}/resources/img/poster1.jpg" alt="#">
+                                        <img src="${pageContext.request.contextPath}/resources/img/shire.jpg" alt="#">
                                     </div>
                                     <div class="caption">
-                                        <h4><a href="#">Jurassic world</a></h4>
-                                        <p>Twenty-two years after the events of Jurassic Park, Isla Nublar now features a fully...</p>
+                                        <h3>Shire</h3>
+                                        <h4>Land of vegans and vapers.</h4>
 
                                     </div>
                                 </div>
@@ -133,11 +134,11 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <img src="${pageContext.request.contextPath}/resources/img/poster2.jpg" alt="#">
+                                        <img src="${pageContext.request.contextPath}/resources/img/isengard.jpg" alt="#">
                                     </div>
                                     <div class="caption">
-                                        <h4><a href="#">Insidious: chapter 3</a></h4>
-                                        <p>A prequel set before the haunting of the Lambert family that reveals how gifted psychic Elise Rainier...</p>
+                                        <h3>Isengard</h3>
+                                        <h4>Nicest observation deck. Lift out of service though.</h4>
 
                                     </div>
                                 </div>
@@ -145,11 +146,11 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <img src="${pageContext.request.contextPath}/resources/img/poster3.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/resources/img/mordor.jpg" alt="">
                                     </div>
                                     <div class="caption">
-                                        <h4><a href="#">Spy</a></h4>
-                                        <p>A desk-bound CIA analyst volunteers to go undercover to infiltrate the world of a deadly...</p>
+                                        <h3>Mordor</h3>
+                                        <h4>Epic scenery, lots of hot springs.</h4>
 
                                     </div>
                                 </div>
@@ -157,12 +158,11 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <img src="${pageContext.request.contextPath}/resources/img/poster4.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/resources/img/rohan.jpg" alt="">
                                     </div>
                                     <div class="caption">
-                                        <h4><a href="#">Inside out</a></h4>
-                                        <p>After young Riley is uprooted from her Midwest life and moved to San Francisco, her emotions - Joy</p>
-
+                                        <h3>Rohan</h3>
+                                        <h4>Human wasteland in the middle of nowhere.</h4>
                                     </div>
                                 </div>
                             </li>
@@ -173,44 +173,22 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/soon.png" alt=""></a>
+                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/gondor.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
-                                        <h4><a href="#">Out of the dark</a></h4>
-                                        <p>A couple and their daughter move to Colombia to take over a family manufacturing plant...</p>
+                                        <h3>Gondor</h3>
+                                        <h4>Marble city. So many stairs.</h4>
                                     </div>
                                 </div>
                             </li>
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/soon.png" alt=""></a>
+                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/rivendell.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
-                                        <h4><a href="#">TED 2</a></h4>
-                                        <p>Newlywed couple Ted and Tami-Lynn want to have a baby, but in order to qualify to be a paren...</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-sm-3">
-                                <div class="fff">
-                                    <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/soon.png" alt=""></a>
-                                    </div>
-                                    <div class="caption">
-                                        <h4><a href="#">Terminator Genisys</a></h4>
-                                        <p>When John Connor, leader of the human resistance, sends Sgt. Kyle Reese back to 1984 to protect...</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-sm-3">
-                                <div class="fff">
-                                    <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/soon.png" alt=""></a>
-                                    </div>
-                                    <div class="caption">
-                                        <h4><a href="#">Ant-Man</a></h4>
-                                        <p>Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength...</p>
+                                        <h3>Rivendell</h3>
+                                        <h4>Elven place with good food. Very posh.</h4>
                                     </div>
                                 </div>
                             </li>
@@ -243,7 +221,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
-                            <h2>Send a Raven</h2>
+                            <h2>Send us a letter</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
                         </div>
                     </div>
@@ -291,7 +269,7 @@
                             </div>
 
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">Send Message</button>
+                                <button type="submit" class="btn btn-success pull-right" id="btnContactUs">Send Message</button>
                             </div>
 
                         </div>
@@ -313,7 +291,7 @@
                         <a href="mailto:#">konstelis@gmail.com</a>
                     </address>
                     <address>
-                        <strong>We're on social networks</strong><br>
+                        <strong>Social networks</strong><br>
                         <ul class="company-social">
                             <li class="social-facebook"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
                             <li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
@@ -340,7 +318,7 @@
                         </a>
                     </div>
                 </div>
-                <p>&copy; Copyright 2017 - Kosta Eliseev. All rights reserved.</p>
+                <p style="color: #FFFFFF">&copy; Copyright 2017 - Kosta Eliseev. All rights reserved.</p>
             </div>
         </div>
     </div>

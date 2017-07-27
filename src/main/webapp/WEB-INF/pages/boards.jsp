@@ -6,6 +6,15 @@
 
 <html>
 <head>
+    <script src="/resources/js/sorttable.js"></script>
+    <style>
+        table.sortable thead {
+            background-color:#eee;
+            color:#666666;
+            font-weight: bold;
+            cursor: default;
+        }
+    </style>
     <title>Boards</title>
 </head>
 <body>
@@ -14,7 +23,7 @@
 <h1>Boards List</h1>
 
 <c:if test="${!empty boards}">
-    <table class="tg">
+    <table class="sortable">
 
         <tr>
             <th width="100">Name</th>

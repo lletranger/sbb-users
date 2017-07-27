@@ -5,51 +5,22 @@
 <%@ page session="false" %>
 <html>
 <head>
-    <title>Users Page</title>
 
-    <style type="text/css">
-        .tg {
-            border-collapse: collapse;
-            border-spacing: 0;
-            border-color: #ccc;
-        }
+    <script src="/resources/js/sorttable.js"></script>
+    <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/js/dataTables.bootstrap.min.js" />" rel="stylesheet">
+    <link href="<c:url value="/resources/js/jquery.dataTables.min.js" />" rel="stylesheet">
 
-        .tg td {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            padding: 10px 5px;
-            border-style: solid;
-            border-width: 1px;
-            overflow: hidden;
-            word-break: normal;
-            border-color: #ccc;
-            color: #333;
-            background-color: #fff;
-        }
-
-        .tg th {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: normal;
-            padding: 10px 5px;
-            border-style: solid;
-            border-width: 1px;
-            overflow: hidden;
-            word-break: normal;
-            border-color: #ccc;
-            color: #333;
-            background-color: #f0f0f0;
-        }
-
-        .tg .tg-4eph {
-            background-color: #f9f9f9
-        }
-
-        .button-container{
-            font-size: 20px;
-            border: 0 !important;
-        }
+    <style>
+    table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: default;
+    }
     </style>
+
+    <title>Users Page</title>
 </head>
 <body>
 <a href="../../index.jsp">Back</a>
@@ -59,8 +30,10 @@
 
 <h1>Users List</h1>
 
+
+
 <c:if test="${!empty allUsers}">
-    <table class="tg">
+    <table id="table1" class="table" cellspacing="0" width="100%">
         <tr>
             <th width="40">ID</th>
             <th width="100">Login</th>
@@ -83,7 +56,7 @@
 <c:url var="addAction" value="/users/add"/>
 
 <form:form action="${addAction}" commandName="user">
-    <table>
+    <table class="table-bordered" cellspacing="0" width="100%">
         <c:if test="${!empty user.login}">
             <tr>
                 <td>

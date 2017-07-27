@@ -127,7 +127,6 @@
                                     <div class="caption">
                                         <h3>Shire</h3>
                                         <h4>Land of vegans and vapers.</h4>
-
                                     </div>
                                 </div>
                             </li>
@@ -293,9 +292,12 @@
                     <address>
                         <strong>Social networks</strong><br>
                         <ul class="company-social">
-                            <li class="social-facebook"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                            <li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                            <li class="social-google"><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-vk"></i></a></li>
+                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                            <li class="btn-instagram"><a href="https://github.com/lletranger" target="_blank"><i class="fa fa-github"></i></a></li>
+
                         </ul>
                     </address>
 

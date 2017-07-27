@@ -54,7 +54,7 @@ public class BoardController
             Station from = stationService.getStationById(b.getFrom_id());
             Station to = stationService.getStationById(b.getTo_id());
             Train t = trainService.getTrainById(b.getTrain_id());
-            SimpleDateFormat sdf = new SimpleDateFormat("H:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
             String departure = sdf.format(b.getDeparture());
             departures.put(b.getBoard_id(), departure);
 

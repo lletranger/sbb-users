@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.tsys.sbb.model.Station;
 import org.tsys.sbb.service.StationService;
 
+import java.util.List;
+
 @Controller
 public class StationController {
 
@@ -27,7 +29,15 @@ public class StationController {
     }
 
     @RequestMapping(value = "stations/add", method = RequestMethod.POST)
-    public String addStation(@ModelAttribute("station") Station station){
+    public String addStation(@ModelAttribute("station") Station station) throws Exception {
+
+        List<Station> list = stationService.getAllStations();
+
+        for(Station s : list) {
+            if(station.getName().toLowerCase().equals(s.getName().toLowerCase())){
+                throw new Exception();
+            }
+        }
         stationService.addStation(station);
         return "redirect:/stations";
     }

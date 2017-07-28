@@ -41,13 +41,13 @@
 
                 <div class="col-md-2 right col-md-offset-2">
                     <c:choose>
-                        <c:when test="${user.isAuthenticated}">
+                        <c:when test="${user.role != 'anonym'}">
                             <p class="mail">${user.login}<i class="setting fa fa-cog"></i></p>
                             <div id="menu">
                                 <div id="arrow"></div>
                                 <div id="logout">
                                     <a href="${pageContext.request.contextPath}/user/logout">Log out</a><br>
-                                    <c:if test="${user.role == 'admin'}">
+                                    <c:if test="${user.role == 'anonym'}">
                                             <a href="${pageContext.request.contextPath}/admin0564044">Admin panel</a>
                                     </c:if>
                                 </div>
@@ -63,9 +63,12 @@
                 <div class="col-md-4 right ">
                     <ul class="list nav navbar-nav ">
                         <li><a href="/../../index.jsp">Home</a></li>
-                        <li><a href='/users'>Users</a></li>
-                        <li><a href="/stations">Stations</a></li>
-                        <li><a href="/boards">Boards</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href='/boards'>Schedule</a></li>
+                        <li><a href="/search">Search</a></li>
+                        <%--<li><a href="/stations">Stations</a></li>--%>
+                        <%--<li><a href="/tickets">Tickets</a></li>--%>
+                        <%--<li><a href="/passengers">Passengers</a></li>--%>
                     </ul>
                 </div>
             </div>

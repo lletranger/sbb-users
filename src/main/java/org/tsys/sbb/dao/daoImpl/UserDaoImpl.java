@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
         User user = (User)em.createQuery("SELECT u FROM User u WHERE id=:id")
                 .setParameter("id", id)
                 .getSingleResult();
-        logger.info("User successfully loaded. User details: " + user);
+        logger.info("User loaded by id: " + user);
         return user;
     }
 
@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
         User user = (User)em.createQuery("SELECT u FROM User u WHERE login=:login")
                 .setParameter("login", login)
                 .getSingleResult();
-        logger.info("User successfully loaded. User details: " + user);
+        logger.info("User loaded by login: " + user);
         return user;
     }
 
@@ -38,20 +38,20 @@ public class UserDaoImpl implements UserDao {
     public List<User> getAllUsers() {
         List<User> userList = em.createQuery("FROM User").getResultList();
         for(User user : userList){
-            logger.info("Users list: " + user);
+            logger.info("Getting all users: " + user);
         }
         return userList;
     }
 
     public void addUser(User user) {
         em.persist(user);
-        logger.info("User is successfully added. User details: " + user);
+        logger.info("User added: " + user);
     }
 
 
     public void editUser(User user) {
         em.merge(user);
-        logger.info("User is successfully update. User details: " + user);
+        logger.info("User update: " + user);
     }
 
     public void deleteUser(int id) {
@@ -60,6 +60,6 @@ public class UserDaoImpl implements UserDao {
         if(user != null) {
             em.remove(user);
         }
-        logger.info("User is successfully removed. User details: " + user);
+        logger.info("User deleted: " + user);
     }
 }

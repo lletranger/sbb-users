@@ -23,16 +23,17 @@ public class DelayDaoImpl implements DelayDao {
         List<Delay> list = em.createQuery("SELECT d FROM Delay d WHERE board_id=:board_id")
                     .setParameter("board_id", board_id)
                     .getResultList();
+
         if(list.isEmpty()){
             return null;
         }
 
-        logger.info("Delay for board with id " + board_id + " : " + list.get(0));
+        logger.info("Delay loaded by board id: " + list.get(0));
         return list.get(0);
     }
 
     public void addDelay(Delay delay) {
         em.persist(delay);
-        logger.info("Delay saved: " + delay);
+        logger.info("Delay added: " + delay);
     }
 }

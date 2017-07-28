@@ -22,7 +22,7 @@ public class StationDaoImpl implements StationDao {
         Station station = (Station)em.createQuery("SELECT s FROM Station s WHERE id=:id")
                 .setParameter("id", id)
                 .getSingleResult();
-        logger.info("Station is loaded. Station details: " + station);
+        logger.info("Station loaded by id: " + station);
         return station;
     }
 
@@ -32,7 +32,7 @@ public class StationDaoImpl implements StationDao {
                 .setParameter("name", name)
                 .getSingleResult();
 
-        logger.info("Station is loaded. Station details: " + station);
+        logger.info("Station loaded by name: " + station);
         return station;
     }
 
@@ -40,13 +40,13 @@ public class StationDaoImpl implements StationDao {
     public List<Station> getAllStations() {
         List<Station> list = em.createQuery("FROM Station").getResultList();
         for(Station s : list){
-            logger.info("Stations list : " + s);
+            logger.info("Getting all stations: " + s);
         }
         return list;
     }
 
     public void addStation(Station station) {
         em.persist(station);
-        logger.info("Station is successfully added. Station details: " + station);
+        logger.info("Station added: " + station);
     }
 }

@@ -1,29 +1,30 @@
 package org.tsys.sbb.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.tsys.sbb.model.Board;
-import org.tsys.sbb.model.Delay;
-import org.tsys.sbb.model.Station;
-import org.tsys.sbb.model.Train;
-import org.tsys.sbb.service.BoardService;
-import org.tsys.sbb.service.DelayService;
-import org.tsys.sbb.service.StationService;
-import org.tsys.sbb.service.TrainService;
+import org.tsys.sbb.model.*;
+import org.tsys.sbb.service.*;
+import org.tsys.sbb.util.DistanceAndTimeUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-public class BoardController
-{
+public class BoardController {
     private BoardService boardService;
     private StationService stationService;
     private TrainService trainService;
     private DelayService delayService;
+    private PassengerService passengerService;
+    private TicketService ticketService;
+
+    private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
     @Autowired
     public void setBoardService(BoardService boardService) {
@@ -31,53 +32,114 @@ public class BoardController
     }
 
     @Autowired
-    public void setStationService(StationService stationService) { this.stationService = stationService; }
+    public void setStationService(StationService stationService) {
+        this.stationService = stationService;
+    }
 
     @Autowired
-    public void setTrainService(TrainService trainService) { this.trainService = trainService; }
+    public void setTrainService(TrainService trainService) {
+        this.trainService = trainService;
+    }
 
     @Autowired
-    public void setDelayService(DelayService delayService) { this.delayService = delayService; }
+    public void setDelayService(DelayService delayService) {
+        this.delayService = delayService;
+    }
+
+    @Autowired
+    public void setPassengerService(PassengerService passengerService) {
+        this.passengerService = passengerService;
+    }
+
+    @Autowired
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
     @RequestMapping(value = "boards", method = RequestMethod.GET)
     public String getAllBoards(Model model) {
 
-        //absolute 100% speed of the train))
-        final int speed = 45;
-
         List<Board> boards = boardService.getAllBoards();
-        Map<Integer, String> arrivals = new HashMap<>();
-        Map<Integer, String> departures = new HashMap<>();
-        Map<Integer, String> delays = new HashMap<>();
 
-        for(Board b : boards) {
+        Map<Integer, String> depTime = new HashMap<>();
+        Map<Integer, String> estArrTime = new HashMap<>();
+        Map<Integer, String> delayTime = new HashMap<>();
+        Map<Integer, String> journeyTime = new HashMap<>();
+        Map<Integer, String> totalTime = new HashMap<>();
+
+        for (Board b : boards) {
+
             Station from = stationService.getStationById(b.getFrom_id());
             Station to = stationService.getStationById(b.getTo_id());
             Train t = trainService.getTrainById(b.getTrain_id());
-            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
-            String departure = sdf.format(b.getDeparture());
-            departures.put(b.getBoard_id(), departure);
 
-            double distance = Math.sqrt((from.getX()-to.getX())*(from.getX()-to.getX()) + (from.getY()-to.getY())*(from.getY()-to.getY()));
-            int time = (int)(3600*1000*distance*100/(speed*t.getSpeed_percents()*1.0));
-            Date arrival = new Date(b.getDeparture().getTime() + time);
+            String departure = DistanceAndTimeUtil.getStringDate(b.getDeparture());
+            depTime.put(b.getBoard_id(), departure);
 
-            if(delayService.getDelayByBoardId(b.getBoard_id()) != null) {
+            int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
+            String time = DistanceAndTimeUtil.getJourneyTime(distance, t);
+            journeyTime.put(b.getBoard_id(), time);
+
+            Date arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(time));
+            estArrTime.put(b.getBoard_id(), DistanceAndTimeUtil.getStringDate(arrival));
+
+            if (delayService.getDelayByBoardId(b.getBoard_id()) != null) {
                 Delay d = delayService.getDelayByBoardId(b.getBoard_id());
-                String delay = sdf.format(d.getDelay_time());
-                delays.put(b.getBoard_id(), delay);
-                arrival = new Date(b.getDeparture().getTime() + time + d.getDelay_time().getTime());
+                String delay = DistanceAndTimeUtil.getStringDate(d.getDelay_time());
+                delayTime.put(b.getBoard_id(), delay);
+                arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(time) + DistanceAndTimeUtil.getDelayTime(d.getDelay_time()));
 
             }
-            String simpleDate = sdf.format(arrival);
-            arrivals.put(b.getBoard_id(), simpleDate);
+
+            totalTime.put(b.getBoard_id(), DistanceAndTimeUtil.getStringDate(arrival));
+            }
+
+        model.addAttribute("board", new Board());
+        model.addAttribute("boards", boards);
+            model.addAttribute("departures", depTime);
+            model.addAttribute("arrivals", estArrTime);
+            model.addAttribute("delays", delayTime);
+            model.addAttribute("journeyTime", journeyTime);
+            model.addAttribute("totalTime", totalTime);
+            model.addAttribute("stations", stationService.getAllStations());
+            return "boards";
         }
 
-        model.addAttribute("boards", boards);
-        model.addAttribute("departures", departures);
-        model.addAttribute("arrivals", arrivals);
-        model.addAttribute("delays", delays);
-        model.addAttribute("stations", stationService.getAllStations());
-        return "boards";
+        @RequestMapping("boarddata/{id}")
+        public String boardData ( @PathVariable("id") int id, Model model)
+        {
+            Board b = boardService.findBoardById(id);
+            List<Ticket> tickets = ticketService.findTicketsByBoardId(id);
+            Station from = stationService.getStationById(b.getFrom_id());
+            Station to = stationService.getStationById(b.getTo_id());
+            Train tr = trainService.getTrainById(b.getTrain_id());
+
+            List<Passenger> passengers = new ArrayList<>();
+            for (Ticket t : tickets) {
+                passengers.add(passengerService.getPassById(t.getPassenger_id()));
+            }
+
+            logger.info("Total number of passengers for board " + b.getName() + " is " + passengers.size());
+
+            model.addAttribute("board", b);
+            model.addAttribute("onBoard", passengers);
+            model.addAttribute("from", from.getName());
+            model.addAttribute("to", to.getName());
+
+            int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
+            model.addAttribute("distance", distance);
+
+            String date = DistanceAndTimeUtil.getJourneyTime(distance, tr);
+            model.addAttribute("time", date);
+            model.addAttribute("speed", (tr.getSpeed_percents() * 45 / 100));
+
+            return "boarddata";
+        }
+
+    @RequestMapping(value = "boards/add", method = RequestMethod.POST)
+    public String addBoard(@ModelAttribute("board") Board board)
+    {
+        boardService.addBoard(board);
+        return "redirect:/boards";
     }
 }

@@ -22,7 +22,7 @@ public class TicketDaoImpl implements TicketDao {
         Ticket ticket = (Ticket) em.createQuery("SELECT t FROM Ticket t WHERE id=:id")
                 .setParameter("id", id)
                 .getSingleResult();
-        logger.info("Ticket successfully loaded. Ticket details: " + ticket);
+        logger.info("Ticket loaded by id: " + ticket);
         return ticket;
     }
 
@@ -32,7 +32,7 @@ public class TicketDaoImpl implements TicketDao {
                 .setParameter("board_id", board_id)
                 .getResultList();
         for(Ticket t :list){
-            logger.info("Tickets list for board with id " + board_id + " : " + t);
+            logger.info("Getting all tickets by board id: " + t);
         }        return list;
     }
 
@@ -40,13 +40,13 @@ public class TicketDaoImpl implements TicketDao {
     public List<Ticket> findAllTickets() {
         List<Ticket> list = em.createQuery("FROM Ticket").getResultList();
         for(Ticket t : list) {
-            logger.info("Tickets list: " + t);
+            logger.info("Getting all tickets: " + t);
         }
         return list;
     }
 
     public void addTicket(Ticket ticket) {
         em.persist(ticket);
-        logger.info("Ticket was added, ticket details: " + ticket);
+        logger.info("Ticket added: " + ticket);
     }
 }

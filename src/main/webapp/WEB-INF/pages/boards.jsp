@@ -18,26 +18,28 @@
     <title>Boards</title>
 </head>
 <body>
-<a href="../../index.jsp">Back</a>
+<a href="/index.jsp">Back to Main</a>
 
-<h1>Boards List</h1>
+<h1>Full schedule</h1>
 
 <c:if test="${!empty boards}">
     <table class="sortable">
 
         <tr>
-            <th width="100">Name</th>
+            <th width="80">Board Name</th>
             <th width="100">From</th>
             <th width="100">To</th>
-            <th width="75">Departure</th>
-            <th width="75">Arrival</th>
-            <th width="75">Delays</th>
+            <th width="80">Departure</th>
+            <th width="80">Journey Time</th>
+            <th width="80">Estimated Arrival</th>
+            <th width="80">Delay</th>
+            <th width="80">Arrival</th>
         </tr>
 
         <c:forEach items="${boards}" var="board">
             <tr>
 
-               <td>${board.name}</td>
+                <td><a href="/boarddata/${board.board_id}" target="_blank">${board.name}</a></td>
 
                <td>
                    <c:forEach items="${stations}" var="station">
@@ -64,9 +66,17 @@
                 </td>
 
                 <td>
-                    <c:forEach items="${arrivals}" var="arrival">
-                        <c:if test="${board.board_id eq arrival.key}">
-                            ${arrival.value}
+                    <c:forEach items="${journeyTime}" var="jt">
+                        <c:if test="${board.board_id eq jt.key}">
+                            ${jt.value}
+                        </c:if>
+                    </c:forEach>
+                </td>
+
+                <td>
+                    <c:forEach items="${arrivals}" var="ea">
+                        <c:if test="${board.board_id eq ea.key}">
+                            ${ea.value}
                         </c:if>
                     </c:forEach>
                 </td>
@@ -78,9 +88,92 @@
                         </c:if>
                     </c:forEach>
                 </td>
+
+                <td>
+                    <c:forEach items="${totalTime}" var="arrival">
+                        <c:if test="${board.board_id eq arrival.key}">
+                            ${arrival.value}
+                        </c:if>
+                    </c:forEach>
+                </td>
             </tr>
         </c:forEach>
     </table>
 </c:if>
+
+
+<h1>Add a Board</h1>
+
+<c:url var="addAction" value="/boards/add"/>
+
+<form:form action="${addAction}" commandName="board">
+    <table class="table-bordered" cellspacing="0" width="100%">
+        <tr>
+            <td>
+                <form:label path="name">
+                    <spring:message text="Name"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="train_id">
+                    <spring:message text="Train model"/>
+                </form:label>
+            </td>
+            <td>
+                <form:select path="train_id">
+                    <form:option value="1" label="10 places" />
+                    <form:option value="2" label="12 places" />
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="from_id">
+                    <spring:message text="From station"/>
+                </form:label>
+            </td>
+            <td>
+                <form:select path="from_id">
+                    <form:option value="1" label="Somewhere" />
+                    <form:option value="2" label="somerr" />
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="to_id">
+                    <spring:message text="To station"/>
+                </form:label>
+            </td>
+            <td>
+                <form:select path="to_id">
+                    <form:option value="1" label="Somewhere" />
+                    <form:option value="2" label="somerr" />
+                </form:select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="departure">
+                    <spring:message text="To station"/>
+                </form:label>
+            </td>
+            <td>
+                <input type="text" path="departure" class= "date" name = "departure" value = "<fmt:formatDate value="" pattern="hh:mm:ss" />"
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                    <input type="submit"
+                           value="<spring:message text="Add board"/>"/>
+            </td>
+        </tr>
+    </table>
+</form:form>
 </body>
 </html>

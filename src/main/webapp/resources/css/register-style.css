@@ -1,0 +1,52 @@
+@import url('http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Montserrat:700|Merriweather:400italic');
+
+
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Lato',sans-serif;
+  font-weight: 300;
+  color: #fff;
+  background: linear-gradient(90deg, #e43a15 10%, #e65245 90%);
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #000;
+    margin: 0 0 30px;
+    text-transform: uppercase;
+    font-family: Montserrat,sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+p {
+    margin: 0 0 20px;
+    font-size: 16px;
+    line-height: 1.6em;
+}
+.navbar-collapse {
+  margin-top: 6px;
+}
+.navbar button {
+  font-size: 16px;
+  font-weight: bold;
+}
+.form-horizontal {
+  margin-top: 50px;
+}
+.btn {
+  font-weight: bold;
+}
+.navbar {
+    background: #fff;
+}

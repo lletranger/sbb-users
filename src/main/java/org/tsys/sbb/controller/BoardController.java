@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.tsys.sbb.dto.BoardDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
@@ -137,8 +138,9 @@ public class BoardController {
         }
 
     @RequestMapping(value = "boards/add", method = RequestMethod.POST)
-    public String addBoard(@ModelAttribute("board") Board board)
+    public String addBoard(@ModelAttribute("boardDto") BoardDto boardDto)
     {
+        Board board = BoardDto.getBoardFromDto(boardDto);
         boardService.addBoard(board);
         return "redirect:/boards";
     }

@@ -23,7 +23,13 @@ public class DistanceAndTimeUtil {
         double realSpeed = (1.0 * speed * train.getSpeed_percents()) / 100;
         int hours = (int) (distance / realSpeed);
         int minutes = (int) (60 * (distance / realSpeed - hours));
-        String realMinutes = minutes == 0 ? "00" : String.valueOf(minutes);
+        String realMinutes;
+        if(minutes < 10) {
+           realMinutes = "0" + String.valueOf(minutes);
+        } else {
+            realMinutes = String.valueOf(minutes);
+        }
+
         return hours + ":" + realMinutes;
     }
 

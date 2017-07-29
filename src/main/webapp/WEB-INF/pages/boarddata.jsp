@@ -2,12 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-
     <script src="/resources/js/sorttable.js"></script>
-    <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/js/dataTables.bootstrap.min.js" />" rel="stylesheet">
-    <link href="<c:url value="/resources/js/jquery.dataTables.min.js" />" rel="stylesheet">
-
     <style>
         table.sortable thead {
             background-color:#eee;
@@ -16,19 +11,23 @@
             cursor: default;
         }
     </style>
+    <title>Board details</title>
 </head>
 <body>
 <a href="../boards">Back to Boards</a>
 
-<h1>Passengers for Board ${board.name}</h1>
-<h3>Departing ${board.departure} from station ${from} to ${to},<br/>
-    estimate journey time ${time}, total distance ${distance} km., average speed ${speed} km/h.<br/>
-    ${onBoard.size()} passengers was found.
-</h3>
+<br/>
+<br/>
+
+<h1>Passengers for board ${board.name}</h1>
+<p>Departing ${board.departure} from station ${from} to ${to}, estimate journey time ${time}, total distance ${distance} km., average speed ${speed} km/h., registered ${onBoard.size()} passengers.
+</p>
+
+<br/>
 
 
 <c:if test="${!empty onBoard}">
-    <table id="table1" class="table" cellspacing="0" width="100%">
+    <table class="sortable">
         <tr>
             <th width="100">Name</th>
             <th width="100">Surname</th>

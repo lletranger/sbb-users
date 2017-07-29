@@ -7,69 +7,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
-    <meta firstName="description" content="Middle-earth Railroads">
-    <title> | MeR</title>
-    <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <script src="/resources/js/sorttable.js"></script>
+    <style>
+        table.sortable thead {
+            background-color:#eee;
+            color:#666666;
+            font-weight: bold;
+            cursor: default;
+        }
+    </style>
+    <title>Stations</title>
 </head>
-<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
-<!-- Preloader -->
+<body>
+<a href="../../index.jsp">Back to Main</a>
 
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand" href="../../index.jsp">
-                    </a>
-                    <div><span id="txt"></span></div>
-                    <h2></h2>
-                </div>
-            </div>
+<br/>
+<br/>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-            <div class="collapse navbar-collapse navbar-main-collapse">
-
-                <div class="col-md-2 right col-md-offset-2">
-
-                </div>
-                <div class="col-md-4 right ">
-                    <ul class="list nav navbar-nav ">
-                        <li><a href="/../../index.jsp">Home</a></li>
-                        <li><a href='/users'>Users</a></li>
-                        <li><a href="/stations">Stations</a></li>
-                        <li><a href="/boards">Boards</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container -->
-</nav>
-
-<a href="../../index.jsp">Back</a>
-
-<h1>Station List</h1>
-
+<h1>Stations List</h1>
 <c:if test="${!empty allStations}">
-    <table class="tg">
+    <table class="sortable">
         <tr>
-            <th width="40">ID#</th>
-            <th width="80">Name</th>
-            <th width="65">X crd, km.</th>
-            <th width="65">Y crd, km.</th>
+            <th width="40">ID</th>
+            <th width="100">Name</th>
+            <th width="50">X crd, km.</th>
+            <th width="50">Y crd, km.</th>
         </tr>
         <c:forEach items="${allStations}" var="station">
             <tr>
@@ -82,7 +44,11 @@
     </table>
 </c:if>
 <div>
-<h1>Add a Station</h1>
+
+    <br/>
+    <br/>
+
+<h1>Add Station</h1>
 
 <c:url var="addAction" value="/stations/add"/>
 

@@ -6,52 +6,26 @@
 
 <html>
 <head>
-  <title>User Data</title>
-
-  <style type="text/css">
-    .tg {
-      border-collapse: collapse;
-      border-spacing: 0;
-      border-color: #ccc;
-    }
-
-    .tg td {
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      padding: 10px 5px;
-      border-style: solid;
-      border-width: 1px;
-      overflow: hidden;
-      word-break: normal;
-      border-color: #ccc;
-      color: #333;
-      background-color: #fff;
-    }
-
-    .tg th {
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      padding: 10px 5px;
-      border-style: solid;
-      border-width: 1px;
-      overflow: hidden;
-      word-break: normal;
-      border-color: #ccc;
-      color: #333;
-      background-color: #f0f0f0;
-    }
-
-    .tg .tg-4eph {
-      background-color: #f9f9f9
+  <script src="/resources/js/sorttable.js"></script>
+  <style>
+    table.sortable thead {
+      background-color:#eee;
+      color:#666666;
+      font-weight: bold;
+      cursor: default;
     }
   </style>
-
+  <title>User Details</title>
 </head>
 <body>
-<h1>User Details</h1>
+<a href="../users">Back to Users</a>
 
-<table class="tg">
+<br/>
+<br/>
+
+<h1>User Details ${user.login}</h1>
+
+<table class="sortable">
   <tr>
     <th width="40">ID</th>
     <th width="120">Login</th>

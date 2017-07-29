@@ -20,26 +20,35 @@
 <body>
 <a href="/index.jsp">Back to Main</a>
 
-<h1>Full schedule</h1>
+<br/>
+<br/>
+
+<h1>Full Schedule</h1>
 
 <c:if test="${!empty boards}">
     <table class="sortable">
 
         <tr>
-            <th width="80">Board Name</th>
+            <th width="40">ID</th>
+            <th width="100">Board Name</th>
             <th width="100">From</th>
             <th width="100">To</th>
-            <th width="80">Departure</th>
-            <th width="80">Journey Time</th>
-            <th width="80">Estimated Arrival</th>
-            <th width="80">Delay</th>
-            <th width="80">Arrival</th>
+            <th width="100">Departure</th>
+            <th width="100">Journey Time</th>
+            <th width="100">Estimated Arrival</th>
+            <th width="100">Delay</th>
+            <th width="100">Arrival</th>
         </tr>
 
         <c:forEach items="${boards}" var="board">
             <tr>
+                <td>
+                    <a href="/boarddata/${board.board_id}">${board.board_id}</a>
+                </td>
 
-                <td><a href="/boarddata/${board.board_id}" target="_blank">${board.name}</a></td>
+                <td>
+                    <a href="/boarddata/${board.board_id}">${board.name}</a>
+                </td>
 
                <td>
                    <c:forEach items="${stations}" var="station">
@@ -102,12 +111,15 @@
 </c:if>
 
 
-<h1>Add a Board</h1>
+<br/>
+<br/>
 
-<c:url var="addAction" value="/boards/add"/>
+<h1>Add Board</h1>
 
-<form:form action="${addAction}" commandName="board">
-    <table class="table-bordered" cellspacing="0" width="100%">
+<c:url var="addBoard" value="/boards/add"/>
+
+<form:form action="${addBoard}" commandName="board">
+    <table>
         <tr>
             <td>
                 <form:label path="name">
@@ -126,8 +138,8 @@
             </td>
             <td>
                 <form:select path="train_id">
-                    <form:option value="1" label="10 places" />
-                    <form:option value="2" label="12 places" />
+                    <form:option value="1" label="10 seats" />
+                    <form:option value="2" label="12 seats" />
                 </form:select>
             </td>
         </tr>
@@ -139,8 +151,12 @@
             </td>
             <td>
                 <form:select path="from_id">
-                    <form:option value="1" label="Somewhere" />
-                    <form:option value="2" label="somerr" />
+                    <form:option value="1" label="Gondor" />
+                    <form:option value="2" label="Isengard" />
+                    <form:option value="3" label="Mordor" />
+                    <form:option value="4" label="Rivendell" />
+                    <form:option value="5" label="Rohan" />
+                    <form:option value="6" label="Shire" />
                 </form:select>
             </td>
         </tr>
@@ -152,25 +168,27 @@
             </td>
             <td>
                 <form:select path="to_id">
-                    <form:option value="1" label="Somewhere" />
-                    <form:option value="2" label="somerr" />
+                    <form:option value="1" label="Gondor" />
+                    <form:option value="2" label="Isengard" />
+                    <form:option value="3" label="Mordor" />
+                    <form:option value="4" label="Rivendell" />
+                    <form:option value="5" label="Rohan" />
+                    <form:option value="6" label="Shire" />
                 </form:select>
             </td>
         </tr>
         <tr>
             <td>
                 <form:label path="departure">
-                    <spring:message text="To station"/>
+                    <spring:message text="Departing Time"/>
                 </form:label>
             </td>
             <td>
-                <input type="text" path="departure" class= "date" name = "departure" value = "<fmt:formatDate value="" pattern="hh:mm:ss" />"
+                <form:input path="departure"/>
             </td>
         </tr>
-        <tr>
-            <td colspan="2">
-                    <input type="submit"
-                           value="<spring:message text="Add board"/>"/>
+        <tr><td>
+            <input type="submit" value="<spring:message text="Add Board"/>"/>
             </td>
         </tr>
     </table>

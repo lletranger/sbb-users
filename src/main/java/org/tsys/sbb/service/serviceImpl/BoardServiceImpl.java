@@ -30,8 +30,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Transactional
-    public List<Board> findBoardsByFromOrTo(int id) {
-        return boardDao.findBoardsByFromOrTo(id);
+    public List<Board> findBoardsByFrom(int id) {
+        return boardDao.findBoardsByFrom(id);
+    }
+
+    @Transactional
+    public List<Board> findBoardsByTo(int id) {
+        return boardDao.findBoardsByTo(id);
     }
 
     @Transactional

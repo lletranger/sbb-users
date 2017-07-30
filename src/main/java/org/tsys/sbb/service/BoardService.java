@@ -10,7 +10,9 @@ public interface BoardService {
 
     List<Board> findBoardsByName(String name);
 
-    List<Board> findBoardsByFromOrTo(int id);
+    List<Board> findBoardsByFrom(int id);
+
+    List<Board> findBoardsByTo(int id);
 
     List<Board> findBoardsByFromAndTo(int from_id, int to_id);
 

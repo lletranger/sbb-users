@@ -62,11 +62,12 @@ public class SearchController {
 
     @RequestMapping("searchboards")
     public String searсhOpen(@RequestParam("id1") int id1, @RequestParam("id2") int id2, Model model) {
-        if(id1 == 0 || id2 == 0) {
-            int id3 = id1 == 0 ? id2 : id1;
-            model.addAttribute("boardList", boardService.findBoardsByFromOrTo(id3));
-
-        } else { model.addAttribute("boardList", boardService.findBoardsByFromAndTo(id1, id2));
+        if (id2 == 0) {
+            model.addAttribute("boardList", boardService.findBoardsByFrom(id1));
+        } else if (id1 == 0) {
+            model.addAttribute("boardList", boardService.findBoardsByTo(id2));
+        } else {
+            model.addAttribute("boardList", boardService.findBoardsByFromAndTo(id1, id2));
         }
         model.addAttribute("stations", stationService.getAllStations());
         return "search";

@@ -19,7 +19,7 @@ public class TrainDaoImpl implements TrainDao {
     private EntityManager em;
 
     public Train getTrainById(int id) {
-        Train train = (Train)em.createQuery("SELECT t FROM Train t WHERE id=:id")
+        Train train = (Train) em.createQuery("SELECT t FROM Train t WHERE id=:id")
                 .setParameter("id", id)
                 .getSingleResult();
         logger.info("Train loaded by id: " + train);
@@ -29,7 +29,7 @@ public class TrainDaoImpl implements TrainDao {
     @SuppressWarnings("unchecked")
     public List<Train> getAllTrains() {
         List<Train> list = em.createQuery("FROM Train").getResultList();
-        for(Train t : list) {
+        for (Train t : list) {
             logger.info("Getting all trains : " + t);
         }
         return list;

@@ -19,9 +19,12 @@ public class DelayServiceImpl implements DelayService {
     }
 
     @Transactional
-    public Delay getDelayByBoardId(int board_id) { return delayDao.getDelayByBoardId(board_id);
+    public Delay getDelayByBoardId(int board_id) {
+        return delayDao.getDelayByBoardId(board_id);
     }
 
     @Transactional
-    public void addDelay(Delay delay) { delayDao.addDelay(delay); }
+    public void addDelay(Delay delay) {
+        delayDao.addDelay(delay);
+    }
 }

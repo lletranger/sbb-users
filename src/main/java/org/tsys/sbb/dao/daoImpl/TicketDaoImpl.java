@@ -31,15 +31,16 @@ public class TicketDaoImpl implements TicketDao {
         List<Ticket> list = em.createQuery("SELECT t FROM Ticket t WHERE board_id=:board_id")
                 .setParameter("board_id", board_id)
                 .getResultList();
-        for(Ticket t :list){
+        for (Ticket t : list) {
             logger.info("Getting all tickets by board id: " + t);
-        }        return list;
+        }
+        return list;
     }
 
     @SuppressWarnings("unchecked")
     public List<Ticket> findAllTickets() {
         List<Ticket> list = em.createQuery("FROM Ticket").getResultList();
-        for(Ticket t : list) {
+        for (Ticket t : list) {
             logger.info("Getting all tickets: " + t);
         }
         return list;

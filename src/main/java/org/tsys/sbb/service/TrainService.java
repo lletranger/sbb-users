@@ -7,6 +7,8 @@ import java.util.List;
 public interface TrainService {
 
     Train getTrainById(int id);
+
     List<Train> getAllTrains();
+
     void addTrain(Train train);
 }

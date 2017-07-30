@@ -5,13 +5,13 @@
     <script src="/resources/js/sorttable.js"></script>
     <style>
         table.sortable thead {
-            background-color:#eee;
-            color:#666666;
+            background-color: #eee;
+            color: #666666;
             font-weight: bold;
             cursor: default;
         }
     </style>
-    <title>Board details</title>
+    <title>Board Details</title>
 </head>
 <body>
 <a href="../boards">Back to Boards</a>
@@ -19,12 +19,12 @@
 <br/>
 <br/>
 
-<h1>Passengers for board ${board.name}</h1>
-<p>Departing ${board.departure} from station ${from} to ${to}, estimate journey time ${time}, total distance ${distance} km., average speed ${speed} km/h., registered ${onBoard.size()} passengers.
+<h1>Details on Board ${board.name}</h1>
+<p>Departing ${board.departure} from station ${from} to ${to}, estimate journey time ${time}, total distance ${distance}
+    km., average speed ${speed} km/h., registered ${onBoard.size()} passengers.
 </p>
 
-<br/>
-
+<h3>Passengers:</h3>
 
 <c:if test="${!empty onBoard}">
     <table class="sortable">

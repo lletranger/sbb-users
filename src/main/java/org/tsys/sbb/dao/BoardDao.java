@@ -6,9 +6,14 @@ import java.util.List;
 
 public interface BoardDao {
     Board findBoardById(int id);
+
     List<Board> findBoardsByName(String name);
+
     List<Board> findBoardsByFromOrTo(int id);
+
     List<Board> findBoardsByFromAndTo(int from_id, int to_id);
+
     List<Board> getAllBoards();
+
     void addBoard(Board board);
 }

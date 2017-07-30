@@ -22,11 +22,11 @@ public class PassengerDaoImpl implements PassengerDao {
     public Passenger getPassById(int id) {
         Passenger passenger = em.find(Passenger.class, id);
         logger.info("Passenger loaded by id: " + passenger);
-        return null;
+        return passenger;
     }
 
     public Passenger getPassByEverything(String name, String surname, Date birth_date) {
-        Passenger passenger = (Passenger)em
+        Passenger passenger = (Passenger) em
                 .createQuery("SELECT u FROM User u WHERE name=:name AND surname=:surname AND birth_date=:birth_date")
                 .setParameter("name", name)
                 .setParameter("surname", surname)
@@ -39,7 +39,7 @@ public class PassengerDaoImpl implements PassengerDao {
     @SuppressWarnings("unchecked")
     public List<Passenger> getAllPassengers() {
         List<Passenger> list = em.createQuery("FROM Passenger").getResultList();
-        for(Passenger p : list){
+        for (Passenger p : list) {
             logger.info("Getting all passangers: " + p);
         }
         return list;

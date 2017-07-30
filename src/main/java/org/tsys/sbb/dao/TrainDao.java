@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface TrainDao {
     Train getTrainById(int id);
+
     List<Train> getAllTrains();
+
     void addTrain(Train train);
 }

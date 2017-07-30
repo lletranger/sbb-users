@@ -7,6 +7,7 @@ import org.tsys.sbb.model.Train;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class DistanceAndTimeUtil {
 
@@ -24,8 +25,8 @@ public class DistanceAndTimeUtil {
         int hours = (int) (distance / realSpeed);
         int minutes = (int) (60 * (distance / realSpeed - hours));
         String realMinutes;
-        if(minutes < 10) {
-           realMinutes = "0" + String.valueOf(minutes);
+        if (minutes < 10) {
+            realMinutes = "0" + String.valueOf(minutes);
         } else {
             realMinutes = String.valueOf(minutes);
         }
@@ -40,6 +41,11 @@ public class DistanceAndTimeUtil {
 
     public static String getStringDate(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+        return sdf.format(date);
+    }
+
+    public static String getStringBirthDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM YYYY", Locale.ENGLISH);
         return sdf.format(date);
     }
 

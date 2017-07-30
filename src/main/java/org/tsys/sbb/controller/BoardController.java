@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.tsys.sbb.dto.BoardDto;
+import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
@@ -93,53 +94,51 @@ public class BoardController {
             }
 
             totalTime.put(b.getBoard_id(), DistanceAndTimeUtil.getStringDate(arrival));
-            }
+        }
 
         model.addAttribute("board", new Board());
         model.addAttribute("boards", boards);
-            model.addAttribute("departures", depTime);
-            model.addAttribute("arrivals", estArrTime);
-            model.addAttribute("delays", delayTime);
-            model.addAttribute("journeyTime", journeyTime);
-            model.addAttribute("totalTime", totalTime);
-            model.addAttribute("stations", stationService.getAllStations());
-            return "boards";
+        model.addAttribute("departures", depTime);
+        model.addAttribute("arrivals", estArrTime);
+        model.addAttribute("delays", delayTime);
+        model.addAttribute("journeyTime", journeyTime);
+        model.addAttribute("totalTime", totalTime);
+        model.addAttribute("stations", stationService.getAllStations());
+        return "boards";
+    }
+
+    @RequestMapping("boarddata/{id}")
+    public String boardData(@PathVariable("id") int id, Model model) {
+        Board b = boardService.findBoardById(id);
+        List<Ticket> tickets = ticketService.findTicketsByBoardId(id);
+        Station from = stationService.getStationById(b.getFrom_id());
+        Station to = stationService.getStationById(b.getTo_id());
+        Train tr = trainService.getTrainById(b.getTrain_id());
+
+        List<PassengerDto> passengers = new ArrayList<>();
+        for (Ticket t : tickets) {
+            passengers.add(PassengerDto.getDtoFromPassenger(passengerService.getPassById(t.getPassenger_id())));
         }
 
-        @RequestMapping("boarddata/{id}")
-        public String boardData ( @PathVariable("id") int id, Model model)
-        {
-            Board b = boardService.findBoardById(id);
-            List<Ticket> tickets = ticketService.findTicketsByBoardId(id);
-            Station from = stationService.getStationById(b.getFrom_id());
-            Station to = stationService.getStationById(b.getTo_id());
-            Train tr = trainService.getTrainById(b.getTrain_id());
+        logger.info("Total number of passengers for board " + b.getName() + " is " + passengers.size());
 
-            List<Passenger> passengers = new ArrayList<>();
-            for (Ticket t : tickets) {
-                passengers.add(passengerService.getPassById(t.getPassenger_id()));
-            }
+        model.addAttribute("board", b);
+        model.addAttribute("onBoard", passengers);
+        model.addAttribute("from", from.getName());
+        model.addAttribute("to", to.getName());
 
-            logger.info("Total number of passengers for board " + b.getName() + " is " + passengers.size());
+        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
+        model.addAttribute("distance", distance);
 
-            model.addAttribute("board", b);
-            model.addAttribute("onBoard", passengers);
-            model.addAttribute("from", from.getName());
-            model.addAttribute("to", to.getName());
+        String journeyTime = DistanceAndTimeUtil.getJourneyTime(distance, tr);
+        model.addAttribute("time", journeyTime);
+        model.addAttribute("speed", (tr.getSpeed_percents() * 45 / 100));
 
-            int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
-            model.addAttribute("distance", distance);
-
-            String date = DistanceAndTimeUtil.getJourneyTime(distance, tr);
-            model.addAttribute("time", date);
-            model.addAttribute("speed", (tr.getSpeed_percents() * 45 / 100));
-
-            return "boarddata";
-        }
+        return "boarddata";
+    }
 
     @RequestMapping(value = "boards/add", method = RequestMethod.POST)
-    public String addBoard(@ModelAttribute("boardDto") BoardDto boardDto)
-    {
+    public String addBoard(@ModelAttribute("boardDto") BoardDto boardDto) {
         Board board = BoardDto.getBoardFromDto(boardDto);
         boardService.addBoard(board);
         return "redirect:/boards";

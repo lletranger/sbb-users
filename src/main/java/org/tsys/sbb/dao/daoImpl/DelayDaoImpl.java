@@ -21,10 +21,10 @@ public class DelayDaoImpl implements DelayDao {
     @SuppressWarnings("unchecked")
     public Delay getDelayByBoardId(int board_id) {
         List<Delay> list = em.createQuery("SELECT d FROM Delay d WHERE board_id=:board_id")
-                    .setParameter("board_id", board_id)
-                    .getResultList();
+                .setParameter("board_id", board_id)
+                .getResultList();
 
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             return null;
         }
 

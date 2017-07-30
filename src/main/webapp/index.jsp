@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
@@ -25,7 +25,8 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-main-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
                     <a class="navbar-brand" href="index.jsp">
@@ -48,7 +49,7 @@
                                 <div id="logout">
                                     <a href="${pageContext.request.contextPath}/user/logout">Log out</a><br>
                                     <c:if test="${user.role == 'anonym'}">
-                                            <a href="${pageContext.request.contextPath}/admin0564044">Admin panel</a>
+                                        <a href="${pageContext.request.contextPath}/admin0564044">Admin panel</a>
                                     </c:if>
                                 </div>
                             </div>
@@ -136,7 +137,8 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <img src="${pageContext.request.contextPath}/resources/img/isengard.jpg" alt="#">
+                                        <img src="${pageContext.request.contextPath}/resources/img/isengard.jpg"
+                                             alt="#">
                                     </div>
                                     <div class="caption">
                                         <h3>Isengard</h3>
@@ -175,7 +177,9 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/gondor.jpg" alt=""></a>
+                                        <a href="#"><img
+                                                src="${pageContext.request.contextPath}/resources/img/gondor.jpg"
+                                                alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Gondor</h3>
@@ -186,7 +190,9 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/rivendell.jpg" alt=""></a>
+                                        <a href="#"><img
+                                                src="${pageContext.request.contextPath}/resources/img/rivendell.jpg"
+                                                alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Rivendell</h3>
@@ -202,7 +208,8 @@
                 <nav>
                     <ul class="control-box pager">
                         <li><a data-slide="prev" href="#myCarousel" class=""><i class="fa fa-chevron-left"></i></a></li>
-                        <li><a data-slide="next" href="#myCarousel" class=""><i class="fa fa-chevron-right"></i></a></li>
+                        <li><a data-slide="next" href="#myCarousel" class=""><i class="fa fa-chevron-right"></i></a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.control-box -->
@@ -246,7 +253,9 @@
                             <div class="col-md-6">
 
                                 <div class="form-group">
-                                    <label for="firstName">Name</label><input type="text" class="form-control" id="firstName" placeholder="Your name" required="required" />
+                                    <label for="firstName">Name</label><input type="text" class="form-control"
+                                                                              id="firstName" placeholder="Your name"
+                                                                              required="required"/>
                                 </div>
 
                                 <div class="form-group">
@@ -255,23 +264,27 @@
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-envelope"></span>
                                         </span>
-                                        <input type="email" class="form-control" id="email" placeholder="Your email" required="required" /></div>
+                                        <input type="email" class="form-control" id="email" placeholder="Your email"
+                                               required="required"/></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="subject">Subject</label>
-                                    <input type="text" class="form-control" id="subject" placeholder="Message subject" />
+                                    <input type="text" class="form-control" id="subject" placeholder="Message subject"/>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="message">Message</label>
-                                    <textarea message="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea>
+                                    <textarea message="message" id="message" class="form-control" rows="9" cols="25"
+                                              required="required" placeholder="Message"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-success pull-right" id="btnContactUs">Send Message</button>
+                                <button type="submit" class="btn btn-success pull-right" id="btnContactUs">Send
+                                    Message
+                                </button>
                             </div>
 
                         </div>
@@ -295,11 +308,14 @@
                     <address>
                         <strong>Social networks</strong><br>
                         <ul class="company-social">
-                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
+                            </li>
                             <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-vk"></i></a></li>
                             <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                            <li class="btn-instagram"><a href="https://github.com/lletranger" target="_blank"><i class="fa fa-github"></i></a></li>
+                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <li class="btn-instagram"><a href="https://github.com/lletranger" target="_blank"><i
+                                    class="fa fa-github"></i></a></li>
 
                         </ul>
                     </address>

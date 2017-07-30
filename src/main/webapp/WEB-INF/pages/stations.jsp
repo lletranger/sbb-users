@@ -10,13 +10,13 @@
     <script src="/resources/js/sorttable.js"></script>
     <style>
         table.sortable thead {
-            background-color:#eee;
-            color:#666666;
+            background-color: #eee;
+            color: #666666;
             font-weight: bold;
             cursor: default;
         }
     </style>
-    <title>Stations</title>
+    <title>Stations Page</title>
 </head>
 <body>
 <a href="../../index.jsp">Back to Main</a>
@@ -48,44 +48,44 @@
     <br/>
     <br/>
 
-<h1>Add Station</h1>
+    <h1>Add Station</h1>
 
-<c:url var="addAction" value="/stations/add"/>
+    <c:url var="addAction" value="/stations/add"/>
 
-<form:form action="${addAction}" commandName="station">
-    <table>
-        <tr>
-            <td>
-                <form:label path="name">
-                    <spring:message text="Name"/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="name"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <form:label path="x">
-                    <spring:message text="X coord."/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="x"/>
-        </tr>
-        <tr>
-            <td>
-                <form:label path="y">
-                    <spring:message text="Y coord."/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="y"/>
-            </td>
-        </tr>
-    </table>
-    <input type="submit" value="<spring:message text="Add Station"/>"/>
-</form:form>
+    <form:form action="${addAction}" commandName="station">
+        <table>
+            <tr>
+                <td>
+                    <form:label path="name">
+                        <spring:message text="Name"/>
+                    </form:label>
+                </td>
+                <td>
+                    <form:input path="name"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form:label path="x">
+                        <spring:message text="X coord."/>
+                    </form:label>
+                </td>
+                <td>
+                        <form:input path="x"/>
+            </tr>
+            <tr>
+                <td>
+                    <form:label path="y">
+                        <spring:message text="Y coord."/>
+                    </form:label>
+                </td>
+                <td>
+                    <form:input path="y"/>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="<spring:message text="Add Station"/>"/>
+    </form:form>
 </div>
 </body>
 </html>

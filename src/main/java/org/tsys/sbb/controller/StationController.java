@@ -22,7 +22,7 @@ public class StationController {
     }
 
     @RequestMapping(value = "stations", method = RequestMethod.GET)
-    public String getAllStations(Model model){
+    public String getAllStations(Model model) {
         model.addAttribute("station", new Station());
         model.addAttribute("allStations", stationService.getAllStations());
         return "stations";
@@ -33,8 +33,8 @@ public class StationController {
 
         List<Station> list = stationService.getAllStations();
 
-        for(Station s : list) {
-            if(station.getName().toLowerCase().equals(s.getName().toLowerCase())){
+        for (Station s : list) {
+            if (station.getName().toLowerCase().equals(s.getName().toLowerCase())) {
                 throw new Exception();
             }
         }

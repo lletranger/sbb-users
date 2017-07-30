@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
     private EntityManager em;
 
     public User getUserById(int id) {
-        User user = (User)em.createQuery("SELECT u FROM User u WHERE id=:id")
+        User user = (User) em.createQuery("SELECT u FROM User u WHERE id=:id")
                 .setParameter("id", id)
                 .getSingleResult();
         logger.info("User loaded by id: " + user);
@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User getUserByLogin(String login) {
-        User user = (User)em.createQuery("SELECT u FROM User u WHERE login=:login")
+        User user = (User) em.createQuery("SELECT u FROM User u WHERE login=:login")
                 .setParameter("login", login)
                 .getSingleResult();
         logger.info("User loaded by login: " + user);
@@ -37,13 +37,14 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {
         List<User> userList = em.createQuery("FROM User").getResultList();
-        for(User user : userList){
+        for (User user : userList) {
             logger.info("Getting all users: " + user);
         }
         return userList;
     }
 
     public void addUser(User user) {
+
         em.persist(user);
         logger.info("User added: " + user);
     }
@@ -57,7 +58,7 @@ public class UserDaoImpl implements UserDao {
     public void deleteUser(int id) {
         User user = em.find(User.class, id);
 
-        if(user != null) {
+        if (user != null) {
             em.remove(user);
         }
         logger.info("User deleted: " + user);

@@ -23,7 +23,7 @@ public class PassengersController {
     }
 
     @RequestMapping("passengers/{board_id}")
-    public String deleteUser(@PathVariable("board_id") int id){
+    public String deleteUser(@PathVariable("board_id") int id) {
 
 
         return "redirect:/users";

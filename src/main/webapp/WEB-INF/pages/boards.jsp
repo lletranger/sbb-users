@@ -9,13 +9,13 @@
     <script src="/resources/js/sorttable.js"></script>
     <style>
         table.sortable thead {
-            background-color:#eee;
-            color:#666666;
+            background-color: #eee;
+            color: #666666;
             font-weight: bold;
             cursor: default;
         }
     </style>
-    <title>Boards</title>
+    <title>Boards Page</title>
 </head>
 <body>
 <a href="/index.jsp">Back to Main</a>
@@ -50,21 +50,21 @@
                     <a href="/boarddata/${board.board_id}">${board.name}</a>
                 </td>
 
-               <td>
-                   <c:forEach items="${stations}" var="station">
-                       <c:if test="${station.station_id eq board.from_id}">
-                           ${station.name}
-                       </c:if>
-                   </c:forEach>
-               </td>
+                <td>
+                    <c:forEach items="${stations}" var="station">
+                        <c:if test="${station.station_id eq board.from_id}">
+                            ${station.name}
+                        </c:if>
+                    </c:forEach>
+                </td>
 
-               <td>
-                   <c:forEach items="${stations}" var="station">
-                       <c:if test="${station.station_id eq board.to_id}">
-                           ${station.name}
-                       </c:if>
-                   </c:forEach>
-               </td>
+                <td>
+                    <c:forEach items="${stations}" var="station">
+                        <c:if test="${station.station_id eq board.to_id}">
+                            ${station.name}
+                        </c:if>
+                    </c:forEach>
+                </td>
 
                 <td>
                     <c:forEach items="${departures}" var="dep">
@@ -138,8 +138,8 @@
             </td>
             <td>
                 <form:select path="train_id">
-                    <form:option value="1" label="10 seats" />
-                    <form:option value="2" label="12 seats" />
+                    <form:option value="1" label="10 seats"/>
+                    <form:option value="2" label="12 seats"/>
                 </form:select>
             </td>
         </tr>
@@ -151,12 +151,12 @@
             </td>
             <td>
                 <form:select path="from_id">
-                    <form:option value="1" label="Gondor" />
-                    <form:option value="2" label="Isengard" />
-                    <form:option value="3" label="Mordor" />
-                    <form:option value="4" label="Rivendell" />
-                    <form:option value="5" label="Rohan" />
-                    <form:option value="6" label="Shire" />
+                    <form:option value="1" label="Gondor"/>
+                    <form:option value="2" label="Isengard"/>
+                    <form:option value="3" label="Mordor"/>
+                    <form:option value="4" label="Rivendell"/>
+                    <form:option value="5" label="Rohan"/>
+                    <form:option value="6" label="Shire"/>
                 </form:select>
             </td>
         </tr>
@@ -168,12 +168,12 @@
             </td>
             <td>
                 <form:select path="to_id">
-                    <form:option value="1" label="Gondor" />
-                    <form:option value="2" label="Isengard" />
-                    <form:option value="3" label="Mordor" />
-                    <form:option value="4" label="Rivendell" />
-                    <form:option value="5" label="Rohan" />
-                    <form:option value="6" label="Shire" />
+                    <form:option value="1" label="Gondor"/>
+                    <form:option value="2" label="Isengard"/>
+                    <form:option value="3" label="Mordor"/>
+                    <form:option value="4" label="Rivendell"/>
+                    <form:option value="5" label="Rohan"/>
+                    <form:option value="6" label="Shire"/>
                 </form:select>
             </td>
         </tr>
@@ -187,8 +187,9 @@
                 <form:input path="departure"/>
             </td>
         </tr>
-        <tr><td>
-            <input type="submit" value="<spring:message text="Add Board"/>"/>
+        <tr>
+            <td>
+                <input type="submit" value="<spring:message text="Add Board"/>"/>
             </td>
         </tr>
     </table>

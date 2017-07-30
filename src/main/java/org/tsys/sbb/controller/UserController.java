@@ -19,17 +19,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "users", method = RequestMethod.GET)
-    public String getAllUsers(Model model){
+    public String getAllUsers(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("allUsers", userService.getAllUsers());
         return "users";
     }
 
     @RequestMapping(value = "users/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user){
-        if(user.getUser_id() == 0){
+    public String addUser(@ModelAttribute("user") User user) {
+        if (user.getUser_id() == 0) {
             userService.addUser(user);
-        }else {
+        } else {
             userService.editUser(user);
         }
 
@@ -37,14 +37,14 @@ public class UserController {
     }
 
     @RequestMapping("remove/{id}")
-    public String deleteUser(@PathVariable("id") int id){
+    public String deleteUser(@PathVariable("id") int id) {
         userService.deleteUser(id);
 
         return "redirect:/users";
     }
 
     @RequestMapping("edit/{id}")
-    public String editUser(@PathVariable("id") int id, Model model){
+    public String editUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("allUsers", userService.getAllUsers());
 
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @RequestMapping("userdata/{id}")
-    public String userData(@PathVariable("id") int id, Model model){
+    public String userData(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("status", userService.getUserById(id).getRole());
         return "userdata";

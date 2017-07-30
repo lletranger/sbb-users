@@ -15,7 +15,9 @@ public class TicketServiceImpl implements TicketService {
     private TicketDao ticketDao;
 
     @Autowired
-    public void setTicketDao(TicketDao ticketDao) { this.ticketDao = ticketDao; }
+    public void setTicketDao(TicketDao ticketDao) {
+        this.ticketDao = ticketDao;
+    }
 
     @Transactional
     public Ticket findTicketById(int id) {
@@ -28,7 +30,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Transactional
-    public List<Ticket> findAllTickets() { return ticketDao.findAllTickets(); }
+    public List<Ticket> findAllTickets() {
+        return ticketDao.findAllTickets();
+    }
 
     @Transactional
     public void addTicket(Ticket ticket) {

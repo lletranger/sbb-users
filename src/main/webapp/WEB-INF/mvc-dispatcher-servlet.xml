@@ -58,6 +58,10 @@
         <property name="entityManagerFactory" ref="sbb-persistence-unit"/>
     </bean>
 
+    <bean id="encoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </bean>
+
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
 

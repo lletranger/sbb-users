@@ -1,6 +1,7 @@
 package org.tsys.sbb.service.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.tsys.sbb.dao.UserDao;
 import org.tsys.sbb.model.User;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,16 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    @Autowired
+    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Transactional
@@ -25,7 +33,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public User getUserByLogin(String login) { return userDao.getUserByLogin(login); }
+    public User getUserByLogin(String login) {
+        return userDao.getUserByLogin(login);
+    }
 
     @Transactional
     public List<User> getAllUsers() {
@@ -34,6 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void addUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.addUser(user);
     }
 
@@ -44,6 +55,6 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void deleteUser(int id) {
-       userDao.deleteUser(id);
+        userDao.deleteUser(id);
     }
 }

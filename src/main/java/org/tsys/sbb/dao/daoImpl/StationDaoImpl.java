@@ -19,7 +19,7 @@ public class StationDaoImpl implements StationDao {
     private EntityManager em;
 
     public Station getStationById(Integer id) {
-        Station station = (Station)em.createQuery("SELECT s FROM Station s WHERE id=:id")
+        Station station = (Station) em.createQuery("SELECT s FROM Station s WHERE id=:id")
                 .setParameter("id", id)
                 .getSingleResult();
         logger.info("Station loaded by id: " + station);
@@ -28,7 +28,7 @@ public class StationDaoImpl implements StationDao {
 
     public Station getStationByName(String name) {
 
-        Station station = (Station)em.createQuery("FROM Station WHERE name=:name")
+        Station station = (Station) em.createQuery("FROM Station WHERE name=:name")
                 .setParameter("name", name)
                 .getSingleResult();
 
@@ -39,7 +39,7 @@ public class StationDaoImpl implements StationDao {
     @SuppressWarnings("unchecked")
     public List<Station> getAllStations() {
         List<Station> list = em.createQuery("FROM Station").getResultList();
-        for(Station s : list){
+        for (Station s : list) {
             logger.info("Getting all stations: " + s);
         }
         return list;

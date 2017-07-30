@@ -16,7 +16,9 @@ public class PassengerServiceImpl implements PassengerService {
     private PassengerDao passengerDao;
 
     @Autowired
-    public void setPassengerDao(PassengerDao passengerDao) { this.passengerDao = passengerDao; }
+    public void setPassengerDao(PassengerDao passengerDao) {
+        this.passengerDao = passengerDao;
+    }
 
     @Transactional
     public Passenger getPassById(int id) {
@@ -24,10 +26,14 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Transactional
-    public Passenger getPassByEverything(String name, String surname, Date birth_date) { return passengerDao.getPassByEverything(name, surname, birth_date); }
+    public Passenger getPassByEverything(String name, String surname, Date birth_date) {
+        return passengerDao.getPassByEverything(name, surname, birth_date);
+    }
 
     @Transactional
-    public List<Passenger> getAllPassengers() { return passengerDao.getAllPassengers(); }
+    public List<Passenger> getAllPassengers() {
+        return passengerDao.getAllPassengers();
+    }
 
     @Transactional
     public void addPassenger(Passenger passenger) {

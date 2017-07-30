@@ -7,7 +7,10 @@ import java.util.List;
 public interface TicketService {
 
     Ticket findTicketById(int id);
+
     List<Ticket> findTicketsByBoardId(int board_id);
+
     List<Ticket> findAllTickets();
+
     void addTicket(Ticket ticket);
 }

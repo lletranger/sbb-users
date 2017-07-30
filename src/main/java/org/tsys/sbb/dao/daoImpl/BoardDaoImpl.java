@@ -29,7 +29,7 @@ public class BoardDaoImpl implements BoardDao {
         List<Board> list = em.createQuery("SELECT b FROM Board b WHERE name = :name")
                 .setParameter("name", name)
                 .getResultList();
-        for(Board board : list) {
+        for (Board board : list) {
             logger.info("Getting all boars by name: " + board);
         }
         return list;
@@ -40,7 +40,7 @@ public class BoardDaoImpl implements BoardDao {
         List<Board> list = em.createQuery("SELECT b FROM Board b WHERE from_id = :id OR to_id = :id")
                 .setParameter("id", id)
                 .getResultList();
-        for(Board board : list) {
+        for (Board board : list) {
             logger.info("Getting all board by from/to station id: " + board);
         }
         return list;
@@ -52,7 +52,7 @@ public class BoardDaoImpl implements BoardDao {
                 .setParameter("from_id", from_id)
                 .setParameter("to_id", to_id)
                 .getResultList();
-        for(Board board : list) {
+        for (Board board : list) {
             logger.info("Getting all board by from + to station id: " + board);
         }
         return list;
@@ -61,7 +61,7 @@ public class BoardDaoImpl implements BoardDao {
     @SuppressWarnings("unchecked")
     public List<Board> getAllBoards() {
         List<Board> list = em.createQuery("FROM Board").getResultList();
-        for(Board board : list) {
+        for (Board board : list) {
             logger.info("Getting all boards: " + board);
         }
         return list;

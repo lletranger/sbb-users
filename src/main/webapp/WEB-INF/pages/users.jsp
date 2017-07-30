@@ -8,8 +8,8 @@
     <script src="/resources/js/sorttable.js"></script>
     <style>
         table.sortable thead {
-            background-color:#eee;
-            color:#666666;
+            background-color: #eee;
+            color: #666666;
             font-weight: bold;
             cursor: default;
         }
@@ -36,8 +36,12 @@
                 <td>${user.user_id}</td>
                 <td><a href="/userdata/${user.user_id}">${user.login}</a></td>
                 <td>${user.role}</td>
-                <td class="button-container"><button onclick="location.href = '/edit/${user.user_id}'">Edit</button></td>
-                <td class="button-container"><button onclick="location.href = '/remove/${user.user_id}'">Delete</button></td>
+                <td class="button-container">
+                    <button onclick="location.href = '/edit/${user.user_id}'">Edit</button>
+                </td>
+                <td class="button-container">
+                    <button onclick="location.href = '/remove/${user.user_id}'">Delete</button>
+                </td>
             </tr>
         </c:forEach>
     </table>
@@ -84,7 +88,7 @@
             </td>
             <td>
                 <c:if test="${!empty user.login}">
-                <form:password path="password" />
+                    <form:password path="password"/>
                 </c:if>
                 <c:if test="${empty user.login}">
                     <form:password path="password"/>
@@ -100,8 +104,8 @@
             </td>
             <td>
                 <form:select path="role">
-                    <form:option value="user" label="User" />
-                    <form:option value="admin" label="Admin" />
+                    <form:option value="user" label="User"/>
+                    <form:option value="admin" label="Admin"/>
                 </form:select>
             </td>
         </tr>

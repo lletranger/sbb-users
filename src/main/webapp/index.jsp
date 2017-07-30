@@ -126,8 +126,7 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <img src="${pageContext.request.contextPath}/resources/img/shire.jpg" alt="#">
-                                    </div>
+                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/shire.jpg" alt="#"></a></div>
                                     <div class="caption">
                                         <h3>Shire</h3>
                                         <h4>Land of vegans and vapers.</h4>
@@ -150,7 +149,7 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <img src="${pageContext.request.contextPath}/resources/img/mordor.jpg" alt="">
+                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/mordor.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Mordor</h3>
@@ -162,7 +161,7 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <img src="${pageContext.request.contextPath}/resources/img/rohan.jpg" alt="">
+                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/rohan.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Rohan</h3>
@@ -177,9 +176,7 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img
-                                                src="${pageContext.request.contextPath}/resources/img/gondor.jpg"
-                                                alt=""></a>
+                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/gondor.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Gondor</h3>

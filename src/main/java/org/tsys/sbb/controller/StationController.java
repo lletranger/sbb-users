@@ -35,7 +35,7 @@ public class StationController {
 
         for (Station s : list) {
             if (station.getName().toLowerCase().equals(s.getName().toLowerCase())) {
-                throw new Exception();
+                return "redirect:/snexception";
             }
         }
         stationService.addStation(station);

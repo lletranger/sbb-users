@@ -37,9 +37,12 @@ public class BoardDaoImpl implements BoardDao {
 
     @SuppressWarnings("unchecked")
     public List<Board> findBoardsByFromOrTo(int id) {
-        List<Board> list = em.createQuery("SELECT b FROM Board b WHERE from_id = :id OR to_id = :id")
+        List<Board> list = em.createQuery("SELECT b FROM Board b WHERE from_id = :id")
                 .setParameter("id", id)
                 .getResultList();
+        list.addAll(em.createQuery("SELECT b FROM Board b WHERE to_id = :id")
+                .setParameter("id", id)
+                .getResultList());
         for (Board board : list) {
             logger.info("Getting all board by from/to station id: " + board);
         }

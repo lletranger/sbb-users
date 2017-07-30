@@ -15,10 +15,10 @@ public class Station {
     private String name;
 
     @Column(name = "x")
-    private int x;
+    private Integer x;
 
     @Column(name = "y")
-    private int y;
+    private Integer y;
 
     public Station() {
     }
@@ -39,19 +39,19 @@ public class Station {
         this.name = name;
     }
 
-    public int getX() {
+    public Integer getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(Integer x) {
         this.x = x;
     }
 
-    public int getY() {
+    public Integer getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(Integer y) {
         this.y = y;
     }
 

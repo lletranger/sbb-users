@@ -119,6 +119,7 @@
 <c:url var="addBoard" value="/boards/add"/>
 
 <form:form action="${addBoard}" commandName="board">
+
     <table>
         <tr>
             <td>
@@ -127,64 +128,60 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="name"/>
+                <form:input path="name" maxlength="10" required="required" placeholder="Board name"/>
             </td>
         </tr>
         <tr>
             <td>
                 <form:label path="train_id">
-                    <spring:message text="Train model"/>
+                    <spring:message text="Train Model"/>
                 </form:label>
             </td>
             <td>
                 <form:select path="train_id">
-                    <form:option value="1" label="10 seats"/>
-                    <form:option value="2" label="12 seats"/>
+                    <c:forEach items="${trains}" var="train">
+                        <form:option value="${train.train_id}" label="${train.seats} seats ${train.speed_percents}% speed"/>
+                    </c:forEach>
                 </form:select>
             </td>
         </tr>
         <tr>
             <td>
                 <form:label path="from_id">
-                    <spring:message text="From station"/>
+                    <spring:message text="From Station"/>
                 </form:label>
             </td>
             <td>
                 <form:select path="from_id">
-                    <form:option value="1" label="Gondor"/>
-                    <form:option value="2" label="Isengard"/>
-                    <form:option value="3" label="Mordor"/>
-                    <form:option value="4" label="Rivendell"/>
-                    <form:option value="5" label="Rohan"/>
-                    <form:option value="6" label="Shire"/>
+                    <c:forEach items="${stations}" var="station">
+                        <form:option value="${station.station_id}" label="${station.name}"/>
+                    </c:forEach>
                 </form:select>
             </td>
         </tr>
         <tr>
             <td>
                 <form:label path="to_id">
-                    <spring:message text="To station"/>
+                    <spring:message text="To Station"/>
                 </form:label>
             </td>
             <td>
                 <form:select path="to_id">
-                    <form:option value="1" label="Gondor"/>
-                    <form:option value="2" label="Isengard"/>
-                    <form:option value="3" label="Mordor"/>
-                    <form:option value="4" label="Rivendell"/>
-                    <form:option value="5" label="Rohan"/>
-                    <form:option value="6" label="Shire"/>
+                    <c:forEach items="${stations}" var="station">
+                        <form:option value="${station.station_id}" label="${station.name}"/>
+                    </c:forEach>
                 </form:select>
             </td>
+
         </tr>
         <tr>
             <td>
                 <form:label path="departure">
-                    <spring:message text="Departing Time"/>
+                    <spring:message text="Departing Time (HH:MM)"/>
                 </form:label>
             </td>
             <td>
-                <form:input path="departure"/>
+                <form:input path="departure" pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}" required="required" placeholder="Time in format HH:MM"/>
             </td>
         </tr>
         <tr>

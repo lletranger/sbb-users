@@ -33,7 +33,7 @@
         </tr>
         <c:forEach items="${allUsers}" var="user">
             <tr>
-                <td>${user.user_id}</td>
+                <td><a href="/userdata/${user.user_id}">${user.user_id}</td>
                 <td><a href="/userdata/${user.user_id}">${user.login}</a></td>
                 <td>${user.role}</td>
                 <td class="button-container">
@@ -55,7 +55,7 @@
 
 <c:url var="addAction" value="/users/add"/>
 
-<form:form action="${addAction}" commandName="user">
+<form:form action="${addAction}" modelAttribute="user">
     <table>
         <c:if test="${!empty user.login}">
             <tr>
@@ -77,7 +77,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="login"/>
+                <form:input path="login" minlength="4" maxlength="50" required="required" placeholder="User login"/>
             </td>
         </tr>
         <tr>
@@ -88,10 +88,10 @@
             </td>
             <td>
                 <c:if test="${!empty user.login}">
-                    <form:password path="password"/>
+                    <form:password path="password" minlength="4" maxlength="50" required="required" placeholder="User password"/>
                 </c:if>
                 <c:if test="${empty user.login}">
-                    <form:password path="password"/>
+                    <form:password path="password" minlength="4" maxlength="50" required="required" placeholder="User password"/>
                 </c:if>
 
             </td>

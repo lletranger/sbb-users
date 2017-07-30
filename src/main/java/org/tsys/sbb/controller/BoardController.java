@@ -96,6 +96,7 @@ public class BoardController {
             totalTime.put(b.getBoard_id(), DistanceAndTimeUtil.getStringDate(arrival));
         }
 
+        model.addAttribute("trains", trainService.getAllTrains());
         model.addAttribute("board", new Board());
         model.addAttribute("boards", boards);
         model.addAttribute("departures", depTime);
@@ -126,19 +127,19 @@ public class BoardController {
         model.addAttribute("onBoard", passengers);
         model.addAttribute("from", from.getName());
         model.addAttribute("to", to.getName());
-
         int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
         model.addAttribute("distance", distance);
-
         String journeyTime = DistanceAndTimeUtil.getJourneyTime(distance, tr);
         model.addAttribute("time", journeyTime);
         model.addAttribute("speed", (tr.getSpeed_percents() * 45 / 100));
-
         return "boarddata";
     }
 
     @RequestMapping(value = "boards/add", method = RequestMethod.POST)
     public String addBoard(@ModelAttribute("boardDto") BoardDto boardDto) {
+        if(boardDto.getFrom_id() == boardDto.getTo_id()){
+            return "redirect:/tofromexception";
+        }
         Board board = BoardDto.getBoardFromDto(boardDto);
         boardService.addBoard(board);
         return "redirect:/boards";

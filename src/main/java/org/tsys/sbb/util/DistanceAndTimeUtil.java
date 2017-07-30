@@ -24,6 +24,7 @@ public class DistanceAndTimeUtil {
         double realSpeed = (1.0 * speed * train.getSpeed_percents()) / 100;
         int hours = (int) (distance / realSpeed);
         int minutes = (int) (60 * (distance / realSpeed - hours));
+
         String realMinutes;
         if (minutes < 10) {
             realMinutes = "0" + String.valueOf(minutes);
@@ -40,7 +41,7 @@ public class DistanceAndTimeUtil {
     }
 
     public static String getStringDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         return sdf.format(date);
     }
 
@@ -50,7 +51,7 @@ public class DistanceAndTimeUtil {
     }
 
     public static long getDelayTime(Date delay) {
-        SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String sDelay = sdf.format(delay);
         String[] hms = sDelay.split(":");
         return 1000 * 60 * (Integer.valueOf(hms[0]) * 60 + Integer.valueOf(hms[1]));

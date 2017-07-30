@@ -27,11 +27,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User getUserByLogin(String login) {
-        User user = (User) em.createQuery("SELECT u FROM User u WHERE login=:login")
+        List<User> userList = em.createQuery("SELECT u FROM User u WHERE login=:login")
                 .setParameter("login", login)
-                .getSingleResult();
-        logger.info("User loaded by login: " + user);
-        return user;
+                .getResultList();
+
+        if (userList.isEmpty()) {
+            return null;
+        }
+        logger.info("User loaded by login: " + userList.get(0));
+        return userList.get(0);
     }
 
     @SuppressWarnings("unchecked")

@@ -23,10 +23,8 @@
 <p>Departing ${board.departure} from station ${from} to ${to}, estimate journey time ${time}, total distance ${distance}
     km., average speed ${speed} km/h., registered ${onBoard.size()} passengers.
 </p>
-
-<h3>Passengers:</h3>
-
 <c:if test="${!empty onBoard}">
+    <h3>Passengers:</h3>
     <table class="sortable">
         <tr>
             <th width="100">Name</th>

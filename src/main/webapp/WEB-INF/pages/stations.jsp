@@ -16,6 +16,7 @@
             cursor: default;
         }
     </style>
+
     <title>Stations Page</title>
 </head>
 <body>
@@ -57,30 +58,30 @@
             <tr>
                 <td>
                     <form:label path="name">
-                        <spring:message text="Name"/>
+                        <spring:message text="New Station Name"/>
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="name"/>
+                    <form:input path="name" maxlength="45" required="required" placeholder="Name"/>
                 </td>
             </tr>
             <tr>
                 <td>
                     <form:label path="x">
-                        <spring:message text="X coord."/>
+                        <spring:message text="X Coordinate (-999 to 999)"/>
                     </form:label>
                 </td>
                 <td>
-                        <form:input path="x"/>
+                        <form:input path="x" pattern="^-?[0-9]{1,3}" required="required" placeholder="X in km."/>
             </tr>
             <tr>
                 <td>
                     <form:label path="y">
-                        <spring:message text="Y coord."/>
+                        <spring:message text="Y Coordinate (-999 to 999)"/>
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="y"/>
+                    <form:input path="y" pattern="^-?[0-9]{1,3}" required="required" placeholder="Y in km."/>
                 </td>
             </tr>
         </table>

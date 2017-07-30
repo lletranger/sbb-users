@@ -27,6 +27,11 @@ public class UserController {
 
     @RequestMapping(value = "users/add", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user) {
+
+        if(userService.getUserByLogin(user.getLogin()) != null) {
+            return "redirect:/uexexception";
+        }
+
         if (user.getUser_id() == 0) {
             userService.addUser(user);
         } else {
@@ -47,7 +52,6 @@ public class UserController {
     public String editUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("allUsers", userService.getAllUsers());
-
         return "users";
     }
 

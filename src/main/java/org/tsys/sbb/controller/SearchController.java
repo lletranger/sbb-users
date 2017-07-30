@@ -5,9 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.tsys.sbb.model.Board;
 import org.tsys.sbb.service.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class SearchController {
@@ -50,13 +54,21 @@ public class SearchController {
         this.ticketService = ticketService;
     }
 
-    @RequestMapping("search")
-    public String searсhOpen() {
+    @RequestMapping(value = "search")
+    public String searсh(Model model) {
+        model.addAttribute("stations", stationService.getAllStations());
         return "search";
     }
 
-    @RequestMapping("search/{id1}&{id2}")
-    public String searсh(@PathVariable("id1") int id1, @PathVariable("id2") int id2, Model model) {
+    @RequestMapping("searchboards")
+    public String searсhOpen(@RequestParam("id1") int id1, @RequestParam("id2") int id2, Model model) {
+        if(id1 == 0 || id2 == 0) {
+            int id3 = id1 == 0 ? id2 : id1;
+            model.addAttribute("boardList", boardService.findBoardsByFromOrTo(id3));
+
+        } else { model.addAttribute("boardList", boardService.findBoardsByFromAndTo(id1, id2));
+        }
+        model.addAttribute("stations", stationService.getAllStations());
         return "search";
     }
 }

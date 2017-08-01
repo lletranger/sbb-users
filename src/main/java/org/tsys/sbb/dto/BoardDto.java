@@ -67,7 +67,7 @@ public class BoardDto {
         board.setFrom_id(boardDto.getFrom_id());
         board.setTo_id(boardDto.getTo_id());
         Calendar calendar = new GregorianCalendar();
-        calendar.setTime(new Date(DistanceAndTimeUtil.getTime(boardDto.getDeparture())));
+        calendar.setTime(new Date(DistanceAndTimeUtil.getDtoTime(boardDto.getDeparture())));
         calendar.add(Calendar.HOUR, -3);
         Date dep = calendar.getTime();
         board.setDeparture(dep);

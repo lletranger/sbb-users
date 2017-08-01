@@ -65,6 +65,8 @@ public class DistanceAndTimeUtil {
         return sdf.format(date);
     }
 
+
+
     public static String getStringDelay(Date date) {
         long mins = date.getTime() / 60000;
         mins += 180;
@@ -83,10 +85,8 @@ public class DistanceAndTimeUtil {
         return sdf.format(date);
     }
 
-    public static long getDelayTime(Date delay) {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String sDelay = sdf.format(delay);
-        String[] hms = sDelay.split(":");
+    public static long getDtoTime(String time) {
+        String[] hms = time.split(":");
         return 1000 * 60 * (Integer.valueOf(hms[0]) * 60 + Integer.valueOf(hms[1]));
     }
 }

@@ -19,23 +19,37 @@
 <body>
 <a href="index">Back to Main</a>
 
-    <h1>Find Boards by From and To Stations</h1>
+<h1>Find Boards by From and To Stations</h1>
+<h3>Choose departure or arrival station, or both</h3>
 
+ <form action="searchboards">
 
-<form action="searchboards">
+     <label for="id1">From:</label>
+     <select name="id1">
+         <option value="0">-</option>
+         <c:forEach var="station" items="${stations}">
+             <option value="${station.station_id}"/>
+             <c:out value="${station.name}"/>
+             </option>
+         </c:forEach>
+     </select>
 
-    <label for="id1">From:</label>
-    <input type="number" id="id1" name="id1" placeholder="id1"/> and/or
+     <label for="id2"> To:</label>
+     <select name="id2">
+         <option value="0">-</option>
+         <c:forEach var="station" items="${stations}">
+             <option value="${station.station_id}"/>
+             <c:out value="${station.name}"/>
+             </option>
+         </c:forEach>
+     </select>
+     <input type="submit" value="Search"/>
 
-    <label for="id2">To:</label>
-    <input type="number" id="id2" name="id2" placeholder="id2"/>
-
-    <input type="submit" value="Search"/>
-</form>
+    </form>
 
 <c:if test="${!empty boardList}">
 
-<h1>Available Boards</h1>
+    <h1>Available Boards</h1>
     <table class="sortable">
         <tr>
             <th width="100">Board Name</th>
@@ -73,26 +87,43 @@
                 <td>
                     <c:forEach items="${departures}" var="dep">
                         <c:if test="${board.board_id eq dep.key}">
-                            ${dep.value}
+                            ${dep.value}:00
                         </c:if>
                     </c:forEach>
                 </td>
 
                 <td>
-                    <c:forEach items="${journeyTime}" var="jt">
-                        <c:if test="${board.board_id eq jt.key}">
-                            ${jt.value}
+                    <c:forEach items="${distance}" var="distance">
+                        <c:if test="${board.board_id eq distance.key}">
+                            ${distance.value} km
                         </c:if>
                     </c:forEach>
                 </td>
 
                 <td>
-                    <c:forEach items="${arrivals}" var="ea">
-                        <c:if test="${board.board_id eq ea.key}">
-                            ${ea.value}
+                    <c:forEach items="${avSpeed}" var="avs">
+                        <c:if test="${board.board_id eq avs.key}">
+                            ${avs.value} km/h
                         </c:if>
                     </c:forEach>
                 </td>
+
+                <td>
+                    <c:forEach items="${journeyTime}" var="time">
+                        <c:if test="${board.board_id eq time.key}">
+                            ${time.value}
+                        </c:if>
+                    </c:forEach>
+                </td>
+
+                <td>
+                    <c:forEach items="${arrivals}" var="arr">
+                        <c:if test="${board.board_id eq arr.key}">
+                            ${arr.value}:00
+                        </c:if>
+                    </c:forEach>
+                </td>
+
 
                 <td>
                     <c:forEach items="${delays}" var="delay">
@@ -105,7 +136,7 @@
                 <td>
                     <c:forEach items="${totalTime}" var="arrival">
                         <c:if test="${board.board_id eq arrival.key}">
-                            ${arrival.value}
+                            ${arrival.value}:00
                         </c:if>
                     </c:forEach>
                 </td>

@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@SessionAttributes(types = User.class)
 public class UserController {
 
     private UserService userService;

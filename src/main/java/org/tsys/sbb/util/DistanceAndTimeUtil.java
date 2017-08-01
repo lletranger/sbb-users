@@ -31,18 +31,51 @@ public class DistanceAndTimeUtil {
         } else {
             realMinutes = String.valueOf(minutes);
         }
+        if (hours >= 24) {
+            return hours / 24 + "d " + hours % 24 + "h " + realMinutes + "m";
+        }
+        if (hours > 0) {
+            return hours + "h " + realMinutes + "m";
+        }
 
-        return hours + ":" + realMinutes;
+        return realMinutes + "m";
     }
 
     public static long getTime(String time) {
-        String[] hms = time.split(":");
-        return 1000 * 60 * (Integer.valueOf(hms[0]) * 60 + Integer.valueOf(hms[1]));
+        int days = 0;
+        int hours = 0;
+
+        if (time.contains("d")) {
+            days = Integer.valueOf(time.substring(0, time.indexOf("d")));
+            time = time.substring(time.indexOf("d") + 1, time.length()).trim();
+        }
+
+        if (time.contains("h")) {
+            hours = Integer.valueOf(time.substring(0, time.indexOf("h")));
+            time = time.substring(time.indexOf("h") + 1, time.length()).trim();
+        }
+
+        int mins = Integer.valueOf(time.substring(0, time.indexOf("m")));
+
+        return 1000 * 60 * (days * 24 * 60 + hours * 60 + mins);
     }
 
     public static String getStringDate(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         return sdf.format(date);
+    }
+
+    public static String getStringDelay(Date date) {
+        long mins = date.getTime() / 60000;
+        mins += 180;
+        if (mins >= 1440) {
+            return mins / 1440 + "d " + (mins % 1440) / 60 + "h " + (mins % 1440) % 60 + "m";
+        } else if (mins >= 60) {
+            return mins / 60 + "h " + mins % 60 + "m";
+        } else {
+            return mins + "m";
+        }
+
     }
 
     public static String getStringBirthDate(Date date) {

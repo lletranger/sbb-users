@@ -77,7 +77,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="login" minlength="4" maxlength="50" required="required" placeholder="User login"/>
+                <form:input path="login" minlength="4" maxlength="45" required="required" placeholder="User login"/>
             </td>
         </tr>
         <tr>
@@ -91,7 +91,7 @@
                     <form:password path="password" readonly="true" disabled="true"/>
                 </c:if>
                 <c:if test="${empty user.login}">
-                    <form:password path="password" minlength="4" maxlength="50" required="required" placeholder="User password"/>
+                    <form:password path="password" minlength="4" maxlength="45у" required="required" placeholder="User password"/>
                 </c:if>
 
             </td>

@@ -16,21 +16,22 @@
 <!-- Login form -->
 <section class="content">
     <div class="container" align="center">
+        <h2 align="center">New User Registration</h2><br>
 
-        <c:url var="getIn" value="/login"/>
-        <form:form action="${getIn}" modelAttribute="loginUser">
+        <c:url var="register" value="/register"/>
+        <form:form action="${register}" modelAttribute="newUser" >
 
             <div class="row">
                 <div id="form-group-email" class="form-group col-lg-4 col-lg-offset-4">
                     <tr></tr>
-
-                    <form:input style="color:#49A827" path="login" maxlength="45" required="required" placeholder="Login"/>
+                    <form:label path="Login"/>
+                    <form:input style="color:#49A827" path="login" minlength="4" maxlength="45" required="required" placeholder="Login"/>
                 </div>
             </div>
 
             <div class="row">
-                <div id="form-group-password" class="form-group col-lg-4 col-lg-offset-4">
-                    <form:password style="color:#49A827" path="password" maxlength="45" required="required" placeholder="Password"/>
+                <div id="password" class="form-group col-lg-4 col-lg-offset-4">
+                    <form:password style="color:#49A827" path="password" minlength="4" maxlength="45" required="required" placeholder="Password"/>
                 </div>
             </div>
             <div class="row">
@@ -39,7 +40,6 @@
                 </div>
             </div>
         </form:form>
-
 
         <div class="row">
             <div class="form-group col-lg-4 col-lg-offset-4">

@@ -62,8 +62,8 @@ public class BoardController {
     @RequestMapping(value = "boards", method = RequestMethod.GET)
     public String getAllBoards(Model model, HttpSession session) {
 
-        User user = (User)session.getAttribute("sessionUser");
-        if(!user.getRole().equals("admin")){
+        User user = (User) session.getAttribute("sessionUser");
+        if (user == null || !user.getRole().equals("admin")) {
             return "notpass";
         }
 
@@ -93,9 +93,9 @@ public class BoardController {
 
             if (delayService.getDelayByBoardId(b.getBoard_id()) != null) {
                 Delay d = delayService.getDelayByBoardId(b.getBoard_id());
-                String delay = DistanceAndTimeUtil.getStringDate(d.getDelay_time());
+                String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
                 delayTime.put(b.getBoard_id(), delay);
-                arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(time) + DistanceAndTimeUtil.getDelayTime(d.getDelay_time()));
+                arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(time) + DistanceAndTimeUtil.getTime(delay));
 
             }
 
@@ -117,8 +117,8 @@ public class BoardController {
     @RequestMapping("boarddata/{id}")
     public String boardData(@PathVariable("id") int id, Model model, HttpSession session) {
 
-        User user = (User)session.getAttribute("sessionUser");
-        if(!user.getRole().equals("admin")){
+        User user = (User) session.getAttribute("sessionUser");
+        if (user == null || !user.getRole().equals("admin")) {
             return "notpass";
         }
 
@@ -149,7 +149,7 @@ public class BoardController {
 
     @RequestMapping(value = "boards/add", method = RequestMethod.POST)
     public String addBoard(@ModelAttribute("boardDto") BoardDto boardDto) {
-        if(boardDto.getFrom_id() == boardDto.getTo_id()){
+        if (boardDto.getFrom_id() == boardDto.getTo_id()) {
             return "redirect:/tofromexception";
         }
         Board board = BoardDto.getBoardFromDto(boardDto);

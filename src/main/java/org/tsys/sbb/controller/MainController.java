@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.UserService;
@@ -69,6 +66,12 @@ public class MainController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@ModelAttribute("newUser") User user, HttpSession session) {
+
+        if(userService.getUserByLogin(user.getLogin()) != null) {
+            return "redirect:/uexexception";
+        }
+        user.setRole("user");
+        userService.addUser(user);
 
         return "success";
     }

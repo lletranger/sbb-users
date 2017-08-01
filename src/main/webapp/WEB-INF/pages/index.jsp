@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page session="true" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,19 +16,19 @@
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+
 </head>
-<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+<body id="page-top" data-spy="scroll" data-target=".navbar">
 <!-- Preloader -->
 <div id="preloader">
     <div id="load"></div>
 </div>
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="row">
+        <div class="row" align="center">
             <div class="col-md-4">
                 <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target=".navbar-main-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
                     <a class="navbar-brand" href="index.jsp">
@@ -42,43 +44,37 @@
 
                 <div class="col-md-2 right col-md-offset-2">
                     <c:choose>
-                        <c:when test="${user.role != 'anonym'}">
-                            <p class="mail">${user.login}<i class="setting fa fa-cog"></i></p>
+                        <c:when test="${sessionUser.role ne 'anon'}">
+                            <p class="mail" style="font: bold">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
+
                             <div id="menu">
                                 <div id="arrow"></div>
                                 <div id="logout">
-                                    <a href="${pageContext.request.contextPath}/user/logout">Log out</a><br>
-                                    <c:if test="${user.role == 'anonym'}">
-                                        <a href="${pageContext.request.contextPath}/admin0564044">Admin panel</a>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
+                                    <c:if test="${sessionUser.role eq 'admin'}">
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
                                     </c:if>
                                 </div>
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <a href="${pageContext.request.contextPath}/user/auth">
+                            <a href="${pageContext.request.contextPath}/login">
                                 <button class="btn btn-success log-btn">Log in</button>
                             </a>
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <div class="col-md-4 right ">
-                    <ul class="list nav navbar-nav ">
-                        <li><a href="/../../index.jsp">Home</a></li>
-                        <li><a href="/users">Users</a></li>
-                        <li><a href='/boards'>Schedule</a></li>
-                        <li><a href="/search">Search</a></li>
-                        <%--<li><a href="/stations">Stations</a></li>--%>
-                        <%--<li><a href="/tickets">Tickets</a></li>--%>
-                        <%--<li><a href="/passengers">Passengers</a></li>--%>
+
+                <div class="col-md-4 center-block">
+                    <ul class="list nav navbar-nav" style="align-items: center">
                     </ul>
                 </div>
             </div>
 
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container -->
 </nav>
 
 <!-- Section: intro -->
@@ -89,8 +85,8 @@
         <h4>Go to Mordor today!</h4>
     </div>
     <div class="page-scroll">
-        <a href="${pageContext.request.contextPath}/user/registration" class="btn btn-circle">
-            <p class="animated">Sign up</p>
+        <a href="${pageContext.request.contextPath}/search" class="btn btn-circle">
+            <p class="animated">Search</p>
             <i class="fa fa-angle-double-down fa-2x animated"></i>
         </a>
     </div>

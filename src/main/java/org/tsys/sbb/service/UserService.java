@@ -17,4 +17,6 @@ public interface UserService {
     void editUser(User user);
 
     void deleteUser(int id);
+
+    boolean checkUser(String login, String password);
 }

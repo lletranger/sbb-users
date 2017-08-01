@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ErrorController {
 
+
+    @RequestMapping(value = "notpass")
+    public String notPass(){
+        return "notpass";
+    }
+
     @RequestMapping(value = "snexception")
     public String stationNameError(){
         return "snexception";

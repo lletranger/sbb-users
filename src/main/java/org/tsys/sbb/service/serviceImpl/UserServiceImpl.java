@@ -57,4 +57,9 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int id) {
         userDao.deleteUser(id);
     }
+
+    @Transactional
+    public boolean checkUser(String login, String password) {
+        return bCryptPasswordEncoder.matches(password, userDao.getUserByLogin(login).getPassword());
+    }
 }

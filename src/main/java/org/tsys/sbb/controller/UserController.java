@@ -1,14 +1,16 @@
 package org.tsys.sbb.controller;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
+@SessionAttributes(types = User.class)
 public class UserController {
 
     private UserService userService;
@@ -18,8 +20,15 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @RequestMapping(value = "users", method = RequestMethod.GET)
-    public String getAllUsers(Model model) {
+    public String getAllUsers(Model model, HttpSession session) {
+
+        User user = (User)session.getAttribute("sessionUser");
+        if(!user.getRole().equals("admin")){
+            return "notpass";
+        }
+
         model.addAttribute("user", new User());
         model.addAttribute("allUsers", userService.getAllUsers());
         return "users";

@@ -17,7 +17,7 @@
     <title>Search Page</title>
 </head>
 <body>
-<a href="../../index.jsp">Back to Main</a>
+<a href="index">Back to Main</a>
 
     <h1>Find Boards by From and To Stations</h1>
 

@@ -17,7 +17,7 @@
     <title>Users Page</title>
 </head>
 <body>
-<a href="../../index.jsp">Back to Main</a>
+<a href="${pageContext.request.contextPath}/index">Back to Main</a>
 
 <br/>
 <br/>
@@ -65,7 +65,7 @@
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="user_id" readonly="true" size="8" disabled="true"/>
+                    <form:input path="user_id" readonly="true" disabled="true"/>
                     <form:hidden path="user_id"/>
                 </td>
             </tr>
@@ -88,7 +88,7 @@
             </td>
             <td>
                 <c:if test="${!empty user.login}">
-                    <form:password path="password" minlength="4" maxlength="50" required="required" placeholder="User password"/>
+                    <form:password path="password" readonly="true" disabled="true"/>
                 </c:if>
                 <c:if test="${empty user.login}">
                     <form:password path="password" minlength="4" maxlength="50" required="required" placeholder="User password"/>

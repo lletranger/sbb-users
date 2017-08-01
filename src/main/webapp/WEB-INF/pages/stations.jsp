@@ -20,7 +20,7 @@
     <title>Stations Page</title>
 </head>
 <body>
-<a href="../../index.jsp">Back to Main</a>
+<a href="index">Back to Main</a>
 
 <br/>
 <br/>

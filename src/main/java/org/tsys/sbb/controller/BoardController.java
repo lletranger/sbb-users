@@ -15,6 +15,7 @@ import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
@@ -59,7 +60,12 @@ public class BoardController {
     }
 
     @RequestMapping(value = "boards", method = RequestMethod.GET)
-    public String getAllBoards(Model model) {
+    public String getAllBoards(Model model, HttpSession session) {
+
+        User user = (User)session.getAttribute("sessionUser");
+        if(!user.getRole().equals("admin")){
+            return "notpass";
+        }
 
         List<Board> boards = boardService.getAllBoards();
 
@@ -109,7 +115,13 @@ public class BoardController {
     }
 
     @RequestMapping("boarddata/{id}")
-    public String boardData(@PathVariable("id") int id, Model model) {
+    public String boardData(@PathVariable("id") int id, Model model, HttpSession session) {
+
+        User user = (User)session.getAttribute("sessionUser");
+        if(!user.getRole().equals("admin")){
+            return "notpass";
+        }
+
         Board b = boardService.findBoardById(id);
         List<Ticket> tickets = ticketService.findTicketsByBoardId(id);
         Station from = stationService.getStationById(b.getFrom_id());

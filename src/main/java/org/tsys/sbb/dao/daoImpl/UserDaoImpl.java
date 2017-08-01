@@ -26,8 +26,9 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    @SuppressWarnings("unchecked")
     public User getUserByLogin(String login) {
-        List<User> userList = em.createQuery("SELECT u FROM User u WHERE login=:login")
+        List<User> userList = em.createQuery("SELECT u FROM User u WHERE login=:login ")
                 .setParameter("login", login)
                 .getResultList();
 

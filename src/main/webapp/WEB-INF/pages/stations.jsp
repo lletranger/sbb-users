@@ -49,7 +49,7 @@
     <br/>
     <br/>
 
-    <h1>Add Station</h1>
+    <h1>Add a Station</h1>
 
     <c:url var="addAction" value="/stations/add"/>
 
@@ -58,7 +58,7 @@
             <tr>
                 <td>
                     <form:label path="name">
-                        <spring:message text="New Station Name"/>
+                        <spring:message text="Station Name"/>
                     </form:label>
                 </td>
                 <td>
@@ -68,24 +68,24 @@
             <tr>
                 <td>
                     <form:label path="x">
-                        <spring:message text="X Coordinate (-999 to 999)"/>
+                        <spring:message text="X Coordinate"/>
                     </form:label>
                 </td>
                 <td>
-                        <form:input path="x" pattern="^-?[0-9]{1,3}" required="required" placeholder="X in km."/>
+                        <form:input path="x" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 km."/>
             </tr>
             <tr>
                 <td>
                     <form:label path="y">
-                        <spring:message text="Y Coordinate (-999 to 999)"/>
+                        <spring:message text="Y Coordinate"/>
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="y" pattern="^-?[0-9]{1,3}" required="required" placeholder="Y in km."/>
+                    <form:input path="y" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 km."/>
                 </td>
             </tr>
         </table>
-        <input type="submit" value="<spring:message text="Add Station"/>"/>
+        <input type="submit" value="<spring:message text="Add"/>"/>
     </form:form>
 </div>
 </body>

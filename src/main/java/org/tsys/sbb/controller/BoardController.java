@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.tsys.sbb.dto.BoardDto;
+import org.tsys.sbb.dto.DelayDto;
 import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
@@ -68,8 +69,10 @@ public class BoardController {
             return "notpass";
         }
 
-        List<Board> boards = boardService.getAllBoards();
+        model.addAttribute("newDelay", new DelayDto());
 
+
+        List<Board> boards = boardService.getAllBoards();
         Map<Integer, String> depTime = new HashMap<>();
         Map<Integer, String> estArrTime = new HashMap<>();
         Map<Integer, String> delayTime = new HashMap<>();
@@ -156,6 +159,33 @@ public class BoardController {
         }
         Board board = BoardDto.getBoardFromDto(boardDto);
         boardService.addBoard(board);
+        return "redirect:/boards";
+    }
+
+    @RequestMapping(value = "/delay/add{board_id}")
+    public String addDelay(@PathVariable("board_id") int id, Model model, HttpSession session) {
+
+        User user = (User) session.getAttribute("sessionUser");
+        if (user == null || !user.getRole().equals("admin")) {
+            return "notpass";
+        }
+        Board board = boardService.findBoardById(id);
+        model.addAttribute("from", stationService.getStationById(board.getFrom_id()));
+        model.addAttribute("to", stationService.getStationById(board.getTo_id()));
+        model.addAttribute("board", board);
+        model.addAttribute("delay", new DelayDto());
+        return "delays";
+    }
+
+    @RequestMapping(value = "/delay/add{board_id}", method = RequestMethod.POST)
+    public String registerDelay(@PathVariable("board_id") int id, @ModelAttribute("delay") DelayDto delayDto, Model model, HttpSession session) {
+
+        User user = (User) session.getAttribute("sessionUser");
+        if (user == null || !user.getRole().equals("admin")) {
+            return "notpass";
+        }
+        Delay delay = DelayDto.getDelayFromDto(delayDto);
+        delayService.addDelay(delay);
         return "redirect:/boards";
     }
 }

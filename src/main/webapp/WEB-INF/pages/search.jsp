@@ -59,7 +59,7 @@
             <th width="100">Distance</th>
             <th width="100">Average Speed</th>
             <th width="100">Journey Time</th>
-            <th width="100">Estimated Arrival</th>
+            <th width="100">Expected Arrival</th>
             <th width="100">Delay</th>
             <th width="100">Arrival</th>
         </tr>

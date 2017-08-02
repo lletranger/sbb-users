@@ -26,7 +26,7 @@
 <h1>Full Schedule</h1>
 
 <c:if test="${!empty boards}">
-    <table class="sortable">
+    <table id="boards1" class="sortable">
 
         <tr>
             <th width="40">ID</th>
@@ -35,7 +35,7 @@
             <th width="100">To</th>
             <th width="100">Departure</th>
             <th width="100">Journey Time</th>
-            <th width="100">Estimated Arrival</th>
+            <th width="100">Expected Arrival</th>
             <th width="100">Delay</th>
             <th width="100">Arrival</th>
         </tr>
@@ -105,16 +105,25 @@
                         </c:if>
                     </c:forEach>
                 </td>
+                <td class="button-container">
+                    <button onclick="location.href = '/delay/add${board.board_id}'">Add a Delay</button>
+                </td>
             </tr>
         </c:forEach>
     </table>
 </c:if>
 
-
+<script>
+    $(document).ready(function() {
+        $('boards1').DataTable( {
+            "order": [[ 5, "asc" ]]
+        } );
+    } );
+</script>
 <br/>
 <br/>
 
-<h1>Add Board</h1>
+<h1>Add a Board</h1>
 
 <c:url var="addBoard" value="/boards/add"/>
 
@@ -177,16 +186,16 @@
         <tr>
             <td>
                 <form:label path="departure">
-                    <spring:message text="Departing Time (HH:MM)"/>
+                    <spring:message text="Departing Time"/>
                 </form:label>
             </td>
             <td>
-                <form:input path="departure" pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}" required="required" placeholder="Time in format HH:MM"/>
+                <form:input path="departure" pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}" required="required" placeholder="HH:MM"/>
             </td>
         </tr>
         <tr>
             <td>
-                <input type="submit" value="<spring:message text="Add Board"/>"/>
+                <input type="submit" value="<spring:message text="Add"/>"/>
             </td>
         </tr>
     </table>

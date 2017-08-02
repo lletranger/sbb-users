@@ -44,6 +44,7 @@ public class StationController {
 
         for (Station s : list) {
             if (station.getName().toLowerCase().equals(s.getName().toLowerCase())) {
+                session.setAttribute("existingStation", s.getName());
                 return "redirect:/snexception";
             }
         }

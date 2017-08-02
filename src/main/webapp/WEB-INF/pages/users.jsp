@@ -10,6 +10,7 @@
         table.sortable thead {
             background-color: #eee;
             color: #666666;
+            text-align: center;
             font-weight: bold;
             cursor: default;
         }
@@ -51,7 +52,7 @@
 <br/>
 <br/>
 
-<h1>Add User</h1>
+<h1>Create a User</h1>
 
 <c:url var="addAction" value="/users/add"/>
 
@@ -113,11 +114,11 @@
             <td colspan="2">
                 <c:if test="${!empty user.login}">
                     <input type="submit"
-                           value="<spring:message text="Edit User"/>"/>
+                           value="<spring:message text="Edit"/>"/>
                 </c:if>
                 <c:if test="${empty user.login}">
                     <input type="submit"
-                           value="<spring:message text="Add User"/>"/>
+                           value="<spring:message text="Create"/>"/>
                 </c:if>
             </td>
         </tr>

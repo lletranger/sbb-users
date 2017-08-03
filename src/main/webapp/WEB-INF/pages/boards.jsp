@@ -34,9 +34,9 @@
             <th width="100">From</th>
             <th width="100">To</th>
             <th width="100">Departure</th>
-            <th width="100">Journey Time</th>
+            <th class="sorttable_numeric" width="100">Journey Time</th>
             <th width="100">Expected Arrival</th>
-            <th width="100">Delay</th>
+            <th class="sorttable_numeric" width="100">Delay</th>
             <th width="100">Arrival</th>
         </tr>
 

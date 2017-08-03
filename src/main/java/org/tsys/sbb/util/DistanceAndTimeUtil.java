@@ -66,7 +66,6 @@ public class DistanceAndTimeUtil {
     }
 
 
-
     public static String getStringDelay(Date date) {
         long mins = date.getTime() / 60000;
         mins += 180;
@@ -88,5 +87,11 @@ public class DistanceAndTimeUtil {
     public static long getDtoTime(String time) {
         String[] hms = time.split(":");
         return 1000 * 60 * (Integer.valueOf(hms[0]) * 60 + Integer.valueOf(hms[1]));
+    }
+
+    public static boolean isTenMinsGap(String departure) {
+        Date now = new Date();
+        String nows = getStringDate(now);
+        return getDtoTime(departure) - getDtoTime(nows) <= 10*60*1000;
     }
 }

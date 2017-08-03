@@ -29,7 +29,7 @@
         <tr>
             <th width="100">Name</th>
             <th width="100">Surname</th>
-            <th width="80">Birth Date</th>
+            <th class="sorttable_nosort" width="80">Birth Date</th>
         </tr>
         <c:forEach items="${onBoard}" var="passenger">
             <tr>

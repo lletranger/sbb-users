@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.tsys.sbb.model.Board;
-import org.tsys.sbb.model.Delay;
-import org.tsys.sbb.model.Station;
-import org.tsys.sbb.model.Train;
+import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
@@ -24,6 +21,7 @@ public class SearchController {
     private StationService stationService;
     private TrainService trainService;
     private DelayService delayService;
+    private TicketService ticketService;
 
 
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -48,6 +46,10 @@ public class SearchController {
         this.delayService = delayService;
     }
 
+    @Autowired
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
     @RequestMapping(value = "search")
     public String searсh(Model model) {
@@ -73,16 +75,30 @@ public class SearchController {
         Map<Integer, String> totalTime = new HashMap<>();
         Map<Integer, Integer> dist = new HashMap<>();
         Map<Integer, Integer> avSpeed = new HashMap<>();
-
+        Map<Integer, Boolean> ticketsAvailable = new HashMap<>();
 
 
         for (Board b : list) {
 
+            List<Ticket> tickets = ticketService.findTicketsByBoardId(b.getBoard_id());
+            Train t = trainService.getTrainById(b.getTrain_id());
+
+            ticketsAvailable.put(b.getBoard_id(), true);
+
+            if(tickets.size() >= t.getSeats()){
+                ticketsAvailable.put(b.getBoard_id(), false);
+            }
+
+
             Station from = stationService.getStationById(b.getFrom_id());
             Station to = stationService.getStationById(b.getTo_id());
-            Train t = trainService.getTrainById(b.getTrain_id());
             avSpeed.put(b.getBoard_id(), t.getSpeed_percents()*45/100);
             String departure = DistanceAndTimeUtil.getStringDate(b.getDeparture());
+
+            if(DistanceAndTimeUtil.isTenMinsGap(departure)){
+                ticketsAvailable.put(b.getBoard_id(), false);
+            }
+
             depTime.put(b.getBoard_id(), departure);
 
             int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
@@ -111,7 +127,7 @@ public class SearchController {
         model.addAttribute("arrivals", estArrTime);
         model.addAttribute("distance", dist);
         model.addAttribute("avSpeed", avSpeed);
-
+        model.addAttribute("ticketsAvailable", ticketsAvailable);
         model.addAttribute("delays", delayTime);
         model.addAttribute("journeyTime", journeyTime);
         model.addAttribute("totalTime", totalTime);

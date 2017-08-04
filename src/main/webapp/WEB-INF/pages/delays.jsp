@@ -15,7 +15,8 @@
 
 <section class="content">
     <div class="container" align="center">
-        <h2 align="center">Add a delay for board "${board.name}"<br> departing ${board.departure} from ${from.name} to ${to.name}</h2><br>
+        <h2 align="center">Add a delay for board '${board.name}'<br>
+            departing ${board.departure} from ${from.name} to ${to.name}</h2><br>
 
         <c:url var="addDelay" value="/delay/add${board.board_id}"/>
         <form:form action="${addDelay}" modelAttribute="delay">
@@ -30,7 +31,8 @@
                     <button type="submit" class="btn btn-success">Add</button>
                 </div>
                 <div class="form-group col-lg-4 col-lg-offset-4" align="center">
-                    <p align="center"><a href="${pageContext.request.contextPath}/boards">Back to Boards</a></p>
+                    <p align="center"><a href="${pageContext.request.contextPath}/boards">Boards</a></p>
+                    <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
                 </div>
             </div>
         </form:form>

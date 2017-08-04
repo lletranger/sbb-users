@@ -28,7 +28,7 @@ public class MainController {
     @RequestMapping(value = "/index")
     public String openIndex(HttpSession session) {
         User user = (User) session.getAttribute("sessionUser");
-        if(user == null){
+        if (user == null) {
             user = new User();
             user.setRole("anon");
             session.setAttribute("sessionUser", user);
@@ -37,7 +37,7 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value ="/login", method=RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
         model.addAttribute("loginUser", new User());
         return "login";
@@ -45,15 +45,14 @@ public class MainController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String getIn(@ModelAttribute("loginUser") User user, HttpSession session) {
-        if(userService.getUserByLogin(user.getLogin()) == null) {
+        if (userService.getUserByLogin(user.getLogin()) == null) {
+            session.setAttribute("noUser", user.getLogin());
             return "redirect:/nouserexception";
         }
-        if(!userService.checkUser(user.getLogin(), user.getPassword()))
-        {
+        if (!userService.checkUser(user.getLogin(), user.getPassword())) {
             return "redirect:/passwordexception";
         }
 
-        logger.info("User login/password match");
         session.setAttribute("sessionUser", userService.getUserByLogin(user.getLogin()));
         return "redirect:/index";
     }
@@ -67,8 +66,9 @@ public class MainController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@ModelAttribute("newUser") User user, HttpSession session) {
 
-        if(userService.getUserByLogin(user.getLogin()) != null) {
-            return "redirect:/uexexception";
+        if (userService.getUserByLogin(user.getLogin()) != null) {
+            session.setAttribute("existingUser", user.getLogin());
+            return "redirect:/logintaken";
         }
         user.setRole("user");
         userService.addUser(user);

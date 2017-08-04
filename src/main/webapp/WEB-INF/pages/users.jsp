@@ -6,123 +6,75 @@
 <html>
 <head>
     <script src="/resources/js/sorttable.js"></script>
+
     <style>
         table.sortable thead {
-            background-color: #eee;
-            color: #666666;
-            text-align: center;
+            background-color: rgba(255, 227, 1, 0);
+            color: #545454;
+            font-size: 20px;
             font-weight: bold;
             cursor: default;
         }
+
+        table.sortable td{
+            text-align: center;
+            color: #ffffff;
+        }
+
     </style>
     <title>Users Page</title>
+    <link href="<c:url value="/resources/css/admin-style.css"/>" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
+
 <body>
-<a href="${pageContext.request.contextPath}/index">Back to Main</a>
 
-<br/>
-<br/>
+<br>
+<div class="container" align="center">
+    <div class="row">
+        <div class="form-group col-lg-4 col-lg-offset-4" align="center">
+            <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
+        </div>
+    </div>
+</div>
 
-<h1>Users List</h1>
+<div class="container" style="width:100%;">
 
-<c:if test="${!empty allUsers}">
-    <table class="sortable">
-        <tr>
-            <th width="40">ID</th>
-            <th width="100">Login</th>
-            <th width="100">Status</th>
-        </tr>
-        <c:forEach items="${allUsers}" var="user">
-            <tr>
-                <td><a href="/userdata/${user.user_id}">${user.user_id}</td>
-                <td><a href="/userdata/${user.user_id}">${user.login}</a></td>
-                <td>${user.role}</td>
-                <td class="button-container">
-                    <button onclick="location.href = '/edit/${user.user_id}'">Edit</button>
-                </td>
-                <td class="button-container">
-                    <button onclick="location.href = '/remove/${user.user_id}'">Delete</button>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-</c:if>
+    <div align="center" class="container">
 
+    <h1 align="center" style="color: #ffffff">Users List</h1>
+        <c:if test="${!empty allUsers}">
+            <table class="sortable">
+                <tr>
+                    <th width="40">ID</th>
+                    <th width="100">Login</th>
+                    <th width="100">Status</th>
+                </tr>
+                <c:forEach items="${allUsers}" var="user">
+                    <tr>
+                        <td><a href="/userdata/${user.user_id}">${user.user_id}</td>
 
-<br/>
-<br/>
+                        <td><a href="/userdata/${user.user_id}">${user.login}</a></td>
 
-<h1>Create a User</h1>
+                        <td>${user.role}</td>
 
-<c:url var="addAction" value="/users/add"/>
+                        <td class="button-container">
+                            <c:if test="${user.role ne 'admin'}">
+                                <button onclick="location.href = '/setadmin/${user.user_id}'">Make Admin</button>
+                            </c:if>
+                            <c:if test="${user.role ne 'user'}">
+                                <button onclick="location.href = '/setuser/${user.user_id}' ">Set User</button>
+                            </c:if>
+                        </td>
 
-<form:form action="${addAction}" modelAttribute="user">
-    <table>
-        <c:if test="${!empty user.login}">
-            <tr>
-                <td>
-                    <form:label path="user_id">
-                        <spring:message text="ID"/>
-                    </form:label>
-                </td>
-                <td>
-                    <form:input path="user_id" readonly="true" disabled="true"/>
-                    <form:hidden path="user_id"/>
-                </td>
-            </tr>
+                        <td class="button-container">
+                            <button onclick="location.href = '/remove/${user.user_id}'">Delete</button>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
         </c:if>
-        <tr>
-            <td>
-                <form:label path="login">
-                    <spring:message text="Login"/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="login" minlength="4" maxlength="45" required="required" placeholder="User login"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <form:label path="password">
-                    <spring:message text="Password"/>
-                </form:label>
-            </td>
-            <td>
-                <c:if test="${!empty user.login}">
-                    <form:password path="password" readonly="true" disabled="true"/>
-                </c:if>
-                <c:if test="${empty user.login}">
-                    <form:password path="password" minlength="4" maxlength="45у" required="required" placeholder="User password"/>
-                </c:if>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <form:label path="role">
-                    <spring:message text="Role"/>
-                </form:label>
-            </td>
-            <td>
-                <form:select path="role">
-                    <form:option value="user" label="User"/>
-                    <form:option value="admin" label="Admin"/>
-                </form:select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <c:if test="${!empty user.login}">
-                    <input type="submit"
-                           value="<spring:message text="Edit"/>"/>
-                </c:if>
-                <c:if test="${empty user.login}">
-                    <input type="submit"
-                           value="<spring:message text="Create"/>"/>
-                </c:if>
-            </td>
-        </tr>
-    </table>
-</form:form>
+    </div>
+</div>
 </body>
 </html>

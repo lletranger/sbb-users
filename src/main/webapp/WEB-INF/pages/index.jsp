@@ -122,7 +122,7 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/shire.jpg" alt="#"></a></div>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=6&id2=0"><img src="${pageContext.request.contextPath}/resources/img/shire.jpg" alt="#"></a></div>
                                     <div class="caption">
                                         <h3>Shire</h3>
                                         <h4>Land of vegans and vapers.</h4>
@@ -132,8 +132,8 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <img src="${pageContext.request.contextPath}/resources/img/isengard.jpg"
-                                             alt="#">
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=2&id2=0">
+                                            <img src="${pageContext.request.contextPath}/resources/img/isengard.jpg" alt="#"></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Isengard</h3>
@@ -145,7 +145,8 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/mordor.jpg" alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=3&id2=0">
+                                        <img src="${pageContext.request.contextPath}/resources/img/mordor.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Mordor</h3>
@@ -157,7 +158,7 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/rohan.jpg" alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=5&id2=0"><img src="${pageContext.request.contextPath}/resources/img/rohan.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Rohan</h3>
@@ -172,7 +173,7 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/gondor.jpg" alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=1&id2=0"><img src="${pageContext.request.contextPath}/resources/img/gondor.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Gondor</h3>
@@ -183,7 +184,7 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="#"><img
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=4&id2=0"><img
                                                 src="${pageContext.request.contextPath}/resources/img/rivendell.jpg"
                                                 alt=""></a>
                                     </div>
@@ -301,9 +302,8 @@
                     <address>
                         <strong>Social networks</strong><br>
                         <ul class="company-social">
-                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-vk"></i></a></li>
+                            <li class="btn-facebook"><a href="https://www.facebook.com/yeliseyev.kot" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li class="btn-vk"><a href="https://vk.com/id435491840" target="_blank"><i class="fa fa-vk"></i></a></li>
                             <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
                             <li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a>
                             </li>

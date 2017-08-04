@@ -25,8 +25,8 @@ public class StationController {
 
     @RequestMapping(value = "stations", method = RequestMethod.GET)
     public String getAllStations(Model model, HttpSession session) {
-        User user = (User)session.getAttribute("sessionUser");
-        if(!user.getRole().equals("admin")){
+        User user = (User) session.getAttribute("sessionUser");
+        if (!user.getRole().equals("admin")) {
             return "notpass";
         }
         model.addAttribute("station", new Station());
@@ -36,8 +36,8 @@ public class StationController {
 
     @RequestMapping(value = "stations/add", method = RequestMethod.POST)
     public String addStation(@ModelAttribute("station") Station station, HttpSession session) throws Exception {
-        User user = (User)session.getAttribute("sessionUser");
-        if(!user.getRole().equals("admin")){
+        User user = (User) session.getAttribute("sessionUser");
+        if (!user.getRole().equals("admin")) {
             return "notpass";
         }
         List<Station> list = stationService.getAllStations();

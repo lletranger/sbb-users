@@ -3,8 +3,9 @@
 <%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
+
 <head>
-    <title>Error</title>
+    <title>Nope...</title>
     <link href="<c:url value="/resources/css/social-buttons-3.css"/>"  rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap.css"/>"  rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
@@ -12,10 +13,24 @@
 </head>
 
 <body>
-<br><br><h1 align="center">User with that login already exists!</h1><br>
-<h2 align="center">Please, choose another one</h2><br>
 
-<p align="center"><a href="${pageContext.request.contextPath}/register">Back to Registration</a></p>
+<br>
+<p style="font-size: 45px" align="center">You've entered a wrong password!</p>
+<br>
 
+<div class="container" align="center">
+
+    <img src="${pageContext.request.contextPath}/resources/img/gollum.gif">
+
+    <div class="row">
+        <br>
+        <p style="font-size: 35px" align="center">Try to remember the real one</p>
+        <div class="form-group col-lg-4 col-lg-offset-4" align="center">
+            <p align="center"><a href="${pageContext.request.contextPath}/login">Login</a></p>
+            <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

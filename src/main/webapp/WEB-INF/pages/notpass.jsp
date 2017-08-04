@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <title>Login page</title>
+    <title>Access Issues</title>
     <link href="<c:url value="/resources/css/social-buttons-3.css"/>"  rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap.css"/>"  rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">

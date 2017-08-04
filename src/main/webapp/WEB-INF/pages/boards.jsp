@@ -15,6 +15,8 @@
             cursor: default;
         }
     </style>
+    <link href="<c:url value="/resources/css/admin-style.css"/>" rel="stylesheet">
+
     <title>Boards Page</title>
 </head>
 <body>
@@ -24,7 +26,7 @@
 <br/>
 
 <h1>Full Schedule</h1>
-
+<div>
 <c:if test="${!empty boards}">
     <table id="boards1" class="sortable">
 
@@ -112,6 +114,7 @@
         </c:forEach>
     </table>
 </c:if>
+</div>
 
 <script>
     $(document).ready(function() {

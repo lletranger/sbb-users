@@ -23,8 +23,8 @@ public class UserController {
     @RequestMapping(value = "users", method = RequestMethod.GET)
     public String getAllUsers(Model model, HttpSession session) {
 
-        User user = (User)session.getAttribute("sessionUser");
-        if(!user.getRole().equals("admin")){
+        User user = (User) session.getAttribute("sessionUser");
+        if (!user.getRole().equals("admin")) {
             return "notpass";
         }
 
@@ -36,8 +36,8 @@ public class UserController {
     @RequestMapping(value = "users/add", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user) {
 
-        if(userService.getUserByLogin(user.getLogin()) != null) {
-            return "redirect:/uexexception";
+        if (userService.getUserByLogin(user.getLogin()) != null) {
+            return "redirect:/logintaken";
         }
 
         if (user.getUser_id() == 0) {
@@ -56,9 +56,20 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @RequestMapping("edit/{id}")
-    public String editUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
+    @RequestMapping("setadmin/{id}")
+    public String setAdmin(@PathVariable("id") int id, Model model) {
+        User user = userService.getUserById(id);
+        user.setRole("admin");
+        userService.editUser(user);
+        model.addAttribute("allUsers", userService.getAllUsers());
+        return "users";
+    }
+
+    @RequestMapping("setuser/{id}")
+    public String setUser(@PathVariable("id") int id, Model model) {
+        User user = userService.getUserById(id);
+        user.setRole("user");
+        userService.editUser(user);
         model.addAttribute("allUsers", userService.getAllUsers());
         return "users";
     }

@@ -1,7 +1,6 @@
 package org.tsys.sbb.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -17,13 +16,23 @@ public class ErrorController {
         return "snexception";
     }
 
-    @RequestMapping(value = "uexexception")
+    @RequestMapping(value = "logintaken")
     public String userLoginError(){
-        return "uexexception";
+        return "logintaken";
     }
 
     @RequestMapping(value = "tofromexception")
     public String fromToError(){
         return "tofromexception";
+    }
+
+    @RequestMapping(value = "passwordexception")
+    public String passwordError(){
+        return "passwordexception";
+    }
+
+    @RequestMapping(value = "nouserexception")
+    public String userError(){
+        return "nouserexception";
     }
 }

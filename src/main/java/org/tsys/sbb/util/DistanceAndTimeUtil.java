@@ -92,6 +92,6 @@ public class DistanceAndTimeUtil {
     public static boolean isTenMinsGap(String departure) {
         Date now = new Date();
         String nows = getStringDate(now);
-        return getDtoTime(departure) - getDtoTime(nows) <= 10*60*1000;
+        return getDtoTime(departure) - getDtoTime(nows) <= 10 * 60 * 1000;
     }
 }

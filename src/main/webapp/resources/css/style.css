@@ -448,7 +448,7 @@ form#contact-form input:focus,form#contact-form select:focus,form#contact-form t
   height: 40px;
   line-height: 40px;
   text-align: center;
-  background: #3bbec0;
+  background: #da0061;
   border-radius: 50%;
   color: #fff;
   -webkit-transition: background .3s ease-in-out;
@@ -461,13 +461,13 @@ form#contact-form input:focus,form#contact-form select:focus,form#contact-form t
 }
 .company-social .social-facebook a{background: #3873ae;}
 .company-social .social-twitter a{background: #62c6f8;}
-.company-social .social-dribble a{background: #d74980;}
+.company-social .social-dribble a{background: #da0061;}
 .company-social .social-deviantart a{background: #8da356;}
 .company-social .social-google a{background: #000;}
 .company-social .social-vimeo a{background: #51a6d3;}
 .company-social .social-facebook a:hover{background: #4893ce;}
 .company-social .social-twitter a:hover{background: #82e6ff;}
-.company-social .social-dribble a:hover{background: #f769a0;}
+.company-social .social-dribble a:hover{background: #da0061;}
 .company-social .social-deviantart a:hover{background: #adc376;}
 .company-social .social-google a:hover{background: #333;}
 .company-social .social-vimeo a:hover{background: #71c6f3;}
@@ -811,5 +811,5 @@ footer p {
 
 li { list-style-type:none;}
 
-::selection { background: #ff5e99; color: #FFFFFF; text-shadow: #000000; }
-::-moz-selection { background: #ff5e99; color: #FFFFFF; }
+::selection { background: #da0061; color: #FFFFFF; text-shadow: #000000; }
+::-moz-selection { background: #da0061; color: #FFFFFF; }

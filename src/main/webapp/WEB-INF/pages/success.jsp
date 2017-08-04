@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <title>Success</title>
+    <title>Wheee!</title>
 
     <link href="<c:url value="/resources/css/social-buttons-3.css"/>"  rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap.css"/>"  rel="stylesheet">
@@ -15,10 +15,21 @@
 </head>
 
 <body>
-<br><br><h1 align="center">You're registered!</h1><br>
-<h2 align="center">Please, login now</h2><br>
+<br>
+<p style="font-size: 45px" align="center">You're registered!</p><br>
 
-<p align="center"><a href="${pageContext.request.contextPath}/login">Back to Login</a></p>
+<div class="container" align="center">
 
+    <img src="${pageContext.request.contextPath}/resources/img/wheee.gif">
+
+    <div class="row">
+        <br><p style="font-size: 35px" align="center">Please, login now</p><br>
+        <div class="form-group col-lg-4 col-lg-offset-4" align="center">
+            <p align="center"><a href="${pageContext.request.contextPath}/login">Login</a></p>
+            <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.tsys.sbb.model.Station;
 import org.tsys.sbb.model.Train;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -84,6 +85,23 @@ public class DistanceAndTimeUtil {
         return sdf.format(date);
     }
 
+    public static String getStringBirthDate2(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.ENGLISH);
+        return sdf.format(date);
+    }
+
+    public static Date getBirthDateFromString(String bd) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        Date date = null;
+        try {
+        date = sdf.parse(bd);
+        } catch (ParseException e){
+            logger.info("Unable to parse new passenger birth date");
+        }
+        logger.info("PArsed new passenger brirth date to" + date);
+        return date;
+    }
+
     public static long getDtoTime(String time) {
         String[] hms = time.split(":");
         return 1000 * 60 * (Integer.valueOf(hms[0]) * 60 + Integer.valueOf(hms[1]));
@@ -93,5 +111,13 @@ public class DistanceAndTimeUtil {
         Date now = new Date();
         String nows = getStringDate(now);
         return getDtoTime(departure) - getDtoTime(nows) <= 10 * 60 * 1000;
+    }
+
+    public static boolean passengerBirthDates(Date date, String string){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.ENGLISH);
+        String sdate = sdf.format(date);
+        logger.info("pass date " + sdate);
+        logger.info("dto date" + string);
+        return sdate.equals(string);
     }
 }

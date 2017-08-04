@@ -9,9 +9,11 @@ public interface PassengerService {
 
     Passenger getPassById(int id);
 
-    Passenger getPassByEverything(String name, String surname, Date birth_date);
+    List<Passenger> getPassByEverything(String name, String surname);
 
     List<Passenger> getAllPassengers();
 
     void addPassenger(Passenger passenger);
+
+    void deletePassenger(int id);
 }

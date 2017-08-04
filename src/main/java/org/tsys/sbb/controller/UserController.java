@@ -50,14 +50,26 @@ public class UserController {
     }
 
     @RequestMapping("remove/{id}")
-    public String deleteUser(@PathVariable("id") int id) {
+    public String deleteUser(@PathVariable("id") int id, HttpSession session) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (!sessionUser.getRole().equals("admin")) {
+            return "notpass";
+        }
+
         userService.deleteUser(id);
 
         return "redirect:/users";
     }
 
     @RequestMapping("setadmin/{id}")
-    public String setAdmin(@PathVariable("id") int id, Model model) {
+    public String setAdmin(@PathVariable("id") int id, Model model, HttpSession session) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (!sessionUser.getRole().equals("admin")) {
+            return "notpass";
+        }
+
         User user = userService.getUserById(id);
         user.setRole("admin");
         userService.editUser(user);
@@ -66,7 +78,13 @@ public class UserController {
     }
 
     @RequestMapping("setuser/{id}")
-    public String setUser(@PathVariable("id") int id, Model model) {
+    public String setUser(@PathVariable("id") int id, Model model, HttpSession session) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (!sessionUser.getRole().equals("admin")) {
+            return "notpass";
+        }
+
         User user = userService.getUserById(id);
         user.setRole("user");
         userService.editUser(user);
@@ -75,7 +93,12 @@ public class UserController {
     }
 
     @RequestMapping("userdata/{id}")
-    public String userData(@PathVariable("id") int id, Model model) {
+    public String userData(@PathVariable("id") int id, Model model, HttpSession session) {
+
+        User user = (User) session.getAttribute("sessionUser");
+        if (!user.getRole().equals("admin")) {
+            return "notpass";
+        }
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("status", userService.getUserById(id).getRole());
         return "userdata";

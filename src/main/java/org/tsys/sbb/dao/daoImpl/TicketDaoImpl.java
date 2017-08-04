@@ -38,6 +38,17 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @SuppressWarnings("unchecked")
+    public List<Ticket> findTicketsByUserId(int user_id) {
+        List<Ticket> list = em.createQuery("SELECT t FROM Ticket t WHERE user_id=:user_id")
+                .setParameter("user_id", user_id)
+                .getResultList();
+        for (Ticket t : list) {
+            logger.info("Getting all tickets by user id: " + t);
+        }
+        return list;
+    }
+
+    @SuppressWarnings("unchecked")
     public List<Ticket> findAllTickets() {
         List<Ticket> list = em.createQuery("FROM Ticket").getResultList();
         for (Ticket t : list) {
@@ -49,5 +60,14 @@ public class TicketDaoImpl implements TicketDao {
     public void addTicket(Ticket ticket) {
         em.persist(ticket);
         logger.info("Ticket added: " + ticket);
+    }
+
+    public void deleteTicket(int id) {
+        Ticket ticket = em.find(Ticket.class, id);
+
+        if (ticket != null) {
+            em.remove(ticket);
+        }
+        logger.info("Ticket deleted: " + ticket);
     }
 }

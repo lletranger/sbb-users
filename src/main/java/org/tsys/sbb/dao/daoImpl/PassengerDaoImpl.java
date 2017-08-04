@@ -2,6 +2,7 @@ package org.tsys.sbb.dao.daoImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
 import org.tsys.sbb.dao.PassengerDao;
 import org.tsys.sbb.model.Passenger;
@@ -25,22 +26,23 @@ public class PassengerDaoImpl implements PassengerDao {
         return passenger;
     }
 
-    public Passenger getPassByEverything(String name, String surname, Date birth_date) {
-        Passenger passenger = (Passenger) em
-                .createQuery("SELECT u FROM User u WHERE name=:name AND surname=:surname AND birth_date=:birth_date")
+    @SuppressWarnings("unchecked")
+    public List<Passenger> getPassByEverything(String name, String surname) {
+        List<Passenger> list =  em.createQuery("SELECT p FROM Passenger p WHERE name=:name AND surname=:surname")
                 .setParameter("name", name)
                 .setParameter("surname", surname)
-                .setParameter("birth_date", birth_date)
-                .getSingleResult();
-        logger.info("Passenger loaded by details: " + passenger);
-        return passenger;
+                .getResultList();
+
+        for (Passenger p : list) {
+            logger.info("Getting all passengers with same name and surname: " + p);
+        }        return list;
     }
 
     @SuppressWarnings("unchecked")
     public List<Passenger> getAllPassengers() {
         List<Passenger> list = em.createQuery("FROM Passenger").getResultList();
         for (Passenger p : list) {
-            logger.info("Getting all passangers: " + p);
+            logger.info("Getting all passengers: " + p);
         }
         return list;
     }
@@ -48,5 +50,14 @@ public class PassengerDaoImpl implements PassengerDao {
     public void addPassenger(Passenger passenger) {
         em.persist(passenger);
         logger.info("Passenger added: " + passenger);
+    }
+
+    public void deletePassenger(int id) {
+        Passenger passenger = em.find(Passenger.class, id);
+
+        if (passenger != null) {
+            em.remove(passenger);
+        }
+        logger.info("Passenger deleted: " + passenger);
     }
 }

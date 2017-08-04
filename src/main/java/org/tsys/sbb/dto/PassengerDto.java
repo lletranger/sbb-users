@@ -39,4 +39,13 @@ public class PassengerDto {
         dto.setBirth_date(DistanceAndTimeUtil.getStringBirthDate(passenger.getBirth_date()));
         return dto;
     }
+
+    public static Passenger getPassengerFromDto(PassengerDto dto) {
+        Passenger passenger = new Passenger();
+        passenger.setName(dto.getName());
+        passenger.setSurname(dto.getSurname());
+        passenger.setBirth_date(DistanceAndTimeUtil.getBirthDateFromString(dto.getBirth_date()));
+        return passenger;
+    }
+
 }

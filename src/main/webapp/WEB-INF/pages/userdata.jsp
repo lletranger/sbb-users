@@ -22,7 +22,7 @@
         }
 
     </style>
-    <title>Users Details</title>
+    <title>User Details</title>
     <link href="<c:url value="/resources/css/admin-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
@@ -32,8 +32,8 @@
 <div class="container" align="center">
     <div class="row">
         <div class="form-group col-lg-4 col-lg-offset-4" align="center">
-            <p align="center"><a href="${pageContext.request.contextPath}/users">Users</a></p>
             <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
+            <p align="center"><a href="${pageContext.request.contextPath}/users">Users</a></p>
         </div>
     </div>
 </div>

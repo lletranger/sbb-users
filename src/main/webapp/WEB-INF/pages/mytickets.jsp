@@ -24,7 +24,7 @@
 
     </style>
     <title>Users Page</title>
-    <link href="<c:url value="/resources/css/error-style.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/admin-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 
@@ -43,37 +43,32 @@
 
     <div align="center" class="container">
 
-    <h1 align="center" style="color: #ffffff">Users List</h1>
-        <c:if test="${!empty allUsers}">
+        <h1 align="center" style="color: #ffffff">My Tickets List</h1>
+        <c:if test="${!empty ticketsDto}">
             <table class="sortable">
                 <tr>
-                    <th width="40">ID</th>
-                    <th width="100">Login</th>
-                    <th width="100">Status</th>
+                    <th width="50">ID</th>
+                    <th width="100">Board</th>
+                    <th width="100">From</th>
+                    <th width="100">To</th>
+                    <th width="100">Departure</th>
+                    <th width="100">Name</th>
+                    <th width="100">Surname</th>
+                    <th width="150">Birth Date</th>
+
                 </tr>
-                <c:forEach items="${allUsers}" var="user">
+                <c:forEach items="${ticketsDto}" var="dto">
                     <tr>
-                        <td><a href="/userdata/${user.user_id}">${user.user_id}</td>
-
-                        <td><a href="/userdata/${user.user_id}">${user.login}</a></td>
-
-                        <td>${user.role}</td>
-
-                        <c:if test="${user.user_id ne sessionUser.user_id}">
-                        <td class="button-container">
-                            <c:if test="${user.role ne 'admin'}">
-                                <button onclick="location.href = '/setadmin/${user.user_id}'">Make admin</button>
-                            </c:if>
-                            <c:if test="${user.role ne 'user'}">
-                                <button onclick="location.href = '/setuser/${user.user_id}' ">Set user</button>
-                            </c:if>
+                        <td>${dto.id}</td>
+                        <td>${dto.boardName}</td>
+                        <td>${dto.from}</td>
+                        <td>${dto.to}</td>
+                        <td>${dto.departure}</td>
+                        <td>${dto.passName}</td>
+                        <td>${dto.passSurname}</td>
+                        <td>${dto.passBirthDate}</td>
+                        <td><button onclick="location.href = '/annulticket/${dto.id}'">Cancel</button>
                         </td>
-
-                        <td class="button-container">
-                            <button onclick="location.href = '/remove/${user.user_id}'">Delete</button>
-                        </td>
-                        </c:if>
-
                     </tr>
                 </c:forEach>
             </table>

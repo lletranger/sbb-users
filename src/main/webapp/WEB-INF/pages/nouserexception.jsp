@@ -7,17 +7,17 @@
 <html lang="en">
 
 <head>
-    <title>Error</title>
+    <title>Oups...</title>
     <link href="<c:url value="/resources/css/social-buttons-3.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet">
-    <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/error-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 
 <br>
-<p style="font-size: 45px" align="center">We've no user with login '${noUser}' :(</p>
+<p style="font-size: 45px" align="center">We have no user with login '${noUser}' :(</p>
 <br>
 
 <div class="container" align="center">

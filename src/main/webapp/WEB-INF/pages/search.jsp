@@ -145,7 +145,7 @@
                     <c:choose>
                         <c:when test="${ticketsAvailable.get(board.board_id) eq 'true'}">
                             <td class="button-container">
-                                <button onclick="location.href = '/delay/add${board.board_id}'">Buy ticket</button>
+                                <button onclick="location.href = '/ticket/add${board.board_id}'">Buy ticket</button>
                             </td>
                         </c:when>
                         <c:otherwise>

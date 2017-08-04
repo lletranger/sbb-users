@@ -35,4 +35,14 @@ public class ErrorController {
     public String userError(){
         return "nouserexception";
     }
+
+    @RequestMapping(value = "noplaces")
+    public String placesError(){
+        return "noplaces";
+    }
+
+    @RequestMapping(value = "passalready")
+    public String passError(){
+        return "passalready";
+    }
 }

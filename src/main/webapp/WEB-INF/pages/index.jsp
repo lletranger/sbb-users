@@ -51,6 +51,7 @@
                                 <div id="arrow"></div>
                                 <div id="logout">
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
                                     <c:if test="${sessionUser.role eq 'admin'}">
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
@@ -197,7 +198,6 @@
                         </ul>
                     </div><!-- /Slide2 -->
                 </div>
-
 
                 <nav>
                     <ul class="control-box pager">

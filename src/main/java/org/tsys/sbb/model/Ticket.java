@@ -16,6 +16,9 @@ public class Ticket {
     @Column(name = "passenger_id")
     private int passenger_id;
 
+    @Column(name = "user_id")
+    private int user_id;
+
     public Ticket() {
     }
 
@@ -41,6 +44,14 @@ public class Ticket {
 
     public void setPassenger_id(int passenger_id) {
         this.passenger_id = passenger_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     @Override

@@ -8,7 +8,7 @@
     <title>Nope...</title>
     <link href="<c:url value="/resources/css/social-buttons-3.css"/>"  rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap.css"/>"  rel="stylesheet">
-    <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/error-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 

@@ -2,21 +2,47 @@
 <%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
 <%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Delay page</title>
-    <link href="<c:url value="/resources/css/social-buttons-3.css"/>"  rel="stylesheet">
-    <link href="<c:url value="/resources/css/bootstrap.css"/>"  rel="stylesheet">
-    <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
+    <script src="/resources/js/sorttable.js"></script>
+
+    <style>
+        table.sortable thead {
+            background-color: rgba(255, 227, 1, 0);
+            color: #545454;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: default;
+        }
+
+        table.sortable td{
+            text-align: center;
+            color: #ffffff;
+        }
+
+    </style>
+
+    <title>Delay Page</title>
+    <link href="<c:url value="/resources/css/admin-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
+<br>
 
-<section class="content">
-    <div class="container" align="center">
-        <h2 align="center">Add a delay for board '${board.name}'<br>
-            departing ${board.departure} from ${from.name} to ${to.name}</h2><br>
+<div class="form-group col-lg-4 col-lg-offset-4" align="center">
+    <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
+    <p align="center"><a href="${pageContext.request.contextPath}/boards">Boards</a></p>
+</div>
+
+<div class="container" style="width:100%;">
+
+    <div align="center" class="container">
+     <h1 align="center" style="color: #ffffff">Add a delay for board '${board.name}'<br>
+            departing ${board.departure} from ${from.name} to ${to.name}</h1>
+
 
         <c:url var="addDelay" value="/delay/add${board.board_id}"/>
         <form:form action="${addDelay}" modelAttribute="delay">
@@ -28,16 +54,12 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-4 col-lg-offset-4">
-                    <button type="submit" class="btn btn-success">Add</button>
+                    <button type="submit" class="btn btn-success">Add a delay</button>
                 </div>
-                <div class="form-group col-lg-4 col-lg-offset-4" align="center">
-                    <p align="center"><a href="${pageContext.request.contextPath}/boards">Boards</a></p>
-                    <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
-                </div>
-            </div>
-        </form:form>
+                </form:form>
 
+            </div>
     </div>
-</section>
+</div>
 </body>
 </html>

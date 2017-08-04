@@ -75,7 +75,7 @@
                     </form:label>
                 </td>
                 <td>
-                    <form:input style="color:#FF0800" path="name" maxlength="45" required="required" placeholder="Name"/>
+                    <form:input path="name" maxlength="45" required="required" placeholder="Name"/>
                 </td>
             </tr>
             <tr>
@@ -85,7 +85,7 @@
                     </form:label>
                 </td>
                 <td>
-                        <form:input style="color:#FF0800" path="x" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 in km."/>
+                        <form:input path="x" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 in km."/>
             </tr>
             <tr>
                 <td>
@@ -94,11 +94,11 @@
                     </form:label>
                 </td>
                 <td>
-                    <form:input style="color:#FF0800" path="y" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 in km."/>
+                    <form:input path="y" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 in km."/>
                 </td>
             </tr>
         </table>
-        <input type="submit" value="<spring:message text="Add a Station"/>"/>
+        <input type="submit" value="<spring:message text="Add a station"/>"/>
     </form:form>
     </div>
 </div>

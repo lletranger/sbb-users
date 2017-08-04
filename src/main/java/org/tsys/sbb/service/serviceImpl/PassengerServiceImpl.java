@@ -26,8 +26,8 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Transactional
-    public Passenger getPassByEverything(String name, String surname, Date birth_date) {
-        return passengerDao.getPassByEverything(name, surname, birth_date);
+    public List<Passenger> getPassByEverything(String name, String surname) {
+        return passengerDao.getPassByEverything(name, surname);
     }
 
     @Transactional
@@ -38,5 +38,10 @@ public class PassengerServiceImpl implements PassengerService {
     @Transactional
     public void addPassenger(Passenger passenger) {
         passengerDao.addPassenger(passenger);
+    }
+
+    @Transactional
+    public void deletePassenger(int id) {
+        passengerDao.deletePassenger(id);
     }
 }

@@ -38,4 +38,14 @@ public class TicketServiceImpl implements TicketService {
     public void addTicket(Ticket ticket) {
         ticketDao.addTicket(ticket);
     }
+
+    @Transactional
+    public List<Ticket> findTicketsByUserId(int user_id){
+        return ticketDao.findTicketsByUserId(user_id);
+    }
+
+    @Transactional
+    public void deleteTicket(int id) {
+        ticketDao.deleteTicket(id);
+    }
 }

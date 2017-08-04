@@ -6,7 +6,7 @@
 
 <html lang="en">
 <head>
-    <title>Error</title>
+    <title>Your ticket</title>
     <link href="<c:url value="/resources/css/social-buttons-3.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/error-style.css"/>" rel="stylesheet">
@@ -15,22 +15,16 @@
 
 <body>
 <br>
-<p style="font-size: 45px" align="center">Station with name '${existingStation}' already exists!</p>
+<p style="font-size: 45px" align="center">You have bought ticket number ${ticket.ticket_id}<br>
+    To board '${board.name}' going from
+${from} to ${to},<br>departing at ${board.departure}<br>for passenger ${passenger.name} ${passenger.surname} born ${passenger.birth_date}</p>
 <br>
-
 <div class="container" align="center">
-
-    <img src="${pageContext.request.contextPath}/resources/img/nope.jpg">
-
     <div class="row">
-        <br>
-        <p style="font-size: 35px" align="center">Please, choose another name</p>
         <div class="form-group col-lg-4 col-lg-offset-4" align="center">
-            <p align="center"><a href="${pageContext.request.contextPath}/stations">Stations</a></p>
             <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
         </div>
     </div>
-
 </div>
 </body>
 </html>

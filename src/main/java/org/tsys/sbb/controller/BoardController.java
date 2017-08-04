@@ -67,52 +67,52 @@ public class BoardController {
             return "notpass";
         }
 
-        model.addAttribute("newDelay", new DelayDto());
-
-
         List<Board> boards = boardService.getAllBoards();
-        Map<Integer, String> depTime = new HashMap<>();
-        Map<Integer, String> estArrTime = new HashMap<>();
-        Map<Integer, String> delayTime = new HashMap<>();
-        Map<Integer, String> journeyTime = new HashMap<>();
-        Map<Integer, String> totalTime = new HashMap<>();
+        List<BoardDto> dtos = new ArrayList<>();
 
         for (Board b : boards) {
 
+            BoardDto boardDto = new BoardDto();
+            boardDto.setId(b.getBoard_id());
+            boardDto.setName(b.getName());
+
             Station from = stationService.getStationById(b.getFrom_id());
             Station to = stationService.getStationById(b.getTo_id());
-            Train t = trainService.getTrainById(b.getTrain_id());
+            boardDto.setFrom(from.getName());
+            boardDto.setTo(to.getName());
 
-            String departure = DistanceAndTimeUtil.getStringDate(b.getDeparture());
-            depTime.put(b.getBoard_id(), departure);
+            Train t = trainService.getTrainById(b.getTrain_id());
+            boardDto.setDeparture(DistanceAndTimeUtil.getStringDate(b.getDeparture()));
 
             int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
-            String time = DistanceAndTimeUtil.getJourneyTime(distance, t);
-            journeyTime.put(b.getBoard_id(), time);
+            boardDto.setDistance(distance);
 
-            Date arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(time));
-            estArrTime.put(b.getBoard_id(), DistanceAndTimeUtil.getStringDate(arrival));
+            boardDto.setJourneyTime(DistanceAndTimeUtil.getJourneyTime(distance, t));
 
-            if (delayService.getDelayByBoardId(b.getBoard_id()) != null) {
-                Delay d = delayService.getDelayByBoardId(b.getBoard_id());
+            Date arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, t)));
+            boardDto.setExpectedArrival(DistanceAndTimeUtil.getStringDate(arrival));
+
+            List<Delay> delays = delayService.getDelayByBoardId(b.getBoard_id());
+            if (!delays.isEmpty()) {
+                Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
                 String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
-                delayTime.put(b.getBoard_id(), delay);
-                arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(time) + DistanceAndTimeUtil.getTime(delay));
-
+                boardDto.setDelay(delay);
+                arrival = new Date(b.getDeparture().getTime()
+                        + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, t))
+                        + DistanceAndTimeUtil.getTime(delay));
             }
 
-            totalTime.put(b.getBoard_id(), DistanceAndTimeUtil.getStringDate(arrival));
+            boardDto.setArrival(DistanceAndTimeUtil.getStringDate(arrival));
+            boardDto.setIsArrived(DistanceAndTimeUtil.isAlreadyArrived(arrival) ? "true" : "false");
+
+            dtos.add(boardDto);
         }
 
-        model.addAttribute("trains", trainService.getAllTrains());
-        model.addAttribute("board", new Board());
-        model.addAttribute("boards", boards);
-        model.addAttribute("departures", depTime);
-        model.addAttribute("arrivals", estArrTime);
-        model.addAttribute("delays", delayTime);
-        model.addAttribute("journeyTime", journeyTime);
-        model.addAttribute("totalTime", totalTime);
+        model.addAttribute("boardDto", new BoardDto());
+        model.addAttribute("dtos", dtos);
         model.addAttribute("stations", stationService.getAllStations());
+        model.addAttribute("trains", trainService.getAllTrains());
+
         return "boards";
     }
 
@@ -126,9 +126,9 @@ public class BoardController {
 
         Board b = boardService.findBoardById(id);
         List<Ticket> tickets = ticketService.findTicketsByBoardId(id);
-        Station from = stationService.getStationById(b.getFrom_id());
-        Station to = stationService.getStationById(b.getTo_id());
-        Train tr = trainService.getTrainById(b.getTrain_id());
+        Station fromStation = stationService.getStationById(b.getFrom_id());
+        Station toStation = stationService.getStationById(b.getTo_id());
+        Train train = trainService.getTrainById(b.getTrain_id());
 
         List<PassengerDto> passengers = new ArrayList<>();
         for (Ticket t : tickets) {
@@ -137,51 +137,70 @@ public class BoardController {
 
         logger.info("Total number of passengers for board " + b.getName() + " is " + passengers.size());
 
-        model.addAttribute("board", b);
-        model.addAttribute("onBoard", passengers);
-        model.addAttribute("from", from.getName());
-        model.addAttribute("to", to.getName());
-        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
-        model.addAttribute("distance", distance);
-        String journeyTime = DistanceAndTimeUtil.getJourneyTime(distance, tr);
-        model.addAttribute("time", journeyTime);
-        model.addAttribute("speed", (tr.getSpeed_percents() * 45 / 100));
+        BoardDto boardDto = new BoardDto();
+        boardDto.setName(b.getName());
+        boardDto.setFrom(fromStation.getName());
+        boardDto.setTo(toStation.getName());
+        boardDto.setDeparture(DistanceAndTimeUtil.getStringDate(b.getDeparture()));
+        int distance = (int) DistanceAndTimeUtil.getDistance(fromStation, toStation);
+        boardDto.setDistance(distance);
+        boardDto.setJourneyTime(DistanceAndTimeUtil.getJourneyTime(distance, train));
+        boardDto.setAverageSpeed(train.getSpeed_percents() * 45 / 100);
+
+        model.addAttribute("passengers", passengers);
+        model.addAttribute("boardDetailed", boardDto);
+
         return "boarddata";
     }
 
     @Transactional
     @RequestMapping(value = "boards/add", method = RequestMethod.POST)
-    public String addBoard(@ModelAttribute("boardDto") BoardDto boardDto) {
+    public String addBoard(@ModelAttribute("boardDto") BoardDto boardDto, HttpSession session) {
+
+        User user = (User) session.getAttribute("sessionUser");
+        if (user == null || !user.getRole().equals("admin")) {
+            return "notpass";
+        }
+
         if (boardDto.getFrom_id() == boardDto.getTo_id()) {
             return "redirect:/tofromexception";
         }
+
         Board board = BoardDto.getBoardFromDto(boardDto);
         boardService.addBoard(board);
+
         return "redirect:/boards";
     }
 
-    @RequestMapping(value = "/delay/add{board_id}")
+    @RequestMapping(value = "/delay/add/{board_id}")
     public String addDelay(@PathVariable("board_id") int id, Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
         if (user == null || !user.getRole().equals("admin")) {
             return "notpass";
         }
+
         Board board = boardService.findBoardById(id);
-        model.addAttribute("from", stationService.getStationById(board.getFrom_id()));
-        model.addAttribute("to", stationService.getStationById(board.getTo_id()));
-        model.addAttribute("board", board);
+        String from = stationService.getStationById(board.getFrom_id()).getName();
+        String to = stationService.getStationById(board.getTo_id()).getName();
+
         model.addAttribute("delay", new DelayDto());
+        model.addAttribute("fromName", from);
+        model.addAttribute("toName", to);
+        model.addAttribute("board", board);
+
         return "delays";
     }
 
-    @RequestMapping(value = "/delay/add{board_id}", method = RequestMethod.POST)
-    public String registerDelay(@PathVariable("board_id") int id, @ModelAttribute("delay") DelayDto delayDto, Model model, HttpSession session) {
+    @Transactional
+    @RequestMapping(value = "/delay/add/{board_id}", method = RequestMethod.POST)
+    public String registerDelay(@PathVariable("board_id") int id, @ModelAttribute("delay") DelayDto delayDto, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
         if (user == null || !user.getRole().equals("admin")) {
             return "notpass";
         }
+
         Delay delay = DelayDto.getDelayFromDto(delayDto);
         delayService.addDelay(delay);
         return "redirect:/boards";

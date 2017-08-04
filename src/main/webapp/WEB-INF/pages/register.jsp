@@ -6,8 +6,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
-    <meta firstName="description" content="Middle-earth Railroads">
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">

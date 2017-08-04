@@ -25,41 +25,56 @@ public class MainController {
         this.userService = userService;
     }
 
+    @RequestMapping(value = "/")
+    public String openLocal() {
+        return "redirect:/index";
+    }
+
     @RequestMapping(value = "/index")
     public String openIndex(HttpSession session) {
+
         User user = (User) session.getAttribute("sessionUser");
+
         if (user == null) {
             user = new User();
             user.setRole("anon");
             session.setAttribute("sessionUser", user);
             logger.info("Creating new anonymous user");
         }
+
         return "index";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
+
         model.addAttribute("loginUser", new User());
+
         return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String getIn(@ModelAttribute("loginUser") User user, HttpSession session) {
+
         if (userService.getUserByLogin(user.getLogin()) == null) {
             session.setAttribute("noUser", user.getLogin());
             return "redirect:/nouserexception";
         }
+
         if (!userService.checkUser(user.getLogin(), user.getPassword())) {
             return "redirect:/passwordexception";
         }
 
         session.setAttribute("sessionUser", userService.getUserByLogin(user.getLogin()));
+
         return "redirect:/index";
     }
 
     @RequestMapping(value = "/register")
     public String register(Model model) {
+
         model.addAttribute("newUser", new User());
+
         return "register";
     }
 
@@ -70,6 +85,7 @@ public class MainController {
             session.setAttribute("existingUser", user.getLogin());
             return "redirect:/logintaken";
         }
+
         user.setRole("user");
         userService.addUser(user);
 
@@ -78,9 +94,11 @@ public class MainController {
 
     @RequestMapping(value = "/logout")
     public String logout(SessionStatus sessionStatus, HttpSession session) {
+
         session.removeAttribute("sessionUser");
         sessionStatus.setComplete();
         logger.info("Session user removed, session closed on logout");
+
         return "redirect:/index";
     }
 }

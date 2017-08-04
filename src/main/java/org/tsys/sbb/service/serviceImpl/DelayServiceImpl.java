@@ -7,6 +7,8 @@ import org.tsys.sbb.dao.DelayDao;
 import org.tsys.sbb.model.Delay;
 import org.tsys.sbb.service.DelayService;
 
+import java.util.List;
+
 
 @Service
 public class DelayServiceImpl implements DelayService {
@@ -19,7 +21,7 @@ public class DelayServiceImpl implements DelayService {
     }
 
     @Transactional
-    public Delay getDelayByBoardId(int board_id) {
+    public List<Delay> getDelayByBoardId(int board_id) {
         return delayDao.getDelayByBoardId(board_id);
     }
 

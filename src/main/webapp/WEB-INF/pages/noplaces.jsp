@@ -16,7 +16,7 @@
 
 <body>
 <br>
-<p style="font-size: 45px" align="center">There are no tickets for board '${noplacesBoard}' left!</p>
+<p style="font-size: 45px" align="center">There are no tickets for board '${noPlacesBoard}' left!</p>
 <br>
 
 <div class="container" align="center">

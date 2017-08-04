@@ -24,7 +24,7 @@
 
     </style>
     <title>Users Page</title>
-    <link href="<c:url value="/resources/css/error-style.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/admin-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 
@@ -47,14 +47,11 @@
         <c:if test="${!empty allUsers}">
             <table class="sortable">
                 <tr>
-                    <th width="40">ID</th>
                     <th width="100">Login</th>
                     <th width="100">Status</th>
                 </tr>
                 <c:forEach items="${allUsers}" var="user">
                     <tr>
-                        <td><a href="/userdata/${user.user_id}">${user.user_id}</td>
-
                         <td><a href="/userdata/${user.user_id}">${user.login}</a></td>
 
                         <td>${user.role}</td>

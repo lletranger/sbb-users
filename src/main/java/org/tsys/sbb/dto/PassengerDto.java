@@ -8,6 +8,9 @@ public class PassengerDto {
     private String surname;
     private String birth_date;
 
+    public PassengerDto() {
+    }
+
     public String getName() {
         return name;
     }

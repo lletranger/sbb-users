@@ -10,6 +10,9 @@ public class TicketDto {
     private String passSurname;
     private String passBirthDate;
 
+    public TicketDto() {
+    }
+
     public int getId() {
         return id;
     }
@@ -71,17 +74,6 @@ public class TicketDto {
     }
 
     public void setPassBirthDate(String passBirthDate) {
-        this.passBirthDate = passBirthDate;
-    }
-
-    public TicketDto(int id, String boardName, String from, String to, String departure, String passName, String passSurname, String passBirthDate) {
-        this.id = id;
-        this.boardName = boardName;
-        this.from = from;
-        this.to = to;
-        this.departure = departure;
-        this.passName = passName;
-        this.passSurname = passSurname;
         this.passBirthDate = passBirthDate;
     }
 }

@@ -17,7 +17,7 @@
             cursor: default;
         }
 
-        table.sortable td{
+        table.sortable td {
             text-align: center;
             color: #ffffff;
         }
@@ -55,7 +55,6 @@
                     <th width="100">Name</th>
                     <th width="100">Surname</th>
                     <th width="150">Birth Date</th>
-
                 </tr>
                 <c:forEach items="${ticketsDto}" var="dto">
                     <tr>
@@ -67,7 +66,8 @@
                         <td>${dto.passName}</td>
                         <td>${dto.passSurname}</td>
                         <td>${dto.passBirthDate}</td>
-                        <td><button onclick="location.href = '/annulticket/${dto.id}'">Cancel</button>
+                        <td>
+                            <button onclick="location.href = '/annulticket/${dto.id}'">Cancel ticket</button>
                         </td>
                     </tr>
                 </c:forEach>

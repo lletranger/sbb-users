@@ -26,7 +26,7 @@
     </style>
 
     <title>Stations Page</title>
-    <link href="<c:url value="/resources/css/admin-style.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/error-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 
@@ -71,34 +71,34 @@
             <tr>
                 <td>
                     <form:label path="name">
-                        <spring:message text="Station name"/>
+                        <spring:message text="Name: "/>
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="name" maxlength="45" required="required" placeholder="Name"/>
+                    <form:input path="name" maxlength="45" required="required" placeholder="Station name"/>
                 </td>
             </tr>
             <tr>
                 <td>
                     <form:label path="x">
-                        <spring:message text="X coordinate"/>
+                        <spring:message text="X coord.: "/>
                     </form:label>
                 </td>
                 <td>
-                        <form:input path="x" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 in km."/>
+                        <form:input path="x" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 in km"/>
             </tr>
             <tr>
                 <td>
                     <form:label path="y">
-                        <spring:message text="Y coordinate"/>
+                        <spring:message text="Y coord.: "/>
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="y" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 in km."/>
+                    <form:input path="y" pattern="^-?[0-9]{1,3}" required="required" placeholder="-999 to 999 in km"/>
                 </td>
             </tr>
         </table>
-        <input type="submit" value="<spring:message text="Add a station"/>"/>
+        <input type="submit" value="<spring:message text="Add station"/>"/>
     </form:form>
     </div>
 </div>

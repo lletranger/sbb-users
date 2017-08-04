@@ -7,7 +7,7 @@
     <title>Access Issues</title>
     <link href="<c:url value="/resources/css/social-buttons-3.css"/>"  rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap.css"/>"  rel="stylesheet">
-    <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/error-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 
@@ -22,6 +22,7 @@
     <div class="row">
         <br><p style="font-size: 35px" align="center">But admin will</p><br>
         <div class="form-group col-lg-4 col-lg-offset-4" align="center">
+            <p align="center"><a href="${pageContext.request.contextPath}/login">Login</a></p>
             <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
         </div>
     </div>

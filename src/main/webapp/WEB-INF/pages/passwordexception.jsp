@@ -24,7 +24,7 @@
 
     <div class="row">
         <br>
-        <p style="font-size: 35px" align="center">Try to remember the real one</p>
+        <p style="font-size: 35px" align="center">Try to remember the correct one</p>
         <div class="form-group col-lg-4 col-lg-offset-4" align="center">
             <p align="center"><a href="${pageContext.request.contextPath}/login">Login</a></p>
             <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>

@@ -1,5 +1,6 @@
 package org.tsys.sbb.controller;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.UserService;
@@ -19,41 +20,26 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @RequestMapping(value = "users", method = RequestMethod.GET)
     public String getAllUsers(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
-        if (!user.getRole().equals("admin")) {
+        if (user == null || !user.getRole().equals("admin")) {
             return "notpass";
         }
 
         model.addAttribute("user", new User());
         model.addAttribute("allUsers", userService.getAllUsers());
+
         return "users";
     }
 
-    @RequestMapping(value = "users/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user) {
-
-        if (userService.getUserByLogin(user.getLogin()) != null) {
-            return "redirect:/logintaken";
-        }
-
-        if (user.getUser_id() == 0) {
-            userService.addUser(user);
-        } else {
-            userService.editUser(user);
-        }
-
-        return "redirect:/users";
-    }
-
+    @Transactional
     @RequestMapping("remove/{id}")
     public String deleteUser(@PathVariable("id") int id, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (!sessionUser.getRole().equals("admin")) {
+        if (sessionUser == null || !sessionUser.getRole().equals("admin")) {
             return "notpass";
         }
 
@@ -62,11 +48,12 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @Transactional
     @RequestMapping("setadmin/{id}")
     public String setAdmin(@PathVariable("id") int id, Model model, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (!sessionUser.getRole().equals("admin")) {
+        if (sessionUser == null || !sessionUser.getRole().equals("admin")) {
             return "notpass";
         }
 
@@ -74,9 +61,11 @@ public class UserController {
         user.setRole("admin");
         userService.editUser(user);
         model.addAttribute("allUsers", userService.getAllUsers());
+
         return "users";
     }
 
+    @Transactional
     @RequestMapping("setuser/{id}")
     public String setUser(@PathVariable("id") int id, Model model, HttpSession session) {
 
@@ -89,6 +78,7 @@ public class UserController {
         user.setRole("user");
         userService.editUser(user);
         model.addAttribute("allUsers", userService.getAllUsers());
+
         return "users";
     }
 
@@ -99,8 +89,9 @@ public class UserController {
         if (!user.getRole().equals("admin")) {
             return "notpass";
         }
+
         model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("status", userService.getUserById(id).getRole());
+
         return "userdata";
     }
 }

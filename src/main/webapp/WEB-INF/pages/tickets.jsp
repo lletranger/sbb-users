@@ -17,7 +17,7 @@
             cursor: default;
         }
 
-        table.sortable td{
+        table.sortable td {
             text-align: center;
             color: #ffffff;
         }
@@ -31,11 +31,11 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({
-                dateFormat : 'mm/dd/yy',
-                changeMonth : true,
-                changeYear : true,
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: 'dd/mm/yy',
+                changeMonth: true,
+                changeYear: true,
                 yearRange: '-100y:c+nn',
                 maxDate: '-1d'
             });
@@ -57,8 +57,8 @@
 
 <div align="center" class="container">
     <h1 align="center">Buy Ticket</h1>
-    <c:url var="addTicket" value="/ticket/add${board.board_id}"/>
-    <form:form action="${addTicket}" commandName="passenger" method="post">
+    <c:url var="addTicket" value="/ticket/add/${boardId}"/>
+    <form:form action="${addTicket}" commandName="passengerDto" method="post">
         <table>
             <tr>
                 <td>
@@ -86,7 +86,8 @@
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="birth_date" id="datepicker" required="required" placeholder="Birth date" readonly="true"/>
+                    <form:input path="birth_date" id="datepicker" required="required" placeholder="Birth date"
+                                readonly="true"/>
                 </td>
             </tr>
         </table>

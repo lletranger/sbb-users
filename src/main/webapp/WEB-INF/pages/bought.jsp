@@ -16,12 +16,14 @@
 <body>
 <br>
 <p style="font-size: 45px" align="center">You have bought ticket number ${ticket.ticket_id}<br>
-    To board '${board.name}' going from
+    to board '${board.name}', going from
 ${from} to ${to},<br>departing at ${board.departure}<br>for passenger ${passenger.name} ${passenger.surname} born ${passenger.birth_date}</p>
 <br>
 <div class="container" align="center">
     <div class="row">
         <div class="form-group col-lg-4 col-lg-offset-4" align="center">
+            <%--<p align="center"><a href="${pageContext.request.contextPath}/ticket/add/${boardId}">Search</a></p>--%>
+            <p align="center"><a href="${pageContext.request.contextPath}/search">Search</a></p>
             <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
         </div>
     </div>

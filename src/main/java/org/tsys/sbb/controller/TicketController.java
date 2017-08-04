@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.tsys.sbb.dto.DelayDto;
 import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.dto.TicketDto;
-import org.tsys.sbb.model.Board;
-import org.tsys.sbb.model.Passenger;
-import org.tsys.sbb.model.Ticket;
-import org.tsys.sbb.model.User;
+import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
@@ -72,7 +69,7 @@ public class TicketController {
         this.trainService = trainService;
     }
 
-    @RequestMapping(value = "/ticket/add{board_id}")
+    @RequestMapping(value = "/ticket/add/{board_id}")
     public String addTicket(@PathVariable("board_id") int id, Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
@@ -80,21 +77,17 @@ public class TicketController {
             return "redirect:/login";
         }
 
-        logger.info("Opening form for adding passenger");
-
         Board board = boardService.findBoardById(id);
-        model.addAttribute("passenger", new PassengerDto());
-        model.addAttribute("from", stationService.getStationById(board.getFrom_id()));
-        model.addAttribute("to", stationService.getStationById(board.getTo_id()));
-        model.addAttribute("board", board);
-        model.addAttribute("delay", new DelayDto());
-        model.addAttribute("passenger", new PassengerDto());
+
+        model.addAttribute("boardId", board.getBoard_id());
+        model.addAttribute("passengerDto", new PassengerDto());
+
         return "tickets";
     }
 
     @Transactional
-    @RequestMapping(value = "/ticket/add{board_id}", method = RequestMethod.POST)
-    public String registerTicket(@PathVariable("board_id") int id, @ModelAttribute("passenger") PassengerDto passengerDto, Model model, HttpSession session) {
+    @RequestMapping(value = "/ticket/add/{board_id}", method = RequestMethod.POST)
+    public String registerTicket(@PathVariable("board_id") int id, @ModelAttribute("passengerDto") PassengerDto passengerDto, Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
         if (user == null || user.getRole().equals("anon")) {
@@ -102,54 +95,62 @@ public class TicketController {
         }
 
         Board board = boardService.findBoardById(id);
-        List<Ticket> list = ticketService.findTicketsByBoardId(id);
-        logger.info("found board" + board);
-        if(list.size() >= trainService.getTrainById(board.getTrain_id()).getSeats()){
-            session.setAttribute("noplacesBoard", board.getName());
+        List<Ticket> tickets = ticketService.findTicketsByBoardId(id);
+
+        if(tickets.size() >= trainService.getTrainById(board.getTrain_id()).getSeats()){
+            session.setAttribute("noPlacesBoard", board.getName());
+
             return "redirect:/noplaces";
         }
 
-        for(Ticket t : list){
-            Passenger passenger = passengerService.getPassById(t.getPassenger_id());
-            if(passengerDto.getName().equals(passenger.getName()) & passengerDto.getSurname().equals(passenger.getSurname()) &
-                    passengerDto.getBirth_date().equals(DistanceAndTimeUtil.getStringBirthDate2(passenger.getBirth_date()))){
-                session.setAttribute("pass2", passengerDto);
-                session.setAttribute("boardname", board.getName());
-                session.setAttribute("dep", board.getDeparture());
-                session.setAttribute("from", stationService.getStationById(board.getFrom_id()).getName());
-                session.setAttribute("to",  stationService.getStationById(board.getTo_id()).getName());
+        String dtoName = passengerDto.getName();
+        String dtoSurname = passengerDto.getSurname();
+        String dtoBirthdate = passengerDto.getBirth_date();
+
+        for(Ticket ticket : tickets) {
+
+            Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
+
+            if(passenger.getName().equalsIgnoreCase(dtoName)
+                    & passenger.getSurname().equalsIgnoreCase(dtoSurname)
+                    & DistanceAndTimeUtil.getStringBirthDate2(passenger.getBirth_date()).equalsIgnoreCase(dtoBirthdate)) {
+
+                session.setAttribute("dupePassenger", PassengerDto.getDtoFromPassenger(passenger));
+                session.setAttribute("dupeBoard", board);
+                session.setAttribute("dupeFrom", stationService.getStationById(board.getFrom_id()).getName());
+                session.setAttribute("dupeTo",  stationService.getStationById(board.getTo_id()).getName());
+
                 return "redirect:/passalready";
             }
         }
 
-
-        String name = passengerDto.getName();
-        String surname = passengerDto.getSurname();
         Passenger passenger = PassengerDto.getPassengerFromDto(passengerDto);
         passengerService.addPassenger(passenger);
-        logger.info("passenger bd is"+ passenger.getBirth_date());
-        int passid = -1;
+        int passengerId = -1;
+        List<Passenger> passengers = passengerService.getPassByEverything(dtoName, dtoSurname);
 
-        List<Passenger> passengers = passengerService.getPassByEverything(name, surname);
-        logger.info("found passengers for ticket " + passengers.size());
-        for(Passenger p : passengers) {
-            if (DistanceAndTimeUtil.passengerBirthDates(p.getBirth_date(), passengerDto.getBirth_date()) && p.getPass_id() > passid) {
-                passid = p.getPass_id();
+        for(Passenger passenger1 : passengers) {
+            if (DistanceAndTimeUtil.passengerBirthDates(passenger1.getBirth_date(), passengerDto.getBirth_date())
+                    && passenger1.getPass_id() > passengerId) {
+                passengerId = passenger1.getPass_id();
             }
         }
-        logger.info("found passid " + passid);
 
         Ticket ticket = new Ticket();
         ticket.setBoard_id(id);
-        ticket.setPassenger_id(passid);
-        int uid = userService.getUserByLogin(((User)session.getAttribute("sessionUser")).getLogin()).getUser_id();
+        ticket.setPassenger_id(passengerId);
+        int uid = userService.getUserByLogin(((User)session.getAttribute("sessionUser"))
+                .getLogin()).getUser_id();
         ticket.setUser_id(uid);
+
         ticketService.addTicket(ticket);
+
         session.setAttribute("ticket", ticket);
         session.setAttribute("board", board);
         session.setAttribute("passenger", passenger);
         session.setAttribute("from", stationService.getStationById(board.getFrom_id()).getName());
         session.setAttribute("to",  stationService.getStationById(board.getTo_id()).getName());
+
         return "bought";
     }
 
@@ -162,17 +163,28 @@ public class TicketController {
         }
 
         List<Ticket> tickets = ticketService.findTicketsByUserId(user.getUser_id());
-
         List<TicketDto> list = new ArrayList<>();
-        for(Ticket t : tickets){
-            Board b = boardService.findBoardById(t.getBoard_id());
-            Passenger p = passengerService.getPassById(t.getPassenger_id());
-            TicketDto dto = new TicketDto(t.getTicket_id(), b.getName(),
-                    stationService.getStationById(b.getFrom_id()).getName(), stationService.getStationById(b.getTo_id()).getName(),
-                    b.getDeparture().toString(), p.getName(), p.getSurname(), p.getBirth_date().toString());
+
+        for(Ticket ticket : tickets) {
+            Board board = boardService.findBoardById(ticket.getBoard_id());
+            Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
+            Station fromStation = stationService.getStationById(board.getFrom_id());
+            Station toStation = stationService.getStationById(board.getTo_id());
+
+            TicketDto dto = new TicketDto();
+            dto.setId(ticket.getTicket_id());
+            dto.setBoardName(board.getName());
+            dto.setFrom(fromStation.getName());
+            dto.setTo(toStation.getName());
+            dto.setDeparture(board.getDeparture().toString());
+            dto.setPassName(passenger.getName());
+            dto.setPassSurname(passenger.getSurname());
+            dto.setPassBirthDate(DistanceAndTimeUtil.getStringBirthDate(passenger.getBirth_date()));
             list.add(dto);
         }
+
         model.addAttribute("ticketsDto", list);
+
         return "mytickets";
     }
 
@@ -189,6 +201,7 @@ public class TicketController {
         Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
         ticketService.deleteTicket(ticket.getTicket_id());
         passengerService.deletePassenger(passenger.getPass_id());
+
         return "redirect:/mytickets";
     }
 

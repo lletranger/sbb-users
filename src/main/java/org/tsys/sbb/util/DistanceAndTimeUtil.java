@@ -2,12 +2,14 @@ package org.tsys.sbb.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tsys.sbb.model.Delay;
 import org.tsys.sbb.model.Station;
 import org.tsys.sbb.model.Train;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class DistanceAndTimeUtil {
@@ -98,7 +100,7 @@ public class DistanceAndTimeUtil {
         } catch (ParseException e){
             logger.info("Unable to parse new passenger birth date");
         }
-        logger.info("PArsed new passenger brirth date to" + date);
+        logger.info("PArsed new passenger birth date to" + date);
         return date;
     }
 
@@ -113,11 +115,29 @@ public class DistanceAndTimeUtil {
         return getDtoTime(departure) - getDtoTime(nows) <= 10 * 60 * 1000;
     }
 
-    public static boolean passengerBirthDates(Date date, String string){
+    public static boolean isAlreadyArrived(Date arrival) {
+        Date now = new Date();
+        long a = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(now));
+        return a < 0;
+    }
+
+    public static boolean passengerBirthDates(Date date, String string) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.ENGLISH);
         String sdate = sdf.format(date);
         logger.info("pass date " + sdate);
         logger.info("dto date" + string);
         return sdate.equals(string);
+    }
+
+    public static Delay getResultingDelay(List<Delay> delays) {
+        long longDelay = 0;
+        for (Delay delay : delays) {
+            String stringDelay = getStringDate(delay.getDelay_time());
+            longDelay += getDtoTime(stringDelay);
+        }
+        Delay result = new Delay();
+        //GMT+3 => -3
+        result.setDelay_time(new Date(longDelay - 3 * 60 * 60 * 1000));
+        return result;
     }
 }

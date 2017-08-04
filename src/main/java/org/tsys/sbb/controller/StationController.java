@@ -2,6 +2,7 @@ package org.tsys.sbb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,30 +26,39 @@ public class StationController {
 
     @RequestMapping(value = "stations", method = RequestMethod.GET)
     public String getAllStations(Model model, HttpSession session) {
+
         User user = (User) session.getAttribute("sessionUser");
         if (!user.getRole().equals("admin")) {
             return "notpass";
         }
+
         model.addAttribute("station", new Station());
         model.addAttribute("allStations", stationService.getAllStations());
+
         return "stations";
     }
 
+    @Transactional
     @RequestMapping(value = "stations/add", method = RequestMethod.POST)
-    public String addStation(@ModelAttribute("station") Station station, HttpSession session) throws Exception {
+    public String addStation(@ModelAttribute("station") Station station, HttpSession session) {
+
         User user = (User) session.getAttribute("sessionUser");
         if (!user.getRole().equals("admin")) {
             return "notpass";
         }
+
         List<Station> list = stationService.getAllStations();
 
-        for (Station s : list) {
-            if (station.getName().toLowerCase().equals(s.getName().toLowerCase())) {
-                session.setAttribute("existingStation", s.getName());
+        for (Station stn : list) {
+            if (station.getName().toLowerCase().equals(stn.getName().toLowerCase())) {
+                session.setAttribute("existingStation", stn.getName());
+
                 return "redirect:/snexception";
             }
         }
+
         stationService.addStation(station);
+
         return "redirect:/stations";
     }
 }

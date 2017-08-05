@@ -72,12 +72,13 @@ public class SearchController {
         for (Board board : searchResult) {
 
             BoardDto dto = new BoardDto();
+            dto.setId(board.getBoard_id());
             dto.setName(board.getName());
 
             List<Ticket> tickets = ticketService.findTicketsByBoardId(board.getBoard_id());
             Train train = trainService.getTrainById(board.getTrain_id());
             String departure = DistanceAndTimeUtil.getStringDate(board.getDeparture());
-            //??? is it?))
+
             dto.setTicketsAvailable((tickets.size() < train.getSeats()) & (!DistanceAndTimeUtil.isTenMinsGap(departure)));
             dto.setDeparture(departure);
             dto.setAverageSpeed(train.getSpeed_percents() * 45 / 100);
@@ -99,6 +100,7 @@ public class SearchController {
             if (!delays.isEmpty()) {
                 Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
                 String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
+                dto.setDelay(delay);
                 expectedArrival = new Date(board.getDeparture().getTime()
                         + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
                         + DistanceAndTimeUtil.getTime(delay));

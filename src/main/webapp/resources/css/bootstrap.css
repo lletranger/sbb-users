@@ -114,7 +114,7 @@ input,
 optgroup,
 select,
 textarea {
-  margin: 0;
+  margin: 10;
   font: inherit;
   color: inherit;
 }
@@ -1087,7 +1087,7 @@ html {
 }
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 22px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
@@ -2989,7 +2989,7 @@ select[multiple].form-group-lg .form-control {
 .btn {
   display: inline-block;
   padding: 6px 12px;
-  margin-bottom: 0;
+  /*margin-bottom: 0;*/
   font-size: 14px;
   font-weight: normal;
   line-height: 1.42857143;
@@ -3267,8 +3267,8 @@ fieldset[disabled] .btn-warning.active {
 }
 .btn-danger {
   color: #ffffff;
-  background-color: #49a827;
-  border-color: #85ff63;
+  background-color: #ca3435;
+  border-color: #ca3435;
 }
 .btn-danger:hover,
 .btn-danger:focus,
@@ -3277,8 +3277,8 @@ fieldset[disabled] .btn-warning.active {
 .btn-danger.active,
 .open > .dropdown-toggle.btn-danger {
   color: #fff;
-  background-color: #49a827;
-  border-color: #0eff7a;
+  background-color: #ff0800;
+  border-color: #ff0800;
 }
 .btn-danger:active,
 .btn-danger.active,

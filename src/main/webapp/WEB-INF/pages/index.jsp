@@ -41,17 +41,20 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
 
             <div class="collapse navbar-collapse navbar-main-collapse">
-
                 <div class="col-md-2 right col-md-offset-2">
                     <c:choose>
                         <c:when test="${sessionUser.role ne 'anon'}">
-                            <p class="mail" style="font: bold">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
+                            <p class="mail">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
 
                             <div id="menu">
                                 <div id="arrow"></div>
                                 <div id="logout">
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
+                                    <c:if test="${sessionUser.role eq 'user'}">
+                                        <a  style="color:#49A827" href="#contact">Contact</a><br>
+                                    </c:if>
                                     <c:if test="${sessionUser.role eq 'admin'}">
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
@@ -73,7 +76,6 @@
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
 </nav>
@@ -321,7 +323,7 @@
 </section>
 <!-- /Section: contact -->
 
-<footer>
+<footer id="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-lg-12">

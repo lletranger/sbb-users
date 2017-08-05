@@ -1,49 +1,111 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
+<%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <script src="/resources/js/sorttable.js"></script>
+    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
+    <meta firstName="description" content="Middle-earth Railroads">
+    <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
+
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <title>My tickets</title>
+    <style>
+        body {
+            background: linear-gradient(90deg, #ffffff 10%, #ffffff 90%);
+            color: #49a827;
+            font-family: 'Helvetica', sans-serif;
+        }
+    </style>
 
     <style>
         table.sortable thead {
             background-color: rgba(255, 227, 1, 0);
-            color: #545454;
+            color: #49a827;
             font-size: 20px;
             font-weight: bold;
             cursor: default;
         }
 
-        table.sortable td {
+        table.sortable th{
             text-align: center;
-            color: #ffffff;
+        }
+
+        table.sortable td{
+            text-align: center;
+            color: #545454;
         }
 
     </style>
-    <title>Users Page</title>
-    <link href="<c:url value="/resources/css/admin-style.css"/>" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
+<body id="page-top" data-spy="scroll" data-target=".navbar">
 
-<body>
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="row" align="center">
+            <div class="col-md-4">
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="index.jsp">
+                    </a>
+                    <div><span id="txt"></span></div>
+                    <h2></h2>
+                </div>
+            </div>
 
-<br>
-<div class="container" align="center">
-    <div class="row">
-        <div class="form-group col-lg-4 col-lg-offset-4" align="center">
-            <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+
+            <div class="collapse navbar-collapse navbar-main-collapse">
+                <div class="col-md-2 right col-md-offset-2">
+                    <c:choose>
+                        <c:when test="${sessionUser.role ne 'anon'}">
+                            <p class="mail">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
+
+                            <div id="menu">
+                                <div id="arrow"></div>
+                                <div id="logout">
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
+                                    <c:if test="${sessionUser.role eq 'admin'}">
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${pageContext.request.contextPath}/login">
+                                <button class="btn btn-success log-btn">Log in</button>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+
+                <div class="col-md-4 center-block">
+                    <ul class="list nav navbar-nav" style="align-items: center">
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</nav>
 
-<div class="container" style="width:100%;">
+<section class="content">
+    <div class="container" align="center">
+        <h2 align="center">My Tickets List</h2>
 
-    <div align="center" class="container">
-
-        <h1 align="center" style="color: #ffffff">My Tickets List</h1>
         <c:if test="${!empty ticketsDto}">
             <table class="sortable">
                 <tr>
@@ -55,6 +117,7 @@
                     <th width="100">Name</th>
                     <th width="100">Surname</th>
                     <th width="150">Birth Date</th>
+                    <th></th>
                 </tr>
                 <c:forEach items="${ticketsDto}" var="dto">
                     <tr>
@@ -67,13 +130,26 @@
                         <td>${dto.passSurname}</td>
                         <td>${dto.passBirthDate}</td>
                         <td>
-                            <button onclick="location.href = '/annulticket/${dto.id}'">Cancel ticket</button>
+                            <div class="row">
+                                <div class="form-group col-lg-4 col-lg-offset-4">
+                            <button class="btn btn-danger" onclick="location.href = '/annulticket/${dto.id}'">
+                                Cancel ticket</button>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </c:forEach>
             </table>
         </c:if>
     </div>
-</div>
+</section>
+
+<script src="<c:url value="/resources/js/jquery-2.1.3.min.js"/>"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.scrollTo.js"/>"></script>
+<script src="<c:url value="/resources/js/wow.min.js"/>"></script>
+<script src="<c:url value="/resources/js/custom.js"/>"></script>
+<script src="/resources/js/sorttable.js"></script>
 </body>
 </html>

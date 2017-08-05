@@ -43,7 +43,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-main-collapse">
                 <div class="col-md-2 right col-md-offset-2">
-                    <p class="mail" style="font: bold"><i class="setting fa fa-cog"></i></p>
+                    <p class="mail"><i class="setting fa fa-cog"></i></p>
                     <div id="menu">
                         <div id="arrow"></div>
                         <div id="logout">

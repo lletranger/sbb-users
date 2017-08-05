@@ -126,7 +126,7 @@
                             <c:choose>
                                 <c:when test="${dto.ticketsAvailable}">
                                     <td class="button-container">
-                                        <button onclick="location.href = '/ticket/add/${board.board_id}'">Buy ticket</button>
+                                        <button onclick="location.href = '/ticket/add/${dto.id}'">Buy ticket</button>
                                     </td>
                                 </c:when>
                                 <c:otherwise>

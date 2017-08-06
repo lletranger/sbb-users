@@ -38,15 +38,6 @@ public class PassengerDaoImpl implements PassengerDao {
         }        return list;
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Passenger> getAllPassengers() {
-        List<Passenger> list = em.createQuery("FROM Passenger").getResultList();
-        for (Passenger p : list) {
-            logger.info("Getting all passengers: " + p);
-        }
-        return list;
-    }
-
     public void addPassenger(Passenger passenger) {
         em.persist(passenger);
         logger.info("Passenger added: " + passenger);

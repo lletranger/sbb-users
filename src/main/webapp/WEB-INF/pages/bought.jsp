@@ -1,10 +1,17 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
 <%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
-<html lang="en">
+<%
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
+
+<html>
 <head>
     <title>Your ticket</title>
     <link href="<c:url value="/resources/css/social-buttons-3.css"/>" rel="stylesheet">

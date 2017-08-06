@@ -8,8 +8,6 @@ public interface BoardDao {
 
     Board findBoardById(int id);
 
-    List<Board> findBoardsByName(String name);
-
     List<Board> findBoardsByFrom(int id);
 
     List<Board> findBoardsByTo(int id);

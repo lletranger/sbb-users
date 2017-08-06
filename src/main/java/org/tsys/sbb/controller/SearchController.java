@@ -58,6 +58,11 @@ public class SearchController {
     @RequestMapping("searchboards")
     public String searсhOpen(@RequestParam("id1") int id1, @RequestParam("id2") int id2, Model model) {
 
+        model.addAttribute("s1", id1);
+        model.addAttribute("s2", id2);
+
+        logger.info("saved s1s2: " + id1 + " " + id2);
+
         List<Board> searchResult;
         if (id2 == 0) {
             searchResult = boardService.findBoardsByFrom(id1);

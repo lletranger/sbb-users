@@ -92,6 +92,8 @@ public class BoardController {
             Date arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, t)));
             boardDto.setExpectedArrival(DistanceAndTimeUtil.getStringDate(arrival));
 
+//            boardDto.setIsArrived(DistanceAndTimeUtil.isAlreadyArrived(b.getDeparture(), arrival) ? "true" : "false");
+
             List<Delay> delays = delayService.getDelayByBoardId(b.getBoard_id());
             if (!delays.isEmpty()) {
                 Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
@@ -103,7 +105,7 @@ public class BoardController {
             }
 
             boardDto.setArrival(DistanceAndTimeUtil.getStringDate(arrival));
-            boardDto.setIsArrived(DistanceAndTimeUtil.isAlreadyArrived(arrival) ? "true" : "false");
+            boardDto.setIsArrived(DistanceAndTimeUtil.isAlreadyArrived(b.getDeparture(), arrival) ? "true" : "false");
 
             dtos.add(boardDto);
         }

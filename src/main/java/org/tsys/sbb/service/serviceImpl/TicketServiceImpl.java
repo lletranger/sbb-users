@@ -30,11 +30,6 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Transactional
-    public List<Ticket> findAllTickets() {
-        return ticketDao.findAllTickets();
-    }
-
-    @Transactional
     public void addTicket(Ticket ticket) {
         ticketDao.addTicket(ticket);
     }

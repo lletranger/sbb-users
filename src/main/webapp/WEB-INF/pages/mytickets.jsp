@@ -1,14 +1,19 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
 <%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
-<!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
-    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
-    <meta firstName="description" content="Middle-earth Railroads">
+
+    <%
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
+
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
@@ -20,28 +25,32 @@
     <title>My tickets</title>
     <style>
         body {
-            background: linear-gradient(90deg, #ffffff 10%, #ffffff 90%);
+            background: linear-gradient(90deg, rgb(255, 255, 255) 10%, #ffffff 90%);
             color: #49a827;
             font-family: 'Helvetica', sans-serif;
         }
-    </style>
 
-    <style>
         table.sortable thead {
             background-color: rgba(255, 227, 1, 0);
-            color: #49a827;
+            color: #545454;
             font-size: 20px;
             font-weight: bold;
             cursor: default;
+
         }
 
-        table.sortable th{
+        table.sortable th {
             text-align: center;
+            height: 50px;
+            padding: 10px;
+
         }
 
-        table.sortable td{
+        table.sortable td {
             text-align: center;
             color: #545454;
+            height: 50px;
+            width: 105px;
         }
 
     </style>
@@ -109,15 +118,16 @@
         <c:if test="${!empty ticketsDto}">
             <table class="sortable">
                 <tr>
-                    <th width="50">ID</th>
-                    <th width="100">Board</th>
-                    <th width="100">From</th>
-                    <th width="100">To</th>
-                    <th width="100">Departure</th>
-                    <th width="100">Name</th>
-                    <th width="100">Surname</th>
-                    <th width="150">Birth Date</th>
-                    <th></th>
+                    <th>ID</th>
+                    <th>Board</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Departure</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th class="sorttable_nosort">Birth Date</th>
+                    <th class="sorttable_nosort"></th>
+
                 </tr>
                 <c:forEach items="${ticketsDto}" var="dto">
                     <tr>
@@ -129,13 +139,9 @@
                         <td>${dto.passName}</td>
                         <td>${dto.passSurname}</td>
                         <td>${dto.passBirthDate}</td>
-                        <td>
-                            <div class="row">
-                                <div class="form-group col-lg-4 col-lg-offset-4">
-                            <button class="btn btn-danger" onclick="location.href = '/annulticket/${dto.id}'">
-                                Cancel ticket</button>
-                                </div>
-                            </div>
+                        <td><button class="btn btn-danger"
+                                    onclick="location.href = '/annulticket/${dto.id}'">
+                            Cancel ticket</button>
                         </td>
                     </tr>
                 </c:forEach>

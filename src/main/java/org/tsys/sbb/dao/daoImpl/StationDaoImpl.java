@@ -26,16 +26,6 @@ public class StationDaoImpl implements StationDao {
         return station;
     }
 
-    public Station getStationByName(String name) {
-
-        Station station = (Station) em.createQuery("FROM Station WHERE name=:name")
-                .setParameter("name", name)
-                .getSingleResult();
-
-        logger.info("Station loaded by name: " + station);
-        return station;
-    }
-
     @SuppressWarnings("unchecked")
     public List<Station> getAllStations() {
         List<Station> list = em.createQuery("FROM Station").getResultList();

@@ -28,9 +28,4 @@ public class TrainServiceImpl implements TrainService {
     public List<Train> getAllTrains() {
         return trainDao.getAllTrains();
     }
-
-    @Transactional
-    public void addTrain(Train train) {
-        trainDao.addTrain(train);
-    }
 }

@@ -48,15 +48,6 @@ public class TicketDaoImpl implements TicketDao {
         return list;
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Ticket> findAllTickets() {
-        List<Ticket> list = em.createQuery("FROM Ticket").getResultList();
-        for (Ticket t : list) {
-            logger.info("Getting all tickets: " + t);
-        }
-        return list;
-    }
-
     public void addTicket(Ticket ticket) {
         em.persist(ticket);
         logger.info("Ticket added: " + ticket);

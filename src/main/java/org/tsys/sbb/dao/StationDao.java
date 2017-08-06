@@ -8,8 +8,6 @@ public interface StationDao {
 
     Station getStationById(Integer id);
 
-    Station getStationByName(String name);
-
     List<Station> getAllStations();
 
     void addStation(Station station);

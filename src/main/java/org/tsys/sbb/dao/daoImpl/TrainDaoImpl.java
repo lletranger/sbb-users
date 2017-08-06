@@ -34,9 +34,4 @@ public class TrainDaoImpl implements TrainDao {
         }
         return list;
     }
-
-    public void addTrain(Train train) {
-        em.persist(train);
-        logger.info("Train added: " + train);
-    }
 }

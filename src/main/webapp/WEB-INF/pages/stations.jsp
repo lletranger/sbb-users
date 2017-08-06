@@ -4,11 +4,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
-<!DOCTYPE html>
-<html lang="en">
+<%
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
+
+<html>
 <head>
-    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
-    <meta firstName="description" content="Middle-earth Railroads">
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
@@ -26,19 +30,24 @@
 
         table.sortable thead {
             background-color: rgba(255, 227, 1, 0);
-            color: #49a827;
+            color: #545454;
             font-size: 20px;
             font-weight: bold;
             cursor: default;
+
         }
 
         table.sortable th {
             text-align: center;
+            height: 50px;
+
         }
 
         table.sortable td {
             text-align: center;
             color: #545454;
+            height: 40px;
+            width: 85px;
         }
 
     </style>
@@ -109,10 +118,10 @@
         <c:if test="${!empty allStations}">
             <table class="sortable">
                 <tr>
-                    <th width="50">ID</th>
-                    <th width="125">Name</th>
-                    <th width="100">X km.</th>
-                    <th width="100">Y km.</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>X km.</th>
+                    <th>Y km.</th>
                 </tr>
                 <c:forEach items="${allStations}" var="station">
                     <tr>
@@ -128,39 +137,42 @@
 
     <div class="container" style="width:49%; float:right" align="center">
         <h2 align="center">Add Station</h2>
+
         <c:url var="addAction" value="/stations/add"/>
         <form:form action="${addAction}" commandName="station">
-            <table>
+            <table class="sorttable_nosort" style="color: #545454">
                 <tr>
-                    <td>
+                    <th style='width: 100px;'>
                         <spring:message text="Name: "/>
-                    </td>
+                    </th>
                     <td>
-                        <form:input path="name" maxlength="45" required="required" placeholder="Station name"/>
+                        <form:input path="name" maxlength="45" required="required"
+                                    placeholder="Station name" style="width: 150px; font-weight: normal;"/>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <th style='width: 100px;'>
                         <spring:message text="X coord.: "/>
-                    </td>
+                    </th>
                     <td>
                         <form:input path="x" pattern="^-?[0-9]{1,3}" required="required"
-                                    placeholder="-999 to 999 in km"/>
+                                    placeholder="-999 to 999 in km" style="width: 150px"/>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-
+                    <th style='width: 100px;'>
                         <spring:message text="Y coord.: "/>
-                    </td>
+                    </th>
                     <td>
                         <form:input path="y" pattern="^-?[0-9]{1,3}" required="required"
-                                    placeholder="-999 to 999 in km"/>
+                                    placeholder="-999 to 999 in km" style="width: 150px;"/>
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td><input class="btn btn-success" type="submit" value="<spring:message text="Add station"/>"/>
+                    <th></th>
+                    <td>
+                        <input class="btn btn-success" style="width: 150px"
+                               type="submit" value="<spring:message text="Add station"/>"/>
                     </td>
                 </tr>
             </table>

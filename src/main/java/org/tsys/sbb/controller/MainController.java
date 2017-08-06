@@ -96,6 +96,7 @@ public class MainController {
     public String logout(SessionStatus sessionStatus, HttpSession session) {
 
         session.removeAttribute("sessionUser");
+        session.invalidate();
         sessionStatus.setComplete();
         logger.info("Session user removed, session closed on logout");
 

@@ -39,7 +39,7 @@ public class UserController {
     public String deleteUser(@PathVariable("id") int id, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || !sessionUser.getRole().equals("admin")) {
+        if (sessionUser == null || !sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
             return "notpass";
         }
 
@@ -53,7 +53,7 @@ public class UserController {
     public String setAdmin(@PathVariable("id") int id, Model model, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || !sessionUser.getRole().equals("admin")) {
+        if (sessionUser == null || !sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
             return "notpass";
         }
 
@@ -70,7 +70,7 @@ public class UserController {
     public String setUser(@PathVariable("id") int id, Model model, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (!sessionUser.getRole().equals("admin")) {
+        if (!sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
             return "notpass";
         }
 

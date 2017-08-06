@@ -12,8 +12,6 @@ public interface TicketDao {
 
     List<Ticket> findTicketsByUserId(int user_id);
 
-    List<Ticket> findAllTickets();
-
     void addTicket(Ticket ticket);
 
     void deleteTicket(int id);

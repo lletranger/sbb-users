@@ -1,4 +1,3 @@
-/.idea
-/lib/*
-/target/*
-target/
+.idea
+target
+out

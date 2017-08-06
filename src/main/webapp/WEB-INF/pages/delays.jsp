@@ -1,10 +1,16 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
 <%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<!DOCTYPE html>
-<html lang="en">
+<%
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
+
+<html>
 <head>
     <script src="/resources/js/sorttable.js"></script>
 
@@ -25,6 +31,8 @@
     </style>
 
     <title>Delay Page</title>
+    <link href="<c:url value="/resources/css/social-buttons-3.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/success-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>

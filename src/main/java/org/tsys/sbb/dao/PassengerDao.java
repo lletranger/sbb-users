@@ -11,8 +11,6 @@ public interface PassengerDao {
 
     List<Passenger> getPassByEverything(String name, String surname);
 
-    List<Passenger> getAllPassengers();
-
     void addPassenger(Passenger passenger);
 
     void deletePassenger(int id);

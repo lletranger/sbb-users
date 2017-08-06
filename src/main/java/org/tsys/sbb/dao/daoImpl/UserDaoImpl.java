@@ -49,11 +49,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     public void addUser(User user) {
-
         em.persist(user);
         logger.info("User added: " + user);
     }
-
 
     public void editUser(User user) {
         em.merge(user);

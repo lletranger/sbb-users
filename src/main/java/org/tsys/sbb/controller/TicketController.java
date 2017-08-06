@@ -79,8 +79,11 @@ public class TicketController {
 
         Board board = boardService.findBoardById(id);
 
-        model.addAttribute("boardId", board.getBoard_id());
+        model.addAttribute("board", board);
         model.addAttribute("passengerDto", new PassengerDto());
+        session.setAttribute("fromTicket", stationService.getStationById(board.getFrom_id()).getName());
+        session.setAttribute("toTicket", stationService.getStationById(board.getTo_id()).getName());
+
 
         return "tickets";
     }
@@ -112,8 +115,8 @@ public class TicketController {
             Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
 
             if(passenger.getName().equalsIgnoreCase(dtoName)
-                    & passenger.getSurname().equalsIgnoreCase(dtoSurname)
-                    & DistanceAndTimeUtil.getStringBirthDate2(passenger.getBirth_date()).equalsIgnoreCase(dtoBirthdate)) {
+                    && passenger.getSurname().equalsIgnoreCase(dtoSurname)
+                    && DistanceAndTimeUtil.getStringBirthDate2(passenger.getBirth_date()).equalsIgnoreCase(dtoBirthdate)) {
 
                 session.setAttribute("dupePassenger", PassengerDto.getDtoFromPassenger(passenger));
                 session.setAttribute("dupeBoard", board);
@@ -147,7 +150,7 @@ public class TicketController {
 
         session.setAttribute("ticket", ticket);
         session.setAttribute("board", board);
-        session.setAttribute("passenger", passenger);
+        session.setAttribute("passenger", passengerDto);
         session.setAttribute("from", stationService.getStationById(board.getFrom_id()).getName());
         session.setAttribute("to",  stationService.getStationById(board.getTo_id()).getName());
 

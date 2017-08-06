@@ -4,8 +4,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
-<!DOCTYPE html>
-<html lang="en">
+<%
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
+
+<html>
 <head>
     <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
     <meta firstName="description" content="Middle-earth Railroads">
@@ -26,19 +32,24 @@
 
         table.sortable thead {
             background-color: rgba(255, 227, 1, 0);
-            color: #49a827;
+            color: #545454;
             font-size: 20px;
             font-weight: bold;
             cursor: default;
+
         }
 
         table.sortable th {
             text-align: center;
+            height: 50px;
+
         }
 
         table.sortable td {
             text-align: center;
             color: #545454;
+            height: 40px;
+            width: 100px;
         }
 
     </style>
@@ -112,43 +123,41 @@
                 <tr>
                     <th width="100">Login</th>
                     <th width="100">Status</th>
+                    <th class="sorttable_nosort"></th>
+                    <th class="sorttable_nosort"></th>
                 </tr>
                 <c:forEach items="${allUsers}" var="user">
                     <tr>
                         <td><a href="/userdata/${user.user_id}">${user.login}</a></td>
                         <td>${user.role}</td>
-
                         <c:if test="${user.user_id ne sessionUser.user_id}">
                             <td>
-
                                 <c:if test="${user.role ne 'admin'}">
-                                    <button class="btn btn-success"
-                                            onclick="location.href = '/setadmin/${user.user_id}'">Make admin
+                                    <button class="btn btn-success" style="width: 120px"
+                                            onclick="location.href = '/setadmin/${user.user_id}'">
+                                        Make admin
                                     </button>
                                 </c:if>
                                 <c:if test="${user.role ne 'user'}">
-                                    <button class="btn btn-info" onclick="location.href = '/setuser/${user.user_id}' ">
+                                    <button class="btn btn-info" style="width: 120px"
+                                            onclick="location.href = '/setuser/${user.user_id}' ">
                                         Set user
                                     </button>
                                 </c:if>
                             </td>
                             <td>
-                                <div class="row">
-                                    <div class="form-group col-lg-4 col-lg-offset-4">
-                                        <button class="btn btn-danger"
-                                                onclick="location.href = '/remove/${user.user_id}'">Delete user
-                                        </button>
-                                    </div>
-                                </div>
+                                <button class="btn btn-danger" style="width: 120px"
+                                        onclick="location.href = '/remove/${user.user_id}'">Delete user
+                                </button>
                             </td>
                         </c:if>
-
                     </tr>
                 </c:forEach>
             </table>
         </c:if>
     </div>
-</section>>
+</section>
+
 <script src="<c:url value="/resources/js/jquery-2.1.3.min.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>

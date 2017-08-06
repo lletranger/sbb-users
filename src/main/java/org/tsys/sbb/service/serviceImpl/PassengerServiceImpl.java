@@ -31,11 +31,6 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Transactional
-    public List<Passenger> getAllPassengers() {
-        return passengerDao.getAllPassengers();
-    }
-
-    @Transactional
     public void addPassenger(Passenger passenger) {
         passengerDao.addPassenger(passenger);
     }

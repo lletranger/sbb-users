@@ -25,17 +25,6 @@ public class BoardDaoImpl implements BoardDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Board> findBoardsByName(String name) {
-        List<Board> list = em.createQuery("SELECT b FROM Board b WHERE name = :name")
-                .setParameter("name", name)
-                .getResultList();
-        for (Board board : list) {
-            logger.info("Getting all boars by name: " + board);
-        }
-        return list;
-    }
-
-    @SuppressWarnings("unchecked")
     public List<Board> findBoardsByFrom(int id) {
         List<Board> list = em.createQuery("SELECT b FROM Board b WHERE from_id = :id")
                 .setParameter("id", id)

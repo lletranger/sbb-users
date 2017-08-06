@@ -20,11 +20,6 @@ public class StationServiceImpl implements StationService {
     }
 
     @Transactional
-    public Station getStationByName(String name) {
-        return stationDao.getStationByName(name);
-    }
-
-    @Transactional
     public Station getStationById(Integer id) {
         return stationDao.getStationById(id);
     }

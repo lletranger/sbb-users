@@ -3,12 +3,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page session="true" %>
 
+<%
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
 
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
-    <meta firstName="description" content="Middle-earth Railroads">
     <title> | MeR</title>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
@@ -52,9 +55,6 @@
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
-                                    <c:if test="${sessionUser.role eq 'user'}">
-                                        <a  style="color:#49A827" href="#contact">Contact</a><br>
-                                    </c:if>
                                     <c:if test="${sessionUser.role eq 'admin'}">
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>

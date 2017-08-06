@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.tsys.sbb.dto.DelayDto;
 import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.dto.TicketDto;
 import org.tsys.sbb.model.*;
@@ -19,7 +18,6 @@ import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -100,7 +98,7 @@ public class TicketController {
         Board board = boardService.findBoardById(id);
         List<Ticket> tickets = ticketService.findTicketsByBoardId(id);
 
-        if(tickets.size() >= trainService.getTrainById(board.getTrain_id()).getSeats()){
+        if (tickets.size() >= trainService.getTrainById(board.getTrain_id()).getSeats()) {
             session.setAttribute("noPlacesBoard", board.getName());
 
             return "redirect:/noplaces";
@@ -110,18 +108,18 @@ public class TicketController {
         String dtoSurname = passengerDto.getSurname();
         String dtoBirthdate = passengerDto.getBirth_date();
 
-        for(Ticket ticket : tickets) {
+        for (Ticket ticket : tickets) {
 
             Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
 
-            if(passenger.getName().equalsIgnoreCase(dtoName)
+            if (passenger.getName().equalsIgnoreCase(dtoName)
                     && passenger.getSurname().equalsIgnoreCase(dtoSurname)
                     && DistanceAndTimeUtil.getStringBirthDate2(passenger.getBirth_date()).equalsIgnoreCase(dtoBirthdate)) {
 
                 session.setAttribute("dupePassenger", PassengerDto.getDtoFromPassenger(passenger));
                 session.setAttribute("dupeBoard", board);
                 session.setAttribute("dupeFrom", stationService.getStationById(board.getFrom_id()).getName());
-                session.setAttribute("dupeTo",  stationService.getStationById(board.getTo_id()).getName());
+                session.setAttribute("dupeTo", stationService.getStationById(board.getTo_id()).getName());
 
                 return "redirect:/passalready";
             }
@@ -132,7 +130,7 @@ public class TicketController {
         int passengerId = -1;
         List<Passenger> passengers = passengerService.getPassByEverything(dtoName, dtoSurname);
 
-        for(Passenger passenger1 : passengers) {
+        for (Passenger passenger1 : passengers) {
             if (DistanceAndTimeUtil.passengerBirthDates(passenger1.getBirth_date(), passengerDto.getBirth_date())
                     && passenger1.getPass_id() > passengerId) {
                 passengerId = passenger1.getPass_id();
@@ -142,7 +140,7 @@ public class TicketController {
         Ticket ticket = new Ticket();
         ticket.setBoard_id(id);
         ticket.setPassenger_id(passengerId);
-        int uid = userService.getUserByLogin(((User)session.getAttribute("sessionUser"))
+        int uid = userService.getUserByLogin(((User) session.getAttribute("sessionUser"))
                 .getLogin()).getUser_id();
         ticket.setUser_id(uid);
 
@@ -151,8 +149,9 @@ public class TicketController {
         session.setAttribute("ticket", ticket);
         session.setAttribute("board", board);
         session.setAttribute("passenger", passengerDto);
+        session.setAttribute("birth_date", DistanceAndTimeUtil.getStringBirthDate(passenger.getBirth_date()));
         session.setAttribute("from", stationService.getStationById(board.getFrom_id()).getName());
-        session.setAttribute("to",  stationService.getStationById(board.getTo_id()).getName());
+        session.setAttribute("to", stationService.getStationById(board.getTo_id()).getName());
 
         return "bought";
     }
@@ -168,7 +167,7 @@ public class TicketController {
         List<Ticket> tickets = ticketService.findTicketsByUserId(user.getUser_id());
         List<TicketDto> list = new ArrayList<>();
 
-        for(Ticket ticket : tickets) {
+        for (Ticket ticket : tickets) {
             Board board = boardService.findBoardById(ticket.getBoard_id());
             Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
             Station fromStation = stationService.getStationById(board.getFrom_id());

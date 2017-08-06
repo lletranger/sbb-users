@@ -20,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "users", method = RequestMethod.GET)
+    @RequestMapping(value = "users")
     public String getAllUsers(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
@@ -70,7 +70,7 @@ public class UserController {
     public String setUser(@PathVariable("id") int id, Model model, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (!sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
+        if (sessionUser == null || !sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
             return "notpass";
         }
 
@@ -85,8 +85,8 @@ public class UserController {
     @RequestMapping("userdata/{id}")
     public String userData(@PathVariable("id") int id, Model model, HttpSession session) {
 
-        User user = (User) session.getAttribute("sessionUser");
-        if (!user.getRole().equals("admin")) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        if (sessionUser == null || !sessionUser.getRole().equals("admin")) {
             return "notpass";
         }
 

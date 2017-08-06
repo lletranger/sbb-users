@@ -65,10 +65,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="index.jsp">
-                    </a>
-                    <div><span id="txt"></span></div>
-                    <h2></h2>
+                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/index'">Main</button>
                 </div>
             </div>
 
@@ -79,18 +76,17 @@
                     <c:choose>
                         <c:when test="${sessionUser.role ne 'anon'}">
                             <p class="mail">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
-
                             <div id="menu">
                                 <div id="arrow"></div>
                                 <div id="logout">
-                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
                                     <c:if test="${sessionUser.role eq 'admin'}">
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
-                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
                                     </c:if>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
                                 </div>
                             </div>
                         </c:when>
@@ -113,7 +109,7 @@
 
 <section class="content">
     <div class="container" align="center">
-        <h2 align="center">My Tickets List</h2>
+        <h1 align="center">My Tickets List</h1>
 
         <c:if test="${!empty ticketsDto}">
             <table class="sortable">

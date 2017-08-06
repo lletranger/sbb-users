@@ -26,6 +26,8 @@
 <div id="preloader">
     <div id="load"></div>
 </div>
+
+<!-- Navigation -->
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="row" align="center">
@@ -48,18 +50,17 @@
                     <c:choose>
                         <c:when test="${sessionUser.role ne 'anon'}">
                             <p class="mail">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
-
                             <div id="menu">
                                 <div id="arrow"></div>
                                 <div id="logout">
-                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
                                     <a  style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
                                     <c:if test="${sessionUser.role eq 'admin'}">
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
                                         <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
-                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
                                     </c:if>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
                                 </div>
                             </div>
                         </c:when>
@@ -85,8 +86,9 @@
 
     <div class="slogan">
         <h2>Middle-earth railroads</h2>
-        <h4>Go to Mordor today!</h4>
+        <h3 style="font-size: 35px">Go to Mordor today!</h3>
     </div>
+
     <div class="page-scroll">
         <a href="${pageContext.request.contextPath}/search" class="btn btn-circle">
             <p class="animated">Search</p>
@@ -107,17 +109,15 @@
                         <div class="section-heading">
                             <h3>Stations</h3>
                             <i class="fa fa-2x fa-angle-down"></i>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="container">
-
         <div class="col-md-12">
-
             <div class="carousel slide" id="myCarousel">
                 <div class="carousel-inner">
                     <div class="item active">
@@ -125,7 +125,8 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=6&id2=0"><img src="${pageContext.request.contextPath}/resources/img/shire.jpg" alt="#"></a></div>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=6&id2=0">
+                                            <img src="${pageContext.request.contextPath}/resources/img/shire.jpg" alt="#"></a></div>
                                     <div class="caption">
                                         <h3>Shire</h3>
                                         <h4>Land of vegans and vapers.</h4>
@@ -161,7 +162,8 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=5&id2=0"><img src="${pageContext.request.contextPath}/resources/img/rohan.jpg" alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=5&id2=0">
+                                            <img src="${pageContext.request.contextPath}/resources/img/rohan.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Rohan</h3>
@@ -170,13 +172,14 @@
                                 </div>
                             </li>
                         </ul>
-                    </div><!-- /Slide1 -->
+                    </div>
                     <div class="item">
                         <ul class="thumbnails">
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=1&id2=0"><img src="${pageContext.request.contextPath}/resources/img/gondor.jpg" alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=1&id2=0">
+                                            <img src="${pageContext.request.contextPath}/resources/img/gondor.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Gondor</h3>
@@ -187,9 +190,8 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=4&id2=0"><img
-                                                src="${pageContext.request.contextPath}/resources/img/rivendell.jpg"
-                                                alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=4&id2=0">
+                                            <img src="${pageContext.request.contextPath}/resources/img/rivendell.jpg" alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Rivendell</h3>
@@ -198,25 +200,27 @@
                                 </div>
                             </li>
                         </ul>
-                    </div><!-- /Slide2 -->
+                    </div>
                 </div>
 
                 <nav>
                     <ul class="control-box pager">
-                        <li><a data-slide="prev" href="#myCarousel" class=""><i class="fa fa-chevron-left"></i></a></li>
-                        <li><a data-slide="next" href="#myCarousel" class=""><i class="fa fa-chevron-right"></i></a>
+                        <li><a data-slide="prev" href="#myCarousel" style="font-size: 15px; color: #49a827"><i class="fa fa-chevron-left"></i></a></li>
+                        <li><a data-slide="next" href="#myCarousel" style="font-size: 15px; color: #49a827"><i class="fa fa-chevron-right"></i></a>
                         </li>
                     </ul>
                 </nav>
-                <!-- /.control-box -->
+
+
 
             </div><!-- /#myCarousel -->
-
-        </div><!-- /.col-xs-12 -->
-
+        </div>
     </div>
 </section>
 <!-- /Section: services -->
+
+
+
 
 <!-- Section: contact -->
 <section id="contact" class="home-section text-center">
@@ -227,7 +231,7 @@
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
                             <h2>Send us a letter</h2>
-                            <i class="fa fa-2x fa-angle-down"></i>
+                            <i class="fa fa-2x fa-angle-down" style="font-size: 65px; color: #fff106"></i>
                         </div>
                     </div>
                 </div>

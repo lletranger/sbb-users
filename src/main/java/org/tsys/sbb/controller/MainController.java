@@ -11,6 +11,7 @@ import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 @SessionAttributes(types = User.class)
@@ -54,7 +55,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String getIn(@ModelAttribute("loginUser") User user, HttpSession session) {
+    public String getIn(@Valid @ModelAttribute("loginUser") User user, HttpSession session) {
 
         if (userService.getUserByLogin(user.getLogin()) == null) {
             session.setAttribute("noUser", user.getLogin());
@@ -70,7 +71,7 @@ public class MainController {
         return "redirect:/index";
     }
 
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
 
         model.addAttribute("newUser", new User());
@@ -79,7 +80,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("newUser") User user, HttpSession session) {
+    public String register(@Valid @ModelAttribute("newUser") User user, HttpSession session) {
 
         if (userService.getUserByLogin(user.getLogin()) != null) {
             session.setAttribute("existingUser", user.getLogin());

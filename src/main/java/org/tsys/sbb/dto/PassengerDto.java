@@ -4,8 +4,11 @@ import org.tsys.sbb.model.Passenger;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 public class PassengerDto {
+
     private String name;
+
     private String surname;
+
     private String birth_date;
 
     public PassengerDto() {

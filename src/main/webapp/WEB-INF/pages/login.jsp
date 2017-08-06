@@ -68,27 +68,11 @@
                             data-target=".navbar-main-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="index.jsp"></a>
+                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/index'">Main</button>
                 </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-main-collapse">
-                <div class="col-md-2 right col-md-offset-2">
-                    <p class="mail"><i class="setting fa fa-cog"></i></p>
-                    <div id="menu">
-                        <div id="arrow"></div>
-                        <div id="logout">
-                            <a style="color:#49A827" href="${pageContext.request.contextPath}/index">Back to Main</a><br>
-                            <a style="color:#49A827" href="${pageContext.request.contextPath}/register">Register</a><br>
-                            <a style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 center-block">
-                    <ul class="list nav navbar-nav" style="align-items: center">
-                    </ul>
-                </div>
-            </div>
+
         </div>
     </div>
 </nav>

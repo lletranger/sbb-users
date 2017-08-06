@@ -24,12 +24,10 @@ public class SessionFilter implements Filter {
         response.setHeader("Expires", "0");
         HttpSession session = request.getSession(false);
 
-        //!url.contains("login.html") check if the requested page is login page or not. you can do it a numerous way.
-        // but for simpplicity here i do that
-        if(session==null && !url.contains("login.html")) {
-            response.sendRedirect(request.getContextPath() + "/login.html"); // here goto http://yourdoamin/login.html
-            response.setHeader("message", "Session Timeout."); // you can set your preffered message.
-            return; //break filter chain, requested JSP/servlet will not be executed
+        if(session == null && !url.contains("index")) {
+            response.sendRedirect(request.getContextPath() + "/index");
+            response.setHeader("message", "Session Timeout.");
+            return;
         }
 
         chain.doFilter(req, res);

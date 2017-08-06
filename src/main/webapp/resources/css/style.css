@@ -49,7 +49,7 @@ p.lead {
     width: 160px;
     margin: 16px 0 0 0 !important;
     color: #49a827;
-
+    font-weight: bold;
 }
 
 .mail .setting {
@@ -71,7 +71,8 @@ p.lead {
 #logout {
     /*height: 25px;*/
     /*width: 70px;*/
-    background-color: rgba(248,248,248,.5);
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.66);
     text-align: center;
 }
 
@@ -299,12 +300,6 @@ hr {
 	background: url(../img/back.jpg) no-repeat top center;
 }
 
-.intro2 {
-    width:100%;
-    position:relative;
-    background: url(../img/notpass.jpg) no-repeat top center;
-}
-
 #intro {
   border-bottom: 1px solid #fff;
 }
@@ -318,10 +313,6 @@ hr {
 
 }
 
-.intro .slogan2 {
-    text-align: center;
-
-}
 
 .intro .page-scroll {
 	text-align: center;
@@ -332,7 +323,7 @@ hr {
 }
 
 .intro-text {
-    font-size: 18px;
+    font-size: 23px;
 }
 
 .intro .slogan h2 {
@@ -355,29 +346,6 @@ hr {
 	color: #85ff63;
 	text-shadow: -1px 1px 1px #00d8f4;
 }
-
-
-.intro .slogan2 h2 {
-    color: #ff6601;
-    text-shadow: none;
-    font-size: 60px;
-    line-height: 60px;
-    font-weight: 700;
-    font-family: Montserrat, sans-serif;
-    background-color: rgba(0, 0, 0, 0);
-    text-decoration: none;
-    text-transform: uppercase;
-    border-width: 0px;
-    border-color: #000;
-    border-style: none;
-    text-shadow: -1px 0 1px #ff0800;
-}
-
-.intro .slogan2 h4 {
-    color: #ff6601;
-    text-shadow: -1px 1px 1px #ff0800;
-}
-
 
 
 /* ===========================

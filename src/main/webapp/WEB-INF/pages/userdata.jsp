@@ -1,7 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ page session="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
+<%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" %>
 
 <%
     response.setHeader("Cache-Control", "no-cache");
@@ -11,51 +12,110 @@
 %>
 
 <html>
-<head>
-    <script src="/resources/js/sorttable.js"></script>
 
+<head>
+    <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <title>User details</title>
     <style>
+        body {
+            background: linear-gradient(90deg, rgb(255, 255, 255) 10%, #ffffff 90%);
+            color: #49a827;
+            font-family: 'Helvetica', sans-serif;
+        }
+
         table.sortable thead {
             background-color: rgba(255, 227, 1, 0);
             color: #545454;
-            font-size: 20px;
-            font-weight: bold;
             cursor: default;
+            text-align: left;
+
+        }
+
+        table.sortable th {
+            text-align: center;
+            height: 40px;
         }
 
         table.sortable td {
             text-align: center;
-            color: #ffffff;
+            color: #545454;
+            height: 40px;
         }
 
     </style>
-    <title>User Details</title>
-    <link href="<c:url value="/resources/css/admin-style.css"/>" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 
-<body>
-<br>
-<div class="container" align="center">
-    <div class="row">
-        <div class="form-group col-lg-4 col-lg-offset-4" align="center">
-            <p align="center"><a href="${pageContext.request.contextPath}/index">Back to Main</a></p>
-            <p align="center"><a href="${pageContext.request.contextPath}/users">Users</a></p>
+<body id="page-top" data-spy="scroll" data-target=".navbar">
+
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="row" align="center">
+            <div class="col-md-4">
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/users'">Users</button>
+                </div>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+
+            <div class="collapse navbar-collapse navbar-main-collapse">
+                <div class="col-md-2 right col-md-offset-2">
+                    <c:choose>
+                        <c:when test="${sessionUser.role ne 'anon'}">
+                            <p class="mail">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
+                            <div id="menu">
+                                <div id="arrow"></div>
+                                <div id="logout">
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
+                                    <c:if test="${sessionUser.role eq 'admin'}">
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
+                                    </c:if>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${pageContext.request.contextPath}/login">
+                                <button class="btn btn-success log-btn">Log in</button>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+
+                <div class="col-md-4 center-block">
+                    <ul class="list nav navbar-nav" style="align-items: center">
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</nav>
 
-<div class="container" style="width:100%;">
+<section class="content">
+    <div class="container" align="center">
+        <h1 align="center">'${user.login}' Details</h1>
 
-    <div align="center" class="container">
-
-        <h1 align="center" style="color: #ffffff">'${user.login}' Details</h1>
         <table class="sortable">
             <tr>
-                <th width="40">ID</th>
-                <th width="120">Login</th>
-                <th width="120">Password</th>
-                <th width="120">Status</th>
+                <th class="sorttable_nosort" width="40">ID</th>
+                <th class="sorttable_nosort" width="120">Login</th>
+                <th class="sorttable_nosort" width="120">Password hash</th>
+                <th class="sorttable_nosort" width="120">Status</th>
             </tr>
             <tr>
                 <td>${user.user_id}</td>
@@ -66,5 +126,15 @@
         </table>
     </div>
 </div>
+</section>
+
+<script src="<c:url value="/resources/js/jquery-2.1.3.min.js"/>"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.scrollTo.js"/>"></script>
+<script src="<c:url value="/resources/js/wow.min.js"/>"></script>
+<script src="<c:url value="/resources/js/custom.js"/>"></script>
+<script src="/resources/js/sorttable.js"></script>
+
 </body>
 </html>

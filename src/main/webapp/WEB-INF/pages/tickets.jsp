@@ -22,7 +22,7 @@
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
-    <title>Stations page</title>
+    <title>New ticket</title>
     <style>
         body {
             background: linear-gradient(90deg, rgb(255, 255, 255) 10%, #ffffff 90%);
@@ -42,14 +42,12 @@
         table.sortable th {
             text-align: center;
             height: 50px;
-
         }
 
         table.sortable td {
             text-align: center;
             color: #545454;
             height: 40px;
-            width: 85px;
         }
 
     </style>
@@ -63,14 +61,8 @@
         <div class="row" align="center">
             <div class="col-md-4">
                 <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand" href="index.jsp">
-                    </a>
-                    <div><span id="txt"></span></div>
-                    <h2></h2>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse"><i class="fa fa-bars"></i></button>
+                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/search'">Search</button>
                 </div>
             </div>
 
@@ -81,20 +73,17 @@
                     <c:choose>
                         <c:when test="${sessionUser.role ne 'anon'}">
                             <p class="mail">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
-
                             <div id="menu">
                                 <div id="arrow"></div>
                                 <div id="logout">
-                                    <a style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log
-                                        out</a><br>
-                                    <a style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My
-                                        tickets</a><br>
-                                    <a style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
-                                    <a style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
-                                    <a style="color:#49A827"
-                                       href="${pageContext.request.contextPath}/users">Users</a><br>
-                                    <a style="color:#49A827"
-                                       href="${pageContext.request.contextPath}/stations">Stations</a><br>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
+                                    <c:if test="${sessionUser.role eq 'admin'}">
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
+                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
+                                    </c:if>
+                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
                                 </div>
                             </div>
                         </c:when>
@@ -122,39 +111,46 @@
 
         <c:url var="addTicket" value="/ticket/add/${board.board_id}"/>
         <form:form action="${addTicket}" commandName="passengerDto" method="post">
-            <table>
+            <table class="sorttable_nosort" style="color: #545454">
                 <tr>
-                    <td>
+                    <th>
                         <form:label path="name">
                             <spring:message text="First name: "/>
                         </form:label>
-                    </td>
+                    </th>
                     <td>
                         <form:input path="name" maxlength="45" required="required" placeholder="Name"/>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <th>
                         <form:label path="surname">
                             <spring:message text="Second name: "/>
                         </form:label>
-                    </td>
+                    </th>
                     <td>
-                            <form:input path="surname" maxlength="45" required="required" placeholder="Surname"/>
+                            <form:input path="surname" maxlength="45" required="required"
+                                        placeholder="Surname"/>
+                    </td>
                 </tr>
                 <tr>
-                    <td>
+                    <th>
                         <form:label path="birth_date">
                             <spring:message text="Birth date: "/>
                         </form:label>
-                    </td>
+                    </th>
                     <td>
-                        <form:input path="birth_date" id="datepicker" required="required" placeholder="Birth date"
-                                    readonly="true"/>
+                        <form:input path="birth_date" id="datepicker" required="required"
+                                    placeholder="Birth date" readonly="true"/>
                     </td>
                 </tr>
-                <tr></tr>
-                <input type="submit" value="<spring:message text="Buy ticket"/>"/></tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input class="btn btn-success" style="width: 185px"
+                               type="submit" value="<spring:message text="Buy ticket"/>"/>
+                    </td>
+                </tr>
             </table>
         </form:form>
     </div>

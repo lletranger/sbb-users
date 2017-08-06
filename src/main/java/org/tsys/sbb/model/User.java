@@ -1,6 +1,9 @@
 package org.tsys.sbb.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -11,9 +14,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int user_id;
 
+    @NotEmpty(message = "Login is compulsory")
+    @Size(min = 4)
     @Column(name = "login")
     private String login;
 
+    @NotEmpty(message = "Password is compulsory")
+    @Size(min = 4)
     @Column(name = "password")
     private String password;
 

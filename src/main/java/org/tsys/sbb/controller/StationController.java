@@ -28,7 +28,7 @@ public class StationController {
     public String getAllStations(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
-        if (!user.getRole().equals("admin")) {
+        if (user == null || !user.getRole().equals("admin")) {
             return "notpass";
         }
 
@@ -43,7 +43,7 @@ public class StationController {
     public String addStation(@ModelAttribute("station") Station station, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
-        if (!user.getRole().equals("admin")) {
+        if (user == null || !user.getRole().equals("admin")) {
             return "notpass";
         }
 

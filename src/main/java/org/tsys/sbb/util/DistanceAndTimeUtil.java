@@ -96,7 +96,7 @@ public class DistanceAndTimeUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         Date date = null;
         try {
-        date = sdf.parse(bd);
+            date = sdf.parse(bd);
         } catch (ParseException e){
             logger.info("Unable to parse new passenger birth date");
         }
@@ -142,10 +142,10 @@ public class DistanceAndTimeUtil {
     }
 
     public static boolean passengerBirthDates(Date date, String string) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         String sdate = sdf.format(date);
         logger.info("pass date " + sdate);
-        logger.info("dto date" + string);
+        logger.info("dto date " + string);
         return sdate.equals(string);
     }
 

@@ -68,27 +68,10 @@
                             data-target=".navbar-main-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="index.jsp"></a>
+                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/login'">Back</button>
                 </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-main-collapse">
-                <div class="col-md-2 right col-md-offset-2">
-                    <p class="mail" style="font: bold"><i class="setting fa fa-cog"></i></p>
-                    <div id="menu">
-                        <div id="arrow"></div>
-                        <div id="logout">
-                            <a style="color:#49A827" href="${pageContext.request.contextPath}/index">Back to Main</a><br>
-                            <a style="color:#49A827" href="${pageContext.request.contextPath}/login">Login</a><br>
-                            <a style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 center-block">
-                    <ul class="list nav navbar-nav" style="align-items: center">
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
 </nav>
@@ -103,14 +86,14 @@
 
             <div class="row" style="color: #545454;">
                 <div id="form-group-email" class="form-group col-lg-4 col-lg-offset-4">
-                    <form:input path="login" minlength="4" maxlength="45" required="required"
+                    <form:input path="login" minlength="4" maxlength="25" required="required"
                                 placeholder="Login"/>
                 </div>
             </div>
 
             <div class="row" style="color: #545454;">
                 <div id="form-group-password" class="form-group col-lg-4 col-lg-offset-4">
-                    <form:password path="password" minlength="4" maxlength="45"
+                    <form:password path="password" minlength="4" maxlength="25"
                                    required="required" placeholder="Password"/>
                 </div>
             </div>

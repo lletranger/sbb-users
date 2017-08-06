@@ -61,7 +61,12 @@
     </bean>
 
     <mvc:default-servlet-handler/>
-    <mvc:annotation-driven/>
+
+    <!--validartor-->
+    <bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" id="validator" />
+    <mvc:annotation-driven validator="validator" />
+    <!--<mvc:annotation-driven/>-->
+
     <mvc:view-controller path="/" view-name="index"/>
 
 </beans>

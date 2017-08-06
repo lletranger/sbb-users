@@ -16,6 +16,7 @@
         <org.aspectj-version>1.7.4</org.aspectj-version>
         <org.slf4j-version>1.7.5</org.slf4j-version>
         <hibernate.version>4.3.5.Final</hibernate.version>
+        <javax.mail-version>1.4.7</javax.mail-version>
         <spring-security-config.version>4.0.4.RELEASE</spring-security-config.version>
     </properties>
 
@@ -90,6 +91,12 @@
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
             <version>3.0.1-b08</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${javax.mail-version}</version>
         </dependency>
 
         <!-- Apache Commons DBCP -->
@@ -185,6 +192,11 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>4.3.9.RELEASE</version>
         </dependency>
     </dependencies>
 

@@ -129,9 +129,9 @@ public class DistanceAndTimeUtil {
         String b = getStringDate(new Date());
         String c = getStringDate(departure);
 
-        logger.info("now in HH:MM "+b);
-        logger.info("departure in HH:MM "+c);
-        logger.info("arrival in HH:MM "+a);
+        logger.info("now in HH:MM " + b);
+        logger.info("departure in HH:MM " + c);
+        logger.info("arrival in HH:MM " + a);
 
         long d = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(now));
         long e = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(departure));

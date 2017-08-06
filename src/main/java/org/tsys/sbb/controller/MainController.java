@@ -27,7 +27,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "/")
-    public String openLocal() {
+    public String openLocal(Model model) {
+
         return "redirect:/index";
     }
 

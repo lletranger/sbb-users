@@ -183,12 +183,28 @@ public class BoardController {
         }
 
         Board board = boardService.findBoardById(id);
-        String from = stationService.getStationById(board.getFrom_id()).getName();
-        String to = stationService.getStationById(board.getTo_id()).getName();
+        Station from = stationService.getStationById(board.getFrom_id());
+        Station to = stationService.getStationById(board.getTo_id());
+        Train train = trainService.getTrainById(board.getTrain_id());
+        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
+        Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
+
+        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
+        if (!delays.isEmpty()) {
+            Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
+            String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
+            arrival = new Date(board.getDeparture().getTime()
+                    + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
+                    + DistanceAndTimeUtil.getTime(delay));
+        }
+
+        if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+            return "notexist";
+        }
 
         model.addAttribute("delay", new DelayDto());
-        model.addAttribute("fromName", from);
-        model.addAttribute("toName", to);
+        model.addAttribute("fromName", from.getName());
+        model.addAttribute("toName", to.getName());
         model.addAttribute("board", board);
 
         return "delays";
@@ -201,6 +217,26 @@ public class BoardController {
         User user = (User) session.getAttribute("sessionUser");
         if (user == null || !user.getRole().equals("admin")) {
             return "notpass";
+        }
+
+        Board board = boardService.findBoardById(id);
+        Station from = stationService.getStationById(board.getFrom_id());
+        Station to = stationService.getStationById(board.getTo_id());
+        Train train = trainService.getTrainById(board.getTrain_id());
+        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
+        Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
+
+        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
+        if (!delays.isEmpty()) {
+            Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
+            String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
+            arrival = new Date(board.getDeparture().getTime()
+                    + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
+                    + DistanceAndTimeUtil.getTime(delay));
+        }
+
+        if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+            return "notexist";
         }
 
         Delay delay = DelayDto.getDelayFromDto(delayDto);

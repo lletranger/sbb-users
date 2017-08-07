@@ -118,7 +118,7 @@
             <table class="sortable">
                 <tr>
                     <th width="50">ID</th>
-                    <th width="50">Board Name</th>
+                    <th width="50" class="sorttable_alpha">Board Name</th>
                     <th width="50">From</th>
                     <th width="50">To</th>
                     <th width="50">Departure</th>
@@ -132,6 +132,7 @@
                     <tr>
                         <td><a href="/boarddata/${dto.id}">${dto.id}</a></td>
                         <td><a href="/boarddata/${dto.id}">${dto.name}</a></td>
+                        <%--<td>${dto.name}</a></td>--%>
                         <td>${dto.from}</td>
                         <td>${dto.to}</td>
                         <td>${dto.departure}</td>

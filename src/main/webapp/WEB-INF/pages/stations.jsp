@@ -130,7 +130,7 @@
     </div>
 
     <div class="container" style="width:49%; float:right" align="center">
-        <h2 align="center">Add Station</h2>
+        <h1 align="center">Add Station</h1>
 
         <c:url var="addAction" value="/stations/add"/>
         <form:form action="${addAction}" commandName="station">

@@ -83,7 +83,7 @@
         <h1 align="center"style="color: red">Something went wrong!</h1>
         <h2 align="center"style="color: red">(on our site :)</h2>
         <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/wentwrong.gif"></div>
-        <h2 align="center"style="color: red">Please, come back late</h2>
+        <h2 align="center"style="color: red">Please, come back later</h2>
     </div>
 </section>
 

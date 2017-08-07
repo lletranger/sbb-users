@@ -148,7 +148,7 @@ a:focus {
 }
 
 .log-btn {
-  background-color: #41d051;
+  background-color: #49a827;
   font-weight: normal !important;
   margin-top: 10px;
 }
@@ -252,7 +252,7 @@ hr {
 }
 
 #service {
-  background: linear-gradient(90deg, #ffe301 10%, #30bd1a 90%);
+  background: linear-gradient(90deg, #4bb227 10%, #4bb227 90%);
 }
 #service .fa-angle-down, h3 {
   color: #fff;
@@ -327,7 +327,7 @@ hr {
 }
 
 .intro .slogan h2 {
-	color: #85ff63;
+	color: #4bb227;
 	text-shadow: none;
 	font-size: 60px;
 	line-height: 60px;
@@ -339,7 +339,7 @@ hr {
 	border-width: 0px;
 	border-color: #000;
 	border-style: none;
-	text-shadow: -3px 0 1px #00d8f4;
+	text-shadow: -3px 0 1px #fff106;
 }
 
 .intro .slogan h4 {

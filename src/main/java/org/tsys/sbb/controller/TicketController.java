@@ -18,6 +18,7 @@ import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -34,6 +35,8 @@ public class TicketController {
     private UserService userService;
 
     private TrainService trainService;
+
+    private DelayService delayService;
 
     private static final Logger logger = LoggerFactory.getLogger(TicketController.class);
 
@@ -67,6 +70,9 @@ public class TicketController {
         this.trainService = trainService;
     }
 
+    @Autowired
+    public void setDelayService(DelayService delayService) { this.delayService = delayService; }
+
     @RequestMapping(value = "/ticket/add/{board_id}")
     public String addTicket(@PathVariable("board_id") int id, Model model, HttpSession session) {
 
@@ -76,6 +82,24 @@ public class TicketController {
         }
 
         Board board = boardService.findBoardById(id);
+        Station from = stationService.getStationById(board.getFrom_id());
+        Station to = stationService.getStationById(board.getTo_id());
+        Train train = trainService.getTrainById(board.getTrain_id());
+        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
+        Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
+
+        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
+        if (!delays.isEmpty()) {
+            Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
+            String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
+            arrival = new Date(board.getDeparture().getTime()
+                    + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
+                    + DistanceAndTimeUtil.getTime(delay));
+        }
+
+        if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+            return "notexist";
+        }
 
         model.addAttribute("board", board);
         model.addAttribute("passengerDto", new PassengerDto());
@@ -96,6 +120,25 @@ public class TicketController {
         }
 
         Board board = boardService.findBoardById(id);
+        Station from = stationService.getStationById(board.getFrom_id());
+        Station to = stationService.getStationById(board.getTo_id());
+        Train train = trainService.getTrainById(board.getTrain_id());
+        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
+        Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
+
+        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
+        if (!delays.isEmpty()) {
+            Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
+            String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
+            arrival = new Date(board.getDeparture().getTime()
+                    + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
+                    + DistanceAndTimeUtil.getTime(delay));
+        }
+
+        if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+            return "notexist";
+        }
+
         List<Ticket> tickets = ticketService.findTicketsByBoardId(id);
 
         if (tickets.size() >= trainService.getTrainById(board.getTrain_id()).getSeats()) {

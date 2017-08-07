@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class DistanceAndTimeUtil {
 
@@ -100,7 +101,7 @@ public class DistanceAndTimeUtil {
         } catch (ParseException e){
             logger.info("Unable to parse new passenger birth date");
         }
-        logger.info("PArsed new passenger birth date to" + date);
+        logger.info("Parsed new passenger birth date to" + date);
         return date;
     }
 

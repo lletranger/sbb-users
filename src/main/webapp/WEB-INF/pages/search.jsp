@@ -174,7 +174,7 @@
                                 <c:when test="${dto.ticketsAvailable}">
                                     <td>
                                         <button class="btn btn-success"
-                                                onclick="location.href = '/ticket/add/${dto.id}'">Buy Ticket
+                                                onclick="location.href = '${pageContext.request.contextPath}/ticket/add/${dto.id}'">Buy Ticket
                                         </button>
                                     </td>
                                 </c:when>
@@ -186,7 +186,7 @@
                         <c:if test="${sessionUser.role == 'anon'}">
                             <td>
                                 <button class="btn btn-success"
-                                        onclick="location.href = '/login'">Buy Ticket
+                                        onclick="location.href = '${pageContext.request.contextPath}/login'">Buy Ticket
                                 </button>
                             </td>
                         </c:if>

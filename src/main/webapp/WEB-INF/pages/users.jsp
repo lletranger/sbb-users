@@ -128,13 +128,13 @@
                             <td>
                                 <c:if test="${user.role ne 'admin'}">
                                     <button class="btn btn-success" style="width: 120px"
-                                            onclick="location.href = '/setadmin/${user.user_id}'">
+                                            onclick="location.href = '${pageContext.request.contextPath}/setadmin/${user.user_id}'">
                                         Make admin
                                     </button>
                                 </c:if>
                                 <c:if test="${user.role ne 'user'}">
                                     <button class="btn btn-info" style="width: 120px"
-                                            onclick="location.href = '/setuser/${user.user_id}' ">
+                                            onclick="location.href = '${pageContext.request.contextPath}/setuser/${user.user_id}' ">
                                         Set user
                                     </button>
                                 </c:if>

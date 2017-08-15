@@ -20,7 +20,7 @@ public class DistanceAndTimeUtilTest {
         Station a = new Station();
         a.setName("A");
         a.setX(0);
-        a.setY(00);
+        a.setY(0);
 
         Station b = new Station();
         b.setName("B");
@@ -40,7 +40,7 @@ public class DistanceAndTimeUtilTest {
         Station a = new Station();
         a.setName("A");
         a.setX(0);
-        a.setY(00);
+        a.setY(0);
 
         Station b = new Station();
         b.setName("B");

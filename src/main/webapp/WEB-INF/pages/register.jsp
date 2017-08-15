@@ -98,11 +98,18 @@
                 </div>
             </div>
 
+            <div class="row" style="color: #545454;">
+                <div class="form-group col-lg-4 col-lg-offset-4">
+                    <input id="confirm" type="password" placeholder="Confirm password">
+                </div>
+            </div>
+
             <div class="row" style="font-size: 15px; height: 25px; vertical-align: middle">
                 <div class="form-group col-lg-4 col-lg-offset-4" style="color: #545454;">
-                    <input type="checkbox" onclick=
-                            "if(password.type == 'text')password.type='password';
-                    else password.type='text';"/>
+                    <input id="showPassword" type="checkbox" onclick=
+                            "if(password.type == 'text')
+                                password.type='password';
+                            else password.type='text';"/>
                     Show password</span>
                 </div>
             </div>
@@ -122,6 +129,7 @@
 <script src="<c:url value="/resources/js/jquery.scrollTo.js"/>"></script>
 <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
 <script src="<c:url value="/resources/js/custom.js"/>"></script>
+
 
 </body>
 </html>

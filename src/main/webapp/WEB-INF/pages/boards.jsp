@@ -130,8 +130,8 @@
                 </tr>
                 <c:forEach items="${dtos}" var="dto">
                     <tr>
-                        <td><a href="/boarddata/${dto.id}">${dto.id}</a></td>
-                        <td><a href="/boarddata/${dto.id}">${dto.name}</a></td>
+                        <td><a href="${pageContext.request.contextPath}/boarddata/${dto.id}">${dto.id}</a></td>
+                        <td><a href="${pageContext.request.contextPath}/boarddata/${dto.id}">${dto.name}</a></td>
                         <%--<td>${dto.name}</a></td>--%>
                         <td>${dto.from}</td>
                         <td>${dto.to}</td>
@@ -143,7 +143,7 @@
                         <c:if test="${dto.isArrived ne 'true'}">
                             <td>
                                 <button class="btn btn-success"
-                                        onclick="location.href = '/delay/add/${dto.id}'">Add Delay
+                                        onclick="location.href = '${pageContext.request.contextPath}/delay/add/${dto.id}'">Add Delay
                                 </button>
                             </td>
                         </c:if>

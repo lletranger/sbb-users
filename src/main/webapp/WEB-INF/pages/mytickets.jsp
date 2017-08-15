@@ -136,7 +136,7 @@
                         <td>${dto.passSurname}</td>
                         <td>${dto.passBirthDate}</td>
                         <td><button class="btn btn-danger"
-                                    onclick="location.href = '/annulticket/${dto.id}'">
+                                    onclick="location.href = '${pageContext.request.contextPath}/annulticket/${dto.id}'">
                             Cancel ticket</button>
                         </td>
                     </tr>

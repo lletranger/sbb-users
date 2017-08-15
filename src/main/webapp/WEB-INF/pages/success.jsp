@@ -35,7 +35,6 @@
                 <div class="navbar-header page-scroll">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                         <i class="fa fa-bars"></i>
-                        <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/login'">Login</button>
                     </button>
                 </div>
             </div>

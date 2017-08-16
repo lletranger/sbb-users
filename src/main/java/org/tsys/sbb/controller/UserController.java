@@ -1,5 +1,7 @@
 package org.tsys.sbb.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.tsys.sbb.model.User;
@@ -15,6 +17,8 @@ public class UserController {
 
     private UserService userService;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -28,9 +32,9 @@ public class UserController {
             return "notpass";
         }
 
-        model.addAttribute("user", new User());
         model.addAttribute("allUsers", userService.getAllUsers());
 
+        logger.info("Loading all users to the users page");
         return "users";
     }
 
@@ -45,12 +49,13 @@ public class UserController {
 
         userService.deleteUser(id);
 
+        logger.info("Deleting user with id: " + id);
         return "redirect:/users";
     }
 
     @Transactional
     @RequestMapping("setadmin/{id}")
-    public String setAdmin(@PathVariable("id") int id, Model model, HttpSession session) {
+    public String setAdmin(@PathVariable("id") int id, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null || !sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
@@ -60,14 +65,14 @@ public class UserController {
         User user = userService.getUserById(id);
         user.setRole("admin");
         userService.editUser(user);
-        model.addAttribute("allUsers", userService.getAllUsers());
 
-        return "users";
+        logger.info("Setting admin role to user with id: " + id);
+        return "redirect:/users";
     }
 
     @Transactional
     @RequestMapping("setuser/{id}")
-    public String setUser(@PathVariable("id") int id, Model model, HttpSession session) {
+    public String setUser(@PathVariable("id") int id, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null || !sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
@@ -77,9 +82,9 @@ public class UserController {
         User user = userService.getUserById(id);
         user.setRole("user");
         userService.editUser(user);
-        model.addAttribute("allUsers", userService.getAllUsers());
 
-        return "users";
+        logger.info("Setting user role to user with id: " + id);
+        return "redirect:/users";
     }
 
     @RequestMapping("userdata/{id}")
@@ -89,9 +94,9 @@ public class UserController {
         if (sessionUser == null || !sessionUser.getRole().equals("admin")) {
             return "notpass";
         }
-
         model.addAttribute("user", userService.getUserById(id));
 
+        logger.info("Getting info about user with id: " + id);
         return "userdata";
     }
 }

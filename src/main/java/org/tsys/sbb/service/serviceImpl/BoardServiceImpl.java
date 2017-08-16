@@ -7,6 +7,7 @@ import org.tsys.sbb.dao.BoardDao;
 import org.tsys.sbb.model.Board;
 import org.tsys.sbb.service.BoardService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,5 +48,21 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public void addBoard(Board board) {
         boardDao.addBoard(board);
+    }
+
+    @Transactional
+    public List<Board> find(int id1, int id2) {
+
+        List<Board> resultList = new ArrayList<>();
+
+        if (id2 == 0) {
+            resultList = findBoardsByFrom(id1);
+        } else if (id1 == 0) {
+            resultList = findBoardsByTo(id2);
+        } else {
+            resultList = findBoardsByFromAndTo(id1, id2);
+        }
+
+        return resultList;
     }
 }

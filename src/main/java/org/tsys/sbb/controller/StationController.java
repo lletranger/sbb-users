@@ -1,5 +1,7 @@
 package org.tsys.sbb.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +21,14 @@ public class StationController {
 
     private StationService stationService;
 
+    private static final Logger logger = LoggerFactory.getLogger(StationController.class);
+
     @Autowired
     public void setStationService(StationService stationService) {
         this.stationService = stationService;
     }
 
-    @RequestMapping(value = "stations", method = RequestMethod.GET)
+    @RequestMapping(value = "stations")
     public String getAllStations(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
@@ -35,6 +39,7 @@ public class StationController {
         model.addAttribute("station", new Station());
         model.addAttribute("allStations", stationService.getAllStations());
 
+        logger.info("Loading all stations to the stations page");
         return "stations";
     }
 
@@ -49,16 +54,18 @@ public class StationController {
 
         List<Station> list = stationService.getAllStations();
 
-        for (Station stn : list) {
-            if (station.getName().toLowerCase().equals(stn.getName().toLowerCase())) {
-                session.setAttribute("existingStation", stn.getName());
+        for (Station s : list) {
+            if (station.getName().toLowerCase().equals(s.getName().toLowerCase())) {
+                session.setAttribute("existingStation", s.getName());
 
+                logger.info("Can't create new station, name already exists: " + station.getName());
                 return "redirect:/snexception";
             }
         }
 
         stationService.addStation(station);
 
+        logger.info("Creating new station: " + station.getName());
         return "redirect:/stations";
     }
 }

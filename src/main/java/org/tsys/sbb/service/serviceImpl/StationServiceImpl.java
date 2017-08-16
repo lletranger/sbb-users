@@ -30,7 +30,5 @@ public class StationServiceImpl implements StationService {
     }
 
     @Transactional
-    public void addStation(Station station) {
-        stationDao.addStation(station);
-    }
+    public void addStation(Station station) { stationDao.addStation(station); }
 }

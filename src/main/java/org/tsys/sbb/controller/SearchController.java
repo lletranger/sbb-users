@@ -61,16 +61,7 @@ public class SearchController {
         model.addAttribute("s1", id1);
         model.addAttribute("s2", id2);
 
-        logger.info("saved s1s2: " + id1 + " " + id2);
-
-        List<Board> searchResult;
-        if (id2 == 0) {
-            searchResult = boardService.findBoardsByFrom(id1);
-        } else if (id1 == 0) {
-            searchResult = boardService.findBoardsByTo(id2);
-        } else {
-            searchResult = boardService.findBoardsByFromAndTo(id1, id2);
-        }
+        List<Board> searchResult = boardService.find(id1, id2);
 
         List<BoardDto> dtos = new ArrayList<>();
 

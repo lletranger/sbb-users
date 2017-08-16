@@ -141,7 +141,7 @@
                             </td>
                             <td>
                                 <button class="btn btn-danger" style="width: 120px"
-                                        onclick="location.href = '/remove/${user.user_id}'">Delete user
+                                        onclick="location.href = '${pageContext.request.contextPath}/remove/${user.user_id}'">Delete user
                                 </button>
                             </td>
                         </c:if>

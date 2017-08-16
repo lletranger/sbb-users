@@ -36,10 +36,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="index.jsp">
-                    </a>
-                    <div><span id="txt"></span></div>
-                    <h2></h2>
+                    <a class="navbar-brand" href="index.jsp"></a>
                 </div>
             </div>
 

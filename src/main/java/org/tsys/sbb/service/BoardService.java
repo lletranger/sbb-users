@@ -17,4 +17,6 @@ public interface BoardService {
     List<Board> getAllBoards();
 
     void addBoard(Board board);
+
+    List<Board> find(int id1, int id2);
 }

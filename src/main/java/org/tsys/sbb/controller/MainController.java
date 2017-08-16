@@ -27,7 +27,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/")
-    public String openLocal(Model model) {
+    public String openLocal() {
 
         return "redirect:/index";
     }
@@ -52,6 +52,7 @@ public class MainController {
 
         model.addAttribute("loginUser", new User());
 
+        logger.info("Loading login form");
         return "login";
     }
 
@@ -60,15 +61,20 @@ public class MainController {
 
         if (userService.getUserByLogin(user.getLogin()) == null) {
             session.setAttribute("noUser", user.getLogin());
+
+            logger.info("There's no registered user with login: " + user.getLogin());
             return "redirect:/nouserexception";
         }
 
         if (!userService.checkUser(user.getLogin(), user.getPassword())) {
+
+            logger.info("Wrong password for user: " + user.getLogin());
             return "redirect:/passwordexception";
         }
 
         session.setAttribute("sessionUser", userService.getUserByLogin(user.getLogin()));
 
+        logger.info("Login is successful");
         return "redirect:/index";
     }
 
@@ -77,6 +83,7 @@ public class MainController {
 
         model.addAttribute("newUser", new User());
 
+        logger.info("Loading register form");
         return "register";
     }
 
@@ -85,12 +92,15 @@ public class MainController {
 
         if (userService.getUserByLogin(user.getLogin()) != null) {
             session.setAttribute("existingUser", user.getLogin());
+
+            logger.info("User already exists with login: " + user.getLogin());
             return "redirect:/logintaken";
         }
 
         user.setRole("user");
         userService.addUser(user);
 
+        logger.info("New user registered, login: " + user.getLogin());
         return "success";
     }
 
@@ -100,8 +110,8 @@ public class MainController {
         session.removeAttribute("sessionUser");
         session.invalidate();
         sessionStatus.setComplete();
-        logger.info("Session user removed, session closed on logout");
 
+        logger.info("Session user removed, session closed on logout");
         return "redirect:/index";
     }
 }

@@ -1,12 +1,19 @@
 package org.tsys.sbb.dto;
 
 
-import org.tsys.sbb.model.Board;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.tsys.sbb.model.*;
+import org.tsys.sbb.service.DelayService;
+import org.tsys.sbb.service.StationService;
+import org.tsys.sbb.service.TicketService;
+import org.tsys.sbb.service.TrainService;
+import org.tsys.sbb.service.serviceImpl.DelayServiceImpl;
+import org.tsys.sbb.service.serviceImpl.StationServiceImpl;
+import org.tsys.sbb.service.serviceImpl.TicketServiceImpl;
+import org.tsys.sbb.service.serviceImpl.TrainServiceImpl;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class BoardDto {
 

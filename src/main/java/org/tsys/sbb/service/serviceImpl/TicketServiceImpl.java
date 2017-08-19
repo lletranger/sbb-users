@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class TicketServiceImpl implements TicketService {
 
     private TicketDao ticketDao;
@@ -46,12 +47,10 @@ public class TicketServiceImpl implements TicketService {
         this.stationService = stationService;
     }
 
-    @Transactional
     public Ticket findTicketById(int id) {
         return ticketDao.findTicketById(id);
     }
 
-    @Transactional
     public List<Ticket> findTicketsByBoardId(int board_id) {
 
 //        List<Ticket> tickets = ticketDao.findTicketsByBoardId(board_id);
@@ -78,12 +77,10 @@ public class TicketServiceImpl implements TicketService {
         return ticketDao.findTicketsByBoardId(board_id);
     }
 
-    @Transactional
     public void addTicket(Ticket ticket) {
         ticketDao.addTicket(ticket);
     }
 
-    @Transactional
     public List<TicketDto> findTicketsByUserId(int user_id){
 
         List<Ticket> tickets = ticketDao.findTicketsByUserId(user_id);
@@ -91,7 +88,7 @@ public class TicketServiceImpl implements TicketService {
 
         for (Ticket ticket : tickets) {
             Board board = boardService.findBoardById(ticket.getBoard_id());
-            Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
+            Passenger passenger = passengerService.getPassById(ticket.getPassenger().getPass_id());
             Station fromStation = stationService.getStationById(board.getFrom_id());
             Station toStation = stationService.getStationById(board.getTo_id());
 
@@ -110,7 +107,6 @@ public class TicketServiceImpl implements TicketService {
         return list;
     }
 
-    @Transactional
     public void deleteTicket(int id) {
         ticketDao.deleteTicket(id);
     }

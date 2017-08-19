@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.tsys.sbb.dto.PassengerDto;
-import org.tsys.sbb.dto.TicketDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,8 +33,6 @@ public class TicketController {
     private UserService userService;
 
     private TrainService trainService;
-
-    private DelayService delayService;
 
     private static final Logger logger = LoggerFactory.getLogger(TicketController.class);
 
@@ -70,9 +66,6 @@ public class TicketController {
         this.trainService = trainService;
     }
 
-    @Autowired
-    public void setDelayService(DelayService delayService) { this.delayService = delayService; }
-
     @RequestMapping(value = "/ticket/add/{board_id}")
     public String addTicket(@PathVariable("board_id") int id, Model model, HttpSession session) {
 
@@ -84,35 +77,26 @@ public class TicketController {
         Board board = boardService.findBoardById(id);
         Station from = stationService.getStationById(board.getFrom_id());
         Station to = stationService.getStationById(board.getTo_id());
-        Train train = trainService.getTrainById(board.getTrain_id());
-        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
-        Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
-
-        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
-        if (!delays.isEmpty()) {
-            Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
-            String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
-            arrival = new Date(board.getDeparture().getTime()
-                    + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
-                    + DistanceAndTimeUtil.getTime(delay));
-        }
+        Date arrival = boardService.findArrival(board.getBoard_id());
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+
+            logger.info("Can't buy ticket, board's already arrived");
             return "notexist";
         }
 
         model.addAttribute("board", board);
         model.addAttribute("passengerDto", new PassengerDto());
-        session.setAttribute("fromTicket", stationService.getStationById(board.getFrom_id()).getName());
-        session.setAttribute("toTicket", stationService.getStationById(board.getTo_id()).getName());
+        session.setAttribute("fromTicket", from.getName());
+        session.setAttribute("toTicket", to.getName());
 
-
+        logger.info("Loading new ticket form");
         return "tickets";
     }
 
     @Transactional
     @RequestMapping(value = "/ticket/add/{board_id}", method = RequestMethod.POST)
-    public String registerTicket(@PathVariable("board_id") int id, @ModelAttribute("passengerDto") PassengerDto passengerDto, Model model, HttpSession session) {
+    public String registerTicket(@PathVariable("board_id") int id, @ModelAttribute("passengerDto") PassengerDto passengerDto, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
         if (user == null || user.getRole().equals("anon")) {
@@ -120,22 +104,11 @@ public class TicketController {
         }
 
         Board board = boardService.findBoardById(id);
-        Station from = stationService.getStationById(board.getFrom_id());
-        Station to = stationService.getStationById(board.getTo_id());
-        Train train = trainService.getTrainById(board.getTrain_id());
-        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
-        Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
-
-        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
-        if (!delays.isEmpty()) {
-            Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
-            String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
-            arrival = new Date(board.getDeparture().getTime()
-                    + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
-                    + DistanceAndTimeUtil.getTime(delay));
-        }
+        Date arrival = boardService.findArrival(id);
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+
+            logger.info("Can't buy ticket, board's already arrived");
             return "notexist";
         }
 
@@ -144,8 +117,10 @@ public class TicketController {
         if (tickets.size() >= trainService.getTrainById(board.getTrain_id()).getSeats()) {
             session.setAttribute("noPlacesBoard", board.getName());
 
+            logger.info("Can't buy ticket, board has no free seats");
             return "redirect:/noplaces";
         }
+
 
         String dtoName = passengerDto.getName();
         String dtoSurname = passengerDto.getSurname();
@@ -153,7 +128,7 @@ public class TicketController {
 
         for (Ticket ticket : tickets) {
 
-            Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
+            Passenger passenger = ticket.getPassenger();
 
             if (passenger.getName().equalsIgnoreCase(dtoName)
                     && passenger.getSurname().equalsIgnoreCase(dtoSurname)
@@ -164,12 +139,14 @@ public class TicketController {
                 session.setAttribute("dupeFrom", stationService.getStationById(board.getFrom_id()).getName());
                 session.setAttribute("dupeTo", stationService.getStationById(board.getTo_id()).getName());
 
+                logger.info("Can't buy ticket for duplicate passenger");
                 return "redirect:/passalready";
             }
         }
 
         Passenger passenger = PassengerDto.getPassengerFromDto(passengerDto);
         passengerService.addPassenger(passenger);
+
         int passengerId = -1;
         List<Passenger> passengers = passengerService.getPassByEverything(dtoName, dtoSurname);
 
@@ -180,12 +157,12 @@ public class TicketController {
             }
         }
 
-        Ticket ticket = new Ticket();
-        ticket.setBoard_id(id);
-        ticket.setPassenger_id(passengerId);
         int uid = userService.getUserByLogin(((User) session.getAttribute("sessionUser"))
                 .getLogin()).getUser_id();
 
+        Ticket ticket = new Ticket();
+        ticket.setBoard_id(id);
+        ticket.setPassenger(passenger);
         ticket.setUser_id(uid);
 
         ticketService.addTicket(ticket);
@@ -224,12 +201,11 @@ public class TicketController {
         }
 
         Ticket ticket = ticketService.findTicketById(id);
-        Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
+        Passenger passenger = ticket.getPassenger();
         ticketService.deleteTicket(ticket.getTicket_id());
         passengerService.deletePassenger(passenger.getPass_id());
 
         logger.info("Deleting ticket with id: " + id);
         return "redirect:/mytickets";
     }
-
 }

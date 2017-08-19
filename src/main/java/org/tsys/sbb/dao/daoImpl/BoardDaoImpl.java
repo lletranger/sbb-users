@@ -13,62 +13,72 @@ import java.util.List;
 @Repository
 public class BoardDaoImpl implements BoardDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(BoardDao.class);
 
     @PersistenceContext
     private EntityManager em;
 
     public Board findBoardById(int id) {
+
         Board board = em.find(Board.class, id);
-        logger.info("Board loaded by id: " + board);
+
+        logger.info("Board loaded " + board);
+
         return board;
     }
 
     @SuppressWarnings("unchecked")
     public List<Board> findBoardsByFrom(int id) {
+
         List<Board> list = em.createQuery("SELECT b FROM Board b WHERE from_id = :id ORDER BY departure")
                 .setParameter("id", id)
                 .getResultList();
-        for (Board board : list) {
-            logger.info("Getting all board by from station id: " + board);
-        }
+
+        list.forEach(board -> logger.info("Getting all boards by from station, got one " + board));
+
+
         return list;
     }
 
     @SuppressWarnings("unchecked")
     public List<Board> findBoardsByTo(int id) {
+
         List<Board> list = em.createQuery("SELECT b FROM Board b WHERE to_id = :id ORDER BY departure")
                 .setParameter("id", id)
                 .getResultList();
-        for (Board board : list) {
-            logger.info("Getting all board by to station id: " + board);
-        }
+
+        list.forEach(board -> logger.info("Getting all boards by to station, got one " + board));
+
         return list;
     }
 
     @SuppressWarnings("unchecked")
     public List<Board> findBoardsByFromAndTo(int from_id, int to_id) {
+
         List<Board> list = em.createQuery("SELECT b FROM Board b WHERE from_id = :from_id AND to_id = :to_id ORDER BY departure")
                 .setParameter("from_id", from_id)
                 .setParameter("to_id", to_id)
                 .getResultList();
-        for (Board board : list) {
-            logger.info("Getting all board by from + to station id: " + board);
-        }
+
+        list.forEach(board -> logger.info("Getting all boards by from and to stations, got one " + board));
+
         return list;
     }
 
     @SuppressWarnings("unchecked")
     public List<Board> getAllBoards() {
+
         List<Board> list = em.createQuery("FROM Board ORDER BY departure").getResultList();
-        for (Board board : list) {
-            logger.info("Getting all boards: " + board);
-        }
+
+        list.forEach(board -> logger.info("Getting all boards, got one " + board));
+
         return list;
     }
 
     public void addBoard(Board board) {
+
         em.persist(board);
-        logger.info("Board added: " + board);
+
+        logger.info("Board added " + board);
     }
 }

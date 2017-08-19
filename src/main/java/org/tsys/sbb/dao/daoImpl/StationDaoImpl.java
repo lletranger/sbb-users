@@ -13,30 +13,34 @@ import java.util.List;
 @Repository
 public class StationDaoImpl implements StationDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(StationDao.class);
 
     @PersistenceContext
     private EntityManager em;
 
-    public Station getStationById(Integer id) {
-        Station station = (Station) em.createQuery("SELECT s FROM Station s WHERE id=:id")
-                .setParameter("id", id)
-                .getSingleResult();
-        logger.info("Station loaded by id: " + station);
+    public Station getStationById(int id) {
+
+       Station station = em.find(Station.class, id);
+
+        logger.info("Station loaded " + station);
+
         return station;
     }
 
     @SuppressWarnings("unchecked")
     public List<Station> getAllStations() {
+
         List<Station> list = em.createQuery("FROM Station").getResultList();
-        for (Station s : list) {
-            logger.info("Getting all stations: " + s);
-        }
+
+        list.forEach(station -> logger.info("Getting all stations, got one " + station));
+
         return list;
     }
 
     public void addStation(Station station) {
+
         em.persist(station);
-        logger.info("Station added: " + station);
+
+        logger.info("Station added " + station);
     }
 }

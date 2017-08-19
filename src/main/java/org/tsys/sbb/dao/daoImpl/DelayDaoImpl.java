@@ -13,26 +13,27 @@ import java.util.List;
 @Repository
 public class DelayDaoImpl implements DelayDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(DelayDao.class);
 
     @PersistenceContext
     private EntityManager em;
 
     @SuppressWarnings("unchecked")
     public List<Delay> getDelayByBoardId(int board_id) {
+
         List<Delay> list = em.createQuery("SELECT d FROM Delay d WHERE board_id=:board_id")
                 .setParameter("board_id", board_id)
                 .getResultList();
 
-        for (Delay d : list) {
-            logger.info("Getting all delays by board id: " + d);
-        }
+        list.forEach(delay -> logger.info("Getting all delays by board ID, got one " + delay));
 
         return list;
     }
 
     public void addDelay(Delay delay) {
+
         em.persist(delay);
-        logger.info("Delay added: " + delay);
+
+        logger.info("Delay added " + delay);
     }
 }

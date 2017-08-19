@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface StationDao {
 
-    Station getStationById(Integer id);
+    Station getStationById(int id);
 
     List<Station> getAllStations();
 

@@ -50,7 +50,7 @@
     <div class="container" align="center">
         <h1 align="center"style="color: #49a827">We have no user '${noUser}' :(</h1>
         <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/nouser.jpg"></div>
-        <h2 align="center"style="color: #49a827">Please, try other login</h2>
+        <h2 align="center"style="color: #49a827">Please, try other <a href="${pageContext.request.contextPath}/login">login</a></h2>
     </div>
 </section>
 

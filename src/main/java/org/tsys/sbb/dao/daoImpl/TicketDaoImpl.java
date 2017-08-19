@@ -13,52 +13,58 @@ import java.util.List;
 @Repository
 public class TicketDaoImpl implements TicketDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(TicketDao.class);
 
     @PersistenceContext
     private EntityManager em;
 
     public Ticket findTicketById(int id) {
-        Ticket ticket = (Ticket) em.createQuery("SELECT t FROM Ticket t WHERE id=:id")
-                .setParameter("id", id)
-                .getSingleResult();
-        logger.info("Ticket loaded by id: " + ticket);
+
+        Ticket ticket = em.find(Ticket.class, id);
+
+        logger.info("Ticket loaded " + ticket);
+
         return ticket;
     }
 
     @SuppressWarnings("unchecked")
     public List<Ticket> findTicketsByBoardId(int board_id) {
+
         List<Ticket> list = em.createQuery("SELECT t FROM Ticket t WHERE board_id=:board_id")
                 .setParameter("board_id", board_id)
                 .getResultList();
-        for (Ticket t : list) {
-            logger.info("Getting all tickets by board id: " + t);
-        }
+
+        list.forEach(ticket -> logger.info("Getting all tickets by board ID, got one " + ticket));
+
         return list;
     }
 
     @SuppressWarnings("unchecked")
     public List<Ticket> findTicketsByUserId(int user_id) {
+
         List<Ticket> list = em.createQuery("SELECT t FROM Ticket t WHERE user_id=:user_id")
                 .setParameter("user_id", user_id)
                 .getResultList();
-        for (Ticket t : list) {
-            logger.info("Getting all tickets by user id: " + t);
-        }
+
+        list.forEach(ticket -> logger.info("Getting all tickets by user ID, got one " + ticket));
+
         return list;
     }
 
     public void addTicket(Ticket ticket) {
+
         em.persist(ticket);
-        logger.info("Ticket added: " + ticket);
+
+        logger.info("Ticket added " + ticket);
     }
 
     public void deleteTicket(int id) {
+
         Ticket ticket = em.find(Ticket.class, id);
 
         if (ticket != null) {
             em.remove(ticket);
+            logger.info("Ticket deleted, ID was " + id);
         }
-        logger.info("Ticket deleted: " + ticket);
     }
 }

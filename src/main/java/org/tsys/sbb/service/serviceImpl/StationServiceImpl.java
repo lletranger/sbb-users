@@ -8,6 +8,8 @@ import org.tsys.sbb.model.Station;
 import org.tsys.sbb.service.StationService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class StationServiceImpl implements StationService {
@@ -31,4 +33,11 @@ public class StationServiceImpl implements StationService {
 
     @Transactional
     public void addStation(Station station) { stationDao.addStation(station); }
+
+    @Transactional
+    public Map<Integer, String> getStations()
+    {
+        return stationDao.getAllStations().stream()
+                .collect(Collectors.toMap(Station::getStation_id, Station::getName));
+    }
 }

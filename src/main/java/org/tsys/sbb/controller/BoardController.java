@@ -13,6 +13,7 @@ import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
+import org.tsys.sbb.util.Sender;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -24,7 +25,6 @@ public class BoardController {
     private StationService stationService;
     private TrainService trainService;
     private DelayService delayService;
-    private PassengerService passengerService;
     private TicketService ticketService;
 
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -47,11 +47,6 @@ public class BoardController {
     @Autowired
     public void setDelayService(DelayService delayService) {
         this.delayService = delayService;
-    }
-
-    @Autowired
-    public void setPassengerService(PassengerService passengerService) {
-        this.passengerService = passengerService;
     }
 
     @Autowired
@@ -134,7 +129,7 @@ public class BoardController {
 
         List<PassengerDto> passengers = new ArrayList<>();
         for (Ticket t : tickets) {
-            passengers.add(PassengerDto.getDtoFromPassenger(passengerService.getPassById(t.getPassenger_id())));
+            passengers.add(PassengerDto.getDtoFromPassenger(t.getPassenger()));
         }
 
         logger.info("Total number of passengers for board " + b.getName() + " is " + passengers.size());
@@ -170,6 +165,7 @@ public class BoardController {
 
         Board board = BoardDto.getBoardFromDto(boardDto);
         boardService.addBoard(board);
+        new Sender().send();
 
         return "redirect:/boards";
     }
@@ -241,6 +237,8 @@ public class BoardController {
 
         Delay delay = DelayDto.getDelayFromDto(delayDto);
         delayService.addDelay(delay);
+        new Sender().send();
+
         return "redirect:/boards";
     }
 }

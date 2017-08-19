@@ -13,57 +13,68 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
 
     @PersistenceContext
     private EntityManager em;
 
     public User getUserById(int id) {
-        User user = (User) em.createQuery("SELECT u FROM User u WHERE id=:id")
-                .setParameter("id", id)
-                .getSingleResult();
-        logger.info("User loaded by id: " + user);
+
+        User user = em.find(User.class, id);
+
+        logger.info("User loaded " + user);
+
         return user;
     }
 
     @SuppressWarnings("unchecked")
     public User getUserByLogin(String login) {
-        List<User> userList = em.createQuery("SELECT u FROM User u WHERE login=:login ")
+
+        List<User> list = em.createQuery("SELECT u FROM User u WHERE login=:login ")
                 .setParameter("login", login)
                 .getResultList();
 
-        if (userList.isEmpty()) {
+        if (list.isEmpty()) {
+            logger.info("No user found by login = " + login);
             return null;
         }
-        logger.info("User loaded by login: " + userList.get(0));
-        return userList.get(0);
+
+        logger.info("User loaded by login = " + login);
+
+        return list.get(0);
     }
 
     @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {
-        List<User> userList = em.createQuery("FROM User").getResultList();
-        for (User user : userList) {
-            logger.info("Getting all users: " + user);
-        }
-        return userList;
+
+        List<User> list = em.createQuery("FROM User").getResultList();
+
+        list.forEach(user -> logger.info("Getting all user, got one " + user));
+
+        return list;
     }
 
     public void addUser(User user) {
+
         em.persist(user);
-        logger.info("User added: " + user);
+
+        logger.info("User added " + user);
     }
 
     public void editUser(User user) {
+
         em.merge(user);
-        logger.info("User update: " + user);
+
+        logger.info("User updated " + user);
     }
 
     public void deleteUser(int id) {
+
         User user = em.find(User.class, id);
 
         if (user != null) {
             em.remove(user);
+            logger.info("User deleted, ID was " + id);
         }
-        logger.info("User deleted: " + user);
     }
 }

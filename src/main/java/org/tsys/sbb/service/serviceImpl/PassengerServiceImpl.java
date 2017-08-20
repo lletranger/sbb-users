@@ -7,10 +7,10 @@ import org.tsys.sbb.dao.PassengerDao;
 import org.tsys.sbb.model.Passenger;
 import org.tsys.sbb.service.PassengerService;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class PassengerServiceImpl implements PassengerService {
 
     private PassengerDao passengerDao;
@@ -20,22 +20,17 @@ public class PassengerServiceImpl implements PassengerService {
         this.passengerDao = passengerDao;
     }
 
-    @Transactional
     public Passenger getPassById(int id) {
         return passengerDao.getPassById(id);
     }
 
-    @Transactional
     public List<Passenger> getPassByEverything(String name, String surname) {
-        return passengerDao.getPassByEverything(name, surname);
-    }
+        return passengerDao.getPassByEverything(name, surname); }
 
-    @Transactional
     public void addPassenger(Passenger passenger) {
         passengerDao.addPassenger(passenger);
     }
 
-    @Transactional
     public void deletePassenger(int id) {
         passengerDao.deletePassenger(id);
     }

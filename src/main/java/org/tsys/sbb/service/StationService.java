@@ -14,4 +14,6 @@ public interface StationService {
     void addStation(Station station);
 
     Map<Integer, String> getStations();
+
+    List<String> getAllStationsNames();
 }

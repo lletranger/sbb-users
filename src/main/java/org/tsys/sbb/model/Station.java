@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "station")
@@ -19,10 +20,12 @@ public @Data class Station {
     @Column(name = "name")
     private String name;
 
+    @NotNull(message = "X coordinate is compulsory")
     @Range(min = -999, max = 999, message = "Station must have X coordinate")
     @Column(name = "x")
     private Integer x;
 
+    @NotNull(message = "Y coordinate is compulsory")
     @Range(min = -999, max = 999, message = "Station must have Y coordinate")
     @Column(name = "y")
     private Integer y;

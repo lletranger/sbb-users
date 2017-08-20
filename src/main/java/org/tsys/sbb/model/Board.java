@@ -2,6 +2,7 @@ package org.tsys.sbb.model;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,14 +22,17 @@ public @Data class Board {
     private String name;
 
     @NotNull(message = "Train id is compulsory")
+    @Range(min = 1, message = "Train ID must be positive")
     @Column(name = "train_id")
     private int train_id;
 
     @NotNull(message = "Board must have a station of origin")
+    @Range(min = 1, message = "From ID must be positive")
     @Column(name = "from_id")
     private int from_id;
 
     @NotNull(message = "Board must have a destination")
+    @Range(min = 1, message = "To ID must be positive")
     @Column(name = "to_id")
     private int to_id;
 

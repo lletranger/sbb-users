@@ -14,11 +14,12 @@ import org.tsys.sbb.service.StationService;
 import org.tsys.sbb.service.TrainService;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Service
+@Transactional
 public class BoardServiceImpl implements BoardService {
 
     private BoardDao boardDao;
@@ -46,38 +47,31 @@ public class BoardServiceImpl implements BoardService {
         this.trainService = trainService;
     }
 
-    @Transactional
     public Board findBoardById(int id) {
         return boardDao.findBoardById(id);
     }
 
-    @Transactional
     public List<Board> findBoardsByFrom(int id) {
         return boardDao.findBoardsByFrom(id);
     }
 
-    @Transactional
     public List<Board> findBoardsByTo(int id) {
         return boardDao.findBoardsByTo(id);
     }
 
-    @Transactional
     public List<Board> findBoardsByFromAndTo(int from_id, int to_id) {
         return boardDao.findBoardsByFromAndTo(from_id, to_id);
     }
 
-    @Transactional
     public List<Board> getAllBoards() {
         return boardDao.getAllBoards();
     }
 
-    @Transactional
     public void addBoard(Board board) {
         boardDao.addBoard(board);
     }
 
-    @Transactional
-    public List<Board> find(int id1, int id2) {
+    public List<Board> findBoards(int id1, int id2) {
 
         List<Board> resultList;
 
@@ -92,7 +86,6 @@ public class BoardServiceImpl implements BoardService {
         return resultList;
     }
 
-    @Transactional
     public Date findArrival(int board_id) {
 
         Board board = findBoardById(board_id);
@@ -106,6 +99,7 @@ public class BoardServiceImpl implements BoardService {
         Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
 
         List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
+
         if (!delays.isEmpty()) {
             Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
             String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());

@@ -53,27 +53,6 @@ public class TicketServiceImpl implements TicketService {
 
     public List<Ticket> findTicketsByBoardId(int board_id) {
 
-//        List<Ticket> tickets = ticketDao.findTicketsByBoardId(board_id);
-//        List<TicketDto> list = new ArrayList<>();
-//
-//        for (Ticket ticket : tickets) {
-//            Board board = boardService.findBoardById(ticket.getBoard_id());
-//            Passenger passenger = passengerService.getPassById(ticket.getPassenger_id());
-//            Station fromStation = stationService.getStationById(board.getFrom_id());
-//            Station toStation = stationService.getStationById(board.getTo_id());
-//
-//            TicketDto dto = new TicketDto();
-//            dto.setId(ticket.getTicket_id());
-//            dto.setBoardName(board.getName());
-//            dto.setFrom(fromStation.getName());
-//            dto.setTo(toStation.getName());
-//            dto.setDeparture(board.getDeparture().toString());
-//            dto.setPassName(passenger.getName());
-//            dto.setPassSurname(passenger.getSurname());
-//            dto.setPassBirthDate(DistanceAndTimeUtil.getStringBirthDate(passenger.getBirth_date()));
-//            list.add(dto);
-//        }
-
         return ticketDao.findTicketsByBoardId(board_id);
     }
 
@@ -87,6 +66,7 @@ public class TicketServiceImpl implements TicketService {
         List<TicketDto> list = new ArrayList<>();
 
         for (Ticket ticket : tickets) {
+
             Board board = boardService.findBoardById(ticket.getBoard_id());
             Passenger passenger = passengerService.getPassById(ticket.getPassenger().getPass_id());
             Station fromStation = stationService.getStationById(board.getFrom_id());
@@ -101,6 +81,7 @@ public class TicketServiceImpl implements TicketService {
             dto.setPassName(passenger.getName());
             dto.setPassSurname(passenger.getSurname());
             dto.setPassBirthDate(DistanceAndTimeUtil.getStringBirthDate(passenger.getBirth_date()));
+
             list.add(dto);
         }
 
@@ -108,7 +89,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     public void deleteTicket(int id) {
-        ticketDao.deleteTicket(id);
-    }
 
+        Ticket ticket = findTicketById(id);
+        Passenger passenger = ticket.getPassenger();
+        ticketDao.deleteTicket(id);
+        passengerService.deletePassenger(passenger.getPass_id());
+    }
 }

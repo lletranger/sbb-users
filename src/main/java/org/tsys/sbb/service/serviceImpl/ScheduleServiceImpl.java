@@ -2,6 +2,7 @@ package org.tsys.sbb.service.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tsys.sbb.dto.ScheduleDto;
 import org.tsys.sbb.model.Board;
 import org.tsys.sbb.service.BoardService;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class ScheduleServiceImpl implements ScheduleService {
 
     private BoardService boardService;

@@ -10,6 +10,7 @@ import org.tsys.sbb.service.TrainService;
 import java.util.List;
 
 @Service
+@Transactional
 public class TrainServiceImpl implements TrainService {
 
     private TrainDao trainDao;
@@ -19,12 +20,10 @@ public class TrainServiceImpl implements TrainService {
         this.trainDao = trainDao;
     }
 
-    @Transactional
     public Train getTrainById(int id) {
         return trainDao.getTrainById(id);
     }
 
-    @Transactional
     public List<Train> getAllTrains() {
         return trainDao.getAllTrains();
     }

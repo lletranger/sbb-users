@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.UserService;
 
@@ -44,6 +43,7 @@ public class MainController {
             logger.info("Creating new anonymous user");
         }
 
+        logger.info("Session user now is " + user);
         return "index";
     }
 
@@ -51,7 +51,6 @@ public class MainController {
     public String loginPage(Model model) {
 
         model.addAttribute("loginUser", new User());
-
         logger.info("Loading login form");
         return "login";
     }
@@ -61,19 +60,16 @@ public class MainController {
 
         if (userService.getUserByLogin(user.getLogin()) == null) {
             session.setAttribute("noUser", user.getLogin());
-
             logger.info("There's no registered user with login: " + user.getLogin());
-            return "redirect:/nouserexception";
+            return "nouserexception";
         }
 
         if (!userService.checkUser(user.getLogin(), user.getPassword())) {
-
             logger.info("Wrong password for user: " + user.getLogin());
-            return "redirect:/passwordexception";
+            return "passwordexception";
         }
 
         session.setAttribute("sessionUser", userService.getUserByLogin(user.getLogin()));
-
         logger.info("Login is successful");
         return "redirect:/index";
     }
@@ -82,7 +78,6 @@ public class MainController {
     public String register(Model model) {
 
         model.addAttribute("newUser", new User());
-
         logger.info("Loading register form");
         return "register";
     }
@@ -92,26 +87,22 @@ public class MainController {
 
         if (userService.getUserByLogin(user.getLogin()) != null) {
             session.setAttribute("existingUser", user.getLogin());
-
             logger.info("User already exists with login: " + user.getLogin());
-            return "redirect:/logintaken";
+            return "logintaken";
         }
 
         user.setRole("user");
         userService.addUser(user);
-
-        logger.info("New user registered, login: " + user.getLogin());
+        logger.info("New user's registered, login = " + user.getLogin());
         return "success";
     }
 
     @RequestMapping(value = "/logout")
-    public String logout(SessionStatus sessionStatus, HttpSession session) {
+    public String logout(HttpSession session) {
 
         session.removeAttribute("sessionUser");
         session.invalidate();
-        sessionStatus.setComplete();
-
-        logger.info("Session user removed, session closed on logout");
+        logger.info("Session user's removed, session's invalidate");
         return "redirect:/index";
     }
 }

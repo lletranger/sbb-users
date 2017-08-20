@@ -9,8 +9,8 @@ import org.tsys.sbb.service.DelayService;
 
 import java.util.List;
 
-
 @Service
+@Transactional
 public class DelayServiceImpl implements DelayService {
 
     private DelayDao delayDao;
@@ -20,12 +20,10 @@ public class DelayServiceImpl implements DelayService {
         this.delayDao = delayDao;
     }
 
-    @Transactional
     public List<Delay> getDelayByBoardId(int board_id) {
         return delayDao.getDelayByBoardId(board_id);
     }
 
-    @Transactional
     public void addDelay(Delay delay) {
         delayDao.addDelay(delay);
     }

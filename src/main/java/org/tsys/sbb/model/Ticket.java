@@ -16,7 +16,7 @@ public @Data class Ticket {
     private int ticket_id;
 
     @NotNull(message = "Board id can't be null!")
-    @Range(min = 1, message = "Board id can't be negative")
+    @Range(min = 1, message = "Board ID must be positive")
     @Column(name = "board_id")
     private int board_id;
 
@@ -26,7 +26,7 @@ public @Data class Ticket {
     private Passenger passenger;
 
     @NotNull(message = "User id can't be null!")
-    @Range(min = 1, message = "User id can't be negative")
+    @Range(min = 1, message = "User ID must be positive")
     @Column(name = "user_id")
     private int user_id;
 }

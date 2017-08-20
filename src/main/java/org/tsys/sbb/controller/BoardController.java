@@ -17,10 +17,12 @@ import org.tsys.sbb.util.Sender;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @SessionAttributes(types = User.class)
 public class BoardController {
+
     private BoardService boardService;
     private StationService stationService;
     private TrainService trainService;
@@ -86,19 +88,11 @@ public class BoardController {
 
             Date arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, t)));
             boardDto.setExpectedArrival(DistanceAndTimeUtil.getStringDate(arrival));
-
-//            boardDto.setIsArrived(DistanceAndTimeUtil.isAlreadyArrived(b.getDeparture(), arrival) ? "true" : "false");
-
-            List<Delay> delays = delayService.getDelayByBoardId(b.getBoard_id());
-            if (!delays.isEmpty()) {
-                Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
-                String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
-                boardDto.setDelay(delay);
-                arrival = new Date(b.getDeparture().getTime()
-                        + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, t))
-                        + DistanceAndTimeUtil.getTime(delay));
+            if(!delayService.getDelayByBoardId(b.getBoard_id()).isEmpty()) {
+                boardDto.setDelay(DistanceAndTimeUtil.getStringDelay(DistanceAndTimeUtil.getResultingDelay(
+                        delayService.getDelayByBoardId(b.getBoard_id())).getDelay_time()));
             }
-
+            arrival = boardService.findArrival(b.getBoard_id());
             boardDto.setArrival(DistanceAndTimeUtil.getStringDate(arrival));
             boardDto.setIsArrived(DistanceAndTimeUtil.isAlreadyArrived(b.getDeparture(), arrival) ? "true" : "false");
 
@@ -127,10 +121,9 @@ public class BoardController {
         Station toStation = stationService.getStationById(b.getTo_id());
         Train train = trainService.getTrainById(b.getTrain_id());
 
-        List<PassengerDto> passengers = new ArrayList<>();
-        for (Ticket t : tickets) {
-            passengers.add(PassengerDto.getDtoFromPassenger(t.getPassenger()));
-        }
+        List<PassengerDto> passengers = tickets.stream()
+                .map(ticket -> PassengerDto.getDtoFromPassenger(ticket.getPassenger()))
+                .collect(Collectors.toList());
 
         logger.info("Total number of passengers for board " + b.getName() + " is " + passengers.size());
 
@@ -160,7 +153,8 @@ public class BoardController {
         }
 
         if (boardDto.getFrom_id() == boardDto.getTo_id()) {
-            return "redirect:/tofromexception";
+            logger.info("Trying to add a board with same from and to stations!");
+            return "tofromexception";
         }
 
         Board board = BoardDto.getBoardFromDto(boardDto);
@@ -181,20 +175,10 @@ public class BoardController {
         Board board = boardService.findBoardById(id);
         Station from = stationService.getStationById(board.getFrom_id());
         Station to = stationService.getStationById(board.getTo_id());
-        Train train = trainService.getTrainById(board.getTrain_id());
-        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
-        Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
-
-        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
-        if (!delays.isEmpty()) {
-            Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
-            String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
-            arrival = new Date(board.getDeparture().getTime()
-                    + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
-                    + DistanceAndTimeUtil.getTime(delay));
-        }
+        Date arrival = boardService.findArrival(id);
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+            logger.info("Trying to add a delay to an arrived board!");
             return "notexist";
         }
 
@@ -216,22 +200,10 @@ public class BoardController {
         }
 
         Board board = boardService.findBoardById(id);
-        Station from = stationService.getStationById(board.getFrom_id());
-        Station to = stationService.getStationById(board.getTo_id());
-        Train train = trainService.getTrainById(board.getTrain_id());
-        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
-        Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
-
-        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
-        if (!delays.isEmpty()) {
-            Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
-            String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
-            arrival = new Date(board.getDeparture().getTime()
-                    + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
-                    + DistanceAndTimeUtil.getTime(delay));
-        }
+        Date arrival = boardService.findArrival(id);
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+            logger.info("Trying to add a delay to an arrived board!");
             return "notexist";
         }
 

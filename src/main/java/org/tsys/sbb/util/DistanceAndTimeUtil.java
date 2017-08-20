@@ -101,18 +101,14 @@ public class DistanceAndTimeUtil {
         } catch (ParseException e){
             logger.info("Unable to parse new passenger birth date");
         }
-        logger.info("Parsed new passenger birth date to" + date);
         return date;
     }
 
     public static long getDtoTime(String time) {
         String[] hms = time.split(":");
-        logger.info("getting dtoTime for " + time + "and hours are " + Integer.valueOf(hms[0]));
-        logger.info("getting dtoTime for " + time + "and minutes are " + Integer.valueOf(hms[1]));
         int hourMins = Integer.valueOf(hms[0])*60;
         int mins = Integer.valueOf(hms[1]);
         long all = (hourMins + mins)*60*1000;
-        logger.info("getting dtoTime for " + time + "and it's " + all/1000 + " seconds");
         return all;
     }
 
@@ -130,14 +126,8 @@ public class DistanceAndTimeUtil {
         String b = getStringDate(new Date());
         String c = getStringDate(departure);
 
-        logger.info("now in HH:MM " + b);
-        logger.info("departure in HH:MM " + c);
-        logger.info("arrival in HH:MM " + a);
-
         long d = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(now));
         long e = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(departure));
-
-        logger.info("arr - now = " + d/1000 + " arr - dep = " + e/1000);
 
         return !(d > 0 || e < 0);
     }
@@ -145,8 +135,6 @@ public class DistanceAndTimeUtil {
     public static boolean passengerBirthDates(Date date, String string) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         String sdate = sdf.format(date);
-        logger.info("pass date " + sdate);
-        logger.info("dto date " + string);
         return sdate.equals(string);
     }
 

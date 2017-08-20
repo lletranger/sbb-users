@@ -21,29 +21,24 @@ public class Sender {
         props.put("connectionFactoryNames", "queueCF");
 
         try {
-
             Context context = new InitialContext(props);
             QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup("queueCF");
             Queue queue = (Queue) context.lookup("js-queue");
-
             QueueConnection connection = connectionFactory.createQueueConnection();
             connection.start();
 
             QueueSession session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
-
             QueueSender sender = session.createSender(queue);
             TextMessage message = session.createTextMessage("Schedule's changed");
-
             sender.send(message);
-            logger.info("Sending message to MQ")
-            ;
+
+            logger.info("Sending message to MQ");
+
             sender.close();
             session.close();
             connection.close();
-        } catch (NamingException e) {
-            logger.info(e.toString());
-        } catch (JMSException e) {
-            e.printStackTrace();
+        } catch (NamingException | JMSException e) {
+            logger.info("Exception " + e.toString());
         }
     }
 }

@@ -14,7 +14,6 @@ import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.StationService;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class StationController {
@@ -38,7 +37,6 @@ public class StationController {
 
         model.addAttribute("station", new Station());
         model.addAttribute("allStations", stationService.getAllStations());
-
         logger.info("Loading all stations to the stations page");
         return "stations";
     }
@@ -52,20 +50,15 @@ public class StationController {
             return "notpass";
         }
 
-        List<Station> list = stationService.getAllStations();
-
-        for (Station s : list) {
-            if (station.getName().toLowerCase().equals(s.getName().toLowerCase())) {
-                session.setAttribute("existingStation", s.getName());
-
-                logger.info("Can't create new station, name already exists: " + station.getName());
-                return "redirect:/snexception";
-            }
+        if (stationService.getAllStationsNames().stream()
+                .anyMatch(station.getName()::equalsIgnoreCase)) {
+            session.setAttribute("existingStation", station.getName());
+            logger.info("Can't create station, already exists with the name " + station.getName());
+            return "snexception";
         }
 
         stationService.addStation(station);
-
-        logger.info("Creating new station: " + station.getName());
+        logger.info("Creating new station " + station);
         return "redirect:/stations";
     }
 }

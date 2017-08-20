@@ -75,22 +75,22 @@ public class TicketController {
         }
 
         Board board = boardService.findBoardById(id);
-        Station from = stationService.getStationById(board.getFrom_id());
-        Station to = stationService.getStationById(board.getTo_id());
-        Date arrival = boardService.findArrival(board.getBoard_id());
+        String from = stationService.getStationById(board.getFrom_id()).getName();
+        String to = stationService.getStationById(board.getTo_id()).getName();
+        Date arrival = boardService.findArrival(id);
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
-
-            logger.info("Can't buy ticket, board's already arrived");
+            logger.info("Can't buy ticket, board's already arrived!");
             return "notexist";
         }
 
         model.addAttribute("board", board);
         model.addAttribute("passengerDto", new PassengerDto());
-        session.setAttribute("fromTicket", from.getName());
-        session.setAttribute("toTicket", to.getName());
+        session.setAttribute("fromTicket", from);
+        session.setAttribute("toTicket", to);
 
         logger.info("Loading new ticket form");
+
         return "tickets";
     }
 
@@ -107,8 +107,7 @@ public class TicketController {
         Date arrival = boardService.findArrival(id);
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
-
-            logger.info("Can't buy ticket, board's already arrived");
+            logger.info("Can't buy ticket, board's already arrived!");
             return "notexist";
         }
 
@@ -116,9 +115,8 @@ public class TicketController {
 
         if (tickets.size() >= trainService.getTrainById(board.getTrain_id()).getSeats()) {
             session.setAttribute("noPlacesBoard", board.getName());
-
-            logger.info("Can't buy ticket, board has no free seats");
-            return "redirect:/noplaces";
+            logger.info("Can't buy ticket, board has no free seats!");
+            return "noplaces";
         }
 
 
@@ -140,7 +138,7 @@ public class TicketController {
                 session.setAttribute("dupeTo", stationService.getStationById(board.getTo_id()).getName());
 
                 logger.info("Can't buy ticket for duplicate passenger");
-                return "redirect:/passalready";
+                return "passalready";
             }
         }
 
@@ -186,7 +184,6 @@ public class TicketController {
         }
 
         model.addAttribute("ticketsDto", ticketService.findTicketsByUserId(user.getUser_id()));
-
         logger.info("Loading all tickets to passenger with login " + user.getLogin());
         return "mytickets";
     }
@@ -200,12 +197,8 @@ public class TicketController {
             return "redirect:/login";
         }
 
-        Ticket ticket = ticketService.findTicketById(id);
-        Passenger passenger = ticket.getPassenger();
-        ticketService.deleteTicket(ticket.getTicket_id());
-        passengerService.deletePassenger(passenger.getPass_id());
-
-        logger.info("Deleting ticket with id: " + id);
+        ticketService.deleteTicket(id);
+        logger.info("Deleting ticket with ID = " + id);
         return "redirect:/mytickets";
     }
 }

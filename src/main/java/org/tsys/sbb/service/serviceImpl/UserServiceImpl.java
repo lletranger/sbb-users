@@ -11,10 +11,10 @@ import org.tsys.sbb.service.UserService;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
-
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
@@ -27,39 +27,33 @@ public class UserServiceImpl implements UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @Transactional
     public User getUserById(int id) {
         return userDao.getUserById(id);
     }
 
-    @Transactional
     public User getUserByLogin(String login) {
         return userDao.getUserByLogin(login);
     }
 
-    @Transactional
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
 
-    @Transactional
     public void addUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.addUser(user);
     }
 
-    @Transactional
     public void editUser(User user) {
         userDao.editUser(user);
     }
 
-    @Transactional
     public void deleteUser(int id) {
         userDao.deleteUser(id);
     }
 
-    @Transactional
     public boolean checkUser(String login, String password) {
-        return bCryptPasswordEncoder.matches(password, userDao.getUserByLogin(login).getPassword());
+        return bCryptPasswordEncoder.matches(password,
+                userDao.getUserByLogin(login).getPassword());
     }
 }

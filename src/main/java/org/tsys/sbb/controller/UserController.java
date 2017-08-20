@@ -49,7 +49,7 @@ public class UserController {
 
         userService.deleteUser(id);
 
-        logger.info("Deleting user with id: " + id);
+        logger.info("Deleting user with ID = " + id);
         return "redirect:/users";
     }
 
@@ -66,7 +66,7 @@ public class UserController {
         user.setRole("admin");
         userService.editUser(user);
 
-        logger.info("Setting admin role to user with id: " + id);
+        logger.info("Setting admin role to user with ID = " + id);
         return "redirect:/users";
     }
 
@@ -83,7 +83,7 @@ public class UserController {
         user.setRole("user");
         userService.editUser(user);
 
-        logger.info("Setting user role to user with id: " + id);
+        logger.info("Setting user role to user with ID = " + id);
         return "redirect:/users";
     }
 
@@ -94,9 +94,10 @@ public class UserController {
         if (sessionUser == null || !sessionUser.getRole().equals("admin")) {
             return "notpass";
         }
+
         model.addAttribute("user", userService.getUserById(id));
 
-        logger.info("Getting info about user with id: " + id);
+        logger.info("Getting info about user with ID = " + id);
         return "userdata";
     }
 }

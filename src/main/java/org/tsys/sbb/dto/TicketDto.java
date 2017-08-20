@@ -1,6 +1,8 @@
 package org.tsys.sbb.dto;
 
-public class TicketDto {
+import lombok.Data;
+
+public @Data class TicketDto {
     private int id;
     private String boardName;
     private String from;
@@ -9,71 +11,4 @@ public class TicketDto {
     private String passName;
     private String passSurname;
     private String passBirthDate;
-
-    public TicketDto() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBoardName() {
-        return boardName;
-    }
-
-    public void setBoardName(String boardName) {
-        this.boardName = boardName;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public String getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(String departure) {
-        this.departure = departure;
-    }
-
-    public String getPassName() {
-        return passName;
-    }
-
-    public void setPassName(String passName) {
-        this.passName = passName;
-    }
-
-    public String getPassSurname() {
-        return passSurname;
-    }
-
-    public void setPassSurname(String passSurname) {
-        this.passSurname = passSurname;
-    }
-
-    public String getPassBirthDate() {
-        return passBirthDate;
-    }
-
-    public void setPassBirthDate(String passBirthDate) {
-        this.passBirthDate = passBirthDate;
-    }
 }

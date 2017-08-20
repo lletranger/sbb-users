@@ -19,7 +19,7 @@ public interface BoardService {
 
     void addBoard(Board board);
 
-    List<Board> find(int id1, int id2);
+    List<Board> findBoards(int id1, int id2);
 
     Date findArrival(int board_id);
 }

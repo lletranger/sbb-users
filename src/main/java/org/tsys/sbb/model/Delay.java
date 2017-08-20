@@ -1,6 +1,7 @@
 package org.tsys.sbb.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ public @Data class Delay {
     private int delay_id;
 
     @NotNull(message = "Board id is compulsory")
+    @Range(min = 1, message = "Board ID must be positive")
     @Column(name = "board_id")
     private int board_id;
 

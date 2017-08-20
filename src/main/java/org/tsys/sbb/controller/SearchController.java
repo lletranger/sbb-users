@@ -61,7 +61,7 @@ public class SearchController {
         model.addAttribute("s1", id1);
         model.addAttribute("s2", id2);
 
-        List<Board> searchResult = boardService.find(id1, id2);
+        List<Board> searchResult = boardService.findBoards(id1, id2);
 
         List<BoardDto> dtos = new ArrayList<>();
 

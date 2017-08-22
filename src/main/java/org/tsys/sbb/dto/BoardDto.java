@@ -40,5 +40,4 @@ public @Data class BoardDto {
         board.setDeparture(departure);
         return board;
     }
-
 }

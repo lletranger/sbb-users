@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class DistanceAndTimeUtil {
 
@@ -108,8 +107,7 @@ public class DistanceAndTimeUtil {
         String[] hms = time.split(":");
         int hourMins = Integer.valueOf(hms[0])*60;
         int mins = Integer.valueOf(hms[1]);
-        long all = (hourMins + mins)*60*1000;
-        return all;
+        return (hourMins + mins)*60*1000;
     }
 
     public static boolean isTenMinsGap(String departure) {
@@ -121,22 +119,12 @@ public class DistanceAndTimeUtil {
     public static boolean isAlreadyArrived(Date departure, Date arrival) {
 
         Date now = new Date();
-
-        String a = getStringDate(arrival);
-        String b = getStringDate(new Date());
-        String c = getStringDate(departure);
-
         long d = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(now));
         long e = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(departure));
-
         return !(d > 0 || e < 0);
     }
 
-    public static boolean passengerBirthDates(Date date, String string) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-        String sdate = sdf.format(date);
-        return sdate.equals(string);
-    }
+
 
     public static Delay getResultingDelay(List<Delay> delays) {
         long longDelay = 0;
@@ -148,5 +136,30 @@ public class DistanceAndTimeUtil {
         //GMT+3 => -3
         result.setDelay_time(new Date(longDelay - 3 * 60 * 60 * 1000));
         return result;
+    }
+
+    public static boolean isDeparted(Date departure) {
+
+        Date now = new Date();
+        return getDtoTime(getStringDate(departure)) - getDtoTime(getStringDate(now)) < 0;
+    }
+
+    public static boolean isDeparting(Date departure) {
+
+        Date now = new Date();
+        return getDtoTime(getStringDate(departure)) - getDtoTime(getStringDate(now)) <= 5*60*1000;
+    }
+
+
+    public static boolean isArrived(Date arriving) {
+
+        Date now = new Date();
+        return getDtoTime(getStringDate(arriving)) - getDtoTime(getStringDate(now)) < 0;
+    }
+
+    public static boolean isArriving(Date arriving) {
+
+        Date now = new Date();
+        return getDtoTime(getStringDate(arriving)) - getDtoTime(getStringDate(now)) <= 5*60*1000;
     }
 }

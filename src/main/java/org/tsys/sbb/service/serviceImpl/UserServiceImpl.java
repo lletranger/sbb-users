@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean checkUser(String login, String password) {
-        return bCryptPasswordEncoder.matches(password,
-                userDao.getUserByLogin(login).getPassword());
+        return bCryptPasswordEncoder.matches(password, getUserByLogin(login).getPassword());
     }
 }

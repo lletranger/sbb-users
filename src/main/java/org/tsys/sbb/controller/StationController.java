@@ -51,11 +51,9 @@ public class StationController {
             return "notpass";
         }
 
-        String stationName = station.getName();
-
-        if (stationService.isExist(stationName)) {
-            session.setAttribute("existingStation", stationName);
-            logger.info("Can't create station, already exists with the name " + stationName);
+        if (stationService.isExist(station.getName())) {
+            session.setAttribute("existingStation", station.getName());
+            logger.info("Can't create station, already exists with the name " + station.getName());
             return "snexception";
         }
 

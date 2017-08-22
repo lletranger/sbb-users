@@ -16,7 +16,6 @@ import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class TicketController {
@@ -24,7 +23,6 @@ public class TicketController {
     private TicketService ticketService;
     private BoardService boardService;
     private StationService stationService;
-    private UserService userService;
 
 
     private static final Logger logger = LoggerFactory.getLogger(TicketController.class);
@@ -42,11 +40,6 @@ public class TicketController {
     @Autowired
     public void setStationService(StationService stationService) {
         this.stationService = stationService;
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
     }
 
     @RequestMapping(value = "/ticket/add/{board_id}")
@@ -107,18 +100,11 @@ public class TicketController {
             return "passalready";
         }
 
-        Passenger passenger = PassengerDto.getPassengerFromDto(passengerDto);
-
-        Ticket ticket = new Ticket();
-        ticket.setBoard(board);
-        ticket.setPassenger(passenger);
-        ticket.setUser((User) session.getAttribute("sessionUser"));
-
+        Ticket ticket = ticketService.createTicket(passengerDto, id, user);
         ticketService.addTicket(ticket);
         session.setAttribute("ticket", ticket);
         session.setAttribute("board", board);
         session.setAttribute("passenger", passengerDto);
-        session.setAttribute("birth_date", DistanceAndTimeUtil.getStringBirthDate(passenger.getBirth_date()));
         session.setAttribute("from", from);
         session.setAttribute("to", to);
         return "bought";

@@ -17,7 +17,7 @@ public class ScheduleController {
     private StationService stationService;
     private ScheduleService scheduleService;
 
-    private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ScheduleController.class);
 
     @Autowired
     public void setStationService(StationService stationService) {

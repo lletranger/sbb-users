@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tsys.sbb.dao.BoardDao;
+import org.tsys.sbb.dto.BoardDto;
 import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
@@ -11,7 +12,6 @@ import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import java.util.Date;
 import java.util.List;
-
 
 @Service
 @Transactional
@@ -34,13 +34,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Autowired
-    public void setTicketService(TicketService ticketService) {
-        this.ticketService = ticketService;
+    public void setStationService(StationService stationService) {
+        this.stationService = stationService;
     }
 
     @Autowired
-    public void setStationService(StationService stationService) {
-        this.stationService = stationService;
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
     }
 
     @Autowired
@@ -87,6 +87,22 @@ public class BoardServiceImpl implements BoardService {
         return resultList;
     }
 
+    public Date findExpectedArrival(Board board) {
+
+        Station from = stationService.getStationById(board.getFrom_id());
+        Station to = stationService.getStationById(board.getTo_id());
+        Train train = trainService.getTrainById(board.getTrain_id());
+        int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
+        return new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
+    }
+
+    public Date findDelays(Board board) {
+
+        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
+        Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
+        return d.getDelay_time();
+    }
+
     public Date findArrival(int board_id) {
 
         Board board = findBoardById(board_id);
@@ -122,5 +138,137 @@ public class BoardServiceImpl implements BoardService {
         return ticketService.findTicketsByBoardId(id)
                 .stream()
                 .anyMatch(ticket -> ticketService.isPassOnBoard(ticket, passengerDto));
+    }
+
+    public BoardDto getDtoFromBoard(Board board) {
+
+        BoardDto boardDto = new BoardDto();
+        Station fromStation = stationService.getStationById(board.getFrom_id());
+        Station toStation = stationService.getStationById(board.getTo_id());
+        Train train = trainService.getTrainById(board.getTrain_id());
+
+        boardDto.setName(board.getName());
+        boardDto.setFrom(fromStation.getName());
+        boardDto.setTo(toStation.getName());
+        boardDto.setDeparture(DistanceAndTimeUtil.getStringDate(board.getDeparture()));
+
+        int distance = (int) DistanceAndTimeUtil.getDistance(fromStation, toStation);
+        boardDto.setDistance(distance);
+
+        boardDto.setJourneyTime(DistanceAndTimeUtil.getJourneyTime(distance, train));
+        boardDto.setAverageSpeed(train.getSpeed_percents() * 45 / 100);
+
+        return boardDto;
+    }
+
+    public BoardDto getFullDto(Board board) {
+
+        BoardDto boardDto = new BoardDto();
+        Station fromStation = stationService.getStationById(board.getFrom_id());
+        Station toStation = stationService.getStationById(board.getTo_id());
+        Train train = trainService.getTrainById(board.getTrain_id());
+
+        boardDto.setId(board.getBoard_id());
+        boardDto.setName(board.getName());
+        boardDto.setFrom(fromStation.getName());
+        boardDto.setTo(toStation.getName());
+        boardDto.setDeparture(DistanceAndTimeUtil.getStringDate(board.getDeparture()));
+
+        int distance = (int) DistanceAndTimeUtil.getDistance(fromStation, toStation);
+        boardDto.setDistance(distance);
+
+        boardDto.setJourneyTime(DistanceAndTimeUtil.getJourneyTime(distance, train));
+
+        Date arrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
+        boardDto.setExpectedArrival(DistanceAndTimeUtil.getStringDate(arrival));
+        if (!delayService.getDelayByBoardId(board.getBoard_id()).isEmpty()) {
+            boardDto.setDelay(DistanceAndTimeUtil.getStringDelay(DistanceAndTimeUtil.getResultingDelay(
+                    delayService.getDelayByBoardId(board.getBoard_id())).getDelay_time()));
+        }
+        arrival = findArrival(board.getBoard_id());
+        boardDto.setArrival(DistanceAndTimeUtil.getStringDate(arrival));
+        boardDto.setIsArrived(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival) ? "true" : "false");
+
+        return boardDto;
+    }
+
+
+    public BoardDto getSearchDto(Board board) {
+
+        BoardDto boardDto = new BoardDto();
+        Station fromStation = stationService.getStationById(board.getFrom_id());
+        Station toStation = stationService.getStationById(board.getTo_id());
+        Train train = trainService.getTrainById(board.getTrain_id());
+
+        boardDto.setId(board.getBoard_id());
+        boardDto.setName(board.getName());
+        boardDto.setFrom(fromStation.getName());
+        boardDto.setTo(toStation.getName());
+
+        List<Ticket> tickets = ticketService.findTicketsByBoardId(board.getBoard_id());
+        String departure = DistanceAndTimeUtil.getStringDate(board.getDeparture());
+
+        boardDto.setTicketsAvailable((tickets.size() < train.getSeats()) & (!DistanceAndTimeUtil.isTenMinsGap(departure)));
+        boardDto.setDeparture(departure);
+        boardDto.setAverageSpeed(train.getSpeed_percents() * 45 / 100);
+
+        int distance = (int) DistanceAndTimeUtil.getDistance(fromStation, toStation);
+        boardDto.setDistance(distance);
+
+        String journeyTime = DistanceAndTimeUtil.getJourneyTime(distance, train);
+        boardDto.setJourneyTime(journeyTime);
+
+        Date expectedArrival = new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(journeyTime));
+        boardDto.setExpectedArrival(DistanceAndTimeUtil.getStringDate(expectedArrival));
+
+        List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
+        if (!delays.isEmpty()) {
+            Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
+            String delay = DistanceAndTimeUtil.getStringDelay(d.getDelay_time());
+            boardDto.setDelay(delay);
+            expectedArrival = new Date(board.getDeparture().getTime()
+                    + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train))
+                    + DistanceAndTimeUtil.getTime(delay));
+        }
+
+        boardDto.setArrival(DistanceAndTimeUtil.getStringDate(expectedArrival));
+        return boardDto;
+    }
+
+    public String getFromStatus(Board board) {
+
+        if (DistanceAndTimeUtil.isDeparted(board.getDeparture())) {
+            return "Departed at " + DistanceAndTimeUtil.getStringDate(board.getDeparture());
+        }
+
+        if (DistanceAndTimeUtil.isDeparting(board.getDeparture())) {
+            return "Departing";
+        }
+
+        return " ";
+    }
+
+    public String getToStatus(Board board) {
+
+        Date arriving = findArrival(board.getBoard_id());
+
+        if (DistanceAndTimeUtil.isArrived(arriving)) {
+            return "Arrived at " + DistanceAndTimeUtil.getStringDate(arriving);
+        }
+
+        if (DistanceAndTimeUtil.isArriving(arriving)) {
+            return "Approaching";
+        }
+
+        if (!DistanceAndTimeUtil.getStringDelay(findDelays(board)).equals("0m")) {
+            return "Delayed on " + DistanceAndTimeUtil.getStringDelay(findDelays(board));
+        }
+
+
+        if (DistanceAndTimeUtil.isDeparted(board.getDeparture())) {
+            return "On route";
+        }
+
+        return " ";
     }
 }

@@ -123,7 +123,7 @@
             </tr>
             <tr>
                 <th class="sorttable_nosort" >Passenger birth date:</th>
-                <td>${birth_date}</td>
+                <td>${passenger.birth_date}</td>
             </tr>
             <tr>
                 <th class="sorttable_nosort" >Ticket number:</th>

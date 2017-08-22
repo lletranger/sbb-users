@@ -64,40 +64,10 @@ public class BoardController {
             return "notpass";
         }
 
-        List<Board> boards = boardService.getAllBoards();
-        List<BoardDto> dtos = new ArrayList<>();
-
-        for (Board b : boards) {
-
-            BoardDto boardDto = new BoardDto();
-            boardDto.setId(b.getBoard_id());
-            boardDto.setName(b.getName());
-
-            Station from = stationService.getStationById(b.getFrom_id());
-            Station to = stationService.getStationById(b.getTo_id());
-            boardDto.setFrom(from.getName());
-            boardDto.setTo(to.getName());
-
-            Train t = trainService.getTrainById(b.getTrain_id());
-            boardDto.setDeparture(DistanceAndTimeUtil.getStringDate(b.getDeparture()));
-
-            int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
-            boardDto.setDistance(distance);
-
-            boardDto.setJourneyTime(DistanceAndTimeUtil.getJourneyTime(distance, t));
-
-            Date arrival = new Date(b.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, t)));
-            boardDto.setExpectedArrival(DistanceAndTimeUtil.getStringDate(arrival));
-            if(!delayService.getDelayByBoardId(b.getBoard_id()).isEmpty()) {
-                boardDto.setDelay(DistanceAndTimeUtil.getStringDelay(DistanceAndTimeUtil.getResultingDelay(
-                        delayService.getDelayByBoardId(b.getBoard_id())).getDelay_time()));
-            }
-            arrival = boardService.findArrival(b.getBoard_id());
-            boardDto.setArrival(DistanceAndTimeUtil.getStringDate(arrival));
-            boardDto.setIsArrived(DistanceAndTimeUtil.isAlreadyArrived(b.getDeparture(), arrival) ? "true" : "false");
-
-            dtos.add(boardDto);
-        }
+        List<BoardDto> dtos = boardService.getAllBoards()
+                .stream()
+                .map(b -> boardService.getFullDto(b))
+                .collect(Collectors.toList());
 
         model.addAttribute("boardDto", new BoardDto());
         model.addAttribute("dtos", dtos);
@@ -115,31 +85,16 @@ public class BoardController {
             return "notpass";
         }
 
-        Board b = boardService.findBoardById(id);
-        List<Ticket> tickets = ticketService.findTicketsByBoardId(id);
-        Station fromStation = stationService.getStationById(b.getFrom_id());
-        Station toStation = stationService.getStationById(b.getTo_id());
-        Train train = trainService.getTrainById(b.getTrain_id());
+        Board board = boardService.findBoardById(id);
 
-        List<PassengerDto> passengers = tickets.stream()
+        List<PassengerDto> passengers = ticketService.findTicketsByBoardId(id)
+                .stream()
                 .map(ticket -> PassengerDto.getDtoFromPassenger(ticket.getPassenger()))
                 .collect(Collectors.toList());
 
-        logger.info("Total number of passengers for board " + b.getName() + " is " + passengers.size());
-
-        BoardDto boardDto = new BoardDto();
-        boardDto.setName(b.getName());
-        boardDto.setFrom(fromStation.getName());
-        boardDto.setTo(toStation.getName());
-        boardDto.setDeparture(DistanceAndTimeUtil.getStringDate(b.getDeparture()));
-        int distance = (int) DistanceAndTimeUtil.getDistance(fromStation, toStation);
-        boardDto.setDistance(distance);
-        boardDto.setJourneyTime(DistanceAndTimeUtil.getJourneyTime(distance, train));
-        boardDto.setAverageSpeed(train.getSpeed_percents() * 45 / 100);
-
+        logger.info("Total number of passengers for board " + board.getName() + " is " + passengers.size());
         model.addAttribute("passengers", passengers);
-        model.addAttribute("boardDetailed", boardDto);
-
+        model.addAttribute("boardDetailed", boardService.getDtoFromBoard(board));
         return "boarddata";
     }
 
@@ -157,13 +112,9 @@ public class BoardController {
             return "tofromexception";
         }
 
-        Train t = trainService.getTrainById(boardDto.getTrain_id());
-        Station s1 = stationService.getStationById(boardDto.getFrom_id());
-        Station s2 = stationService.getStationById(boardDto.getTo_id());
         Board board = BoardDto.getBoardFromDto(boardDto);
         boardService.addBoard(board);
         new Sender().send();
-
         return "redirect:/boards";
     }
 
@@ -178,9 +129,8 @@ public class BoardController {
         Board board = boardService.findBoardById(id);
         Station from = stationService.getStationById(board.getFrom_id());
         Station to = stationService.getStationById(board.getTo_id());
-        Date arrival = boardService.findArrival(id);
 
-        if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+        if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
             logger.info("Trying to add a delay to an arrived board!");
             return "notexist";
         }
@@ -189,7 +139,6 @@ public class BoardController {
         model.addAttribute("fromName", from.getName());
         model.addAttribute("toName", to.getName());
         model.addAttribute("board", board);
-
         return "delays";
     }
 
@@ -203,16 +152,14 @@ public class BoardController {
         }
 
         Board board = boardService.findBoardById(id);
-        Date arrival = boardService.findArrival(id);
 
-        if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)) {
+        if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
             logger.info("Trying to add a delay to an arrived board!");
             return "notexist";
         }
 
         delayService.addDelay(DelayDto.getDelayFromDto(delayDto, board));
         new Sender().send();
-
         return "redirect:/boards";
     }
 }

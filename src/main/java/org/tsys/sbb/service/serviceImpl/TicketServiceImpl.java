@@ -6,10 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.tsys.sbb.dao.TicketDao;
 import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.dto.TicketDto;
-import org.tsys.sbb.model.Board;
-import org.tsys.sbb.model.Passenger;
-import org.tsys.sbb.model.Station;
-import org.tsys.sbb.model.Ticket;
+import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.BoardService;
 import org.tsys.sbb.service.PassengerService;
 import org.tsys.sbb.service.StationService;
@@ -27,7 +24,6 @@ public class TicketServiceImpl implements TicketService {
     private BoardService boardService;
     private PassengerService passengerService;
     private StationService stationService;
-
 
     @Autowired
     public void setTicketDao(TicketDao ticketDao) {
@@ -68,16 +64,13 @@ public class TicketServiceImpl implements TicketService {
 
     public List<TicketDto> findTicketsByUserId(int user_id) {
 
-        List<Ticket> tickets = ticketDao.findTicketsByUserId(user_id);
         List<TicketDto> list = new ArrayList<>();
 
-        for (Ticket ticket : tickets) {
-
+        ticketDao.findTicketsByUserId(user_id).forEach(ticket -> {
             Board board = boardService.findBoardById(ticket.getBoard().getBoard_id());
             Passenger passenger = passengerService.getPassById(ticket.getPassenger().getPass_id());
             Station fromStation = stationService.getStationById(board.getFrom_id());
             Station toStation = stationService.getStationById(board.getTo_id());
-
             TicketDto dto = new TicketDto();
             dto.setId(ticket.getTicket_id());
             dto.setBoardName(board.getName());
@@ -87,9 +80,8 @@ public class TicketServiceImpl implements TicketService {
             dto.setPassName(passenger.getName());
             dto.setPassSurname(passenger.getSurname());
             dto.setPassBirthDate(DistanceAndTimeUtil.getStringBirthDate(passenger.getBirth_date()));
-
             list.add(dto);
-        }
+        });
 
         return list;
     }
@@ -101,5 +93,14 @@ public class TicketServiceImpl implements TicketService {
                 && passenger.getSurname().equalsIgnoreCase(passengerDto.getSurname())
                 && DistanceAndTimeUtil.getStringBirthDate2(passenger.getBirth_date())
                 .equalsIgnoreCase(passengerDto.getBirth_date());
+    }
+
+    public Ticket createTicket(PassengerDto passengerDto, int id, User sessionUser) {
+        Passenger passenger = PassengerDto.getPassengerFromDto(passengerDto);
+        Ticket ticket = new Ticket();
+        ticket.setBoard(boardService.findBoardById(id));
+        ticket.setPassenger(passenger);
+        ticket.setUser(sessionUser);
+        return ticket;
     }
 }

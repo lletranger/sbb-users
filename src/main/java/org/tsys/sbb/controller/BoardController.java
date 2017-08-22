@@ -157,6 +157,9 @@ public class BoardController {
             return "tofromexception";
         }
 
+        Train t = trainService.getTrainById(boardDto.getTrain_id());
+        Station s1 = stationService.getStationById(boardDto.getFrom_id());
+        Station s2 = stationService.getStationById(boardDto.getTo_id());
         Board board = BoardDto.getBoardFromDto(boardDto);
         boardService.addBoard(board);
         new Sender().send();
@@ -207,8 +210,7 @@ public class BoardController {
             return "notexist";
         }
 
-        Delay delay = DelayDto.getDelayFromDto(delayDto);
-        delayService.addDelay(delay);
+        delayService.addDelay(DelayDto.getDelayFromDto(delayDto, board));
         new Sender().send();
 
         return "redirect:/boards";

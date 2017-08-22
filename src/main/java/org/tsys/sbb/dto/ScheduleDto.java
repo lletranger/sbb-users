@@ -6,5 +6,7 @@ import java.util.List;
 
 public @Data class ScheduleDto {
 
-    List<BoardDto> boardDtoList;
+    String name;
+    List<BoardDto> from;
+    List<BoardDto> to;
 }

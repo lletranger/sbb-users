@@ -8,4 +8,8 @@ import java.util.List;
 public @Data class StationsDto implements Serializable {
 
     private List<StationDto> stations;
+
+    public StationsDto(List<StationDto> stations) {
+        this.stations = stations;
+    }
 }

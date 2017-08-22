@@ -3,11 +3,11 @@ package org.tsys.sbb.service.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.tsys.sbb.dto.BoardDto;
 import org.tsys.sbb.dto.ScheduleDto;
-import org.tsys.sbb.model.Board;
 import org.tsys.sbb.service.BoardService;
-import org.tsys.sbb.service.DelayService;
 import org.tsys.sbb.service.ScheduleService;
+import org.tsys.sbb.service.StationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 public class ScheduleServiceImpl implements ScheduleService {
 
     private BoardService boardService;
-    private DelayService delayService;
+    private StationService stationService;
 
     @Autowired
     public void setBoardService(BoardService boardService) {
@@ -25,20 +25,34 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Autowired
-    public void setDelayService(DelayService delayService) {
-        this.delayService = delayService;
+    public void setStationService(StationService stationService) {
+        this.stationService = stationService;
     }
 
-    public List<ScheduleDto> getSchedule(int id) {
+    public ScheduleDto getSchedule(int id) {
 
-        List<Board> boards = boardService.findBoardsByFrom(id);
-        boards.addAll(boardService.findBoardsByTo(id));
+        ScheduleDto dto = new ScheduleDto();
+        List<BoardDto> from = new ArrayList<>();
+        List<BoardDto> to = new ArrayList<>();
 
-        List<ScheduleDto> list = new ArrayList<>();
+        boardService.findBoardsByFrom(id).forEach(board -> {
+            BoardDto bDto = new BoardDto();
+            bDto.setName(board.getName());
+            bDto.setFrom(stationService.getStationById(board.getFrom_id()).getName());
+            from.add(bDto);
+        });
 
-        for(Board b : boards) {
-            list.add(null);
-        }
-        return list;
+        boardService.findBoardsByTo(id).forEach(board -> {
+            BoardDto bDto = new BoardDto();
+            bDto.setName(board.getName());
+            bDto.setTo(stationService.getStationById(board.getTo_id()).getName());
+            to.add(bDto);
+        });
+
+        dto.setName(stationService.getStationById(id).getName());
+        dto.setFrom(from);
+        dto.setTo(to);
+
+        return dto;
     }
 }

@@ -1,5 +1,6 @@
 package org.tsys.sbb.service;
 
+import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.model.Board;
 
 import java.util.Date;
@@ -22,4 +23,8 @@ public interface BoardService {
     List<Board> findBoards(int id1, int id2);
 
     Date findArrival(int board_id);
+
+    boolean isAvailable(int id);
+
+    boolean passExists(int id, PassengerDto passengerDto);
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tsys.sbb.dao.TicketDao;
+import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.dto.TicketDto;
 import org.tsys.sbb.model.Board;
 import org.tsys.sbb.model.Passenger;
@@ -26,6 +27,7 @@ public class TicketServiceImpl implements TicketService {
     private BoardService boardService;
     private PassengerService passengerService;
     private StationService stationService;
+
 
     @Autowired
     public void setTicketDao(TicketDao ticketDao) {
@@ -60,14 +62,18 @@ public class TicketServiceImpl implements TicketService {
         ticketDao.addTicket(ticket);
     }
 
-    public List<TicketDto> findTicketsByUserId(int user_id){
+    public void deleteTicket(int id) {
+        ticketDao.deleteTicket(id);
+    }
+
+    public List<TicketDto> findTicketsByUserId(int user_id) {
 
         List<Ticket> tickets = ticketDao.findTicketsByUserId(user_id);
         List<TicketDto> list = new ArrayList<>();
 
         for (Ticket ticket : tickets) {
 
-            Board board = boardService.findBoardById(ticket.getBoard_id());
+            Board board = boardService.findBoardById(ticket.getBoard().getBoard_id());
             Passenger passenger = passengerService.getPassById(ticket.getPassenger().getPass_id());
             Station fromStation = stationService.getStationById(board.getFrom_id());
             Station toStation = stationService.getStationById(board.getTo_id());
@@ -88,11 +94,12 @@ public class TicketServiceImpl implements TicketService {
         return list;
     }
 
-    public void deleteTicket(int id) {
+    public boolean isPassOnBoard(Ticket ticket, PassengerDto passengerDto) {
 
-        Ticket ticket = findTicketById(id);
         Passenger passenger = ticket.getPassenger();
-        ticketDao.deleteTicket(id);
-        passengerService.deletePassenger(passenger.getPass_id());
+        return passenger.getName().equalsIgnoreCase(passengerDto.getName())
+                && passenger.getSurname().equalsIgnoreCase(passengerDto.getSurname())
+                && DistanceAndTimeUtil.getStringBirthDate2(passenger.getBirth_date())
+                .equalsIgnoreCase(passengerDto.getBirth_date());
     }
 }

@@ -1,9 +1,9 @@
 package org.tsys.sbb.service;
 
+import org.tsys.sbb.dto.StationsDto;
 import org.tsys.sbb.model.Station;
 
 import java.util.List;
-import java.util.Map;
 
 public interface StationService {
 
@@ -13,7 +13,7 @@ public interface StationService {
 
     void addStation(Station station);
 
-    Map<Integer, String> getStations();
+    boolean isExist(String name);
 
-    List<String> getAllStationsNames();
+    StationsDto getAllStationsDto();
 }

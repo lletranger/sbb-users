@@ -21,9 +21,7 @@ public class PassengerDaoImpl implements PassengerDao {
     public Passenger getPassById(int id) {
 
         Passenger passenger = em.find(Passenger.class, id);
-
         logger.info("Passenger loaded " + passenger);
-
         return passenger;
     }
 
@@ -35,7 +33,8 @@ public class PassengerDaoImpl implements PassengerDao {
                 .setParameter("surname", surname)
                 .getResultList();
 
-        list.forEach(passenger -> logger.info("Getting all passengers with required name and surname, got one " + passenger));
+        list.forEach(passenger ->
+                logger.info("Getting all passengers with required name and surname, got one " + passenger));
 
         return list;
     }
@@ -43,7 +42,6 @@ public class PassengerDaoImpl implements PassengerDao {
     public void addPassenger(Passenger passenger) {
 
         em.persist(passenger);
-
         logger.info("Passenger added " + passenger);
     }
 

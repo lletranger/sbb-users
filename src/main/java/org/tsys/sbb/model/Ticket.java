@@ -1,7 +1,6 @@
 package org.tsys.sbb.model;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,18 +14,18 @@ public @Data class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ticket_id;
 
-    @NotNull(message = "Board id can't be null!")
-    @Range(min = 1, message = "Board ID must be positive")
-    @Column(name = "board_id")
-    private int board_id;
+    @NotNull(message = "BTicket must have a board!")
+    @OneToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
 
     @NotNull(message = "Ticket must have a passenger!")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pass_id")
     private Passenger passenger;
 
-    @NotNull(message = "User id can't be null!")
-    @Range(min = 1, message = "User ID must be positive")
-    @Column(name = "user_id")
-    private int user_id;
+    @NotNull(message = "Ticket must have a buyer!")
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

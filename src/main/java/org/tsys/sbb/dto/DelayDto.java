@@ -2,6 +2,7 @@ package org.tsys.sbb.dto;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.tsys.sbb.model.Board;
 import org.tsys.sbb.model.Delay;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
@@ -16,13 +17,13 @@ public @Data class DelayDto {
     @Pattern(regexp = "([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}", message = "Delay time has invalid characters")
     private String delay;
 
-    public static Delay getDelayFromDto(DelayDto delayDto) {
+    public static Delay getDelayFromDto(DelayDto delayDto, Board board) {
         Delay delay = new Delay();
-        delay.setBoard_id(delayDto.board_id);
         long longDelay = DistanceAndTimeUtil.getDtoTime(delayDto.getDelay());
         //GMT+3 => -3
         Date date = new Date(longDelay - 3*60*60*1000);
         delay.setDelay_time(date);
+        delay.setBoard(board);
         return delay;
     }
 }

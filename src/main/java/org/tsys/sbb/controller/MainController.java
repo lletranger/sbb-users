@@ -60,12 +60,12 @@ public class MainController {
 
         if (userService.getUserByLogin(user.getLogin()) == null) {
             session.setAttribute("noUser", user.getLogin());
-            logger.info("There's no registered user with login: " + user.getLogin());
+            logger.info("There's no registered user with login = " + user.getLogin());
             return "nouserexception";
         }
 
         if (!userService.checkUser(user.getLogin(), user.getPassword())) {
-            logger.info("Wrong password for user: " + user.getLogin());
+            logger.info("Wrong password for user with login = " + user.getLogin());
             return "passwordexception";
         }
 
@@ -87,7 +87,7 @@ public class MainController {
 
         if (userService.getUserByLogin(user.getLogin()) != null) {
             session.setAttribute("existingUser", user.getLogin());
-            logger.info("User already exists with login: " + user.getLogin());
+            logger.info("User already exists with login = " + user.getLogin());
             return "logintaken";
         }
 

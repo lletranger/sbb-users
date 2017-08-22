@@ -1,5 +1,6 @@
 package org.tsys.sbb.service;
 
+import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.dto.TicketDto;
 import org.tsys.sbb.model.Ticket;
 
@@ -16,4 +17,6 @@ public interface TicketService {
     void addTicket(Ticket ticket);
 
     void deleteTicket(int id);
+
+    boolean isPassOnBoard(Ticket ticket, PassengerDto passengerDto);
 }

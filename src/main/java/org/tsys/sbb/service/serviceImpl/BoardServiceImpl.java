@@ -4,14 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tsys.sbb.dao.BoardDao;
-import org.tsys.sbb.model.Board;
-import org.tsys.sbb.model.Delay;
-import org.tsys.sbb.model.Station;
-import org.tsys.sbb.model.Train;
-import org.tsys.sbb.service.BoardService;
-import org.tsys.sbb.service.DelayService;
-import org.tsys.sbb.service.StationService;
-import org.tsys.sbb.service.TrainService;
+import org.tsys.sbb.dto.PassengerDto;
+import org.tsys.sbb.model.*;
+import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import java.util.Date;
@@ -23,8 +18,9 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
     private BoardDao boardDao;
-    private StationService stationService;
     private DelayService delayService;
+    private StationService stationService;
+    private TicketService ticketService;
     private TrainService trainService;
 
     @Autowired
@@ -33,13 +29,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Autowired
-    public void setStationService(StationService stationService) {
-        this.stationService = stationService;
+    public void setDelayService(DelayService delayService) {
+        this.delayService = delayService;
     }
 
     @Autowired
-    public void setDelayService(DelayService delayService) {
-        this.delayService = delayService;
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
+
+    @Autowired
+    public void setStationService(StationService stationService) {
+        this.stationService = stationService;
     }
 
     @Autowired
@@ -92,7 +93,6 @@ public class BoardServiceImpl implements BoardService {
 
         Station from = stationService.getStationById(board.getFrom_id());
         Station to = stationService.getStationById(board.getTo_id());
-
         Train train = trainService.getTrainById(board.getTrain_id());
 
         int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
@@ -109,5 +109,18 @@ public class BoardServiceImpl implements BoardService {
         }
 
         return arrival;
+    }
+
+    public boolean isAvailable(int id) {
+
+        return ticketService.findTicketsByBoardId(id).size() <
+                trainService.getTrainById(boardDao.findBoardById(id).getTrain_id()).getSeats();
+    }
+
+    public boolean passExists(int id, PassengerDto passengerDto) {
+
+        return ticketService.findTicketsByBoardId(id)
+                .stream()
+                .anyMatch(ticket -> ticketService.isPassOnBoard(ticket, passengerDto));
     }
 }

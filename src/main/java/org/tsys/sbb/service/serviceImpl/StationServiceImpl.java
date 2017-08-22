@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tsys.sbb.dao.StationDao;
+import org.tsys.sbb.dto.StationDto;
+import org.tsys.sbb.dto.StationsDto;
 import org.tsys.sbb.model.Station;
 import org.tsys.sbb.service.StationService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,16 +32,26 @@ public class StationServiceImpl implements StationService {
         return stationDao.getAllStations();
     }
 
-    public void addStation(Station station) { stationDao.addStation(station); }
-
-    public Map<Integer, String> getStations() {
-        return stationDao.getAllStations().stream()
-                .collect(Collectors.toMap(Station::getStation_id, Station::getName));
+    public void addStation(Station station) {
+        stationDao.addStation(station);
     }
 
-    public List<String> getAllStationsNames() {
+    public StationsDto getAllStationsDto() {
+
+        List<StationDto> list = new ArrayList<>();
+
+        getAllStations().forEach(station ->
+                list.add(new StationDto(station.getStation_id(), station.getName())));
+
+        return new StationsDto(list);
+    }
+
+    public boolean isExist(String name) {
+
         return getAllStations().stream()
                 .map(Station::getName)
-                .collect(Collectors.toCollection(ArrayList::new));
+                .collect(Collectors.toCollection(ArrayList::new))
+                .stream()
+                .anyMatch(name::equalsIgnoreCase);
     }
 }

@@ -33,7 +33,6 @@ public class UserController {
         }
 
         model.addAttribute("allUsers", userService.getAllUsers());
-
         logger.info("Loading all users to the users page");
         return "users";
     }
@@ -48,7 +47,6 @@ public class UserController {
         }
 
         userService.deleteUser(id);
-
         logger.info("Deleting user with ID = " + id);
         return "redirect:/users";
     }
@@ -65,7 +63,6 @@ public class UserController {
         User user = userService.getUserById(id);
         user.setRole("admin");
         userService.editUser(user);
-
         logger.info("Setting admin role to user with ID = " + id);
         return "redirect:/users";
     }
@@ -82,7 +79,6 @@ public class UserController {
         User user = userService.getUserById(id);
         user.setRole("user");
         userService.editUser(user);
-
         logger.info("Setting user role to user with ID = " + id);
         return "redirect:/users";
     }
@@ -96,7 +92,6 @@ public class UserController {
         }
 
         model.addAttribute("user", userService.getUserById(id));
-
         logger.info("Getting info about user with ID = " + id);
         return "userdata";
     }

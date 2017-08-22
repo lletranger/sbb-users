@@ -7,9 +7,7 @@ import org.tsys.sbb.util.DistanceAndTimeUtil;
 public @Data class PassengerDto {
 
     private String name;
-
     private String surname;
-
     private String birth_date;
 
     public static PassengerDto getDtoFromPassenger(Passenger passenger) {

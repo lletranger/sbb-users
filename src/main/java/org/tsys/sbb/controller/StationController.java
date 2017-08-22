@@ -38,6 +38,7 @@ public class StationController {
         model.addAttribute("station", new Station());
         model.addAttribute("allStations", stationService.getAllStations());
         logger.info("Loading all stations to the stations page");
+
         return "stations";
     }
 
@@ -50,15 +51,17 @@ public class StationController {
             return "notpass";
         }
 
-        if (stationService.getAllStationsNames().stream()
-                .anyMatch(station.getName()::equalsIgnoreCase)) {
-            session.setAttribute("existingStation", station.getName());
-            logger.info("Can't create station, already exists with the name " + station.getName());
+        String stationName = station.getName();
+
+        if (stationService.isExist(stationName)) {
+            session.setAttribute("existingStation", stationName);
+            logger.info("Can't create station, already exists with the name " + stationName);
             return "snexception";
         }
 
         stationService.addStation(station);
-        logger.info("Creating new station " + station);
+        logger.info("New station's created " + station);
+
         return "redirect:/stations";
     }
 }

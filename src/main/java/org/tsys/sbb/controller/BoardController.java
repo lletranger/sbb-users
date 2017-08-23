@@ -87,6 +87,11 @@ public class BoardController {
 
         Board board = boardService.findBoardById(id);
 
+        if (board == null) {
+            session.setAttribute("errorMessage", "There is no board with the requested ID");
+            return "notexist";
+        }
+
         List<PassengerDto> passengers = ticketService.findTicketsByBoardId(id)
                 .stream()
                 .map(ticket -> PassengerDto.getDtoFromPassenger(ticket.getPassenger()))
@@ -127,12 +132,23 @@ public class BoardController {
         }
 
         Board board = boardService.findBoardById(id);
+
+        if(board == null) {
+            session.setAttribute("errorMessage", "There is no board with the requested ID");
+            return "notexist";
+        }
+
         Station from = stationService.getStationById(board.getFrom_id());
         Station to = stationService.getStationById(board.getTo_id());
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
             logger.info("Trying to add a delay to an arrived board!");
-            return "notexist";
+            return "delayexc";
+        }
+
+        if(!DistanceAndTimeUtil.isDeparted(board.getDeparture())) {
+            logger.info("Trying to add a delay to a board that didn't depart yet!");
+            return "delayexc";
         }
 
         model.addAttribute("delay", new DelayDto());
@@ -153,9 +169,19 @@ public class BoardController {
 
         Board board = boardService.findBoardById(id);
 
+        if(board == null) {
+            session.setAttribute("errorMessage", "There is no board with the requested ID");
+            return "notexist";
+        }
+
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
             logger.info("Trying to add a delay to an arrived board!");
-            return "notexist";
+            return "delayexc";
+        }
+
+        if(!DistanceAndTimeUtil.isDeparted(board.getDeparture())){
+            logger.info("Trying to add a delay to a board that didn't depart yet!");
+            return "delayexc";
         }
 
         delayService.addDelay(DelayDto.getDelayFromDto(delayDto, board));

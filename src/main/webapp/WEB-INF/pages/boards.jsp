@@ -3,7 +3,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="true" %>
 
 <%
     response.setHeader("Cache-Control", "no-cache");
@@ -22,7 +21,7 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <script src="/resources/js/sorttable.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sorttable.js"></script>
     <title>Boards page</title>
 
     <style>
@@ -60,7 +59,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
 
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
         <div class="row" align="center">
             <div class="col-md-4">
@@ -112,7 +111,7 @@
 
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center"style="color: #49a827">Boards List</h1>
+        <h1 align="center" style="color: #49a827">Boards List</h1>
 
         <c:if test="${!empty dtos}">
             <table class="sortable">
@@ -140,7 +139,7 @@
                         <td>${dto.expectedArrival}</td>
                         <td>${dto.delay}</td>
                         <td>${dto.arrival}</td>
-                        <c:if test="${dto.isArrived ne 'true'}">
+                        <c:if test="${dto.canAddDelay ne 'false'}">
                             <td>
                                 <button class="btn btn-success"
                                         onclick="location.href = '${pageContext.request.contextPath}/delay/add/${dto.id}'">Add Delay
@@ -156,87 +155,87 @@
 
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center"style="color: #49a827">Add Board</h1>
+        <h1 align="center" style="color: #49a827">Add Board</h1>
 
-            <c:url var="addBoard" value="/boards/add"/>
-            <form:form action="${addBoard}" commandName="boardDto">
+        <c:url var="addBoard" value="/boards/add"/>
+        <form:form action="${addBoard}" commandName="boardDto">
 
-                <table class="sorttable_nosort" style="color: #545454">
-                    <tr>
-                        <th style='width: 100px;'>
-                            <form:label path="name">
-                                <spring:message text="Name: "/>
-                            </form:label>
-                        </th>
-                        <td>
-                            <form:input path="name" maxlength="10" required="required" placeholder="Board name" style="width: 150px"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style='width: 100px;'>
-                            <form:label path="train_id">
-                                <spring:message text="Train: "/>
-                            </form:label>
-                        </th>
-                        <td>
-                            <form:select path="train_id">
-                                <c:forEach items="${trains}" var="train">
-                                    <form:option value="${train.train_id}"
-                                                 label="${train.seats} seats, ${train.speed_percents*45/100} km/h"/>
-                                </c:forEach>
-                            </form:select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style='width: 100px;'>
-                            <form:label path="from_id">
-                                <spring:message text="From: "/>
-                            </form:label>
-                        </th>
-                        <td>
-                            <form:select path="from_id">
-                                <c:forEach items="${stations}" var="station">
-                                    <form:option value="${station.station_id}" label="${station.name}"/>
-                                </c:forEach>
-                            </form:select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style='width: 100px;'>
-                            <form:label path="to_id">
-                                <spring:message text="To: "/>
-                            </form:label>
-                        </th>
-                        <td>
-                            <form:select path="to_id">
-                                <c:forEach items="${stations}" var="station">
-                                    <form:option value="${station.station_id}" label="${station.name}"/>
-                                </c:forEach>
-                            </form:select>
-                        </td>
+            <table class="sorttable_nosort" style="color: #545454">
+                <tr>
+                    <th style='width: 100px;'>
+                        <form:label path="name">
+                            <spring:message text="Name: "/>
+                        </form:label>
+                    </th>
+                    <td>
+                        <form:input path="name" maxlength="10" required="required" placeholder="Board name"
+                                    style="width: 150px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th style='width: 100px;'>
+                        <form:label path="train_id">
+                            <spring:message text="Train: "/>
+                        </form:label>
+                    </th>
+                    <td>
+                        <form:select path="train_id">
+                            <c:forEach items="${trains}" var="train">
+                                <form:option value="${train.train_id}"
+                                             label="${train.seats} seats, ${train.speed_percents*45/100} km/h"/>
+                            </c:forEach>
+                        </form:select>
+                    </td>
+                </tr>
+                <tr>
+                    <th style='width: 100px;'>
+                        <form:label path="from_id">
+                            <spring:message text="From: "/>
+                        </form:label>
+                    </th>
+                    <td>
+                        <form:select path="from_id">
+                            <c:forEach items="${stations}" var="station">
+                                <form:option value="${station.station_id}" label="${station.name}"/>
+                            </c:forEach>
+                        </form:select>
+                    </td>
+                </tr>
+                <tr>
+                    <th style='width: 100px;'>
+                        <form:label path="to_id">
+                            <spring:message text="To: "/>
+                        </form:label>
+                    </th>
+                    <td>
+                        <form:select path="to_id">
+                            <c:forEach items="${stations}" var="station">
+                                <form:option value="${station.station_id}" label="${station.name}"/>
+                            </c:forEach>
+                        </form:select>
+                    </td>
 
-                    </tr>
-                    <tr>
-                        <th style='width: 100px;'>
-                            <form:label path="departure">
-                                <spring:message text="Depart: "/>
-                            </form:label>
-                        </th>
-                        <td>
-                            <form:input path="departure"
-                                        pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}"
-                                        required="required" placeholder="HH:MM" style="width: 150px"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <button type="submit" class="btn btn-success" style="width: 150px">Add Board</button>
-                        </td>
-                    </tr>
-                </table>
-            </form:form>
-        </div>
+                </tr>
+                <tr>
+                    <th style='width: 100px;'>
+                        <form:label path="departure">
+                            <spring:message text="Depart: "/>
+                        </form:label>
+                    </th>
+                    <td>
+                        <form:input path="departure"
+                                    pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}"
+                                    required="required" placeholder="HH:MM" style="width: 150px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button class="btn btn-success" style="width: 150px">Add Board</button>
+                    </td>
+                </tr>
+            </table>
+        </form:form>
     </div>
 </section>
 

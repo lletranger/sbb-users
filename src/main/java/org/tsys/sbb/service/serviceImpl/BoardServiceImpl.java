@@ -96,7 +96,7 @@ public class BoardServiceImpl implements BoardService {
         return new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
     }
 
-    public Date findDelays(Board board) {
+    private Date findDelays(Board board) {
 
         List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
         Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
@@ -187,7 +187,8 @@ public class BoardServiceImpl implements BoardService {
         }
         arrival = findArrival(board.getBoard_id());
         boardDto.setArrival(DistanceAndTimeUtil.getStringDate(arrival));
-        boardDto.setIsArrived(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival) ? "true" : "false");
+        boardDto.setCanAddDelay(!DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)
+                & DistanceAndTimeUtil.isDeparted(board.getDeparture()) ? "true" : "false");
 
         return boardDto;
     }

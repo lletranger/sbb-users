@@ -20,7 +20,7 @@ public @Data class BoardDto {
     private String delay;
     private String arrival;
     private int seatsLeft;
-    private String isArrived;
+    private String canAddDelay;
     private boolean ticketsAvailable;
     private int from_id;
     private int to_id;

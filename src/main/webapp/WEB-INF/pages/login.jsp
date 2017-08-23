@@ -109,8 +109,8 @@
 
             <div class="row">
                 <div class="form-group col-lg-4 col-lg-offset-4">
-                    <button type="submit" class="btn btn-success" style="width: 37%">Login</button>
-                    <button class="btn btn-success" style="width: 37%" onclick="location.href='${pageContext.request.contextPath}/register'">Register</button>
+                    <button class="btn btn-success" style="width: 37%">Login</button>
+                    <button type=button class="btn btn-success" style="width: 37%" onclick="location.href='${pageContext.request.contextPath}/register'">Register</button>
                 </div>
             </div>
         </form:form>

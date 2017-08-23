@@ -150,6 +150,7 @@
             </table>
         </c:if>
     </div>
+
 </section>
 
 <script src="<c:url value="/resources/js/jquery-2.1.3.min.js"/>"></script>

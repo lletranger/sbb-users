@@ -262,9 +262,8 @@ public class BoardServiceImpl implements BoardService {
         }
 
         if (!DistanceAndTimeUtil.getStringDelay(findDelays(board)).equals("0m")) {
-            return "Delayed on " + DistanceAndTimeUtil.getStringDelay(findDelays(board));
+            return "Delayed by " + DistanceAndTimeUtil.getStringDelay(findDelays(board));
         }
-
 
         if (DistanceAndTimeUtil.isDeparted(board.getDeparture())) {
             return "On route";

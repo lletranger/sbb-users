@@ -188,7 +188,7 @@ public class BoardServiceImpl implements BoardService {
         arrival = findArrival(board.getBoard_id());
         boardDto.setArrival(DistanceAndTimeUtil.getStringDate(arrival));
         boardDto.setCanAddDelay(!DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)
-                & DistanceAndTimeUtil.isDeparted(board.getDeparture()) ? "true" : "false");
+                & DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture()) ? "true" : "false");
 
         return boardDto;
     }
@@ -238,11 +238,11 @@ public class BoardServiceImpl implements BoardService {
 
     public String getFromStatus(Board board) {
 
-        if (DistanceAndTimeUtil.isDeparted(board.getDeparture())) {
+        if (DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture())) {
             return "Departed at " + DistanceAndTimeUtil.getStringDate(board.getDeparture());
         }
 
-        if (DistanceAndTimeUtil.isDeparting(board.getDeparture())) {
+        if (DistanceAndTimeUtil.isDepartingOrArriving(board.getDeparture())) {
             return "Departing";
         }
 
@@ -253,11 +253,11 @@ public class BoardServiceImpl implements BoardService {
 
         Date arriving = findArrival(board.getBoard_id());
 
-        if (DistanceAndTimeUtil.isArrived(arriving)) {
+        if (DistanceAndTimeUtil.isDepartedOrArrived(arriving)) {
             return "Arrived at " + DistanceAndTimeUtil.getStringDate(arriving);
         }
 
-        if (DistanceAndTimeUtil.isArriving(arriving)) {
+        if (DistanceAndTimeUtil.isDepartingOrArriving(arriving)) {
             return "Approaching";
         }
 
@@ -265,7 +265,7 @@ public class BoardServiceImpl implements BoardService {
             return "Delayed by " + DistanceAndTimeUtil.getStringDelay(findDelays(board));
         }
 
-        if (DistanceAndTimeUtil.isDeparted(board.getDeparture())) {
+        if (DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture())) {
             return "On route";
         }
 

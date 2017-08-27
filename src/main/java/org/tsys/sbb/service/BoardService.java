@@ -9,6 +9,11 @@ import java.util.List;
 
 public interface BoardService {
 
+    /**
+     * Looking for particular Board
+     * @param id
+     * @return
+     */
     Board findBoardById(int id);
 
     List<Board> findBoardsByFrom(int id);

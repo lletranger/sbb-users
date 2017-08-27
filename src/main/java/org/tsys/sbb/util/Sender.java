@@ -29,7 +29,7 @@ public class Sender {
 
             QueueSession session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
             QueueSender sender = session.createSender(queue);
-            TextMessage message = session.createTextMessage("Schedule's changed");
+            Message message = session.createTextMessage("Schedule's changed");
             sender.send(message);
 
             logger.info("Sending message to MQ");
@@ -37,6 +37,8 @@ public class Sender {
             sender.close();
             session.close();
             connection.close();
+
+
         } catch (NamingException | JMSException e) {
             logger.info("Exception " + e.toString());
         }

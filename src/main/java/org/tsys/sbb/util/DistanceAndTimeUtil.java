@@ -29,14 +29,17 @@ public class DistanceAndTimeUtil {
         int minutes = (int) (60 * (distance / realSpeed - hours));
 
         String realMinutes;
+
         if (minutes < 10) {
             realMinutes = "0" + String.valueOf(minutes);
         } else {
             realMinutes = String.valueOf(minutes);
         }
+
         if (hours >= 24) {
             return hours / 24 + "d " + hours % 24 + "h " + realMinutes + "m";
         }
+
         if (hours > 0) {
             return hours + "h " + realMinutes + "m";
         }
@@ -60,7 +63,7 @@ public class DistanceAndTimeUtil {
 
         int mins = Integer.valueOf(time.substring(0, time.indexOf("m")));
 
-        return 1000 * 60 * (days * 24 * 60 + hours * 60 + mins);
+        return 1000*60*(days*24*60 + hours*60 + mins);
     }
 
     public static String getStringDate(Date date) {
@@ -111,55 +114,34 @@ public class DistanceAndTimeUtil {
     }
 
     public static boolean isTenMinsGap(String departure) {
-        Date now = new Date();
-        String nows = getStringDate(now);
-        return getDtoTime(departure) - getDtoTime(nows) <= 10 * 60 * 1000;
+        return getDtoTime(departure) - getDtoTime(getStringDate(new Date())) <= 600*1000;
     }
 
     public static boolean isAlreadyArrived(Date departure, Date arrival) {
 
-        Date now = new Date();
-        long d = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(now));
+        long d = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(new Date()));
         long e = getDtoTime(getStringDate(arrival)) - getDtoTime(getStringDate(departure));
         return !(d > 0 || e < 0);
     }
 
-
-
     public static Delay getResultingDelay(List<Delay> delays) {
-        long longDelay = 0;
-        for (Delay delay : delays) {
-            String stringDelay = getStringDate(delay.getDelay_time());
-            longDelay += getDtoTime(stringDelay);
-        }
+
+        long longDelay = delays.stream()
+                .map(delay -> getStringDate(delay.getDelay_time()))
+                .mapToLong(DistanceAndTimeUtil::getDtoTime)
+                .sum();
+
         Delay result = new Delay();
         //GMT+3 => -3
-        result.setDelay_time(new Date(longDelay - 3 * 60 * 60 * 1000));
+        result.setDelay_time(new Date(longDelay - 3*3600*1000));
         return result;
     }
 
-    public static boolean isDeparted(Date departure) {
-
-        Date now = new Date();
-        return getDtoTime(getStringDate(departure)) - getDtoTime(getStringDate(now)) < 0;
+    public static boolean isDepartedOrArrived(Date expected) {
+        return getDtoTime(getStringDate(expected)) - getDtoTime(getStringDate(new Date())) <= 0;
     }
 
-    public static boolean isDeparting(Date departure) {
-
-        Date now = new Date();
-        return getDtoTime(getStringDate(departure)) - getDtoTime(getStringDate(now)) <= 5*60*1000;
-    }
-
-
-    public static boolean isArrived(Date arriving) {
-
-        Date now = new Date();
-        return getDtoTime(getStringDate(arriving)) - getDtoTime(getStringDate(now)) < 0;
-    }
-
-    public static boolean isArriving(Date arriving) {
-
-        Date now = new Date();
-        return getDtoTime(getStringDate(arriving)) - getDtoTime(getStringDate(now)) <= 5*60*1000;
+    public static boolean isDepartingOrArriving(Date expected) {
+        return getDtoTime(getStringDate(expected)) - getDtoTime(getStringDate(new Date())) <= 300*1000;
     }
 }

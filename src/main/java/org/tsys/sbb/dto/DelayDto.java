@@ -20,7 +20,7 @@ public @Data class DelayDto {
     public static Delay getDelayFromDto(DelayDto delayDto, Board board) {
         Delay delay = new Delay();
         //GMT+3 => -3
-        Date date = new Date(DistanceAndTimeUtil.getDtoTime(delayDto.getDelay()) - 3*60*60*1000);
+        Date date = new Date(DistanceAndTimeUtil.getDtoTime(delayDto.getDelay()) - 3*3600*1000);
         delay.setDelay_time(date);
         delay.setBoard(board);
         return delay;

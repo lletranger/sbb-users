@@ -6,6 +6,11 @@ import java.util.List;
 
 public interface UserService {
 
+    /**
+     *
+     * @param id integer
+     * @return a single User entity for the specified id
+     */
     User getUserById(int id);
 
     User getUserByLogin(String login);

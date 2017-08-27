@@ -146,7 +146,7 @@ public class BoardController {
             return "delayexc";
         }
 
-        if(!DistanceAndTimeUtil.isDeparted(board.getDeparture())) {
+        if(!DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture())) {
             logger.info("Trying to add a delay to a board that didn't depart yet!");
             return "delayexc";
         }
@@ -179,11 +179,12 @@ public class BoardController {
             return "delayexc";
         }
 
-        if(!DistanceAndTimeUtil.isDeparted(board.getDeparture())){
+        if(!DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture())){
             logger.info("Trying to add a delay to a board that didn't depart yet!");
             return "delayexc";
         }
 
+        System.out.println(delayDto.getDelay());
         delayService.addDelay(DelayDto.getDelayFromDto(delayDto, board));
         new Sender().send();
         return "redirect:/boards";

@@ -11,6 +11,7 @@ import org.tsys.sbb.service.StationService;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -55,6 +56,8 @@ public class ScheduleServiceImpl implements ScheduleService {
             bDto.setStatus(boardService.getToStatus(board));
             to.add(bDto);
         });
+
+        to.sort(Comparator.comparing(BoardDto::getExpectedArrival));
 
         dto.setName(stationService.getStationById(id).getName());
         dto.setFrom(from);

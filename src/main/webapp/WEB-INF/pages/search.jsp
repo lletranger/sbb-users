@@ -186,7 +186,7 @@
                         <c:if test="${sessionUser.role == 'anon'}">
                             <td>
                                 <button class="btn btn-success"
-                                        onclick="location.href = '${pageContext.request.contextPath}/login'">Buy Ticket
+                                        onclick="location.href = '${pageContext.request.contextPath}/login'">Log In
                                 </button>
                             </td>
                         </c:if>

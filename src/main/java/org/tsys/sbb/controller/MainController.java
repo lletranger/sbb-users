@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.UserService;
+import org.tsys.sbb.util.EmailSender;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -91,9 +92,14 @@ public class MainController {
             return "logintaken";
         }
 
+        String password = user.getPassword();
         user.setRole("user");
         userService.addUser(user);
         logger.info("New user's registered, login = " + user.getLogin());
+
+        new EmailSender().send(user.getEmail(), "Successful registration",
+                "You've successfully registered at mer.me with login '"
+                .concat(user.getLogin()).concat("' and password '").concat(password).concat("'"));
         return "success";
     }
 

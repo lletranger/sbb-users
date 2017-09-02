@@ -187,6 +187,7 @@ public class BoardController {
         System.out.println(delayDto.getDelay());
         delayService.addDelay(DelayDto.getDelayFromDto(delayDto, board));
         new Sender().send();
+
         return "redirect:/boards";
     }
 }

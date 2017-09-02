@@ -116,6 +116,7 @@
             <table class="sortable">
                 <tr>
                     <th width="100">Login</th>
+                    <th width="100">Email</th>
                     <th width="100">Status</th>
                     <th class="sorttable_nosort"></th>
                     <th class="sorttable_nosort"></th>
@@ -123,6 +124,7 @@
                 <c:forEach items="${allUsers}" var="user">
                     <tr>
                         <td><a href="/userdata/${user.user_id}">${user.login}</a></td>
+                        <td>${user.email}</td>
                         <td>${user.role}</td>
                         <c:if test="${user.user_id ne sessionUser.user_id}">
                             <td>
@@ -133,7 +135,7 @@
                                     </button>
                                 </c:if>
                                 <c:if test="${user.role ne 'user'}">
-                                    <button class="btn btn-info" style="width: 120px"
+                                    <button class="btn btn-success" style="width: 120px"
                                             onclick="location.href = '${pageContext.request.contextPath}/setuser/${user.user_id}' ">
                                         Set user
                                     </button>

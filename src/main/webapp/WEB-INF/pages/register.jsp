@@ -85,11 +85,19 @@
         <form:form action="${register}" modelAttribute="newUser" accept-charset="utf-8">
 
             <div class="row" style="color: #545454;">
-                <div id="form-group-email" class="form-group col-lg-4 col-lg-offset-4">
+                <div id="form-group-login" class="form-group col-lg-4 col-lg-offset-4">
                     <form:input path="login" minlength="4" maxlength="25" required="required"
                                 placeholder="Login"/>
                 </div>
             </div>
+
+            <div class="row" style="color: #545454;">
+                <div id="form-group-email" class="form-group col-lg-4 col-lg-offset-4">
+                    <form:input path="email" pattern="^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$"
+                                minlength="4" maxlength="25" placeholder="Email (optional)"/>
+                </div>
+            </div>
+
 
             <div class="row" style="color: #545454;">
                 <div id="form-group-password" class="form-group col-lg-4 col-lg-offset-4">
@@ -98,19 +106,12 @@
                 </div>
             </div>
 
-            <div class="row" style="color: #545454;">
-                <div class="form-group col-lg-4 col-lg-offset-4">
-                    <input id="confirm" type="password" placeholder="Confirm password">
-                </div>
-            </div>
-
             <div class="row" style="font-size: 15px; height: 25px; vertical-align: middle">
                 <div class="form-group col-lg-4 col-lg-offset-4" style="color: #545454;">
                     <input id="showPassword" type="checkbox" onclick=
                             "if(password.type == 'text')
                                 password.type='password';
-                            else password.type='text';"/>
-                    Show password</span>
+                            else password.type='text';"/> Show password</span>
                 </div>
             </div>
 

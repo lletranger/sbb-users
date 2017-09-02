@@ -85,7 +85,7 @@
         <form:form action="${getIn}" modelAttribute="loginUser">
 
             <div class="row" style="color: #545454;">
-                <div id="form-group-email" class="form-group col-lg-4 col-lg-offset-4">
+                <div id="form-group-login" class="form-group col-lg-4 col-lg-offset-4">
                     <form:input path="login" minlength="4" maxlength="45" required="required"
                                 placeholder="Login"/>
                 </div>

@@ -1,6 +1,7 @@
 package org.tsys.sbb.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -19,6 +20,10 @@ public @Data class User {
     @Size(min = 4)
     @Column(name = "login")
     private String login;
+
+    @Email
+    @Column(name = "email")
+    private String email;
 
     @NotEmpty(message = "Password is compulsory")
     @Size(min = 4)

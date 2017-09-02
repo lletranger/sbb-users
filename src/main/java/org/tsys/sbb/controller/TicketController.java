@@ -14,6 +14,7 @@ import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
+import org.tsys.sbb.util.EmailSender;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +24,6 @@ public class TicketController {
     private TicketService ticketService;
     private BoardService boardService;
     private StationService stationService;
-
 
     private static final Logger logger = LoggerFactory.getLogger(TicketController.class);
 
@@ -107,6 +107,22 @@ public class TicketController {
         session.setAttribute("passenger", passengerDto);
         session.setAttribute("from", from);
         session.setAttribute("to", to);
+
+        String message = "You've bought a ticket #".concat(String.valueOf(id))
+                .concat(" for ")
+                .concat(passengerDto.getName())
+                .concat(" ")
+                .concat(passengerDto.getSurname())
+                .concat(" to ")
+                .concat(to)
+                .concat(". Departing ")
+                .concat(DistanceAndTimeUtil.getStringDate(board.getDeparture()))
+                .concat(" from ")
+                .concat(from)
+                .concat(". Have a nice trip!");
+
+        new EmailSender().send(user.getEmail(),"Your ticket from MeR", message);
+
         return "bought";
     }
 
@@ -134,6 +150,12 @@ public class TicketController {
 
         ticketService.deleteTicket(id);
         logger.info("Deleting ticket with ID = " + id);
+
+        String message = "Your ticket with ID ".concat(String.valueOf(id))
+                .concat(" was annulled. We're sad =(");
+
+        new EmailSender().send(user.getEmail(),"Your ticket annulled", message);
+
         return "redirect:/mytickets";
     }
 }

@@ -49,6 +49,10 @@ public class TicketServiceImpl implements TicketService {
         return ticketDao.findTicketById(id);
     }
 
+    public List<Ticket> findAllTickets() {
+        return ticketDao.findAllTickets();
+    }
+
     public List<Ticket> findTicketsByBoardId(int board_id) {
 
         return ticketDao.findTicketsByBoardId(board_id);

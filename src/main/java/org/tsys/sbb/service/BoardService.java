@@ -61,16 +61,18 @@ public interface BoardService {
     void addBoard(Board board);
 
     /**
-     * Gets all existing {@link Board}s from the database from
-     * some {@link Station} or to some {@link Station} by its
-     * {@link Board#from_id} or {@link Board#to_id} by passing it
-     * to {@link #findBoardsByFrom(int)} and {@link #findBoardsByTo(int)} methods
+     * Gets all existing {@link Board}s from the database from some {@link Station}
+     * or to some {@link Station} by its {@link Board#from_id} or {@link Board#to_id} by passing it
+     * to {@link #findBoardsByFrom(int)} and {@link #findBoardsByTo(int)} methods, and filters it by
+     * time of departing and/or arrival
      *
      * @param id1 integer
      * @param id2 integer
+     * @param time1 {@link String}
+     * @param time2 {@link String}
      * @return an array list of {@link Board}s or null
      */
-    List<Board> findBoards(int id1, int id2);
+    List<Board> findBoards(int id1, int id2, String time1, String time2);
 
     /**
      * Calculates an expected arrival time for the given {@link Board}

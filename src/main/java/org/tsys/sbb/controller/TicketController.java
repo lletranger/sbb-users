@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
@@ -17,6 +14,10 @@ import org.tsys.sbb.util.DistanceAndTimeUtil;
 import org.tsys.sbb.util.EmailSender;
 
 import javax.servlet.http.HttpSession;
+
+import java.util.List;
+
+import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @Controller
 public class TicketController {
@@ -157,5 +158,13 @@ public class TicketController {
         new EmailSender().send(user.getEmail(),"Your ticket annulled", message);
 
         return "redirect:/mytickets";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/tickets", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public List<Ticket> getTickets() {
+
+        logger.info("Sending tickets in JSON");
+        return ticketService.findAllTickets();
     }
 }

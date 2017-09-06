@@ -18,7 +18,7 @@ public interface UserService {
     /**
      * Gets a {@link User} from the database
      *
-     * @param login String
+     * @param login {@link String}
      * @return a single {@link User} with the specified {@link User#login} or null
      */
     User getUserByLogin(String login);

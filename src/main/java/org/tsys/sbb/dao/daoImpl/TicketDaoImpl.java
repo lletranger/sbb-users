@@ -28,6 +28,16 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @SuppressWarnings("unchecked")
+    public List<Ticket> findAllTickets() {
+
+        List<Ticket> list = em.createQuery("FROM Ticket").getResultList();
+
+        list.forEach(ticket -> logger.info("Getting all tickets, got one " + ticket));
+
+        return list;
+    }
+
+    @SuppressWarnings("unchecked")
     public List<Ticket> findTicketsByBoardId(int board_id) {
 
         List<Ticket> list = em.createQuery("SELECT t FROM Ticket t WHERE board_id=:board_id")

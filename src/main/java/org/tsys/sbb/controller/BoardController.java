@@ -56,7 +56,7 @@ public class BoardController {
         this.ticketService = ticketService;
     }
 
-    @RequestMapping(value = "boards", method = RequestMethod.GET)
+    @RequestMapping(value = "/boards", method = RequestMethod.GET)
     public String getAllBoards(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
@@ -77,7 +77,7 @@ public class BoardController {
         return "boards";
     }
 
-    @RequestMapping("boarddata/{id}")
+    @RequestMapping("/boarddata/{id}")
     public String boardData(@PathVariable("id") int id, Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
@@ -104,7 +104,7 @@ public class BoardController {
     }
 
     @Transactional
-    @RequestMapping(value = "boards/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/boards/add", method = RequestMethod.POST)
     public String addBoard(@ModelAttribute("boardDto") BoardDto boardDto, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");

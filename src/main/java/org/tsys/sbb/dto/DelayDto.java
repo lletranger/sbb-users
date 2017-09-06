@@ -17,6 +17,15 @@ public @Data class DelayDto {
     @Pattern(regexp = "([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}", message = "Delay time has invalid characters")
     private String delay;
 
+
+    /**
+     * Converts a given {@link DelayDto} for a {@link Board}
+     * into a {@link Delay}
+     *
+     * @param delayDto {@link DelayDto}
+     * @param board {@link Board}
+     * @return a single {@link Delay}
+     */
     public static Delay getDelayFromDto(DelayDto delayDto, Board board) {
         Delay delay = new Delay();
         //GMT+3 => -3

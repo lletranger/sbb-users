@@ -12,6 +12,7 @@ import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -72,9 +73,10 @@ public class BoardServiceImpl implements BoardService {
         boardDao.addBoard(board);
     }
 
-    public List<Board> findBoards(int id1, int id2) {
+    public List<Board> findBoards(int id1, int id2, String time1, String time2) {
 
         List<Board> resultList;
+        List<Board> finalList;
 
         if (id2 == 0) {
             resultList = findBoardsByFrom(id1);
@@ -84,7 +86,24 @@ public class BoardServiceImpl implements BoardService {
             resultList = findBoardsByFromAndTo(id1, id2);
         }
 
-        return resultList;
+        if (time1.equals("") && time2.equals("")) {
+            finalList = resultList;
+        } else if (!time1.equals("") && time2.equals("")) {
+            finalList = resultList.stream()
+                    .filter(board -> DistanceAndTimeUtil.getStringDate(board.getDeparture()).compareTo(time1) >= 0)
+                    .collect(Collectors.toList());
+        } else if (time1.equals("")) {
+            finalList = resultList.stream()
+                    .filter(board -> DistanceAndTimeUtil.getStringDate(board.getDeparture()).compareTo(time2) <= 0)
+                    .collect(Collectors.toList());
+        } else {
+            finalList = resultList.stream()
+                    .filter(board -> DistanceAndTimeUtil.getStringDate(board.getDeparture()).compareTo(time1) >= 0)
+                    .filter(board -> DistanceAndTimeUtil.getStringDate(board.getDeparture()).compareTo(time2) <= 0)
+                    .collect(Collectors.toList());
+        }
+
+        return finalList;
     }
 
     public Date findExpectedArrival(Board board) {

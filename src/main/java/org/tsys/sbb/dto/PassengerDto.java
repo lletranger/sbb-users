@@ -10,6 +10,13 @@ public @Data class PassengerDto {
     private String surname;
     private String birth_date;
 
+    /**
+     * Converts a given {@link Passenger}
+     * into a {@link PassengerDto}
+     *
+     * @param passenger {@link Passenger}
+     * @return a single {@link PassengerDto}
+     */
     public static PassengerDto getDtoFromPassenger(Passenger passenger) {
         PassengerDto dto = new PassengerDto();
         dto.setName(passenger.getName());
@@ -18,6 +25,13 @@ public @Data class PassengerDto {
         return dto;
     }
 
+    /**
+     * Converts a given {@link PassengerDto}
+     * into a {@link Passenger}
+     *
+     * @param dto {@link PassengerDto}
+     * @return a single {@link Passenger}
+     */
     public static Passenger getPassengerFromDto(PassengerDto dto) {
         Passenger passenger = new Passenger();
         passenger.setName(dto.getName());

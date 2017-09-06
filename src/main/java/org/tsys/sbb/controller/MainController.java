@@ -1,5 +1,6 @@
 package org.tsys.sbb.controller;
 
+import org.hibernate.validator.constraints.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class MainController {
             user = new User();
             user.setRole("anon");
             session.setAttribute("sessionUser", user);
-            logger.info("Creating new anonymous user");
+            logger.info("Creating new anonymous user at index page");
         }
 
         logger.info("Session user now is " + user);

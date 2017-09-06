@@ -21,6 +21,13 @@ public interface TicketService {
 
     /**
      * Gets all existing {@link Ticket}s from the database
+     *
+     * @return an array list of {@link Ticket}s or null
+     */
+    List<Ticket> findAllTickets();
+
+    /**
+     * Gets all existing {@link Ticket}s from the database
      * for the specified {@link Board}
      *
      * @param board_id integer

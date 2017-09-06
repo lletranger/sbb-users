@@ -1,3 +1,10 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="javax.mail.Session" %>
+<%@ page import="javax.mail.internet.MimeMessage" %>
+<%@ page import="javax.mail.internet.InternetAddress" %>
+<%@ page import="javax.mail.Message" %>
+<%@ page import="javax.mail.Transport" %>
+<%@ page import="javax.mail.MessagingException" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -213,12 +220,9 @@
         </div>
     </div>
 </section>
+
 <!-- /Section: services -->
 
-
-
-
-<%--<!-- Section: contact -->--%>
 <%--<section id="contact" class="home-section text-center">--%>
     <%--<div class="heading-contact">--%>
         <%--<div class="container">--%>
@@ -226,8 +230,8 @@
                 <%--<div class="col-lg-8 col-lg-offset-2">--%>
                     <%--<div class="wow bounceInDown" data-wow-delay="0.4s">--%>
                         <%--<div class="section-heading">--%>
-                            <%--<h2>Send us a letter</h2>--%>
-                            <%--<i class="fa fa-2x fa-angle-down" style="font-size: 65px; color: #fff106"></i>--%>
+                            <%--<h2>Get in touch</h2>--%>
+                            <%--<i class="fa fa-2x fa-angle-down"></i>--%>
                         <%--</div>--%>
                     <%--</div>--%>
                 <%--</div>--%>
@@ -247,56 +251,72 @@
                     <%--<form id="contact-form">--%>
                         <%--<div class="row">--%>
                             <%--<div class="col-md-6">--%>
-
-
-                                <%--<form:form method="POST" commandName="send" action="sendEmail">--%>
-                                    <%--From: <form:input  path="from"/> <br/>--%>
-                                    <%--To: <form:input  path="to"/> <br/>--%>
-                                    <%--Subject: <form:input path="subject"/><br/>--%>
-                                    <%--Message: <form:input path="message"/><br/>--%>
-                                    <%--<input type="submit" value="Send">--%>
-                                <%--</form:form>--%>
-                                <%----%>
-                                <%--<c:url var="sendMail" value="/sendEmail"/>--%>
-                                <%--<form:form action="${sendMail}" commandName="mail">--%>
-
                                 <%--<div class="form-group">--%>
-                                    <%--<label for="firstName">Name</label>--%>
-                                    <%--<input type="text" class="form-control" id="firstName"--%>
-                                           <%--placeholder="Your name" required="required"/>--%>
-                                <%--</div>--%>
-
-                                <%--<div class="form-group">--%>
-                                    <%--<label for="from">Email</label>--%>
-                                    <%--<div class="input-group">--%>
-                                        <%--<span class="input-group-addon">--%>
-                                            <%--<span class="glyphicon glyphicon-envelope"></span>--%>
-                                        <%--</span>--%>
-                                        <%--<input type="email" class="form-control" id="email" placeholder="Your email"--%>
-                                               <%--required="required"/></div>--%>
+                                    <%--<h4 style="color: #545454; float: left;">Name</h4>--%>
+                                    <%--<input class="form-control" id="firstName" placeholder="Name"/>--%>
                                 <%--</div>--%>
                                 <%--<div class="form-group">--%>
-                                    <%--<label for="subject">Subject</label>--%>
-                                    <%--<input type="text" class="form-control" id="subject" placeholder="Message subject"/>--%>
+                                    <%--<h4 style="color: #545454">Email Address</h4>--%>
+                                    <%--<input type="email" class="form-control" id="email" placeholder="Email"/>--%>
+                                <%--</div>--%>
+                                <%--<div class="form-group">--%>
+                                    <%--<h4 style="color: #545454">Subject</h4>--%>
+                                    <%--<input class="form-control" id="subject" placeholder="Subject"/>--%>
                                 <%--</div>--%>
                             <%--</div>--%>
 
                             <%--<div class="col-md-6">--%>
                                 <%--<div class="form-group">--%>
-                                    <%--<label for="message">Message</label>--%>
-                                    <%--<textarea message="message" id="message" class="form-control" rows="9" cols="25"--%>
-                                              <%--required="required" placeholder="Message"></textarea>--%>
+                                    <%--<h4 style="color: #545454">Message</h4>--%>
+                                    <%--<textarea firstName="message" id="message" class="form-control" rows="9" cols="25" placeholder="Message"></textarea>--%>
                                 <%--</div>--%>
                             <%--</div>--%>
 
                             <%--<div class="col-md-12">--%>
-                                <%--<button type="submit" class="btn btn-success pull-right" id="btnContactUs">Send--%>
-                                    <%--Message--%>
-                                <%--</button>--%>
+                                <%--<button class="btn btn-success" style="width: 50%; float: right" id="btnContactUs">Send Message</button>--%>
                             <%--</div>--%>
 
+                            <%--<%--%>
+                                <%--// Recipient's email ID needs to be mentioned.--%>
+                                <%--String to = "sbbtestsys@gmail.com";--%>
 
-                            <%--</form:form>--%>
+                                <%--// Sender's email ID needs to be mentioned--%>
+                                <%--String from = "mcmohd@gmail.com";--%>
+
+                                <%--// Assuming you are sending email from localhost--%>
+                                <%--String host = "localhost";--%>
+
+                                <%--// Get system properties object--%>
+                                <%--Properties properties = System.getProperties();--%>
+
+                                <%--// Setup mail server--%>
+                                <%--properties.setProperty("mail.smtp.host", host);--%>
+
+                                <%--// Get the default Session object.--%>
+                                <%--Session mailSession = Session.getDefaultInstance(properties);--%>
+
+                                <%--try {--%>
+                                    <%--// Create a default MimeMessage object.--%>
+                                    <%--MimeMessage message = new MimeMessage(mailSession);--%>
+
+                                    <%--// Set From: header field of the header.--%>
+                                    <%--message.setFrom(new InternetAddress(from));--%>
+
+                                    <%--// Set To: header field of the header.--%>
+                                    <%--message.addRecipient(Message.RecipientType.TO,--%>
+                                            <%--new InternetAddress(to));--%>
+                                    <%--// Set Subject: header field--%>
+                                    <%--message.setSubject("This is the Subject Line!");--%>
+
+                                    <%--// Now set the actual message--%>
+                                    <%--message.setText("bla");--%>
+
+                                    <%--// Send message--%>
+                                    <%--Transport.send(message);--%>
+                                <%--} catch (MessagingException mex) {--%>
+                                    <%--mex.printStackTrace();--%>
+                                <%--}--%>
+                            <%--%>--%>
 
                         <%--</div>--%>
                     <%--</form>--%>
@@ -305,7 +325,7 @@
 
             <%--<div class="col-lg-4">--%>
                 <%--<div class="widget-contact">--%>
-                    <%--<h5>Main Office</h5>--%>
+                    <%--<h3 style="color: #545454">Main Office</h3>--%>
 
                     <%--<address>--%>
                         <%--<strong>White Inc.</strong><br>220b, Black st, Mordor<br>--%>
@@ -313,18 +333,26 @@
                     <%--</address>--%>
 
                     <%--<address>--%>
-                        <%--<strong>Email</strong><br>--%>
-                        <%--<a href="mailto:#">konstelis@gmail.com</a>--%>
+                        <%--<h4 style="color: #545454">Email</h4>--%>
+                        <%--<a href="mailto:konstelis@gmail.com">konstelis@gmail.com</a>--%>
                     <%--</address>--%>
                     <%--<address>--%>
-                        <%--<strong>Social networks</strong><br>--%>
+                        <%--<h4 style="color: #545454">Social networks</h4>--%>
+                        <%--<ul class="company-social">--%>
+                            <%--<li class="social-facebook"><a href="https://www.facebook.com/yeliseyev.kot" target="_blank"><i class="fa fa-facebook"></i></a></li>--%>
+                            <%--<li class="social-vk"><a href="https://vk.com/id435491840" target="_blank"><i class="fa fa-vk"></i></a></li>--%>
+                            <%--<li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>--%>
+                            <%--<li class="social-instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>--%>
+                            <%--<li class="social-github"><a href="https://github.com/lletranger" target="_blank"><i class="fa fa-github"></i></a></li>--%>
+                        <%--</ul>--%>
+
                         <%--<ul class="company-social">--%>
                             <%--<li class="btn-facebook"><a href="https://www.facebook.com/yeliseyev.kot" target="_blank"><i class="fa fa-facebook"></i></a></li>--%>
                             <%--<li class="btn-vk"><a href="https://vk.com/id435491840" target="_blank"><i class="fa fa-vk"></i></a></li>--%>
-                            <%--<li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>--%>
+                            <%--<li class="btn-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>--%>
                             <%--<li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a>--%>
                             <%--</li>--%>
-                            <%--<li class="btn-instagram"><a href="https://github.com/lletranger" target="_blank"><i--%>
+                            <%--<li class="btn-github"><a href="https://github.com/lletranger" target="_blank"><i--%>
                                     <%--class="fa fa-github"></i></a></li>--%>
 
                         <%--</ul>--%>

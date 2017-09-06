@@ -3,7 +3,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="true" %>
 
 <%
     response.setHeader("Cache-Control", "no-cache");
@@ -112,7 +111,12 @@
                     <button class="btn btn-success" style="width: 37%">Login</button>
                     <button type=button class="btn btn-success" style="width: 37%" onclick="location.href='${pageContext.request.contextPath}/register'">Register</button>
                 </div>
+
+                <div class="form-group col-lg-4 col-lg-offset-4">
+                    <button type=button class="btn btn-facebook" style="background: #3b5998; width: 81%; float: none" onclick="location.href='${pageContext.request.contextPath}/loginfb'">Login with Facebook</button>
+                </div>
             </div>
+
         </form:form>
     </div>
 </section>

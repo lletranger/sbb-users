@@ -8,6 +8,8 @@ public interface TicketDao {
 
     Ticket findTicketById(int id);
 
+    List<Ticket> findAllTickets();
+
     List<Ticket> findTicketsByBoardId(int board_id);
 
     List<Ticket> findTicketsByUserId(int user_id);

@@ -3,7 +3,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="true" %>
 
 <%
     response.setHeader("Cache-Control", "no-cache");
@@ -22,13 +21,13 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <script src="/resources/js/sorttable.js"></script>
+
     <title>Search page</title>
 
     <style>
         body {
             background: linear-gradient(90deg, rgb(255, 255, 255) 10%, #ffffff 90%);
-            color: #49a827;
+            color: #545454;
             font-family: 'Helvetica', sans-serif;
         }
 
@@ -134,8 +133,15 @@
                             <c:if test="${station.station_id eq s2}">selected</c:if>>${station.name} </option>
                 </c:forEach>
             </select>
+            <label style="color: #545454">departing</label>
+            <br>
+            <label style="color: #545454">after: </label>
+            <input id="time1" data-format="HH:mm" data-template="HH:mm" name="time1" value=${time1}>
 
-            <button type="submit" class="btn btn-success" style="width: 10%">Search</button>
+            <label style="color: #545454"> and before: </label>
+            <input id="time2" data-format="HH:mm" data-template="HH:mm" name="time2" value=${time2}>
+            <br>
+            <button class="btn btn-success" style="width: 10%">Search</button>
         </form>
 
 <c:if test="${!empty dtos}">
@@ -197,12 +203,20 @@
     </div>
 </section>
 
-<script src="<c:url value="/resources/js/jquery-2.1.3.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-<script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
-<script src="<c:url value="/resources/js/jquery.scrollTo.js"/>"></script>
-<script src="<c:url value="/resources/js/wow.min.js"/>"></script>
-<script src="<c:url value="/resources/js/custom.js"/>"></script>
+        <script src="<c:url value="/resources/js/jquery-2.1.3.min.js"/>"></script>
+        <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+        <script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
+        <script src="<c:url value="/resources/js/jquery.scrollTo.js"/>"></script>
+        <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
+        <script src="<c:url value="/resources/js/custom.js"/>"></script>
+        <script src="<c:url value="/resources/js/moment.min.js"/>"></script>
+        <script src="<c:url value="/resources/js/combodate.js"/>"></script>
+        <script>
+            $('input').combodate({
+                firstItem: 'name',
+                minuteStep: 5
+            })
+        </script>
 
 </body>
 </html>

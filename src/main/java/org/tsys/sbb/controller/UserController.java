@@ -24,7 +24,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "users")
+    @RequestMapping(value = "/users")
     public String getAllUsers(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @Transactional
-    @RequestMapping("remove/{id}")
+    @RequestMapping("/remove/{id}")
     public String deleteUser(@PathVariable("id") int id, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @Transactional
-    @RequestMapping("setadmin/{id}")
+    @RequestMapping("/setadmin/{id}")
     public String setAdmin(@PathVariable("id") int id, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -68,7 +68,7 @@ public class UserController {
     }
 
     @Transactional
-    @RequestMapping("setuser/{id}")
+    @RequestMapping("/setuser/{id}")
     public String setUser(@PathVariable("id") int id, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -83,7 +83,7 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @RequestMapping("userdata/{id}")
+    @RequestMapping("/userdata/{id}")
     public String userData(@PathVariable("id") int id, Model model, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");

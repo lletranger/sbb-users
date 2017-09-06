@@ -27,7 +27,7 @@ public class StationController {
         this.stationService = stationService;
     }
 
-    @RequestMapping(value = "stations")
+    @RequestMapping(value = "/stations")
     public String getAllStations(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
@@ -43,7 +43,7 @@ public class StationController {
     }
 
     @Transactional
-    @RequestMapping(value = "stations/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/stations/add", method = RequestMethod.POST)
     public String addStation(@ModelAttribute("station") Station station, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");

@@ -99,6 +99,7 @@ public class DistanceAndTimeUtilTest {
     public void getStringBirthDate() throws Exception {
         //given
         Date date =  new GregorianCalendar(1989, 1, 26).getTime();
+
         //run
 
         String myBd = DistanceAndTimeUtil.getStringBirthDate(date);
@@ -109,50 +110,58 @@ public class DistanceAndTimeUtilTest {
     @Test
     public void getStringBirthDate2() throws Exception {
         //given
+        Date date =  new GregorianCalendar(1989, 1, 26).getTime();
 
         //run
+        String myBd = DistanceAndTimeUtil.getStringBirthDate2(date);
 
         //assert
+        assertEquals(myBd, "26/02/1989");
+
     }
 
     @Test
     public void getBirthDateFromString() throws Exception {
         //given
+        String s = "26/02/1989";
+        Date date = new GregorianCalendar(1989,1,26).getTime();
+
 
         //run
+        Date bd = DistanceAndTimeUtil.getBirthDateFromString(s);
 
         //assert
+        assertEquals(bd, date);
     }
 
     @Test
     public void getDtoTime() throws Exception {
         //given
+        String s = "00:13";
 
         //run
+        long a = DistanceAndTimeUtil.getDtoTime(s);
 
         //assert
+        assertEquals(a, 13*60*1000);
     }
 
     @Test
     public void isTenMinsGap() throws Exception {
         //given
+        Date less = new Date(new Date().getTime() + 9*60*1000);
+        Date more = new Date(new Date().getTime() + 11*60*1000);
+        String less1 = DistanceAndTimeUtil.getStringDate(less);
+        String more1 = DistanceAndTimeUtil.getStringDate(more);
 
         //run
-
         //assert
+        assertTrue(DistanceAndTimeUtil.isTenMinsGap(less1));
+        assertFalse(DistanceAndTimeUtil.isTenMinsGap(more1));
     }
 
     @Test
     public void isAlreadyArrived() throws Exception {
-        //given
-
-        //run
-
-        //assert
-    }
-
-    @Test
-    public void passengerBirthDates() throws Exception {
         //given
 
         //run
@@ -182,4 +191,23 @@ public class DistanceAndTimeUtilTest {
         assertEquals(result, expected);
     }
 
+    @Test
+    public void isDepartedOrArrived() throws Exception {
+        //given
+        Date date = new Date(new Date().getTime() - 11*60*1000);
+
+        //run
+        //assert
+        assertTrue(DistanceAndTimeUtil.isDepartedOrArrived(date));
+    }
+
+    @Test
+    public void isDepartingOrArriving() throws Exception {
+        //given
+        Date date = new Date(new Date().getTime() - 4*60*1000);
+
+        //run
+        //assert
+        assertTrue(DistanceAndTimeUtil.isDepartingOrArriving(date));
+    }
 }

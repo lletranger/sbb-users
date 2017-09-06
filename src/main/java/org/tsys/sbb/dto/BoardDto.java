@@ -27,6 +27,14 @@ public @Data class BoardDto {
     private int train_id;
     private String status;
 
+
+    /**
+     * Converts a given {@link BoardDto}
+     * into a {@link Board}
+     *
+     * @param boardDto {@link BoardDto}
+     * @return a single {@link Board}
+     */
     public static Board getBoardFromDto(BoardDto boardDto) {
         Board board = new Board();
         board.setName(boardDto.getName());

@@ -18,8 +18,8 @@ public interface PassengerService {
      * Gets all existing {@link Passenger}s from the database
      * with the specified {@link Passenger#name} and {@link Passenger#surname}
      *
-     * @param name    String
-     * @param surname String
+     * @param name    {@link String}
+     * @param surname {@link String}
      * @return an array list of {@link Passenger}s or null
      */
     List<Passenger> getPassByEverything(String name, String surname);

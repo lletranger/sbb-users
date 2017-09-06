@@ -33,7 +33,7 @@ public interface StationService {
      * Checks if {@link Station} with the requested {@link Station#name}
      * already exists in the database
      *
-     * @param name String
+     * @param name {@link String}
      * @return true or false
      */
     boolean isExist(String name);

@@ -11,4 +11,5 @@ public @Data class TicketDto {
     private String passName;
     private String passSurname;
     private String passBirthDate;
+    private String userLogin;
 }

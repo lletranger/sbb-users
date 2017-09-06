@@ -6,6 +6,7 @@ import org.tsys.sbb.dao.UserDao;
 import org.tsys.sbb.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.tsys.sbb.service.TicketService;
 import org.tsys.sbb.service.UserService;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private TicketService ticketService;
 
     @Autowired
     public void setUserDao(UserDao userDao) {
@@ -25,6 +27,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @Autowired
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
     }
 
     public User getUserById(int id) {
@@ -49,6 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUser(int id) {
+        ticketService.findTicketsByUserId(id).forEach(ticket -> ticketService.deleteTicket(ticket.getId()));
         userDao.deleteUser(id);
     }
 

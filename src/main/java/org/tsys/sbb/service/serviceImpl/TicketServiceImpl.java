@@ -49,8 +49,24 @@ public class TicketServiceImpl implements TicketService {
         return ticketDao.findTicketById(id);
     }
 
-    public List<Ticket> findAllTickets() {
-        return ticketDao.findAllTickets();
+    public List<TicketDto> findAllTickets() {
+
+        List<TicketDto> list = new ArrayList<>();
+
+        ticketDao.findAllTickets().forEach(ticket -> {
+            TicketDto ticketDto = new TicketDto();
+            ticketDto.setBoardName(ticket.getBoard().getName());
+            ticketDto.setFrom(stationService.getStationById(ticket.getBoard().getFrom_id()).getName());
+            ticketDto.setTo(stationService.getStationById(ticket.getBoard().getTo_id()).getName());
+            ticketDto.setDeparture(DistanceAndTimeUtil.getStringDate(ticket.getBoard().getDeparture()));
+            ticketDto.setPassName(ticket.getPassenger().getName());
+            ticketDto.setPassSurname(ticket.getPassenger().getSurname());
+            ticketDto.setPassBirthDate(DistanceAndTimeUtil.getStringBirthDate(ticket.getPassenger().getBirth_date()));
+            ticketDto.setUserLogin(ticket.getUser().getLogin());
+            list.add(ticketDto);
+        });
+
+        return list;
     }
 
     public List<Ticket> findTicketsByBoardId(int board_id) {

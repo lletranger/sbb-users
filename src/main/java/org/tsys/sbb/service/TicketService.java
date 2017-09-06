@@ -22,9 +22,9 @@ public interface TicketService {
     /**
      * Gets all existing {@link Ticket}s from the database
      *
-     * @return an array list of {@link Ticket}s or null
+     * @return an array list of {@link TicketDto}s or null
      */
-    List<Ticket> findAllTickets();
+    List<TicketDto> findAllTickets();
 
     /**
      * Gets all existing {@link Ticket}s from the database
@@ -41,7 +41,7 @@ public interface TicketService {
      * for the specified {@link User}
      *
      * @param user_id integer
-     * @return an array list of {@link Ticket}s
+     * @return an array list of {@link TicketDto}s
      * with the specified {@link User#user_id} or null
      */
     List<TicketDto> findTicketsByUserId(int user_id);

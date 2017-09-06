@@ -14,7 +14,7 @@ public @Data class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ticket_id;
 
-    @NotNull(message = "BTicket must have a board!")
+    @NotNull(message = "Ticket must have a board!")
     @OneToOne
     @JoinColumn(name = "board_id")
     private Board board;

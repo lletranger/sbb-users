@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.tsys.sbb.dto.PassengerDto;
+import org.tsys.sbb.dto.TicketDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
@@ -162,7 +163,7 @@ public class TicketController {
 
     @ResponseBody
     @RequestMapping(value = "/tickets", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Ticket> getTickets() {
+    public List<TicketDto> getTickets() {
 
         logger.info("Sending tickets in JSON");
         return ticketService.findAllTickets();

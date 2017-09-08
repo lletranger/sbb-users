@@ -1,8 +1,9 @@
-<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" %>
 
 <%
     response.setHeader("Cache-Control", "no-cache");
@@ -20,6 +21,7 @@
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap-social.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <title>Login page</title>
 
@@ -78,15 +80,19 @@
 
 <section class="content" style="vertical-align: middle">
     <div class="container" align="center">
+        <c:if test="${not empty errorMessage}">
+            <c:out value="${errorMessage}"/>
+        </c:if>
+
         <h2 align="center">Login</h2>
 
         <c:url var="getIn" value="/login"/>
         <form:form action="${getIn}" modelAttribute="loginUser">
 
             <div class="row" style="color: #545454;">
-                <div id="form-group-login" class="form-group col-lg-4 col-lg-offset-4">
-                    <form:input path="login" minlength="4" maxlength="45" required="required"
-                                placeholder="Login"/>
+                <div id="form-group-username" class="form-group col-lg-4 col-lg-offset-4">
+                    <form:input path="username" minlength="4" maxlength="45"
+                                required="required" placeholder="Username"/>
                 </div>
             </div>
 
@@ -108,12 +114,16 @@
 
             <div class="row">
                 <div class="form-group col-lg-4 col-lg-offset-4">
-                    <button class="btn btn-success" style="width: 37%">Login</button>
-                    <button type=button class="btn btn-success" style="width: 37%" onclick="location.href='${pageContext.request.contextPath}/register'">Register</button>
+                    <button class="btn btn-success" style="width: 133px">Login</button>
+                    <button type=button class="btn btn-success" style="width: 133px" onclick="location.href='${pageContext.request.contextPath}/register'">Register</button>
                 </div>
 
                 <div class="form-group col-lg-4 col-lg-offset-4">
-                    <button type=button class="btn btn-facebook" style="background: #3b5998; width: 81%; float: none" onclick="location.href='${pageContext.request.contextPath}/loginfb'">Login with Facebook</button>
+                    <button type=button class="btn btn-facebook" style="width: 292px; float: none" onclick="location.href='${pageContext.request.contextPath}/authWithFacebook'">Login with Facebook</button>
+                </div>
+
+                <div class="form-group col-lg-4 col-lg-offset-4">
+                    <button type=button class="btn btn-vk" style="width: 292px; float: none" onclick="location.href='${pageContext.request.contextPath}/authWithVkontakte'">Login with VK</button>
                 </div>
             </div>
 

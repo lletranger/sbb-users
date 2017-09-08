@@ -4,9 +4,10 @@ import lombok.Data;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
+import java.io.Serializable;
 import java.util.*;
 
-public @Data class BoardDto {
+public @Data class BoardDto implements Serializable {
 
     private int id;
     private String name;

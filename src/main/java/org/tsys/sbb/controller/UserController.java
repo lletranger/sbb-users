@@ -2,6 +2,7 @@ package org.tsys.sbb.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.tsys.sbb.model.User;
@@ -17,82 +18,103 @@ public class UserController {
 
     private UserService userService;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/users")
-    public String getAllUsers(Model model, HttpSession session) {
-
-        User user = (User) session.getAttribute("sessionUser");
-        if (user == null || !user.getRole().equals("admin")) {
-            return "notpass";
-        }
+    @RequestMapping(value = "/admin/users")
+    public String getAllUsers(Model model) {
 
         model.addAttribute("allUsers", userService.getAllUsers());
-        logger.info("Loading all users to the users page");
+        LOGGER.info("Loading all users to the users page");
         return "users";
     }
 
     @Transactional
-    @RequestMapping("/remove/{id}")
+    @RequestMapping("/admin/remove/{id}")
     public String deleteUser(@PathVariable("id") int id, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || !sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
-            return "notpass";
+        if (sessionUser == null || sessionUser.getUser_id() == id || id == 115) {
+            return "messages/notpass";
         }
 
         userService.deleteUser(id);
-        logger.info("Deleting user with ID = " + id);
-        return "redirect:/users";
+        LOGGER.info("Deleting user with ID = " + id);
+        return "redirect:/admin/users";
     }
 
     @Transactional
-    @RequestMapping("/setadmin/{id}")
-    public String setAdmin(@PathVariable("id") int id, HttpSession session) {
-
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || !sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
-            return "notpass";
-        }
+    @RequestMapping("/admin/setadmin/{id}")
+    public String setAdmin(@PathVariable("id") int id) {
 
         User user = userService.getUserById(id);
         user.setRole("admin");
         userService.editUser(user);
-        logger.info("Setting admin role to user with ID = " + id);
-        return "redirect:/users";
+        LOGGER.info("Setting admin role to user with ID = " + id);
+        return "redirect:/admin/users";
     }
 
     @Transactional
-    @RequestMapping("/setuser/{id}")
+    @RequestMapping("/admin/setuser/{id}")
     public String setUser(@PathVariable("id") int id, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || !sessionUser.getRole().equals("admin") || sessionUser.getUser_id() == id) {
-            return "notpass";
+        if (sessionUser == null || sessionUser.getUser_id() == id || id == 115) {
+            return "messages/notpass";
         }
 
         User user = userService.getUserById(id);
         user.setRole("user");
         userService.editUser(user);
-        logger.info("Setting user role to user with ID = " + id);
-        return "redirect:/users";
+        LOGGER.info("Setting user role to user with ID = " + id);
+        return "redirect:/admin/users";
     }
 
-    @RequestMapping("/userdata/{id}")
-    public String userData(@PathVariable("id") int id, Model model, HttpSession session) {
-
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || !sessionUser.getRole().equals("admin")) {
-            return "notpass";
-        }
+    @RequestMapping("/admin/userdata/{id}")
+    public String userData(@PathVariable("id") int id, Model model) {
 
         model.addAttribute("user", userService.getUserById(id));
-        logger.info("Getting info about user with ID = " + id);
+        LOGGER.info("Getting info about user with ID = " + id);
         return "userdata";
     }
+
+    @RequestMapping("/info")
+    public String userInfo(Model model) {
+
+        User currentUser = userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("editUser", currentUser);
+        LOGGER.info("Opening info to user " + currentUser.getUsername());
+        return "info";
+    }
+
+    @Transactional
+    @RequestMapping(value = "/info", method = RequestMethod.POST)
+    public String userEdit(@ModelAttribute("editUser") User editUser, HttpSession session) {
+
+        User wantedUser = userService.getUserByUsername(editUser.getUsername());
+
+        if (wantedUser != null && wantedUser.getUser_id() != editUser.getUser_id()) {
+            session.setAttribute("existingUser", editUser.getUsername());
+            LOGGER.info("User already exists with username = " + editUser.getUsername());
+            return "messages/logintaken";
+        }
+
+        wantedUser = userService.getUserByEmail(editUser.getEmail());
+
+        if (wantedUser != null && wantedUser.getUser_id() != editUser.getUser_id()) {
+            session.setAttribute("existingUser", editUser.getEmail());
+            LOGGER.info("User already exists with email = " + editUser.getEmail());
+            return "messages/emailtaken";
+        }
+
+        userService.editUser(editUser);
+
+        LOGGER.info("Editing info about user " + editUser.getUsername());
+        return "redirect:/info";
+    }
+
 }

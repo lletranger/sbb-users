@@ -62,7 +62,7 @@ public class TicketServiceImpl implements TicketService {
             ticketDto.setPassName(ticket.getPassenger().getName());
             ticketDto.setPassSurname(ticket.getPassenger().getSurname());
             ticketDto.setPassBirthDate(DistanceAndTimeUtil.getStringBirthDate(ticket.getPassenger().getBirth_date()));
-            ticketDto.setUserLogin(ticket.getUser().getLogin());
+            ticketDto.setUserLogin(ticket.getUser().getUsername());
             list.add(ticketDto);
         });
 

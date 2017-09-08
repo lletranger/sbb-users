@@ -734,7 +734,7 @@
 }
 .fa-bars:before {
   content: "\f0c9";
-  color: #e73515;
+  color: tomato;
 }
 .fa-list-ul:before {
   content: "\f0ca";

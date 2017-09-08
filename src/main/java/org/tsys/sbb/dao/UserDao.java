@@ -8,7 +8,9 @@ public interface UserDao {
 
     User getUserById(int id);
 
-    User getUserByLogin(String login);
+    User getUserByUsername(String username);
+
+    User getUserByEmail(String email);
 
     List<User> getAllUsers();
 

@@ -10,12 +10,13 @@ import java.util.Properties;
 
 public class EmailSender {
 
-    private static final Logger logger = LoggerFactory.getLogger(EmailSender.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmailSender.class);
 
     public void send(String emailTo, String msgSubject, String msgText) {
 
+        String s = "hmq-yqb-q5B-m8u";
         String fromEmail = "sbbtestsys@gmail.com";
-        String fromEmailPassword = "hmq-yqb-q5B-m8u";
+        String fromEmailPassword = s;
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
@@ -30,21 +31,16 @@ public class EmailSender {
             }
         });
 
-
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(fromEmail));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
-
             message.setSubject(msgSubject);
             message.setText(msgText);
-
             Transport.send(message);
-
-            logger.info("Email send successfully");
-
+            LOGGER.info("Email send successfully");
         } catch (MessagingException mex) {
-            logger.error(mex.toString());
+            LOGGER.error(mex.toString());
         }
     }
 }

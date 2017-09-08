@@ -1,13 +1,8 @@
-<%@ page import="java.util.Properties" %>
-<%@ page import="javax.mail.Session" %>
-<%@ page import="javax.mail.internet.MimeMessage" %>
-<%@ page import="javax.mail.internet.InternetAddress" %>
-<%@ page import="javax.mail.Message" %>
-<%@ page import="javax.mail.Transport" %>
-<%@ page import="javax.mail.MessagingException" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" %>
 
 <%
     response.setHeader("Cache-Control", "no-cache");
@@ -18,71 +13,20 @@
 
 <html>
 <head>
-    <title> | MeR</title>
+    <jsp:include page="temps/navbar.jsp"/>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-
+    <title> | MeR</title>
 </head>
+
 <body id="page-top" data-spy="scroll" data-target=".navbar">
+
 <!-- Preloader -->
-<div id="preloader">
-    <div id="load"></div>
-</div>
-
-<!-- Navigation -->
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="row" align="center">
-            <div class="col-md-4">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand" href="index.jsp"></a>
-                </div>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-            <div class="collapse navbar-collapse navbar-main-collapse">
-                <div class="col-md-2 right col-md-offset-2">
-                    <c:choose>
-                        <c:when test="${sessionUser.role ne 'anon'}">
-                            <p class="mail">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
-                            <div id="menu">
-                                <div id="arrow"></div>
-                                <div id="logout">
-                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
-                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
-                                    <c:if test="${sessionUser.role eq 'admin'}">
-                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
-                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
-                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
-                                    </c:if>
-                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${pageContext.request.contextPath}/login">
-                                <button class="btn btn-success log-btn">Log in</button>
-                            </a>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-
-                <div class="col-md-4 center-block">
-                    <ul class="list nav navbar-nav" style="align-items: center">
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
+<div id="preloader"><div id="load"></div></div>
 
 <!-- Section: intro -->
 <section id="intro" class="intro">
@@ -99,18 +43,16 @@
         </a>
     </div>
 </section>
-<!-- /Section: intro -->
-
 
 <!-- Section: services -->
-<section id="service" class="home-section text-center bg-gray">
+<section id="service" class="home-section text-center bg-gray" style="padding-top: 65px; padding-bottom: 100px;">
     <div class="heading-about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
-                            <h3>Stations</h3>
+                            <h2 style="color: #FFF">Stations</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
                         </div>
                     </div>
@@ -118,7 +60,6 @@
             </div>
         </div>
     </div>
-
     <div class="container">
         <div class="col-md-12">
             <div class="carousel slide" id="myCarousel">
@@ -128,8 +69,9 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=6&id2=0">
-                                            <img src="${pageContext.request.contextPath}/resources/img/shire.jpg" alt="#"></a></div>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=6&id2=0&time1=&time2=">
+                                            <img src="${pageContext.request.contextPath}/resources/img/shire.jpg"
+                                                 alt="#"></a></div>
                                     <div class="caption">
                                         <h3>Shire</h3>
                                         <h4>Land of vegans and vapers.</h4>
@@ -139,8 +81,9 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=2&id2=0">
-                                            <img src="${pageContext.request.contextPath}/resources/img/isengard.jpg" alt="#"></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=2&id2=0&time1=&time2=">
+                                            <img src="${pageContext.request.contextPath}/resources/img/isengard.jpg"
+                                                 alt="#"></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Isengard</h3>
@@ -152,8 +95,9 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=3&id2=0">
-                                        <img src="${pageContext.request.contextPath}/resources/img/mordor.jpg" alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=3&id2=0&time1=&time2=">
+                                            <img src="${pageContext.request.contextPath}/resources/img/mordor.jpg"
+                                                 alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Mordor</h3>
@@ -165,8 +109,9 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=5&id2=0">
-                                            <img src="${pageContext.request.contextPath}/resources/img/rohan.jpg" alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=5&id2=0&time1=&time2=">
+                                            <img src="${pageContext.request.contextPath}/resources/img/rohan.jpg"
+                                                 alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Rohan</h3>
@@ -181,8 +126,9 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=1&id2=0">
-                                            <img src="${pageContext.request.contextPath}/resources/img/gondor.jpg" alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=1&id2=0&time1=&time2=">
+                                            <img src="${pageContext.request.contextPath}/resources/img/gondor.jpg"
+                                                 alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Gondor</h3>
@@ -193,8 +139,9 @@
                             <li class="col-sm-3">
                                 <div class="fff">
                                     <div class="thumbnail">
-                                        <a href="${pageContext.request.contextPath}/searchboards?id1=4&id2=0">
-                                            <img src="${pageContext.request.contextPath}/resources/img/rivendell.jpg" alt=""></a>
+                                        <a href="${pageContext.request.contextPath}/searchboards?id1=4&id2=0&time1=&time2=">
+                                            <img src="${pageContext.request.contextPath}/resources/img/rivendell.jpg"
+                                                 alt=""></a>
                                     </div>
                                     <div class="caption">
                                         <h3>Rivendell</h3>
@@ -205,165 +152,138 @@
                         </ul>
                     </div>
                 </div>
-
                 <nav>
                     <ul class="control-box pager">
-                        <li><a data-slide="prev" href="#myCarousel" style="font-size: 15px; color: #49a827"><i class="fa fa-chevron-left"></i></a></li>
-                        <li><a data-slide="next" href="#myCarousel" style="font-size: 15px; color: #49a827"><i class="fa fa-chevron-right"></i></a>
+                        <li><a data-slide="prev" href="#myCarousel" style="font-size: 15px; color: #49a827"><i
+                                class="fa fa-chevron-left"></i></a></li>
+                        <li><a data-slide="next" href="#myCarousel" style="font-size: 15px; color: #49a827"><i
+                                class="fa fa-chevron-right"></i></a>
                         </li>
                     </ul>
                 </nav>
-
-
-
-            </div><!-- /#myCarousel -->
+            </div>
         </div>
     </div>
 </section>
 
 <!-- /Section: services -->
 
-<%--<section id="contact" class="home-section text-center">--%>
-    <%--<div class="heading-contact">--%>
-        <%--<div class="container">--%>
-            <%--<div class="row">--%>
-                <%--<div class="col-lg-8 col-lg-offset-2">--%>
-                    <%--<div class="wow bounceInDown" data-wow-delay="0.4s">--%>
-                        <%--<div class="section-heading">--%>
-                            <%--<h2>Get in touch</h2>--%>
-                            <%--<i class="fa fa-2x fa-angle-down"></i>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-    <%--<div class="container">--%>
+<section id="contact" class="home-section text-center">
+    <div class="heading-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>Get in touch</h2>
+                            <i class="fa fa-2x fa-angle-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
 
-        <%--<div class="row">--%>
-            <%--<div class="col-lg-2 col-lg-offset-5">--%>
-                <%--<hr class="marginbot-50">--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="row">--%>
-            <%--<div class="col-lg-8">--%>
-                <%--<div class="boxed-grey">--%>
-                    <%--<form id="contact-form">--%>
-                        <%--<div class="row">--%>
-                            <%--<div class="col-md-6">--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<h4 style="color: #545454; float: left;">Name</h4>--%>
-                                    <%--<input class="form-control" id="firstName" placeholder="Name"/>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<h4 style="color: #545454">Email Address</h4>--%>
-                                    <%--<input type="email" class="form-control" id="email" placeholder="Email"/>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<h4 style="color: #545454">Subject</h4>--%>
-                                    <%--<input class="form-control" id="subject" placeholder="Subject"/>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
+        <!-- Line -->
+        <div class="row"><div class="col-lg-2 col-lg-offset-5"><hr class="marginbot-50"></div></div>
 
-                            <%--<div class="col-md-6">--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<h4 style="color: #545454">Message</h4>--%>
-                                    <%--<textarea firstName="message" id="message" class="form-control" rows="9" cols="25" placeholder="Message"></textarea>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
 
-                            <%--<div class="col-md-12">--%>
-                                <%--<button class="btn btn-success" style="width: 50%; float: right" id="btnContactUs">Send Message</button>--%>
-                            <%--</div>--%>
+        <div class="row">
 
-                            <%--<%--%>
-                                <%--// Recipient's email ID needs to be mentioned.--%>
-                                <%--String to = "sbbtestsys@gmail.com";--%>
+            <div class="col-lg-8">
+                <div class="boxed-grey">
+                    <form action="/send">
+                        <div class="row" style="color: #545454">
 
-                                <%--// Sender's email ID needs to be mentioned--%>
-                                <%--String from = "mcmohd@gmail.com";--%>
+                            <!--Left column -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <h4 style="color: #545454; margin: 0">Name</h4>
+                                </div>
+                                <div class="form-group">
+                                    <input id="e-name" name="e-name" placeholder="Name" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <h4 style="color: #545454; margin: 15px 0 0 0">Your Email</h4>
+                                </div>
+                                <div class="form-group">
+                                    <input id="e-adr" name="e-adr" placeholder="Address" pattern="^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <h4 style="color: #545454; margin: 15px 0 0 0">Subject</h4>
+                                </div>
+                                <div class="form-group">
+                                    <input id="e-sbj" name="e-sbj" placeholder="Subject" required="required">
+                                </div>
+                            </div>
 
-                                <%--// Assuming you are sending email from localhost--%>
-                                <%--String host = "localhost";--%>
+                            <!-- Central column -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <h4 style="color: #545454; margin: 0">Message</h4>
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="e-msg" id="e-msg" rows="7" cols="25" placeholder="Message Text" required="required"></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn btn-success" style="width: 100%; margin: 15px 0 0 0">Send Message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-                                <%--// Get system properties object--%>
-                                <%--Properties properties = System.getProperties();--%>
+            <!-- Right column -->
+            <div class="col-lg-4">
+                <div class="widget-contact">
+                    <h3 style="color: #545454; margin: 0">Main Office</h3>
 
-                                <%--// Setup mail server--%>
-                                <%--properties.setProperty("mail.smtp.host", host);--%>
+                    <address>
+                        <i style="color: #545454">White Inc.</i>
+                        <br>
+                        <i style="color: #545454; margin: 0">221b, Black st., Mordor</i><br><br>
+                        <h4 style="color: #545454; margin: 0">Skype</h4>
+                        <i class="fa fa-skype" style="color: #545454; margin: 0"></i>
+                        <a style="color: #545454; margin: 0" href="skype:kosta.eliseev">kosta.eliseev</a>
+                    </address>
 
-                                <%--// Get the default Session object.--%>
-                                <%--Session mailSession = Session.getDefaultInstance(properties);--%>
+                    <address>
+                        <h4 style="color: #545454; margin: 0">Email</h4>
+                        <i class="fa fa-envelope" style="color: #545454; margin: 0"></i>
+                        <a style="color: #545454; margin: 0" href="mailto:konstelis@gmail.com">konstelis@gmail.com</a>
+                    </address>
 
-                                <%--try {--%>
-                                    <%--// Create a default MimeMessage object.--%>
-                                    <%--MimeMessage message = new MimeMessage(mailSession);--%>
+                    <address>
+                        <h4 style="color: #545454; margin: 0">Social networks</h4>
+                        <ul class="company-social" style="margin: 7px 0 0 0">
+                            <li class="social-github">
+                                <a href="https://github.com/lletranger" target="_blank"><i class="fa fa-github"></i>
+                                </a>
+                            </li>
+                            <li class="social-facebook">
+                                <a href="https://www.facebook.com/yeliseyev.kot" target="_blank"><i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="social-vk">
+                                <a href="https://vk.com/id435491840" target="_blank"><i class="fa fa-vk" style="margin: 9px 1px 0 0 "></i>
+                                </a>
+                            </li>
+                            <li class="social-twitter">
+                                <a href="#" target="_blank">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </address>
 
-                                    <%--// Set From: header field of the header.--%>
-                                    <%--message.setFrom(new InternetAddress(from));--%>
+                </div>
+            </div>
+        </div>
 
-                                    <%--// Set To: header field of the header.--%>
-                                    <%--message.addRecipient(Message.RecipientType.TO,--%>
-                                            <%--new InternetAddress(to));--%>
-                                    <%--// Set Subject: header field--%>
-                                    <%--message.setSubject("This is the Subject Line!");--%>
-
-                                    <%--// Now set the actual message--%>
-                                    <%--message.setText("bla");--%>
-
-                                    <%--// Send message--%>
-                                    <%--Transport.send(message);--%>
-                                <%--} catch (MessagingException mex) {--%>
-                                    <%--mex.printStackTrace();--%>
-                                <%--}--%>
-                            <%--%>--%>
-
-                        <%--</div>--%>
-                    <%--</form>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
-            <%--<div class="col-lg-4">--%>
-                <%--<div class="widget-contact">--%>
-                    <%--<h3 style="color: #545454">Main Office</h3>--%>
-
-                    <%--<address>--%>
-                        <%--<strong>White Inc.</strong><br>220b, Black st, Mordor<br>--%>
-                        <%--<i class="fa fa-skype"> kosta.eliseev</i><br>--%>
-                    <%--</address>--%>
-
-                    <%--<address>--%>
-                        <%--<h4 style="color: #545454">Email</h4>--%>
-                        <%--<a href="mailto:konstelis@gmail.com">konstelis@gmail.com</a>--%>
-                    <%--</address>--%>
-                    <%--<address>--%>
-                        <%--<h4 style="color: #545454">Social networks</h4>--%>
-                        <%--<ul class="company-social">--%>
-                            <%--<li class="social-facebook"><a href="https://www.facebook.com/yeliseyev.kot" target="_blank"><i class="fa fa-facebook"></i></a></li>--%>
-                            <%--<li class="social-vk"><a href="https://vk.com/id435491840" target="_blank"><i class="fa fa-vk"></i></a></li>--%>
-                            <%--<li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>--%>
-                            <%--<li class="social-instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>--%>
-                            <%--<li class="social-github"><a href="https://github.com/lletranger" target="_blank"><i class="fa fa-github"></i></a></li>--%>
-                        <%--</ul>--%>
-
-                        <%--<ul class="company-social">--%>
-                            <%--<li class="btn-facebook"><a href="https://www.facebook.com/yeliseyev.kot" target="_blank"><i class="fa fa-facebook"></i></a></li>--%>
-                            <%--<li class="btn-vk"><a href="https://vk.com/id435491840" target="_blank"><i class="fa fa-vk"></i></a></li>--%>
-                            <%--<li class="btn-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>--%>
-                            <%--<li class="btn-instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a>--%>
-                            <%--</li>--%>
-                            <%--<li class="btn-github"><a href="https://github.com/lletranger" target="_blank"><i--%>
-                                    <%--class="fa fa-github"></i></a></li>--%>
-
-                        <%--</ul>--%>
-                    <%--</address>--%>
-
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-
-    <%--</div>--%>
-<%--</section>--%>
+    </div>
+</section>
 <!-- /Section: contact -->
 
 <footer id="footer">
@@ -383,13 +303,12 @@
     </div>
 </footer>
 
-<!-- Core JavaScript Files -->
 <script src="<c:url value="/resources/js/jquery-2.1.3.min.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery.scrollTo.js"/>"></script>
 <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
-<!-- Custom Theme JavaScript -->
 <script src="<c:url value="/resources/js/custom.js"/>"></script>
+
 </body>
 </html>

@@ -1,8 +1,9 @@
-<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" %>
 
 <%
     response.setHeader("Cache-Control", "no-cache");
@@ -21,36 +22,18 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <script src="${pageContext.request.contextPath}/resources/js/sorttable.js"></script>
-    <title>Registration error</title>
+    <jsp:include page="../temps/navbar.jsp"/>
+
+    <title>Delay error</title>
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
 
-<nav class="navbar navbar-custom navbar-fixed-top">
-    <div class="container">
-        <div class="row" align="center">
-            <div class="col-md-4">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/register'">Back</button>
-                </div>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-
-        </div>
-    </div>
-</nav>
-
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center" style="color: #49a827">User with login '${existingUser}' already exists!</h1>
-        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/logintaken.jpg"></div>
-        <h2 align="center" style="color: #49a827">Please, choose another login</h2>
+        <h1 align="center" style="color: #49a827">One does not simply add delay to the arrived board!</h1>
+        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/doesnot.jpg"></div>
+        <h2 align="center" style="color: #49a827">Or to the not departed one...</h2>
     </div>
 </section>
 

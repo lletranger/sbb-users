@@ -1,8 +1,9 @@
-<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" %>
 
 <%
     response.setHeader("Cache-Control", "no-cache");
@@ -86,8 +87,8 @@
 
             <div class="row" style="color: #545454;">
                 <div id="form-group-login" class="form-group col-lg-4 col-lg-offset-4">
-                    <form:input path="login" minlength="4" maxlength="25" required="required"
-                                placeholder="Login"/>
+                    <form:input path="username" minlength="4" maxlength="25" required="required"
+                                placeholder="Username"/>
                 </div>
             </div>
 
@@ -130,7 +131,7 @@
 <script src="<c:url value="/resources/js/jquery.scrollTo.js"/>"></script>
 <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
 <script src="<c:url value="/resources/js/custom.js"/>"></script>
-
+<script src="<c:url value="/resources/js/sorttable.js"/>"></script>
 
 </body>
 </html>

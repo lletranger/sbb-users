@@ -13,8 +13,7 @@
 
 <html>
 <head>
-    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
-    <meta firstName="description" content="Middle-earth Railroads">
+    <jsp:include page="temps/navbar.jsp"/>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
@@ -57,58 +56,6 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
 
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="row" align="center">
-            <div class="col-md-4">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/index'">Main</button>
-                </div>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-            <div class="collapse navbar-collapse navbar-main-collapse">
-                <div class="col-md-2 right col-md-offset-2">
-                    <c:choose>
-                        <c:when test="${sessionUser.role ne 'anon'}">
-                            <p class="mail">${sessionUser.login}<i class="setting fa fa-cog"></i></p>
-                            <div id="menu">
-                                <div id="arrow"></div>
-                                <div id="logout">
-                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
-                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
-                                    <c:if test="${sessionUser.role eq 'admin'}">
-                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/stations">Stations</a><br>
-                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/boards">Boards</a><br>
-                                        <a  style="color:#49A827" href="${pageContext.request.contextPath}/users">Users</a><br>
-                                    </c:if>
-                                    <a  style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${pageContext.request.contextPath}/login">
-                                <button class="btn btn-success log-btn">Log in</button>
-                            </a>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-
-                <div class="col-md-4 center-block">
-                    <ul class="list nav navbar-nav" style="align-items: center">
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-
-
 <section class="content">
     <div class="container" align="center">
         <h1 align="center">Users List</h1>
@@ -123,27 +70,26 @@
                 </tr>
                 <c:forEach items="${allUsers}" var="user">
                     <tr>
-                        <td><a href="/userdata/${user.user_id}">${user.login}</a></td>
-                        <td>${user.email}</td>
+                        <td><a href="/admin/userdata/${user.user_id}">${user.username}</a></td>
                         <td>${user.role}</td>
-                        <c:if test="${user.user_id ne sessionUser.user_id}">
+                        <c:if test="${(user.user_id ne sessionUser.user_id) && (user.user_id ne 115)}">
                             <td>
                                 <c:if test="${user.role ne 'admin'}">
                                     <button class="btn btn-success" style="width: 120px"
-                                            onclick="location.href = '${pageContext.request.contextPath}/setadmin/${user.user_id}'">
+                                            onclick="location.href = '${pageContext.request.contextPath}/admin/setadmin/${user.user_id}'">
                                         Make admin
                                     </button>
                                 </c:if>
                                 <c:if test="${user.role ne 'user'}">
                                     <button class="btn btn-success" style="width: 120px"
-                                            onclick="location.href = '${pageContext.request.contextPath}/setuser/${user.user_id}' ">
+                                            onclick="location.href = '${pageContext.request.contextPath}/admin/setuser/${user.user_id}'">
                                         Set user
                                     </button>
                                 </c:if>
                             </td>
                             <td>
                                 <button class="btn btn-danger" style="width: 120px"
-                                        onclick="location.href = '${pageContext.request.contextPath}/remove/${user.user_id}'">Delete user
+                                        onclick="location.href = '${pageContext.request.contextPath}/admin/remove/${user.user_id}'">Delete user
                                 </button>
                             </td>
                         </c:if>
@@ -152,7 +98,6 @@
             </table>
         </c:if>
     </div>
-
 </section>
 
 <script src="<c:url value="/resources/js/jquery-2.1.3.min.js"/>"></script>
@@ -161,6 +106,7 @@
 <script src="<c:url value="/resources/js/jquery.scrollTo.js"/>"></script>
 <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
 <script src="<c:url value="/resources/js/custom.js"/>"></script>
-<script src="/resources/js/sorttable.js"></script>
+<script src="<c:url value="/resources/js/sorttable.js"/>"></script>
+
 </body>
 </html>

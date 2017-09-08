@@ -16,10 +16,14 @@ import java.util.Locale;
 
 public class DistanceAndTimeUtil {
 
-    //absolute 100% speed of the train))
-    final private static int speed = 45;
+    //absolute 100% SPEED of the train))
+    final private static int SPEED = 45;
 
     private static final Logger logger = LoggerFactory.getLogger(DistanceAndTimeUtil.class);
+
+    private DistanceAndTimeUtil() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * Returns distance in km between two stations
@@ -29,7 +33,7 @@ public class DistanceAndTimeUtil {
      * @return {@link Double} distance in km
      */
     public static double getDistance(Station from, Station to) {
-        return Math.hypot(from.getX() - to.getX(), from.getY() - to.getY());
+        return Math.hypot((double)from.getX() - to.getX(), (double)from.getY() - to.getY());
     }
 
     /**
@@ -41,7 +45,7 @@ public class DistanceAndTimeUtil {
      * @return string representation of journey time
      */
     public static String getJourneyTime(int distance, Train train) {
-        double realSpeed = (1.0 * speed * train.getSpeed_percents()) / 100;
+        double realSpeed = (1.0 * SPEED * train.getSpeed_percents()) / 100;
         int hours = (int) (distance / realSpeed);
         int minutes = (int) (60 * (distance / realSpeed - hours));
 
@@ -76,18 +80,18 @@ public class DistanceAndTimeUtil {
         int hours = 0;
 
         if (time.contains("d")) {
-            days = Integer.valueOf(time.substring(0, time.indexOf("d")));
+            days = Integer.valueOf(time.substring(0, time.indexOf('d')));
             time = time.substring(time.indexOf("d") + 1, time.length()).trim();
         }
 
         if (time.contains("h")) {
-            hours = Integer.valueOf(time.substring(0, time.indexOf("h")));
+            hours = Integer.valueOf(time.substring(0, time.indexOf('h')));
             time = time.substring(time.indexOf("h") + 1, time.length()).trim();
         }
 
-        int mins = Integer.valueOf(time.substring(0, time.indexOf("m")));
+        int mins = Integer.valueOf(time.substring(0, time.indexOf('m')));
 
-        return 1000*60*(days*24*60 + hours*60 + mins);
+        return (long)1000*60*(days*24*60 + hours*60 + mins);
     }
 
 
@@ -129,7 +133,7 @@ public class DistanceAndTimeUtil {
      * @return {@link String} time
      */
     public static String getStringBirthDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM YYYY", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
         return sdf.format(date);
     }
 
@@ -140,7 +144,7 @@ public class DistanceAndTimeUtil {
      * @return {@link String} time
      */
     public static String getStringBirthDate2(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         return sdf.format(date);
     }
 
@@ -171,7 +175,7 @@ public class DistanceAndTimeUtil {
         String[] hms = time.split(":");
         int hourMins = Integer.valueOf(hms[0])*60;
         int mins = Integer.valueOf(hms[1]);
-        return (hourMins + mins)*60*1000;
+        return (long)(hourMins + mins)*60*1000;
     }
 
     /**

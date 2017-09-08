@@ -1,8 +1,8 @@
-<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
 <%
@@ -23,7 +23,7 @@
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <script src="/resources/js/sorttable.js"></script>
-    <title>Passenger error</title>
+    <title>Nope!</title>
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
@@ -33,25 +33,27 @@
         <div class="row" align="center">
             <div class="col-md-4">
                 <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-main-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/ticket/add/${dupeBoard.board_id}'">Ticket</button>
+                    <button class="btn btn-facebook" onclick="location.href='${pageContext.request.contextPath}/index'">
+                        Main
+                    </button>
                 </div>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-
         </div>
+    </div>
     </div>
 </nav>
 
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center"style="color: #49a827">${dupePassenger.name} ${dupePassenger.surname} already has ticket</h1>
-        <h1 align="center"style="color: #49a827">for board '${dupeBoard.name}' departing ${dupeBoard.departure}!</h1>
-        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/noplaces.jpg"></div>
-        <h2 align="center"style="color: #49a827">Have a nice journey</h2>
+        <h1 align="center"style="color: red">You shall not pass!</h1>
+        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/notpass.jpg"></div>
+        <h2 align="center"style="color: red">Don't mess with the URL =)</h2>
     </div>
 </section>
 

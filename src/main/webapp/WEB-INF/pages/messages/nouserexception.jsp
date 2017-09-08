@@ -1,8 +1,8 @@
-<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 
 <%
@@ -23,7 +23,7 @@
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <script src="/resources/js/sorttable.js"></script>
-    <title>Wheee!</title>
+    <title>User error</title>
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
@@ -33,13 +33,10 @@
         <div class="row" align="center">
             <div class="col-md-4">
                 <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target=".navbar-main-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/login'">
-                        Login
-                    </button>
+                    <button class="btn btn-facebook" onclick="location.href='${pageContext.request.contextPath}/login'">Login</button>
                 </div>
             </div>
 
@@ -51,9 +48,9 @@
 
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center"style="color: #49a827">You are registered!</h1>
-        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/wheee.gif"></div>
-        <h2 align="center"style="color: #49a827">Please, <a href="${pageContext.request.contextPath}/login">login now</a></h2>
+        <h1 align="center"style="color: #49a827">We have no user '${noUser}' :(</h1>
+        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/nouser.jpg"></div>
+        <h2 align="center"style="color: #49a827">Please, try other <a href="${pageContext.request.contextPath}/login">login</a></h2>
     </div>
 </section>
 

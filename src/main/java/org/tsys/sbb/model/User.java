@@ -6,20 +6,21 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user")
-public @Data class User {
+public @Data class User implements Serializable {
 
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int user_id;
 
-    @NotEmpty(message = "Login is compulsory")
+    @NotEmpty(message = "Username is compulsory")
     @Size(min = 4)
-    @Column(name = "login")
-    private String login;
+    @Column(name = "username")
+    private String username;
 
     @Email
     @Column(name = "email")
@@ -32,6 +33,5 @@ public @Data class User {
 
     @Column(name = "role")
     private String role;
-
 
 }

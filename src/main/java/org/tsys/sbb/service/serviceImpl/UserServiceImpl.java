@@ -38,8 +38,12 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserById(id);
     }
 
-    public User getUserByLogin(String login) {
-        return userDao.getUserByLogin(login);
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username);
+    }
+
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
     }
 
     public List<User> getAllUsers() {
@@ -60,7 +64,7 @@ public class UserServiceImpl implements UserService {
         userDao.deleteUser(id);
     }
 
-    public boolean checkUser(String login, String password) {
-        return bCryptPasswordEncoder.matches(password, getUserByLogin(login).getPassword());
+    public boolean checkUser(String username, String password) {
+        return bCryptPasswordEncoder.matches(password, getUserByUsername(username).getPassword());
     }
 }

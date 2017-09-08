@@ -4,7 +4,9 @@ import lombok.Data;
 import org.tsys.sbb.model.Passenger;
 import org.tsys.sbb.util.DistanceAndTimeUtil;
 
-public @Data class PassengerDto {
+import java.io.Serializable;
+
+public @Data class PassengerDto implements Serializable {
 
     private String name;
     private String surname;

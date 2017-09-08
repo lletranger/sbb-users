@@ -34,7 +34,7 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String searсh(Model model, HttpSession session) {
+    public String search(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("sessionUser");
 
@@ -51,7 +51,7 @@ public class SearchController {
     }
 
     @RequestMapping("/searchboards")
-    public String searсhOpen(@RequestParam("id1") int id1, @RequestParam("id2") int id2,
+    public String searchOpen(@RequestParam("id1") int id1, @RequestParam("id2") int id2,
                              @RequestParam("time1") String time1, @RequestParam("time2") String time2,
                              Model model) {
 

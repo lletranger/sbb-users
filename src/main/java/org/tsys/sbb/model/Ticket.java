@@ -4,10 +4,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "ticket")
-public @Data class Ticket {
+public @Data class Ticket implements Serializable {
 
     @Id
     @Column(name = "ticket_id")

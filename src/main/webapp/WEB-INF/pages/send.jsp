@@ -22,35 +22,17 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <script src="/resources/js/sorttable.js"></script>
-    <title>Password error</title>
+    <jsp:include page="temps/navbar.jsp"/>
+    <title>Message send</title>
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
 
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="row" align="center">
-            <div class="col-md-4">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/login'">Login</button>
-                </div>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            </div>
-        </div>
-    </div>
-</nav>
-
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center"style="color: #49a827">You've entered a wrong password!</h1>
-        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/gollum.gif"></div>
-        <h2 align="center"style="color: #49a827">Try to remember the correct one</h2>
+        <h1 align="center"style="color: #49a827">Your letter is on its way!</h1>
+        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/send.jpg"></div>
+        <h2 align="center"style="color: #49a827">Return to <a href="${pageContext.request.contextPath}/index">main page</a></h2>
     </div>
 </section>
 
@@ -60,6 +42,7 @@
 <script src="<c:url value="/resources/js/jquery.scrollTo.js"/>"></script>
 <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
 <script src="<c:url value="/resources/js/custom.js"/>"></script>
+<script src="<c:url value="/resources/js/sorttable.js"/>"></script>
 
 </body>
 </html>

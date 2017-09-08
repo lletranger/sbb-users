@@ -6,11 +6,12 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "board")
-public @Data class Board {
+public @Data class Board implements Serializable {
 
     @Id
     @Column(name = "board_id")

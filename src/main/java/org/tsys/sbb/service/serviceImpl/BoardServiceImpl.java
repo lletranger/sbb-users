@@ -207,7 +207,7 @@ public class BoardServiceImpl implements BoardService {
         arrival = findArrival(board.getBoard_id());
         boardDto.setArrival(DistanceAndTimeUtil.getStringDate(arrival));
         boardDto.setCanAddDelay(!DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), arrival)
-                & DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture()) ? "true" : "false");
+                && DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture()) ? "true" : "false");
 
         return boardDto;
     }
@@ -228,7 +228,7 @@ public class BoardServiceImpl implements BoardService {
         List<Ticket> tickets = ticketService.findTicketsByBoardId(board.getBoard_id());
         String departure = DistanceAndTimeUtil.getStringDate(board.getDeparture());
 
-        boardDto.setTicketsAvailable((tickets.size() < train.getSeats()) & (!DistanceAndTimeUtil.isTenMinsGap(departure)));
+        boardDto.setTicketsAvailable((tickets.size() < train.getSeats()) && (!DistanceAndTimeUtil.isTenMinsGap(departure)));
         boardDto.setDeparture(departure);
         boardDto.setAverageSpeed(train.getSpeed_percents() * 45 / 100);
 

@@ -14,15 +14,21 @@ public interface UserService {
      */
     User getUserById(int id);
 
+    /**
+     * Gets a {@link User} from the database
+     *
+     * @param username {@link String}
+     * @return a single {@link User} with the specified {@link User#username} or null
+     */
+    User getUserByUsername(String username);
 
     /**
      * Gets a {@link User} from the database
      *
-     * @param login {@link String}
-     * @return a single {@link User} with the specified {@link User#login} or null
+     * @param email {@link String}
+     * @return a single {@link User} with the specified {@link User#email} or null
      */
-    User getUserByLogin(String login);
-
+    User getUserByEmail(String email);
 
     /**
      * Gets all existing {@link User}s from the database
@@ -30,7 +36,6 @@ public interface UserService {
      * @return an array list of {@link User}s or null
      */
     List<User> getAllUsers();
-
 
     /**
      * Saves a new {@link User} to the database
@@ -46,7 +51,6 @@ public interface UserService {
      */
     void editUser(User user);
 
-
     /**
      * Deletes given {@link User} from the database
      *
@@ -55,12 +59,12 @@ public interface UserService {
     void deleteUser(int id);
 
     /**
-     * Checks if the {@link User} in the database with the same {@link User#login}
+     * Checks if the {@link User} in the database with the same {@link User#username}
      * has the same {@link User#password}
      *
-     * @param login    String
+     * @param username    String
      * @param password String
      * @return true or false
      */
-    boolean checkUser(String login, String password);
+    boolean checkUser(String username, String password);
 }

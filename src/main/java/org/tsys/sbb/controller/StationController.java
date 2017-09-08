@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.tsys.sbb.model.Station;
-import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.StationService;
 
 import javax.servlet.http.HttpSession;
@@ -27,13 +26,8 @@ public class StationController {
         this.stationService = stationService;
     }
 
-    @RequestMapping(value = "/stations")
+    @RequestMapping(value = "/admin/stations")
     public String getAllStations(Model model, HttpSession session) {
-
-        User user = (User) session.getAttribute("sessionUser");
-        if (user == null || !user.getRole().equals("admin")) {
-            return "notpass";
-        }
 
         model.addAttribute("station", new Station());
         model.addAttribute("allStations", stationService.getAllStations());
@@ -43,23 +37,18 @@ public class StationController {
     }
 
     @Transactional
-    @RequestMapping(value = "/stations/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/stations/add", method = RequestMethod.POST)
     public String addStation(@ModelAttribute("station") Station station, HttpSession session) {
-
-        User user = (User) session.getAttribute("sessionUser");
-        if (user == null || !user.getRole().equals("admin")) {
-            return "notpass";
-        }
 
         if (stationService.isExist(station.getName())) {
             session.setAttribute("existingStation", station.getName());
             logger.info("Can't create station, already exists with the name " + station.getName());
-            return "snexception";
+            return "messages/snexception";
         }
 
         stationService.addStation(station);
         logger.info("New station's created " + station);
 
-        return "redirect:/stations";
+        return "redirect:/admin/stations";
     }
 }

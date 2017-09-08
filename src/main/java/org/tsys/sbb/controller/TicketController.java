@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.tsys.sbb.dto.PassengerDto;
 import org.tsys.sbb.dto.TicketDto;
 import org.tsys.sbb.model.*;
@@ -27,7 +30,9 @@ public class TicketController {
     private BoardService boardService;
     private StationService stationService;
 
-    private static final Logger logger = LoggerFactory.getLogger(TicketController.class);
+    private static final String SU = "sessionUser";
+    private static final String NO_BOARD ="There is no board with the requested ID";
+    private static final Logger LOGGER = LoggerFactory.getLogger(TicketController.class);
 
     @Autowired
     public void setTicketService(TicketService ticketService) {
@@ -47,25 +52,26 @@ public class TicketController {
     @RequestMapping(value = "/ticket/add/{board_id}")
     public String addTicket(@PathVariable("board_id") int id, Model model, HttpSession session) {
 
-        User user = (User) session.getAttribute("sessionUser");
-        if (user == null || user.getRole().equals("anon")) {
-            return "redirect:/login";
+        Board board = boardService.findBoardById(id);
+
+        if (board == null) {
+            session.setAttribute("errorMessage", NO_BOARD);
+            return "messages/notexist";
         }
 
-        Board board = boardService.findBoardById(id);
         String from = stationService.getStationById(board.getFrom_id()).getName();
         String to = stationService.getStationById(board.getTo_id()).getName();
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
-            logger.info("Can't buy ticket, board's already arrived!");
-            return "notexist";
+            LOGGER.info("Can't buy ticket, board's already arrived!");
+            return "messages/notexist";
         }
 
         model.addAttribute("board", board);
         model.addAttribute("passengerDto", new PassengerDto());
         session.setAttribute("fromTicket", from);
         session.setAttribute("toTicket", to);
-        logger.info("Loading new ticket form");
+        LOGGER.info("Loading new ticket form");
         return "tickets";
     }
 
@@ -73,24 +79,27 @@ public class TicketController {
     @RequestMapping(value = "/ticket/add/{board_id}", method = RequestMethod.POST)
     public String registerTicket(@PathVariable("board_id") int id, @ModelAttribute("passengerDto") PassengerDto passengerDto, HttpSession session) {
 
-        User user = (User) session.getAttribute("sessionUser");
-        if (user == null || user.getRole().equals("anon")) {
-            return "redirect:/login";
-        }
+        User user = (User) session.getAttribute(SU);
 
         Board board = boardService.findBoardById(id);
+
+        if (board == null) {
+            session.setAttribute("errorMessage", NO_BOARD);
+            return "messages/notexist";
+        }
+
         String from = stationService.getStationById(board.getFrom_id()).getName();
         String to = stationService.getStationById(board.getTo_id()).getName();
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
-            logger.info("Can't buy ticket, board's already arrived!");
-            return "notexist";
+            LOGGER.info("Can't buy ticket, board's already arrived!");
+            return "messages/notexist";
         }
 
         if (!boardService.isAvailable(id)) {
             session.setAttribute("noPlacesBoard", board.getName());
-            logger.info("Can't buy ticket, board has no free seats!");
-            return "noplaces";
+            LOGGER.info("Can't buy ticket, board has no free seats!");
+            return "messages/noplaces";
         }
 
         if(boardService.passExists(id, passengerDto)) {
@@ -98,8 +107,8 @@ public class TicketController {
             session.setAttribute("dupeBoard", board);
             session.setAttribute("dupeFrom", from);
             session.setAttribute("dupeTo", to);
-            logger.info("Can't buy ticket for duplicate passenger");
-            return "passalready";
+            LOGGER.info("Can't buy ticket for duplicate passenger");
+            return "messages/passalready";
         }
 
         Ticket ticket = ticketService.createTicket(passengerDto, id, user);
@@ -125,19 +134,15 @@ public class TicketController {
 
         new EmailSender().send(user.getEmail(),"Your ticket from MeR", message);
 
-        return "bought";
+        return "messages/bought";
     }
 
     @RequestMapping(value = "/mytickets")
     public String allTicket(Model model, HttpSession session) {
 
-        User user = (User) session.getAttribute("sessionUser");
-        if (user == null || user.getRole().equals("anon")) {
-            return "redirect:/login";
-        }
-
+        User user = (User) session.getAttribute(SU);
         model.addAttribute("ticketsDto", ticketService.findTicketsByUserId(user.getUser_id()));
-        logger.info("Loading all tickets to passenger with login = " + user.getLogin());
+        LOGGER.info("Loading all tickets to passenger with login = " + user.getUsername());
         return "mytickets";
     }
 
@@ -145,27 +150,20 @@ public class TicketController {
     @RequestMapping(value = "/annulticket/{id}")
     public String annulTicket(@PathVariable("id") int id, HttpSession session) {
 
-        User user = (User) session.getAttribute("sessionUser");
-        if (user == null || user.getRole().equals("anon")) {
-            return "redirect:/login";
-        }
-
+        User user = (User) session.getAttribute(SU);
         ticketService.deleteTicket(id);
-        logger.info("Deleting ticket with ID = " + id);
-
-        String message = "Your ticket with ID ".concat(String.valueOf(id))
+        LOGGER.info("Deleting ticket with ID = " + id);
+        String message = "Your ticket with ID "
+                .concat(String.valueOf(id))
                 .concat(" was annulled. We're sad =(");
 
         new EmailSender().send(user.getEmail(),"Your ticket annulled", message);
-
         return "redirect:/mytickets";
     }
 
-    @ResponseBody
     @RequestMapping(value = "/tickets", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public List<TicketDto> getTickets() {
-
-        logger.info("Sending tickets in JSON");
+        LOGGER.info("Sending tickets in JSON");
         return ticketService.findAllTickets();
     }
 }

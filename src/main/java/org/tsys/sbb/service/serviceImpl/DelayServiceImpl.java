@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.tsys.sbb.dao.DelayDao;
 import org.tsys.sbb.model.Delay;
 import org.tsys.sbb.service.DelayService;
+import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class DelayServiceImpl implements DelayService {
     }
 
     public void addDelay(Delay delay) {
+        if(!DistanceAndTimeUtil.getStringDelay(delay.getDelay_time()).equals("0m")) {
         delayDao.addDelay(delay);
+        }
     }
 }

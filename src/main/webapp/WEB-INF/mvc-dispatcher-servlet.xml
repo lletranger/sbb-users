@@ -67,4 +67,15 @@
 
     <mvc:view-controller path="/" view-name="index"/>
 
+    <!--<bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">-->
+        <!--<property name="connectionFactories">-->
+            <!--<list>-->
+                <!--<bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory">-->
+                    <!--<constructor-arg value="115192862507731" />-->
+                    <!--<constructor-arg value="cf2751693f727376cf32b0705e09d0fd" />-->
+                <!--</bean>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
 </beans>

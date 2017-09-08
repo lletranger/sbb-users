@@ -28,21 +28,39 @@ public class UserDaoImpl implements UserDao {
     }
 
     @SuppressWarnings("unchecked")
-    public User getUserByLogin(String login) {
+    public User getUserByUsername(String username) {
 
-        List<User> list = em.createQuery("SELECT u FROM User u WHERE login=:login ")
-                .setParameter("login", login)
+        List<User> list = em.createQuery("SELECT u FROM User u WHERE username=:username ")
+                .setParameter("username", username)
                 .getResultList();
 
         if (list.isEmpty()) {
-            logger.info("No user found by login = " + login);
+            logger.info("No user found by username = " + username);
             return null;
         }
 
-        logger.info("User loaded by login = " + login);
+        logger.info("User loaded by username = " + username);
 
         return list.get(0);
     }
+
+    @SuppressWarnings("unchecked")
+    public User getUserByEmail(String email) {
+
+        List<User> list = em.createQuery("SELECT u FROM User u WHERE email=:email ")
+                .setParameter("email", email)
+                .getResultList();
+
+        if (list.isEmpty()) {
+            logger.info("No user found by email = " + email);
+            return null;
+        }
+
+        logger.info("User loaded by email = " + email);
+
+        return list.get(0);
+    }
+
 
     @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {

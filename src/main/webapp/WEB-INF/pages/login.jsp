@@ -14,7 +14,7 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
@@ -22,7 +22,7 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap-social.css"/>" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
     <title>Login page</title>
 
     <style>
@@ -53,7 +53,6 @@
         input, select, textarea {
             color: #545454;
         }
-
     </style>
 
 </head>
@@ -64,16 +63,12 @@
     <div class="container">
         <div class="row" align="center">
             <div class="col-md-4">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/index'">Main</button>
+                <div class="navbar-header page-scroll" style="margin-top: 8px">
+                    <button class="btn btn-success"
+                            onclick="location.href='${pageContext.request.contextPath}/index'">
+                        Main</button>
                 </div>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
         </div>
     </div>
 </nav>
@@ -105,7 +100,7 @@
 
             <div class="row" style="font-size: 15px; height: 25px; vertical-align: middle">
                 <div class="form-group col-lg-4 col-lg-offset-4" style="color: #545454;">
-                    <input type="checkbox" onclick=
+                    <input title="chbx" type="checkbox" onclick=
                             "if(password.type == 'text')password.type='password';
                     else password.type='text';"/>
                     Show password</span>

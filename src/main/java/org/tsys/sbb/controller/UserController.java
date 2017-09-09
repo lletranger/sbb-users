@@ -90,31 +90,4 @@ public class UserController {
         LOGGER.info("Opening info to user " + currentUser.getUsername());
         return "info";
     }
-
-    @Transactional
-    @RequestMapping(value = "/info", method = RequestMethod.POST)
-    public String userEdit(@ModelAttribute("editUser") User editUser, HttpSession session) {
-
-        User wantedUser = userService.getUserByUsername(editUser.getUsername());
-
-        if (wantedUser != null && wantedUser.getUser_id() != editUser.getUser_id()) {
-            session.setAttribute("existingUser", editUser.getUsername());
-            LOGGER.info("User already exists with username = " + editUser.getUsername());
-            return "messages/logintaken";
-        }
-
-        wantedUser = userService.getUserByEmail(editUser.getEmail());
-
-        if (wantedUser != null && wantedUser.getUser_id() != editUser.getUser_id()) {
-            session.setAttribute("existingUser", editUser.getEmail());
-            LOGGER.info("User already exists with email = " + editUser.getEmail());
-            return "messages/emailtaken";
-        }
-
-        userService.editUser(editUser);
-
-        LOGGER.info("Editing info about user " + editUser.getUsername());
-        return "redirect:/info";
-    }
-
 }

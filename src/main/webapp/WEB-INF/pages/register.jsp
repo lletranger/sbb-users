@@ -14,15 +14,14 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
     <title>Register page</title>
 
     <style>
@@ -64,15 +63,12 @@
     <div class="container">
         <div class="row" align="center">
             <div class="col-md-4">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <button class="btn btn-success" onclick="location.href='${pageContext.request.contextPath}/login'">Back</button>
+                <div class="navbar-header page-scroll" style="margin-top: 8px">
+                    <button class="btn btn-success"
+                            onclick="location.href='${pageContext.request.contextPath}/login'">
+                        Back</button>
                 </div>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
         </div>
     </div>
 </nav>
@@ -112,7 +108,7 @@
                     <input id="showPassword" type="checkbox" onclick=
                             "if(password.type == 'text')
                                 password.type='password';
-                            else password.type='text';"/> Show password</span>
+                            else password.type='text';"/> Show password
                 </div>
             </div>
 

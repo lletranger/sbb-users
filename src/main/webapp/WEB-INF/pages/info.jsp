@@ -33,23 +33,25 @@
         table.sortable thead {
             background-color: rgba(255, 227, 1, 0);
             color: #545454;
-            font-size: 20px;
-            font-weight: bold;
             cursor: default;
+            text-align: left;
+            width: 200px;
 
         }
 
         table.sortable th {
-            text-align: center;
-            height: 50px;
-
+            text-align: right;
+            height: 40px;
+            width: 200px;
+            padding-right: 25px;
         }
 
         table.sortable td {
-            text-align: center;
+            text-align: left;
             color: #545454;
             height: 40px;
-            width: 85px;
+            width: 200px;
+            padding-left: 25px;
         }
 
     </style>
@@ -59,46 +61,17 @@
 
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center">My Info</h1>
-
-        <c:url var="edit" value="/info"/>
-        <form:form action="${editUser}" commandName="editUser">
-            <table class="sorttable_nosort" style="color: #545454">
-                <tr>
-                    <th style='width: 150px;'>
-                        <spring:message text="Username: "/>
-                    </th>
-                    <td>
-                        <form:input path="username" minlength="4" maxlength="25" required="required"
-                                    placeholder="Username"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <spring:message text="Email: "/>
-                    </th>
-                    <td>
-                        <form:input path="email" pattern="^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$"
-                                    minlength="4" maxlength="25" placeholder="Email"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th style='width: 150px;'>
-                        <spring:message text="Password: "/>
-                    </th>
-                    <td>
-                        <form:password path="password" minlength="4" maxlength="25"
-                                       required="required" placeholder="Password"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td>
-                        <button type=button class="btn btn-success" style="width: 250px" onclick="location.href='${pageContext.request.contextPath}/info'">Edit info</button>
-                    </td>
-                </tr>
-            </table>
-        </form:form>
+        <h1 align="center" style="color: #49a827">My Info</h1>
+        <table class="sortable" style="color: #545454">
+            <tr class="sorttable_nosort">
+                <th class="sorttable_nosort" >Your login:</th>
+                <td>${editUser.username}</td>
+            </tr>
+            <tr>
+                <th class="sorttable_nosort" >Your email:</th>
+                <td>${editUser.email}</td>
+            </tr>
+        </table>
     </div>
 </section>
 

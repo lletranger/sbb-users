@@ -13,20 +13,16 @@
 %>
 
 <html>
-
-<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <jsp:include page="temps/navbar.jsp"/>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
-    <jsp:include page="temps/navbar.jsp"/>
-
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-
+    <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
     <title>Search page</title>
 
     <style>
@@ -60,6 +56,7 @@
         }
 
     </style>
+
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
@@ -69,7 +66,7 @@
         <h1 align="center" style="color: #49a827">Find Boards by Stations</h1>
         <h4 align="center" style="color: #545454">Choose departure and/or arrival</h4>
 
-        <form action="/searchboards">
+        <form action="${pageContext.request.contextPath}/searchboards">
 
             <label style="color: #545454">From: </label>
             <select name="id1">
@@ -81,6 +78,7 @@
                 </c:forEach>
             </select>
             <label style="color: #545454">to: </label>
+
             <select name="id2">
                 <option value="0">- Select -</option>
                 <c:forEach items="${stations}" var="station">
@@ -88,6 +86,7 @@
                             <c:if test="${station.station_id eq s2}">selected</c:if>>${station.name} </option>
                 </c:forEach>
             </select>
+
             <label style="color: #545454">departing</label>
             <br>
             <label style="color: #545454">after: </label>
@@ -102,7 +101,7 @@
 <c:if test="${!empty dtos}">
         <section class="content">
             <div class="container" align="center">
-                <h1 align="center"style="color: #49a827">Available Boards</h1>
+                <h1 align="center" style="color: #49a827">Available Boards</h1>
 
                 <table class="sortable">
                 <tr>

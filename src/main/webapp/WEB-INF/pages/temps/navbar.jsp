@@ -10,21 +10,18 @@
     response.setHeader("Pragma", "no-cache");
     response.setDateHeader("Expires", 0);
 %>
-
 <html>
-<nav class="navbar navbar-custom navbar-fixed-top">
+
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="row" align="center">
             <div class="col-md-4">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand" href="../index.jsp"></a>
+                <div class="navbar-header page-scroll" style="margin-top: 8px">
+                    <button class="btn btn-success"
+                            onclick="location.href='${pageContext.request.contextPath}/index'">
+                        Main</button>
                 </div>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
 
             <div class="collapse navbar-collapse navbar-main-collapse">
                 <div class="col-md-2 right col-md-offset-2">
@@ -33,7 +30,9 @@
                         <div id="menu">
                             <div id="arrow"></div>
                             <div id="logout">
-                                <a style="color:#49A827" href="${pageContext.request.contextPath}/info">My info</a><br>
+                                <sec:authorize access="hasRole('ROLE_USER')">
+                                    <a style="color:#49A827" href="${pageContext.request.contextPath}/info">My info</a><br>
+                                </sec:authorize>
                                 <a style="color:#49A827" href="${pageContext.request.contextPath}/mytickets">My tickets</a><br>
                                 <a style="color:#49A827" href="${pageContext.request.contextPath}/search">Search</a><br>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -51,11 +50,6 @@
                             <button class="btn btn-success">Log in</button>
                         </a>
                     </sec:authorize>
-                </div>
-
-                <div class="col-md-4 center-block">
-                    <ul class="list nav navbar-nav" style="align-items: center">
-                    </ul>
                 </div>
             </div>
         </div>

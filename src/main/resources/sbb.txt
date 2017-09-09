@@ -1,189 +1,56 @@
-2017-09-09 01:47:16 INFO  DispatcherServlet:488 - FrameworkServlet 'mvc-dispatcher': initialization started
-2017-09-09 01:47:16 INFO  XmlWebApplicationContext:578 - Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sat Sep 09 01:47:16 MSK 2017]; root of context hierarchy
-2017-09-09 01:47:16 INFO  XmlBeanDefinitionReader:317 - Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
-2017-09-09 01:47:17 INFO  AutowiredAnnotationBeanPostProcessor:153 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
-2017-09-09 01:47:18 INFO  LocalContainerEntityManagerFactoryBean:339 - Building JPA container EntityManagerFactory for persistence unit 'default'
-2017-09-09 01:47:18 INFO  LogHelper:46 - HHH000204: Processing PersistenceUnitInfo [
+2017-09-10 00:10:53 INFO  DispatcherServlet:488 - FrameworkServlet 'mvc-dispatcher': initialization started
+2017-09-10 00:10:53 INFO  XmlWebApplicationContext:578 - Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sun Sep 10 00:10:53 MSK 2017]; root of context hierarchy
+2017-09-10 00:10:53 INFO  XmlBeanDefinitionReader:317 - Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
+2017-09-10 00:10:55 INFO  AutowiredAnnotationBeanPostProcessor:153 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2017-09-10 00:10:55 INFO  LocalContainerEntityManagerFactoryBean:339 - Building JPA container EntityManagerFactory for persistence unit 'default'
+2017-09-10 00:10:55 INFO  LogHelper:46 - HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2017-09-09 01:47:18 INFO  Version:54 - HHH000412: Hibernate Core {4.3.5.Final}
-2017-09-09 01:47:18 INFO  Environment:239 - HHH000206: hibernate.properties not found
-2017-09-09 01:47:18 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
-2017-09-09 01:47:18 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
-2017-09-09 01:47:18 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2017-09-09 01:47:19 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
-2017-09-09 01:47:19 INFO  Version:27 - HV000001: Hibernate Validator 4.3.2.Final
-2017-09-09 01:47:20 INFO  SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boards]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.getAllBoards(org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boarddata/{id}]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.boardData(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boardsadd]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addNewBoard(org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boardsadd],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addBoard(org.tsys.sbb.dto.BoardDto)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/delay/add/{board_id}]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addDelay(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/delay/add/{board_id}],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.registerDelay(int,org.tsys.sbb.dto.DelayDto,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/register],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.MainController.register(org.tsys.sbb.model.User,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/register],methods=[GET]}" onto public java.lang.String org.tsys.sbb.controller.MainController.register(org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/logout]}" onto public java.lang.String org.tsys.sbb.controller.MainController.logout(javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/login],methods=[GET]}" onto public java.lang.String org.tsys.sbb.controller.MainController.loginPage(org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ || /index]}" onto public java.lang.String org.tsys.sbb.controller.MainController.openIndex(javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/send]}" onto public java.lang.String org.tsys.sbb.controller.MainController.sendEmail(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/login],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.MainController.getIn(org.tsys.sbb.model.User,org.springframework.validation.BindingResult,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/schedule/stations],methods=[GET],produces=[application/json]}" onto public org.tsys.sbb.dto.StationsDto org.tsys.sbb.controller.ScheduleController.getStations()
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/schedule/station/{id}],methods=[GET],produces=[application/json]}" onto public org.tsys.sbb.dto.ScheduleDto org.tsys.sbb.controller.ScheduleController.getSchedule(int)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/search]}" onto public java.lang.String org.tsys.sbb.controller.SearchController.search(org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/searchboards]}" onto public java.lang.String org.tsys.sbb.controller.SearchController.searchOpen(int,int,java.lang.String,java.lang.String,org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/stations]}" onto public java.lang.String org.tsys.sbb.controller.StationController.getAllStations(org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/stations/add],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.StationController.addStation(org.tsys.sbb.model.Station,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ticket/add/{board_id}],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.registerTicket(int,org.tsys.sbb.dto.PassengerDto,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ticket/add/{board_id}]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.addTicket(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/mytickets]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.allTicket(org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/annulticket/{id}]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.annulTicket(int,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/tickets],methods=[GET],produces=[application/json]}" onto public java.util.List<org.tsys.sbb.dto.TicketDto> org.tsys.sbb.controller.TicketController.getTickets()
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/info]}" onto public java.lang.String org.tsys.sbb.controller.UserController.userInfo(org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/setuser/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.setUser(int,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/users]}" onto public java.lang.String org.tsys.sbb.controller.UserController.getAllUsers(org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/setadmin/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.setAdmin(int)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/remove/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.deleteUser(int,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/info],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.UserController.userEdit(org.tsys.sbb.model.User,javax.servlet.http.HttpSession)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/userdata/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.userData(int,org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/connect/{providerId}],methods=[POST]}" onto public org.springframework.web.servlet.view.RedirectView org.springframework.social.connect.web.ConnectController.connect(java.lang.String,org.springframework.web.context.request.NativeWebRequest)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/connect/{providerId}],methods=[GET]}" onto public java.lang.String org.springframework.social.connect.web.ConnectController.connectionStatus(java.lang.String,org.springframework.web.context.request.NativeWebRequest,org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/connect],methods=[GET]}" onto public java.lang.String org.springframework.social.connect.web.ConnectController.connectionStatus(org.springframework.web.context.request.NativeWebRequest,org.springframework.ui.Model)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/connect/{providerId}],methods=[GET],params=[oauth_token]}" onto public org.springframework.web.servlet.view.RedirectView org.springframework.social.connect.web.ConnectController.oauth1Callback(java.lang.String,org.springframework.web.context.request.NativeWebRequest)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/connect/{providerId}],methods=[GET],params=[code]}" onto public org.springframework.web.servlet.view.RedirectView org.springframework.social.connect.web.ConnectController.oauth2Callback(java.lang.String,org.springframework.web.context.request.NativeWebRequest)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/connect/{providerId}],methods=[GET],params=[error]}" onto public org.springframework.web.servlet.view.RedirectView org.springframework.social.connect.web.ConnectController.oauth2ErrorCallback(java.lang.String,java.lang.String,java.lang.String,java.lang.String,org.springframework.web.context.request.NativeWebRequest)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/connect/{providerId}],methods=[DELETE]}" onto public org.springframework.web.servlet.view.RedirectView org.springframework.social.connect.web.ConnectController.removeConnections(java.lang.String,org.springframework.web.context.request.NativeWebRequest)
-2017-09-09 01:47:20 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/connect/{providerId}/{providerUserId}],methods=[DELETE]}" onto public org.springframework.web.servlet.view.RedirectView org.springframework.social.connect.web.ConnectController.removeConnection(java.lang.String,java.lang.String,org.springframework.web.context.request.NativeWebRequest)
-2017-09-09 01:47:21 INFO  RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sat Sep 09 01:47:16 MSK 2017]; root of context hierarchy
-2017-09-09 01:47:21 INFO  RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sat Sep 09 01:47:16 MSK 2017]; root of context hierarchy
-2017-09-09 01:47:21 INFO  SimpleUrlHandlerMapping:328 - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
-2017-09-09 01:47:21 INFO  DefaultSecurityFilterChain:28 - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7ea26229, org.springframework.security.web.context.SecurityContextPersistenceFilter@27d9ffa3, org.springframework.security.web.header.HeaderWriterFilter@4ac47bfc, org.springframework.security.web.authentication.logout.LogoutFilter@28562b97, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@a9f5b79, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29355a9b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@19600e48, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@d7138bf, org.springframework.security.web.session.SessionManagementFilter@54cd7772, org.springframework.security.web.access.ExceptionTranslationFilter@eb4b931, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@39f858ff]
-2017-09-09 01:47:22 INFO  DispatcherServlet:507 - FrameworkServlet 'mvc-dispatcher': initialization completed in 5947 ms
-2017-09-09 01:47:29 INFO  UserDao:38 - No user found by username = anonymousUser
-2017-09-09 01:47:29 INFO  MainController:77 - Session user now is anonymous
-2017-09-09 01:47:32 INFO  MainController:102 - Loading login form
-2017-09-09 01:47:36 INFO  UserDao:42 - User loaded by username = admin
-2017-09-09 01:47:37 INFO  UserDao:42 - User loaded by username = Admin
-2017-09-09 01:47:37 INFO  MainController:80 - Session user now is Admin
-2017-09-09 01:47:39 INFO  UserDao:42 - User loaded by username = Admin
-2017-09-09 01:47:39 INFO  UserController:90 - Opening info to user Admin
-2017-09-09 01:47:50 INFO  UserDao:42 - User loaded by username = Admin
-2017-09-09 01:47:50 INFO  UserController:90 - Opening info to user Admin
-2017-09-09 01:47:52 INFO  UserDao:70 - Getting all user, got one User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin)
-2017-09-09 01:47:52 INFO  UserDao:70 - Getting all user, got one User(user_id=113, username=User, email=user@mer.me, password=$2a$10$/JV4G3lRgnIZm2MTnH7g5O75axJde75T8AR1jUWe3.fVNGlooi/Sy, role=user)
-2017-09-09 01:47:52 INFO  UserDao:70 - Getting all user, got one User(user_id=115, username=Kosta, email=konstelis@gmail.com, password=$2a$10$LtKvuIvOIvo9INGBJarplOGcpdg/Sqt.4f4eKQvcVKFSFRi3Rv/S6, role=admin)
-2017-09-09 01:47:52 INFO  UserDao:70 - Getting all user, got one User(user_id=116, username=Marina, email=kotyara89@icloud.com, password=$2a$10$P28cKj.7do3IenCjf8wbcuUuEy3gTXrGwA2mCLjat3eTxPpGhDI1S, role=user)
-2017-09-09 01:47:52 INFO  UserDao:70 - Getting all user, got one User(user_id=118, username=kknize, email=, password=$2a$10$FDvEl/R.pWuJoCYesEpUzuCH3lvsd7Irdlc2VC2WzVUjgxehcp45C, role=user)
-2017-09-09 01:47:52 INFO  UserController:32 - Loading all users to the users page
-2017-09-09 01:47:56 INFO  MainController:102 - Loading login form
-2017-09-09 01:48:02 INFO  UserDao:42 - User loaded by username = admin
-2017-09-09 01:48:02 INFO  UserDao:42 - User loaded by username = Admin
-2017-09-09 01:48:02 INFO  MainController:80 - Session user now is Admin
-2017-09-09 01:48:04 INFO  UserDao:70 - Getting all user, got one User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin)
-2017-09-09 01:48:04 INFO  UserDao:70 - Getting all user, got one User(user_id=113, username=User, email=user@mer.me, password=$2a$10$/JV4G3lRgnIZm2MTnH7g5O75axJde75T8AR1jUWe3.fVNGlooi/Sy, role=user)
-2017-09-09 01:48:04 INFO  UserDao:70 - Getting all user, got one User(user_id=115, username=Kosta, email=konstelis@gmail.com, password=$2a$10$LtKvuIvOIvo9INGBJarplOGcpdg/Sqt.4f4eKQvcVKFSFRi3Rv/S6, role=admin)
-2017-09-09 01:48:04 INFO  UserDao:70 - Getting all user, got one User(user_id=116, username=Marina, email=kotyara89@icloud.com, password=$2a$10$P28cKj.7do3IenCjf8wbcuUuEy3gTXrGwA2mCLjat3eTxPpGhDI1S, role=user)
-2017-09-09 01:48:04 INFO  UserDao:70 - Getting all user, got one User(user_id=118, username=kknize, email=, password=$2a$10$FDvEl/R.pWuJoCYesEpUzuCH3lvsd7Irdlc2VC2WzVUjgxehcp45C, role=user)
-2017-09-09 01:48:04 INFO  UserController:32 - Loading all users to the users page
-2017-09-09 01:48:08 INFO  UserDao:42 - User loaded by username = Admin
-2017-09-09 01:48:08 INFO  UserController:90 - Opening info to user Admin
-2017-09-09 01:48:16 INFO  UserDao:42 - User loaded by username = Admin
-2017-09-09 01:48:16 INFO  UserController:90 - Opening info to user Admin
-2017-09-09 01:48:18 INFO  UserDao:42 - User loaded by username = Admin
-2017-09-09 01:48:18 INFO  UserController:90 - Opening info to user Admin
-2017-09-09 01:48:22 INFO  UserDao:70 - Getting all user, got one User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin)
-2017-09-09 01:48:22 INFO  UserDao:70 - Getting all user, got one User(user_id=113, username=User, email=user@mer.me, password=$2a$10$/JV4G3lRgnIZm2MTnH7g5O75axJde75T8AR1jUWe3.fVNGlooi/Sy, role=user)
-2017-09-09 01:48:22 INFO  UserDao:70 - Getting all user, got one User(user_id=115, username=Kosta, email=konstelis@gmail.com, password=$2a$10$LtKvuIvOIvo9INGBJarplOGcpdg/Sqt.4f4eKQvcVKFSFRi3Rv/S6, role=admin)
-2017-09-09 01:48:22 INFO  UserDao:70 - Getting all user, got one User(user_id=116, username=Marina, email=kotyara89@icloud.com, password=$2a$10$P28cKj.7do3IenCjf8wbcuUuEy3gTXrGwA2mCLjat3eTxPpGhDI1S, role=user)
-2017-09-09 01:48:22 INFO  UserDao:70 - Getting all user, got one User(user_id=118, username=kknize, email=, password=$2a$10$FDvEl/R.pWuJoCYesEpUzuCH3lvsd7Irdlc2VC2WzVUjgxehcp45C, role=user)
-2017-09-09 01:48:22 INFO  UserController:32 - Loading all users to the users page
-2017-09-09 01:48:26 INFO  UserDao:25 - User loaded User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin)
-2017-09-09 01:48:26 INFO  UserController:81 - Getting info about user with ID = 32
-2017-09-09 01:48:29 INFO  UserDao:42 - User loaded by username = Admin
-2017-09-09 01:48:29 INFO  UserController:90 - Opening info to user Admin
-2017-09-09 01:49:01 INFO  UserDao:42 - User loaded by username = Admin
-2017-09-09 01:49:01 INFO  UserController:90 - Opening info to user Admin
-2017-09-09 01:49:06 INFO  TicketDao:59 - Getting all tickets by user ID, got one Ticket(ticket_id=113, board=Board(board_id=138, name=Second, train_id=6, from_id=2, to_id=3, departure=12:10:00), passenger=Passenger(pass_id=131, name=Kottt, surname=Behemoth, birth_date=1997-02-10), user=User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin))
-2017-09-09 01:49:06 INFO  TicketDao:59 - Getting all tickets by user ID, got one Ticket(ticket_id=169, board=Board(board_id=124, name=First, train_id=2, from_id=1, to_id=3, departure=02:24:00), passenger=Passenger(pass_id=191, name=Somename, surname=Somesurname, birth_date=2008-03-18), user=User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin))
-2017-09-09 01:49:06 INFO  BoardDao:25 - Board loaded Board(board_id=138, name=Second, train_id=6, from_id=2, to_id=3, departure=12:10:00)
-2017-09-09 01:49:06 INFO  PassengerDao:24 - Passenger loaded Passenger(pass_id=131, name=Kottt, surname=Behemoth, birth_date=1997-02-10)
-2017-09-09 01:49:06 INFO  StationDao:25 - Station loaded Station(station_id=2, name=Isengard, x=78, y=123)
-2017-09-09 01:49:06 INFO  StationDao:25 - Station loaded Station(station_id=3, name=Mordor, x=112, y=-23)
-2017-09-09 01:49:06 INFO  BoardDao:25 - Board loaded Board(board_id=124, name=First, train_id=2, from_id=1, to_id=3, departure=02:24:00)
-2017-09-09 01:49:06 INFO  PassengerDao:24 - Passenger loaded Passenger(pass_id=191, name=Somename, surname=Somesurname, birth_date=2008-03-18)
-2017-09-09 01:49:06 INFO  StationDao:25 - Station loaded Station(station_id=1, name=Gondor, x=66, y=-102)
-2017-09-09 01:49:06 INFO  StationDao:25 - Station loaded Station(station_id=3, name=Mordor, x=112, y=-23)
-2017-09-09 01:49:06 INFO  TicketController:145 - Loading all tickets to passenger with login = Admin
-2017-09-09 01:49:12 INFO  StationDao:35 - Getting all stations, got one Station(station_id=1, name=Gondor, x=66, y=-102)
-2017-09-09 01:49:12 INFO  StationDao:35 - Getting all stations, got one Station(station_id=2, name=Isengard, x=78, y=123)
-2017-09-09 01:49:12 INFO  StationDao:35 - Getting all stations, got one Station(station_id=3, name=Mordor, x=112, y=-23)
-2017-09-09 01:49:12 INFO  StationDao:35 - Getting all stations, got one Station(station_id=4, name=Rivendell, x=189, y=87)
-2017-09-09 01:49:12 INFO  StationDao:35 - Getting all stations, got one Station(station_id=5, name=Rohan, x=98, y=177)
-2017-09-09 01:49:12 INFO  StationDao:35 - Getting all stations, got one Station(station_id=6, name=Shire, x=-213, y=259)
-2017-09-09 01:49:12 INFO  StationDao:35 - Getting all stations, got one Station(station_id=24, name=Lorien, x=228, y=322)
-2017-09-09 01:49:12 INFO  StationDao:35 - Getting all stations, got one Station(station_id=25, name=Erebor, x=560, y=-230)
-2017-09-09 01:49:12 INFO  StationDao:35 - Getting all stations, got one Station(station_id=26, name=Test, x=-999, y=999)
-2017-09-09 01:49:12 INFO  SearchController:49 - Creating new search form
-2017-09-09 01:49:14 INFO  BoardDao:37 - Getting all boards by from station, got one Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00)
-2017-09-09 01:49:14 INFO  StationDao:25 - Station loaded Station(station_id=26, name=Test, x=-999, y=999)
-2017-09-09 01:49:14 INFO  StationDao:25 - Station loaded Station(station_id=5, name=Rohan, x=98, y=177)
-2017-09-09 01:49:14 INFO  TrainDao:25 - Train loaded Train(train_id=9, seats=2, speed_percents=300)
-2017-09-09 01:49:14 INFO  StationDao:35 - Getting all stations, got one Station(station_id=1, name=Gondor, x=66, y=-102)
-2017-09-09 01:49:14 INFO  StationDao:35 - Getting all stations, got one Station(station_id=2, name=Isengard, x=78, y=123)
-2017-09-09 01:49:14 INFO  StationDao:35 - Getting all stations, got one Station(station_id=3, name=Mordor, x=112, y=-23)
-2017-09-09 01:49:14 INFO  StationDao:35 - Getting all stations, got one Station(station_id=4, name=Rivendell, x=189, y=87)
-2017-09-09 01:49:14 INFO  StationDao:35 - Getting all stations, got one Station(station_id=5, name=Rohan, x=98, y=177)
-2017-09-09 01:49:14 INFO  StationDao:35 - Getting all stations, got one Station(station_id=6, name=Shire, x=-213, y=259)
-2017-09-09 01:49:14 INFO  StationDao:35 - Getting all stations, got one Station(station_id=24, name=Lorien, x=228, y=322)
-2017-09-09 01:49:14 INFO  StationDao:35 - Getting all stations, got one Station(station_id=25, name=Erebor, x=560, y=-230)
-2017-09-09 01:49:14 INFO  StationDao:35 - Getting all stations, got one Station(station_id=26, name=Test, x=-999, y=999)
-2017-09-09 01:49:14 INFO  SearchController:72 - Getting results of the search request
-2017-09-09 01:49:16 INFO  BoardDao:25 - Board loaded Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00)
-2017-09-09 01:49:16 INFO  StationDao:25 - Station loaded Station(station_id=26, name=Test, x=-999, y=999)
-2017-09-09 01:49:16 INFO  StationDao:25 - Station loaded Station(station_id=5, name=Rohan, x=98, y=177)
-2017-09-09 01:49:16 INFO  BoardDao:25 - Board loaded Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00)
-2017-09-09 01:49:16 INFO  StationDao:25 - Station loaded Station(station_id=26, name=Test, x=-999, y=999)
-2017-09-09 01:49:16 INFO  StationDao:25 - Station loaded Station(station_id=5, name=Rohan, x=98, y=177)
-2017-09-09 01:49:16 INFO  TrainDao:25 - Train loaded Train(train_id=9, seats=2, speed_percents=300)
-2017-09-09 01:49:16 INFO  TicketController:74 - Loading new ticket form
-2017-09-09 01:49:26 INFO  BoardDao:25 - Board loaded Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00)
-2017-09-09 01:49:26 INFO  StationDao:25 - Station loaded Station(station_id=26, name=Test, x=-999, y=999)
-2017-09-09 01:49:26 INFO  StationDao:25 - Station loaded Station(station_id=5, name=Rohan, x=98, y=177)
-2017-09-09 01:49:26 INFO  BoardDao:25 - Board loaded Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00)
-2017-09-09 01:49:26 INFO  StationDao:25 - Station loaded Station(station_id=26, name=Test, x=-999, y=999)
-2017-09-09 01:49:26 INFO  StationDao:25 - Station loaded Station(station_id=5, name=Rohan, x=98, y=177)
-2017-09-09 01:49:26 INFO  TrainDao:25 - Train loaded Train(train_id=9, seats=2, speed_percents=300)
-2017-09-09 01:49:26 INFO  BoardDao:25 - Board loaded Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00)
-2017-09-09 01:49:26 INFO  TrainDao:25 - Train loaded Train(train_id=9, seats=2, speed_percents=300)
-2017-09-09 01:49:26 INFO  BoardDao:25 - Board loaded Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00)
-2017-09-09 01:49:26 INFO  TicketDao:68 - Ticket added Ticket(ticket_id=179, board=Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00), passenger=Passenger(pass_id=205, name=Admi, surname=dfgh, birth_date=Wed Sep 01 00:00:00 MSK 1926), user=User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin))
-2017-09-09 01:49:29 INFO  EmailSender:41 - Email send successfully
-2017-09-09 01:49:43 INFO  TicketDao:59 - Getting all tickets by user ID, got one Ticket(ticket_id=113, board=Board(board_id=138, name=Second, train_id=6, from_id=2, to_id=3, departure=12:10:00), passenger=Passenger(pass_id=131, name=Kottt, surname=Behemoth, birth_date=1997-02-10), user=User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin))
-2017-09-09 01:49:43 INFO  TicketDao:59 - Getting all tickets by user ID, got one Ticket(ticket_id=169, board=Board(board_id=124, name=First, train_id=2, from_id=1, to_id=3, departure=02:24:00), passenger=Passenger(pass_id=191, name=Somename, surname=Somesurname, birth_date=2008-03-18), user=User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin))
-2017-09-09 01:49:43 INFO  TicketDao:59 - Getting all tickets by user ID, got one Ticket(ticket_id=179, board=Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00), passenger=Passenger(pass_id=205, name=Admi, surname=dfgh, birth_date=1926-09-01), user=User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin))
-2017-09-09 01:49:43 INFO  BoardDao:25 - Board loaded Board(board_id=138, name=Second, train_id=6, from_id=2, to_id=3, departure=12:10:00)
-2017-09-09 01:49:43 INFO  PassengerDao:24 - Passenger loaded Passenger(pass_id=131, name=Kottt, surname=Behemoth, birth_date=1997-02-10)
-2017-09-09 01:49:43 INFO  StationDao:25 - Station loaded Station(station_id=2, name=Isengard, x=78, y=123)
-2017-09-09 01:49:43 INFO  StationDao:25 - Station loaded Station(station_id=3, name=Mordor, x=112, y=-23)
-2017-09-09 01:49:43 INFO  BoardDao:25 - Board loaded Board(board_id=124, name=First, train_id=2, from_id=1, to_id=3, departure=02:24:00)
-2017-09-09 01:49:43 INFO  PassengerDao:24 - Passenger loaded Passenger(pass_id=191, name=Somename, surname=Somesurname, birth_date=2008-03-18)
-2017-09-09 01:49:43 INFO  StationDao:25 - Station loaded Station(station_id=1, name=Gondor, x=66, y=-102)
-2017-09-09 01:49:43 INFO  StationDao:25 - Station loaded Station(station_id=3, name=Mordor, x=112, y=-23)
-2017-09-09 01:49:43 INFO  BoardDao:25 - Board loaded Board(board_id=215, name=Test3, train_id=9, from_id=26, to_id=5, departure=23:15:00)
-2017-09-09 01:49:43 INFO  PassengerDao:24 - Passenger loaded Passenger(pass_id=205, name=Admi, surname=dfgh, birth_date=1926-09-01)
-2017-09-09 01:49:43 INFO  StationDao:25 - Station loaded Station(station_id=26, name=Test, x=-999, y=999)
-2017-09-09 01:49:43 INFO  StationDao:25 - Station loaded Station(station_id=5, name=Rohan, x=98, y=177)
-2017-09-09 01:49:43 INFO  TicketController:145 - Loading all tickets to passenger with login = Admin
-2017-09-09 01:49:44 INFO  TicketDao:77 - Ticket deleted, ID was 179
-2017-09-09 01:49:44 INFO  TicketController:155 - Deleting ticket with ID = 179
-2017-09-09 01:49:47 INFO  EmailSender:41 - Email send successfully
-2017-09-09 01:49:47 INFO  TicketDao:59 - Getting all tickets by user ID, got one Ticket(ticket_id=113, board=Board(board_id=138, name=Second, train_id=6, from_id=2, to_id=3, departure=12:10:00), passenger=Passenger(pass_id=131, name=Kottt, surname=Behemoth, birth_date=1997-02-10), user=User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin))
-2017-09-09 01:49:47 INFO  TicketDao:59 - Getting all tickets by user ID, got one Ticket(ticket_id=169, board=Board(board_id=124, name=First, train_id=2, from_id=1, to_id=3, departure=02:24:00), passenger=Passenger(pass_id=191, name=Somename, surname=Somesurname, birth_date=2008-03-18), user=User(user_id=32, username=Admin, email=admin@mer.me, password=$2a$10$mghaVZ6sStTwtLMD.XjTGeTeFfNZKO2FnpQCpilHE9Rz/iJ03JNTK, role=admin))
-2017-09-09 01:49:47 INFO  BoardDao:25 - Board loaded Board(board_id=138, name=Second, train_id=6, from_id=2, to_id=3, departure=12:10:00)
-2017-09-09 01:49:47 INFO  PassengerDao:24 - Passenger loaded Passenger(pass_id=131, name=Kottt, surname=Behemoth, birth_date=1997-02-10)
-2017-09-09 01:49:47 INFO  StationDao:25 - Station loaded Station(station_id=2, name=Isengard, x=78, y=123)
-2017-09-09 01:49:47 INFO  StationDao:25 - Station loaded Station(station_id=3, name=Mordor, x=112, y=-23)
-2017-09-09 01:49:47 INFO  BoardDao:25 - Board loaded Board(board_id=124, name=First, train_id=2, from_id=1, to_id=3, departure=02:24:00)
-2017-09-09 01:49:47 INFO  PassengerDao:24 - Passenger loaded Passenger(pass_id=191, name=Somename, surname=Somesurname, birth_date=2008-03-18)
-2017-09-09 01:49:47 INFO  StationDao:25 - Station loaded Station(station_id=1, name=Gondor, x=66, y=-102)
-2017-09-09 01:49:47 INFO  StationDao:25 - Station loaded Station(station_id=3, name=Mordor, x=112, y=-23)
-2017-09-09 01:49:47 INFO  TicketController:145 - Loading all tickets to passenger with login = Admin
+2017-09-10 00:10:55 INFO  Version:54 - HHH000412: Hibernate Core {4.3.5.Final}
+2017-09-10 00:10:55 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2017-09-10 00:10:55 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2017-09-10 00:10:56 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2017-09-10 00:10:56 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2017-09-10 00:10:57 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2017-09-10 00:10:57 INFO  Version:27 - HV000001: Hibernate Validator 4.3.2.Final
+2017-09-10 00:11:00 INFO  SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boards]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.getAllBoards(org.springframework.ui.Model)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boarddata/{id}]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.boardData(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boardsadd]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addNewBoard(org.springframework.ui.Model)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boardsadd],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addBoard(org.tsys.sbb.dto.BoardDto)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/delay/add/{board_id}]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addDelay(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/delay/add/{board_id}],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.registerDelay(int,org.tsys.sbb.dto.DelayDto,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/register],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.MainController.register(org.tsys.sbb.model.User,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/register],methods=[GET]}" onto public java.lang.String org.tsys.sbb.controller.MainController.register(org.springframework.ui.Model)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/login],methods=[GET]}" onto public java.lang.String org.tsys.sbb.controller.MainController.loginPage(org.springframework.ui.Model)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/logout]}" onto public java.lang.String org.tsys.sbb.controller.MainController.logout(javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ || /index]}" onto public java.lang.String org.tsys.sbb.controller.MainController.openIndex(javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/send]}" onto public java.lang.String org.tsys.sbb.controller.MainController.sendEmail(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/login],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.MainController.getIn(org.tsys.sbb.model.User,org.springframework.validation.BindingResult,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/schedule/stations],methods=[GET],produces=[application/json]}" onto public org.tsys.sbb.dto.StationsDto org.tsys.sbb.controller.ScheduleController.getStations()
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/schedule/station/{id}],methods=[GET],produces=[application/json]}" onto public org.tsys.sbb.dto.ScheduleDto org.tsys.sbb.controller.ScheduleController.getSchedule(int)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/search]}" onto public java.lang.String org.tsys.sbb.controller.SearchController.search(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/searchboards]}" onto public java.lang.String org.tsys.sbb.controller.SearchController.searchOpen(int,int,java.lang.String,java.lang.String,org.springframework.ui.Model)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/stations/add],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.StationController.addStation(org.tsys.sbb.model.Station,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/stations]}" onto public java.lang.String org.tsys.sbb.controller.StationController.getAllStations(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ticket/add/{board_id}]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.addTicket(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ticket/add/{board_id}],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.registerTicket(int,org.tsys.sbb.dto.PassengerDto,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/mytickets]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.allTicket(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/annulticket/{id}]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.annulTicket(int,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/tickets],methods=[GET],produces=[application/json]}" onto public java.util.List<org.tsys.sbb.dto.TicketDto> org.tsys.sbb.controller.TicketController.getTickets()
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/info]}" onto public java.lang.String org.tsys.sbb.controller.UserController.userInfo(org.springframework.ui.Model)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/users]}" onto public java.lang.String org.tsys.sbb.controller.UserController.getAllUsers(org.springframework.ui.Model)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/remove/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.deleteUser(int,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/setadmin/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.setAdmin(int)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/setuser/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.setUser(int,javax.servlet.http.HttpSession)
+2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/userdata/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.userData(int,org.springframework.ui.Model)
+2017-09-10 00:11:01 INFO  RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sun Sep 10 00:10:53 MSK 2017]; root of context hierarchy
+2017-09-10 00:11:01 INFO  RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sun Sep 10 00:10:53 MSK 2017]; root of context hierarchy
+2017-09-10 00:11:01 INFO  SimpleUrlHandlerMapping:328 - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+2017-09-10 00:11:01 INFO  DefaultSecurityFilterChain:28 - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4f3acc4e, org.springframework.security.web.context.SecurityContextPersistenceFilter@682bdfe, org.springframework.security.web.header.HeaderWriterFilter@77c1cff6, org.springframework.security.web.authentication.logout.LogoutFilter@578036cb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6ec4fdf8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@765a8e3c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@67465228, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7e605b3a, org.springframework.security.web.session.SessionManagementFilter@3819a187, org.springframework.security.web.access.ExceptionTranslationFilter@15b26e3f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1a87c971]
+2017-09-10 00:11:02 INFO  DispatcherServlet:507 - FrameworkServlet 'mvc-dispatcher': initialization completed in 8258 ms
+2017-09-10 00:11:07 INFO  UserDao:38 - No user found by username = anonymousUser
+2017-09-10 00:11:07 INFO  MainController:40 - Session user now is anonymous
+2017-09-10 00:11:31 INFO  EmailSender:41 - Email send successfully
+2017-09-10 00:11:37 INFO  UserDao:38 - No user found by username = anonymousUser
+2017-09-10 00:11:37 INFO  MainController:40 - Session user now is anonymous

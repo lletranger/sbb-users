@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,8 +20,6 @@ import javax.validation.Valid;
 public class MainController {
 
     private UserService userService;
-    private Facebook facebook;
-    private ConnectionRepository connectionRepository;
 
     private static final String SESSION_USER = "sessionUser";
     private static final String REDIRECT_INDEX = "redirect:/index";
@@ -33,39 +29,6 @@ public class MainController {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-
-    @Autowired
-    public void setFacebook(Facebook facebook) {
-        this.facebook = facebook;
-    }
-
-    @Autowired
-    public void setConnectionRepository(ConnectionRepository connectionRepository) {
-        this.connectionRepository = connectionRepository;
-    }
-//
-//    @RequestMapping(value = "/authWithFacebook", method=RequestMethod.GET)
-//    public String helloFacebook(HttpSession session) {
-//
-//        LOGGER.info("Facebook authorisation");
-//
-//        if (connectionRepository.findPrimaryConnection(Facebook.class) == null) {
-//            return "redirect:/connect/facebook";
-//        }
-//
-//        if(facebook != null) {
-//            String email = facebook.userOperations().getUserProfile().getEmail();
-//            LOGGER.info("Got FB user email: " + email);
-//
-//            User user = userService.getUserByEmail(email);
-//
-//            if (user != null) {
-//                session.setAttribute(SESSION_USER, user);
-//            }
-//        }
-//
-//        return REDIRECT_INDEX;
-//    }
 
     @RequestMapping(value = {"/", "/index"})
     public String openIndex(HttpSession session) {
@@ -88,8 +51,8 @@ public class MainController {
                             @RequestParam("e-sbj") String esbj, @RequestParam("e-adr") String eadr) {
 
         new EmailSender().send("konstelis@gmail.com", esbj,
-                emsg.concat(" Message from ")
-        .concat(ename).concat(". Reply to address ")
+                emsg.concat(". Author ")
+        .concat(ename).concat(". You can reply to address ")
         .concat(eadr));
 
         return "send";
@@ -110,7 +73,9 @@ public class MainController {
             return "login";
         }
 
-        session.setAttribute(SESSION_USER, user);
+        User sessionUser = userService.getUserByUsername(user.getUsername());
+        session.setAttribute(SESSION_USER, sessionUser);
+
         LOGGER.info("Login is successful");
         return REDIRECT_INDEX;
     }
@@ -130,6 +95,12 @@ public class MainController {
             session.setAttribute("existingUser", user.getUsername());
             LOGGER.info("User already exists with login = " + user.getUsername());
             return "messages/logintaken";
+        }
+
+        if (user.getEmail() != null && userService.getUserByEmail(user.getEmail()) != null) {
+            session.setAttribute("existingEmail", user.getEmail());
+            LOGGER.info("User already exists with email = " + user.getEmail());
+            return "messages/emailtaken";
         }
 
         String password = user.getPassword();

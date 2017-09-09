@@ -4,3 +4,6 @@
 /sbb.iml
 /.gitignore
 /target/
+.DS_Store
+src/main/webapp/resources/js/
+src/test/resources/

@@ -3,6 +3,7 @@ package org.tsys.sbb.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ public class TicketController {
     private TicketService ticketService;
     private BoardService boardService;
     private StationService stationService;
+    private UserService userService;
 
     private static final String SU = "sessionUser";
     private static final String NO_BOARD ="There is no board with the requested ID";
@@ -49,6 +51,11 @@ public class TicketController {
         this.stationService = stationService;
     }
 
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
     @RequestMapping(value = "/ticket/add/{board_id}")
     public String addTicket(@PathVariable("board_id") int id, Model model, HttpSession session) {
 
@@ -67,8 +74,13 @@ public class TicketController {
             return "messages/notexist";
         }
 
+        if (session.getAttribute("passengerDto") != null) {
+            model.addAttribute("passengerDto", (PassengerDto)session.getAttribute("passengerDto"));
+        } else {
+            model.addAttribute("passengerDto", new PassengerDto());
+        }
+
         model.addAttribute("board", board);
-        model.addAttribute("passengerDto", new PassengerDto());
         session.setAttribute("fromTicket", from);
         session.setAttribute("toTicket", to);
         LOGGER.info("Loading new ticket form");
@@ -79,7 +91,8 @@ public class TicketController {
     @RequestMapping(value = "/ticket/add/{board_id}", method = RequestMethod.POST)
     public String registerTicket(@PathVariable("board_id") int id, @ModelAttribute("passengerDto") PassengerDto passengerDto, HttpSession session) {
 
-        User user = (User) session.getAttribute(SU);
+        User user = userService.getUserByUsername(SecurityContextHolder.getContext()
+                .getAuthentication().getName());
 
         Board board = boardService.findBoardById(id);
 
@@ -104,6 +117,7 @@ public class TicketController {
 
         if(boardService.passExists(id, passengerDto)) {
             session.setAttribute("dupePassenger", passengerDto);
+            session.setAttribute("passengerDto", passengerDto);
             session.setAttribute("dupeBoard", board);
             session.setAttribute("dupeFrom", from);
             session.setAttribute("dupeTo", to);
@@ -142,7 +156,9 @@ public class TicketController {
 
         User user = (User) session.getAttribute(SU);
         model.addAttribute("ticketsDto", ticketService.findTicketsByUserId(user.getUser_id()));
-        LOGGER.info("Loading all tickets to passenger with login = " + user.getUsername());
+        LOGGER.info("Loading all tickets to passenger with login '"
+                .concat(user.getUsername())
+                .concat("'"));
         return "mytickets";
     }
 

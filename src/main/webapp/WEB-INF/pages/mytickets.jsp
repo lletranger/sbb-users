@@ -14,17 +14,16 @@
 <html>
 <head>
 
+    <jsp:include page="temps/navbar.jsp"/>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
-    <jsp:include page="temps/navbar.jsp"/>
-
-
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
     <title>My tickets</title>
+
     <style>
         body {
             background: linear-gradient(90deg, rgb(255, 255, 255) 10%, #ffffff 90%);
@@ -56,6 +55,7 @@
         }
 
     </style>
+
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">

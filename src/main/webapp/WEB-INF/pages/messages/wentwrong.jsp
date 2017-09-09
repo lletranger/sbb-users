@@ -14,35 +14,20 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <jsp:include page="../temps/navbar.jsp"/>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
-    <jsp:include page="../temps/navbar.jsp"/>
-
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
     <title>Oups..!</title>
+
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
-
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="row" align="center">
-            <div class="col-md-4">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <button class="btn btn-facebook" onclick="location.href='${pageContext.request.contextPath}/index'">Main</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
 
 <section class="content">
     <div class="container" align="center">

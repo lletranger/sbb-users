@@ -25,7 +25,9 @@ public class EmailSender {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
+
         Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(fromEmail, fromEmailPassword);
             }

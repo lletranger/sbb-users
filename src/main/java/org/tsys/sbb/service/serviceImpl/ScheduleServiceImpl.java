@@ -38,7 +38,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<BoardDto> from = new ArrayList<>();
         List<BoardDto> to = new ArrayList<>();
 
-        boardService.findBoardsByFrom(id).forEach(board -> {
+        boardService.getBoardsByFrom(id).forEach(board -> {
             BoardDto boardDto= new BoardDto();
             boardDto.setName(board.getName());
             boardDto.setDeparture(DistanceAndTimeUtil.getStringDate(board.getDeparture()));
@@ -47,7 +47,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             from.add(boardDto);
         });
 
-        boardService.findBoardsByTo(id).forEach(board -> {
+        boardService.getBoardsByTo(id).forEach(board -> {
             BoardDto bDto = new BoardDto();
             bDto.setName(board.getName());
             bDto.setExpectedArrival(DistanceAndTimeUtil.getStringDate(boardService.findExpectedArrival(board)));

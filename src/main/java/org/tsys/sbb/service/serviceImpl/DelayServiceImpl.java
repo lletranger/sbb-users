@@ -27,7 +27,7 @@ public class DelayServiceImpl implements DelayService {
 
     public void addDelay(Delay delay) {
         if(!DistanceAndTimeUtil.getStringDelay(delay.getDelay_time()).equals("0m")) {
-        delayDao.addDelay(delay);
+            delayDao.addDelay(delay);
         }
     }
 }

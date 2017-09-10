@@ -38,14 +38,13 @@
             font-size: 20px;
             font-weight: bold;
             cursor: default;
-
         }
 
         table.sortable th {
             text-align: center;
             height: 50px;
+            width: 100px;
             padding: 10px;
-
         }
 
         table.sortable td {
@@ -53,6 +52,14 @@
             color: #545454;
             height: 50px;
             width: 10%;
+        }
+
+        form select {
+            width:180px;
+        }
+
+        form input {
+            width: 180px;
         }
     </style>
 
@@ -69,18 +76,17 @@
 
             <table class="sorttable_nosort" style="color: #545454">
                 <tr>
-                    <th style='width: 100px;'>
+                    <th>
                         <form:label path="name">
                             <spring:message text="Name: "/>
                         </form:label>
                     </th>
                     <td>
-                        <form:input path="name" maxlength="10" required="required" placeholder="Board name"
-                                    style="width: 150px"/>
+                        <form:input path="name" maxlength="10" required="required" placeholder="Board name"/>
                     </td>
                 </tr>
                 <tr>
-                    <th style='width: 100px;'>
+                    <th>
                         <form:label path="train_id">
                             <spring:message text="Train: "/>
                         </form:label>
@@ -95,7 +101,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style='width: 100px;'>
+                    <th>
                         <form:label path="from_id">
                             <spring:message text="From: "/>
                         </form:label>
@@ -109,7 +115,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style='width: 100px;'>
+                    <th>
                         <form:label path="to_id">
                             <spring:message text="To: "/>
                         </form:label>
@@ -124,7 +130,7 @@
 
                 </tr>
                 <tr>
-                    <th style='width: 100px;'>
+                    <th>
                         <form:label path="departure">
                             <spring:message text="Depart: "/>
                         </form:label>
@@ -138,7 +144,7 @@
                 <tr>
                     <th></th>
                     <td>
-                        <button class="btn btn-success" style="width: 150px">Add Board</button>
+                        <button class="btn btn-success" style="width: 180px">Add Board</button>
                     </td>
                 </tr>
             </table>

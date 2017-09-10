@@ -88,10 +88,16 @@
                         <td>${dto.passName}</td>
                         <td>${dto.passSurname}</td>
                         <td>${dto.passBirthDate}</td>
-                        <td><button class="btn btn-danger"
-                                    onclick="location.href = '${pageContext.request.contextPath}/annulticket/${dto.id}'">
-                            Cancel ticket</button>
-                        </td>
+                        <c:if test="${dto.deletable}">
+                            <td>
+                                <button class="btn btn-danger" onclick="location.href =
+                                        '${pageContext.request.contextPath}/annulticket/${dto.id}'">Cancel ticket
+                                </button>
+                            </td>
+                        </c:if>
+                        <c:if test="${!dto.deletable}">
+                            <td style="color:red">Unavailable</td>
+                        </c:if>
                     </tr>
                 </c:forEach>
             </table>

@@ -20,16 +20,40 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
     <title> | MeR</title>
+
     <style>
+
         .thumbnails {
             margin: 0;
             padding: 4px;
         }
 
-        .another{
-            min-height: 240px;
-            max-height: 240px;
+        .item {
+            min-height: 320px;
+            max-height: 320px;
         }
+
+        .col-sm-3 {
+            min-height: 281px;
+            max-height: 281px;
+            min-width: 275.5px;
+            max-width: 275.5px;
+        }
+
+        .fff {
+            min-height: 261px;
+            max-height: 261px;
+            min-width: 245.5px;
+            max-width: 245.5px;
+        }
+
+        .thumbnail {
+            min-height: 167px;
+            max-height: 167px;
+            min-width: 245.5px;
+            max-width: 245.5px;
+        }
+
     </style>
 </head>
 
@@ -99,7 +123,7 @@
     </div>
 </section>
 
-<!-- Section: services -->
+<!-- Section: carousel -->
 <section id="service" class="home-section text-center bg-gray" style="padding-top: 65px; padding-bottom: 100px;">
     <div class="heading-about">
         <div class="container">
@@ -175,6 +199,7 @@
                                     </div>
                                 </div>
                             </li>
+
                         </ul>
                     </div>
 
@@ -207,9 +232,11 @@
                                     </div>
                                 </div>
                             </li>
+
                         </ul>
                     </div>
                 </div>
+
                 <nav>
                     <ul class="control-box pager">
                         <li><a data-slide="prev" href="#myCarousel" style="font-size: 15px; color: #49a827"><i
@@ -219,12 +246,11 @@
                         </li>
                     </ul>
                 </nav>
+
             </div>
         </div>
     </div>
 </section>
-
-<!-- /Section: services -->
 
 <section id="contact" class="home-section text-center">
     <div class="heading-contact">
@@ -282,7 +308,7 @@
                                     <h4 style="color: #545454; margin: 0">Message</h4>
                                 </div>
                                 <div class="form-group">
-                                    <textarea name="e-msg" id="e-msg" rows="7" cols="25" placeholder="Message Text" required="required"></textarea>
+                                    <textarea name="e-msg" id="e-msg" rows="7" cols="25" placeholder="Message Text" required="required" style="resize: none;"></textarea>
                                 </div>
                                 <div class="col-md-12">
                                     <button class="btn btn-success" style="width: 100%; margin: 15px 0 0 0">Send Message</button>

@@ -24,6 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private static final String ADMIN_USER = "hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')";
+
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
@@ -34,13 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/info**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-                .antMatchers("/ticket/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-                .antMatchers("/mytickets").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-                .antMatchers("/annulticket/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .antMatchers("/info**").access(ADMIN_USER)
+                .antMatchers("/ticket/**").access(ADMIN_USER)
+                .antMatchers("/mytickets").access(ADMIN_USER)
+                .antMatchers("/annulticket/**").access(ADMIN_USER)
                 .antMatchers("/search**").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/index").permitAll()
+                .antMatchers("/login").access("hasRole('ROLE_ANONYMOUS')")
                 .and().formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password");
         http.logout()
                 .permitAll()
@@ -49,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

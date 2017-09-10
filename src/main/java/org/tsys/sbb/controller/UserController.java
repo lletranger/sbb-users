@@ -18,6 +18,8 @@ public class UserController {
 
     private UserService userService;
 
+    private static final String REDIRECT_ADMIN_USERS = "redirect:/admin/users";
+    private static final String NOT_PASS = "messages/notpass";
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
@@ -27,7 +29,6 @@ public class UserController {
 
     @RequestMapping(value = "/admin/users")
     public String getAllUsers(Model model) {
-
         model.addAttribute("allUsers", userService.getAllUsers());
         LOGGER.info("Loading all users to the users page");
         return "users";
@@ -39,55 +40,58 @@ public class UserController {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
         if (sessionUser == null || sessionUser.getUser_id() == id || id == 115) {
-            return "messages/notpass";
+            return NOT_PASS;
         }
 
         userService.deleteUser(id);
-        LOGGER.info("Deleting user with ID = " + id);
-        return "redirect:/admin/users";
+        LOGGER.info("Deleting user with ID "
+                .concat(String.valueOf(id)));
+        return REDIRECT_ADMIN_USERS;
     }
 
     @Transactional
     @RequestMapping("/admin/setadmin/{id}")
     public String setAdmin(@PathVariable("id") int id) {
-
         User user = userService.getUserById(id);
         user.setRole("admin");
         userService.editUser(user);
-        LOGGER.info("Setting admin role to user with ID = " + id);
-        return "redirect:/admin/users";
+        LOGGER.info("Setting admin role to user with ID "
+                .concat(String.valueOf(id)));
+        return REDIRECT_ADMIN_USERS;
     }
 
     @Transactional
     @RequestMapping("/admin/setuser/{id}")
     public String setUser(@PathVariable("id") int id, HttpSession session) {
-
         User sessionUser = (User) session.getAttribute("sessionUser");
+
         if (sessionUser == null || sessionUser.getUser_id() == id || id == 115) {
-            return "messages/notpass";
+            return NOT_PASS;
         }
 
         User user = userService.getUserById(id);
         user.setRole("user");
         userService.editUser(user);
-        LOGGER.info("Setting user role to user with ID = " + id);
-        return "redirect:/admin/users";
+        LOGGER.info("Setting user role to user with ID "
+                .concat(String.valueOf(id)));
+        return REDIRECT_ADMIN_USERS;
     }
 
     @RequestMapping("/admin/userdata/{id}")
     public String userData(@PathVariable("id") int id, Model model) {
-
         model.addAttribute("user", userService.getUserById(id));
-        LOGGER.info("Getting info about user with ID = " + id);
+        LOGGER.info("Getting info about user with ID "
+                .concat(String.valueOf(id)));
         return "userdata";
     }
 
     @RequestMapping("/info")
     public String userInfo(Model model) {
-
-        User currentUser = userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User currentUser = userService.getUserByUsername(SecurityContextHolder.getContext()
+                .getAuthentication().getName());
         model.addAttribute("editUser", currentUser);
-        LOGGER.info("Opening info to user " + currentUser.getUsername());
+        LOGGER.info("Opening info to user "
+                .concat(currentUser.getUsername()));
         return "info";
     }
 }

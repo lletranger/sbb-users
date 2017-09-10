@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface TicketDao {
 
-    Ticket findTicketById(int id);
+    Ticket getTicketById(int id);
 
-    List<Ticket> findAllTickets();
+    List<Ticket> getTicketsByBoardId(int board_id);
 
-    List<Ticket> findTicketsByBoardId(int board_id);
+    List<Ticket> getTicketsByUserId(int user_id);
 
-    List<Ticket> findTicketsByUserId(int user_id);
+    List<Ticket> getAllTickets();
 
     void addTicket(Ticket ticket);
 

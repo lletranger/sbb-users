@@ -49,20 +49,20 @@ public class BoardServiceImpl implements BoardService {
         this.trainService = trainService;
     }
 
-    public Board findBoardById(int id) {
-        return boardDao.findBoardById(id);
+    public Board getBoardById(int id) {
+        return boardDao.getBoardById(id);
     }
 
-    public List<Board> findBoardsByFrom(int id) {
-        return boardDao.findBoardsByFrom(id);
+    public List<Board> getBoardsByFrom(int id) {
+        return boardDao.getBoardsByFromId(id);
     }
 
-    public List<Board> findBoardsByTo(int id) {
-        return boardDao.findBoardsByTo(id);
+    public List<Board> getBoardsByTo(int id) {
+        return boardDao.getBoardsByToId(id);
     }
 
-    public List<Board> findBoardsByFromAndTo(int from_id, int to_id) {
-        return boardDao.findBoardsByFromAndTo(from_id, to_id);
+    public List<Board> getBoardsByFromAndTo(int from_id, int to_id) {
+        return boardDao.getBoardsByFromAndToIds(from_id, to_id);
     }
 
     public List<Board> getAllBoards() {
@@ -79,11 +79,11 @@ public class BoardServiceImpl implements BoardService {
         List<Board> finalList;
 
         if (id2 == 0) {
-            resultList = findBoardsByFrom(id1);
+            resultList = getBoardsByFrom(id1);
         } else if (id1 == 0) {
-            resultList = findBoardsByTo(id2);
+            resultList = getBoardsByTo(id2);
         } else {
-            resultList = findBoardsByFromAndTo(id1, id2);
+            resultList = getBoardsByFromAndTo(id1, id2);
         }
 
         if (time1.equals("") && time2.equals("")) {
@@ -112,19 +112,22 @@ public class BoardServiceImpl implements BoardService {
         Station to = stationService.getStationById(board.getTo_id());
         Train train = trainService.getTrainById(board.getTrain_id());
         int distance = (int) DistanceAndTimeUtil.getDistance(from, to);
-        return new Date(board.getDeparture().getTime() + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
+
+        return new Date(board.getDeparture().getTime()
+                + DistanceAndTimeUtil.getTime(DistanceAndTimeUtil.getJourneyTime(distance, train)));
     }
 
     private Date findDelays(Board board) {
 
         List<Delay> delays = delayService.getDelayByBoardId(board.getBoard_id());
         Delay d = DistanceAndTimeUtil.getResultingDelay(delays);
+
         return d.getDelay_time();
     }
 
     public Date findArrival(int board_id) {
 
-        Board board = findBoardById(board_id);
+        Board board = getBoardById(board_id);
 
         Station from = stationService.getStationById(board.getFrom_id());
         Station to = stationService.getStationById(board.getTo_id());
@@ -148,13 +151,13 @@ public class BoardServiceImpl implements BoardService {
 
     public boolean isAvailable(int id) {
 
-        return ticketService.findTicketsByBoardId(id).size() <
-                trainService.getTrainById(boardDao.findBoardById(id).getTrain_id()).getSeats();
+        return ticketService.getTicketsByBoardId(id).size() <
+                trainService.getTrainById(boardDao.getBoardById(id).getTrain_id()).getSeats();
     }
 
     public boolean passExists(int id, PassengerDto passengerDto) {
 
-        return ticketService.findTicketsByBoardId(id)
+        return ticketService.getTicketsByBoardId(id)
                 .stream()
                 .anyMatch(ticket -> ticketService.isPassOnBoard(ticket, passengerDto));
     }
@@ -225,7 +228,7 @@ public class BoardServiceImpl implements BoardService {
         boardDto.setFrom(fromStation.getName());
         boardDto.setTo(toStation.getName());
 
-        List<Ticket> tickets = ticketService.findTicketsByBoardId(board.getBoard_id());
+        List<Ticket> tickets = ticketService.getTicketsByBoardId(board.getBoard_id());
         String departure = DistanceAndTimeUtil.getStringDate(board.getDeparture());
 
         boardDto.setTicketsAvailable((tickets.size() < train.getSeats()) && (!DistanceAndTimeUtil.isTenMinsGap(departure)));
@@ -258,7 +261,8 @@ public class BoardServiceImpl implements BoardService {
     public String getFromStatus(Board board) {
 
         if (DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture())) {
-            return "Departed at " + DistanceAndTimeUtil.getStringDate(board.getDeparture());
+            return "Departed at "
+                    .concat(DistanceAndTimeUtil.getStringDate(board.getDeparture()));
         }
 
         if (DistanceAndTimeUtil.isDepartingOrArriving(board.getDeparture())) {
@@ -273,7 +277,8 @@ public class BoardServiceImpl implements BoardService {
         Date arriving = findArrival(board.getBoard_id());
 
         if (DistanceAndTimeUtil.isDepartedOrArrived(arriving)) {
-            return "Arrived at " + DistanceAndTimeUtil.getStringDate(arriving);
+            return "Arrived at "
+                    .concat(DistanceAndTimeUtil.getStringDate(arriving));
         }
 
         if (DistanceAndTimeUtil.isDepartingOrArriving(arriving)) {
@@ -281,7 +286,8 @@ public class BoardServiceImpl implements BoardService {
         }
 
         if (!DistanceAndTimeUtil.getStringDelay(findDelays(board)).equals("0m")) {
-            return "Delayed by " + DistanceAndTimeUtil.getStringDelay(findDelays(board));
+            return "Delayed by "
+                    .concat(DistanceAndTimeUtil.getStringDelay(findDelays(board)));
         }
 
         if (DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture())) {

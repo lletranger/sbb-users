@@ -1,56 +1,76 @@
-2017-09-10 00:10:53 INFO  DispatcherServlet:488 - FrameworkServlet 'mvc-dispatcher': initialization started
-2017-09-10 00:10:53 INFO  XmlWebApplicationContext:578 - Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sun Sep 10 00:10:53 MSK 2017]; root of context hierarchy
-2017-09-10 00:10:53 INFO  XmlBeanDefinitionReader:317 - Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
-2017-09-10 00:10:55 INFO  AutowiredAnnotationBeanPostProcessor:153 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
-2017-09-10 00:10:55 INFO  LocalContainerEntityManagerFactoryBean:339 - Building JPA container EntityManagerFactory for persistence unit 'default'
-2017-09-10 00:10:55 INFO  LogHelper:46 - HHH000204: Processing PersistenceUnitInfo [
+2017-09-10 14:41:28 INFO  DispatcherServlet:488 - FrameworkServlet 'mvc-dispatcher': initialization started
+2017-09-10 14:41:28 INFO  XmlWebApplicationContext:578 - Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sun Sep 10 14:41:28 MSK 2017]; root of context hierarchy
+2017-09-10 14:41:28 INFO  XmlBeanDefinitionReader:317 - Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
+2017-09-10 14:41:29 INFO  AutowiredAnnotationBeanPostProcessor:153 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2017-09-10 14:41:29 INFO  LocalContainerEntityManagerFactoryBean:339 - Building JPA container EntityManagerFactory for persistence unit 'default'
+2017-09-10 14:41:29 INFO  LogHelper:46 - HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2017-09-10 00:10:55 INFO  Version:54 - HHH000412: Hibernate Core {4.3.5.Final}
-2017-09-10 00:10:55 INFO  Environment:239 - HHH000206: hibernate.properties not found
-2017-09-10 00:10:55 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
-2017-09-10 00:10:56 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
-2017-09-10 00:10:56 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2017-09-10 00:10:57 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
-2017-09-10 00:10:57 INFO  Version:27 - HV000001: Hibernate Validator 4.3.2.Final
-2017-09-10 00:11:00 INFO  SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boards]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.getAllBoards(org.springframework.ui.Model)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boarddata/{id}]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.boardData(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boardsadd]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addNewBoard(org.springframework.ui.Model)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boardsadd],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addBoard(org.tsys.sbb.dto.BoardDto)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/delay/add/{board_id}]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addDelay(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/delay/add/{board_id}],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.registerDelay(int,org.tsys.sbb.dto.DelayDto,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/register],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.MainController.register(org.tsys.sbb.model.User,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/register],methods=[GET]}" onto public java.lang.String org.tsys.sbb.controller.MainController.register(org.springframework.ui.Model)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/login],methods=[GET]}" onto public java.lang.String org.tsys.sbb.controller.MainController.loginPage(org.springframework.ui.Model)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/logout]}" onto public java.lang.String org.tsys.sbb.controller.MainController.logout(javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ || /index]}" onto public java.lang.String org.tsys.sbb.controller.MainController.openIndex(javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/send]}" onto public java.lang.String org.tsys.sbb.controller.MainController.sendEmail(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/login],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.MainController.getIn(org.tsys.sbb.model.User,org.springframework.validation.BindingResult,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/schedule/stations],methods=[GET],produces=[application/json]}" onto public org.tsys.sbb.dto.StationsDto org.tsys.sbb.controller.ScheduleController.getStations()
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/schedule/station/{id}],methods=[GET],produces=[application/json]}" onto public org.tsys.sbb.dto.ScheduleDto org.tsys.sbb.controller.ScheduleController.getSchedule(int)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/search]}" onto public java.lang.String org.tsys.sbb.controller.SearchController.search(org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/searchboards]}" onto public java.lang.String org.tsys.sbb.controller.SearchController.searchOpen(int,int,java.lang.String,java.lang.String,org.springframework.ui.Model)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/stations/add],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.StationController.addStation(org.tsys.sbb.model.Station,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/stations]}" onto public java.lang.String org.tsys.sbb.controller.StationController.getAllStations(org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ticket/add/{board_id}]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.addTicket(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ticket/add/{board_id}],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.registerTicket(int,org.tsys.sbb.dto.PassengerDto,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/mytickets]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.allTicket(org.springframework.ui.Model,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/annulticket/{id}]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.annulTicket(int,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/tickets],methods=[GET],produces=[application/json]}" onto public java.util.List<org.tsys.sbb.dto.TicketDto> org.tsys.sbb.controller.TicketController.getTickets()
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/info]}" onto public java.lang.String org.tsys.sbb.controller.UserController.userInfo(org.springframework.ui.Model)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/users]}" onto public java.lang.String org.tsys.sbb.controller.UserController.getAllUsers(org.springframework.ui.Model)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/remove/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.deleteUser(int,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/setadmin/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.setAdmin(int)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/setuser/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.setUser(int,javax.servlet.http.HttpSession)
-2017-09-10 00:11:00 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/userdata/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.userData(int,org.springframework.ui.Model)
-2017-09-10 00:11:01 INFO  RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sun Sep 10 00:10:53 MSK 2017]; root of context hierarchy
-2017-09-10 00:11:01 INFO  RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sun Sep 10 00:10:53 MSK 2017]; root of context hierarchy
-2017-09-10 00:11:01 INFO  SimpleUrlHandlerMapping:328 - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
-2017-09-10 00:11:01 INFO  DefaultSecurityFilterChain:28 - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4f3acc4e, org.springframework.security.web.context.SecurityContextPersistenceFilter@682bdfe, org.springframework.security.web.header.HeaderWriterFilter@77c1cff6, org.springframework.security.web.authentication.logout.LogoutFilter@578036cb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6ec4fdf8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@765a8e3c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@67465228, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7e605b3a, org.springframework.security.web.session.SessionManagementFilter@3819a187, org.springframework.security.web.access.ExceptionTranslationFilter@15b26e3f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1a87c971]
-2017-09-10 00:11:02 INFO  DispatcherServlet:507 - FrameworkServlet 'mvc-dispatcher': initialization completed in 8258 ms
-2017-09-10 00:11:07 INFO  UserDao:38 - No user found by username = anonymousUser
-2017-09-10 00:11:07 INFO  MainController:40 - Session user now is anonymous
-2017-09-10 00:11:31 INFO  EmailSender:41 - Email send successfully
-2017-09-10 00:11:37 INFO  UserDao:38 - No user found by username = anonymousUser
-2017-09-10 00:11:37 INFO  MainController:40 - Session user now is anonymous
+2017-09-10 14:41:29 INFO  Version:54 - HHH000412: Hibernate Core {4.3.5.Final}
+2017-09-10 14:41:29 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2017-09-10 14:41:29 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2017-09-10 14:41:30 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2017-09-10 14:41:30 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2017-09-10 14:41:31 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2017-09-10 14:41:31 INFO  Version:27 - HV000001: Hibernate Validator 4.3.2.Final
+2017-09-10 14:41:32 INFO  SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boards]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.getAllBoards(org.springframework.ui.Model)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boarddata/{id}]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.boardData(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boardsadd]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addNewBoard(org.springframework.ui.Model)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/boardsadd],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addBoard(org.tsys.sbb.dto.BoardDto)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/delay/add/{board_id}]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.addDelay(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/delay/add/{board_id}],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.BoardController.registerDelay(int,org.tsys.sbb.dto.DelayDto,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/register],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.MainController.register(org.tsys.sbb.model.User,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/register],methods=[GET]}" onto public java.lang.String org.tsys.sbb.controller.MainController.register(org.springframework.ui.Model)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/logout]}" onto public java.lang.String org.tsys.sbb.controller.MainController.logout(javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/login],methods=[GET]}" onto public java.lang.String org.tsys.sbb.controller.MainController.loginPage(org.springframework.ui.Model)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ || /index]}" onto public java.lang.String org.tsys.sbb.controller.MainController.openIndex(javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/send]}" onto public java.lang.String org.tsys.sbb.controller.MainController.sendEmail(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/login],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.MainController.getIn(org.tsys.sbb.model.User,org.springframework.validation.BindingResult,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/schedule/stations],methods=[GET],produces=[application/json]}" onto public org.tsys.sbb.dto.StationsDto org.tsys.sbb.controller.ScheduleController.getStations()
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/schedule/station/{id}],methods=[GET],produces=[application/json]}" onto public org.tsys.sbb.dto.ScheduleDto org.tsys.sbb.controller.ScheduleController.getSchedule(int)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/search]}" onto public java.lang.String org.tsys.sbb.controller.SearchController.search(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/searchboards]}" onto public java.lang.String org.tsys.sbb.controller.SearchController.searchOpen(int,int,java.lang.String,java.lang.String,org.springframework.ui.Model)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/stations]}" onto public java.lang.String org.tsys.sbb.controller.StationController.getAllStations(org.springframework.ui.Model)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/stations/add],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.StationController.addStation(org.tsys.sbb.model.Station,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ticket/add/{board_id}]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.addTicket(int,org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/ticket/add/{board_id}],methods=[POST]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.registerTicket(int,org.tsys.sbb.dto.PassengerDto,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/mytickets]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.allTicket(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/annulticket/{id}]}" onto public java.lang.String org.tsys.sbb.controller.TicketController.annulTicket(int,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/tickets],methods=[GET],produces=[application/json]}" onto public java.util.List<org.tsys.sbb.dto.TicketDto> org.tsys.sbb.controller.TicketController.getTickets()
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/info]}" onto public java.lang.String org.tsys.sbb.controller.UserController.userInfo(org.springframework.ui.Model)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/setuser/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.setUser(int,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/users]}" onto public java.lang.String org.tsys.sbb.controller.UserController.getAllUsers(org.springframework.ui.Model)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/setadmin/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.setAdmin(int)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/remove/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.deleteUser(int,javax.servlet.http.HttpSession)
+2017-09-10 14:41:32 INFO  RequestMappingHandlerMapping:534 - Mapped "{[/admin/userdata/{id}]}" onto public java.lang.String org.tsys.sbb.controller.UserController.userData(int,org.springframework.ui.Model)
+2017-09-10 14:41:33 INFO  RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sun Sep 10 14:41:28 MSK 2017]; root of context hierarchy
+2017-09-10 14:41:33 INFO  RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Sun Sep 10 14:41:28 MSK 2017]; root of context hierarchy
+2017-09-10 14:41:33 INFO  SimpleUrlHandlerMapping:328 - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+2017-09-10 14:41:33 INFO  DefaultSecurityFilterChain:28 - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@70cc0a88, org.springframework.security.web.context.SecurityContextPersistenceFilter@5e9d8d81, org.springframework.security.web.header.HeaderWriterFilter@49643b85, org.springframework.security.web.authentication.logout.LogoutFilter@56bef8f5, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3bcd10bb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@20f86443, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@41bff7dd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1fadd813, org.springframework.security.web.session.SessionManagementFilter@79220b29, org.springframework.security.web.access.ExceptionTranslationFilter@1e69be00, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1fb51972]
+2017-09-10 14:41:33 INFO  DispatcherServlet:507 - FrameworkServlet 'mvc-dispatcher': initialization completed in 5611 ms
+2017-09-10 14:42:17 INFO  UserDao:40 - User loaded by username admin
+2017-09-10 14:42:18 INFO  UserDao:40 - User loaded by username Admin
+2017-09-10 14:42:18 INFO  MainController:45 - Session user now is Admin
+2017-09-10 14:42:23 INFO  UserDao:40 - User loaded by username Admin
+2017-09-10 14:42:23 INFO  MainController:45 - Session user now is Admin
+2017-09-10 14:42:30 INFO  UserDao:40 - User loaded by username Admin
+2017-09-10 14:42:30 INFO  MainController:45 - Session user now is Admin
+2017-09-10 14:42:33 INFO  MainController:67 - Loading login form
+2017-09-10 14:42:35 INFO  UserDao:35 - No user found by username anonymousUser
+2017-09-10 14:42:35 INFO  MainController:42 - Session user now is anonymous
+2017-09-10 14:42:38 INFO  MainController:67 - Loading login form
+2017-09-10 14:42:38 INFO  MainController:67 - Loading login form
+2017-09-10 14:42:42 INFO  UserDao:40 - User loaded by username admin
+2017-09-10 14:42:42 INFO  UserDao:40 - User loaded by username Admin
+2017-09-10 14:42:42 INFO  MainController:45 - Session user now is Admin
+2017-09-10 14:42:45 INFO  StationDao:31 - Getting all stations, got one Station(station_id=1, name=Gondor, x=66, y=-102)
+2017-09-10 14:42:45 INFO  StationDao:31 - Getting all stations, got one Station(station_id=2, name=Isengard, x=78, y=123)
+2017-09-10 14:42:45 INFO  StationDao:31 - Getting all stations, got one Station(station_id=3, name=Mordor, x=112, y=-23)
+2017-09-10 14:42:45 INFO  StationDao:31 - Getting all stations, got one Station(station_id=4, name=Rivendell, x=189, y=87)
+2017-09-10 14:42:45 INFO  StationDao:31 - Getting all stations, got one Station(station_id=5, name=Rohan, x=98, y=177)
+2017-09-10 14:42:45 INFO  StationDao:31 - Getting all stations, got one Station(station_id=6, name=Shire, x=-213, y=259)
+2017-09-10 14:42:45 INFO  StationDao:31 - Getting all stations, got one Station(station_id=24, name=Lorien, x=228, y=322)
+2017-09-10 14:42:45 INFO  StationDao:31 - Getting all stations, got one Station(station_id=25, name=Erebor, x=560, y=-230)
+2017-09-10 14:42:45 INFO  StationDao:31 - Getting all stations, got one Station(station_id=26, name=Test, x=-999, y=999)
+2017-09-10 14:42:45 INFO  StationController:33 - Loading all stations to the stations page

@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUser(int id) {
-        ticketService.findTicketsByUserId(id).forEach(ticket -> ticketService.deleteTicket(ticket.getId()));
+        ticketService.getTicketsByUserId(id).forEach(ticket -> ticketService.deleteTicket(ticket.getId()));
         userDao.deleteUser(id);
     }
 

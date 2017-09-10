@@ -42,7 +42,8 @@
         }
 
         table.sortable th {
-            text-align: left;
+            text-align: right;
+            padding-right: 25px;
             height: 40px;
             width: 200px;
         }

@@ -15,6 +15,7 @@ import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -45,15 +46,15 @@ public class TicketServiceImpl implements TicketService {
         this.stationService = stationService;
     }
 
-    public Ticket findTicketById(int id) {
-        return ticketDao.findTicketById(id);
+    public Ticket getTicketById(int id) {
+        return ticketDao.getTicketById(id);
     }
 
-    public List<TicketDto> findAllTickets() {
+    public List<TicketDto> getAllTickets() {
 
         List<TicketDto> list = new ArrayList<>();
 
-        ticketDao.findAllTickets().forEach(ticket -> {
+        ticketDao.getAllTickets().forEach(ticket -> {
             TicketDto ticketDto = new TicketDto();
             ticketDto.setBoardName(ticket.getBoard().getName());
             ticketDto.setFrom(stationService.getStationById(ticket.getBoard().getFrom_id()).getName());
@@ -69,9 +70,8 @@ public class TicketServiceImpl implements TicketService {
         return list;
     }
 
-    public List<Ticket> findTicketsByBoardId(int board_id) {
-
-        return ticketDao.findTicketsByBoardId(board_id);
+    public List<Ticket> getTicketsByBoardId(int board_id) {
+        return ticketDao.getTicketsByBoardId(board_id);
     }
 
     public void addTicket(Ticket ticket) {
@@ -82,13 +82,13 @@ public class TicketServiceImpl implements TicketService {
         ticketDao.deleteTicket(id);
     }
 
-    public List<TicketDto> findTicketsByUserId(int user_id) {
+    public List<TicketDto> getTicketsByUserId(int user_id) {
 
         List<TicketDto> list = new ArrayList<>();
 
-        ticketDao.findTicketsByUserId(user_id).forEach(ticket -> {
-            Board board = boardService.findBoardById(ticket.getBoard().getBoard_id());
-            Passenger passenger = passengerService.getPassById(ticket.getPassenger().getPass_id());
+        ticketDao.getTicketsByUserId(user_id).forEach(ticket -> {
+            Board board = boardService.getBoardById(ticket.getBoard().getBoard_id());
+            Passenger passenger = passengerService.getPassengerById(ticket.getPassenger().getPass_id());
             Station fromStation = stationService.getStationById(board.getFrom_id());
             Station toStation = stationService.getStationById(board.getTo_id());
             TicketDto dto = new TicketDto();
@@ -100,6 +100,7 @@ public class TicketServiceImpl implements TicketService {
             dto.setPassName(passenger.getName());
             dto.setPassSurname(passenger.getSurname());
             dto.setPassBirthDate(DistanceAndTimeUtil.getStringBirthDate(passenger.getBirth_date()));
+            dto.setDeletable(!DistanceAndTimeUtil.isDepartingOrArriving(ticket.getBoard().getDeparture()));
             list.add(dto);
         });
 
@@ -107,20 +108,21 @@ public class TicketServiceImpl implements TicketService {
     }
 
     public boolean isPassOnBoard(Ticket ticket, PassengerDto passengerDto) {
-
-        Passenger passenger = ticket.getPassenger();
-        return passenger.getName().equalsIgnoreCase(passengerDto.getName())
-                && passenger.getSurname().equalsIgnoreCase(passengerDto.getSurname())
-                && DistanceAndTimeUtil.getStringBirthDate2(passenger.getBirth_date())
-                .equalsIgnoreCase(passengerDto.getBirth_date());
+        Passenger p1 = ticket.getPassenger();
+        Passenger p2 = PassengerDto.getPassengerFromDto(passengerDto);
+        return p1.getName().equals(p2.getName()) &&
+                p1.getSurname().equals(p2.getSurname()) &&
+                p1.getBirth_date().equals(p2.getBirth_date());
     }
 
     public Ticket createTicket(PassengerDto passengerDto, int id, User sessionUser) {
+
         Passenger passenger = PassengerDto.getPassengerFromDto(passengerDto);
         Ticket ticket = new Ticket();
-        ticket.setBoard(boardService.findBoardById(id));
+        ticket.setBoard(boardService.getBoardById(id));
         ticket.setPassenger(passenger);
         ticket.setUser(sessionUser);
+
         return ticket;
     }
 }

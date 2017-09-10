@@ -17,8 +17,7 @@ import java.util.Locale;
 public class DistanceAndTimeUtil {
 
     //absolute 100% SPEED of the train))
-    final private static int SPEED = 45;
-
+    private static final int SPEED = 45;
     private static final Logger logger = LoggerFactory.getLogger(DistanceAndTimeUtil.class);
 
     private DistanceAndTimeUtil() {
@@ -52,7 +51,7 @@ public class DistanceAndTimeUtil {
         String realMinutes;
 
         if (minutes < 10) {
-            realMinutes = "0" + String.valueOf(minutes);
+            realMinutes = "0" + minutes;
         } else {
             realMinutes = String.valueOf(minutes);
         }
@@ -81,15 +80,15 @@ public class DistanceAndTimeUtil {
 
         if (time.contains("d")) {
             days = Integer.valueOf(time.substring(0, time.indexOf('d')));
-            time = time.substring(time.indexOf("d") + 1, time.length()).trim();
+            time = time.substring(time.indexOf('d') + 1, time.length()).trim();
         }
 
         if (time.contains("h")) {
             hours = Integer.valueOf(time.substring(0, time.indexOf('h')));
-            time = time.substring(time.indexOf("h") + 1, time.length()).trim();
+            time = time.substring(time.indexOf('h') + 1, time.length()).trim();
         }
 
-        int mins = Integer.valueOf(time.substring(0, time.indexOf('m')));
+        int mins = Integer.parseInt(time.substring(0, time.indexOf('m')));
 
         return (long)1000*60*(days*24*60 + hours*60 + mins);
     }
@@ -173,8 +172,8 @@ public class DistanceAndTimeUtil {
      */
     public static long getDtoTime(String time) {
         String[] hms = time.split(":");
-        int hourMins = Integer.valueOf(hms[0])*60;
-        int mins = Integer.valueOf(hms[1]);
+        int hourMins = Integer.parseInt(hms[0])*60;
+        int mins = Integer.parseInt(hms[1]);
         return (long)(hourMins + mins)*60*1000;
     }
 

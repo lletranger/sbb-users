@@ -13,27 +13,23 @@ import java.util.List;
 @Repository
 public class TrainDaoImpl implements TrainDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(TrainDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrainDao.class);
 
     @PersistenceContext
     private EntityManager em;
 
     public Train getTrainById(int id) {
-
         Train train = em.find(Train.class, id);
-
-        logger.info("Train loaded " + train);
-
+        LOGGER.info("Train loaded by its ID "
+                .concat(train.toString()));
         return train;
     }
 
     @SuppressWarnings("unchecked")
     public List<Train> getAllTrains() {
-
         List<Train> list = em.createQuery("FROM Train").getResultList();
-
-        list.forEach(train -> logger.info("Getting all trains, got one " + train));
-
+        list.forEach(train -> LOGGER.info("Getting all trains, got one "
+                .concat(train.toString())));
         return list;
     }
 }

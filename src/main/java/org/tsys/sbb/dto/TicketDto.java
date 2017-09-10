@@ -12,4 +12,5 @@ public @Data class TicketDto {
     private String passSurname;
     private String passBirthDate;
     private String userLogin;
+    private boolean isDeletable;
 }

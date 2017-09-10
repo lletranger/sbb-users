@@ -19,7 +19,7 @@ public class StationController {
 
     private StationService stationService;
 
-    private static final Logger logger = LoggerFactory.getLogger(StationController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StationController.class);
 
     @Autowired
     public void setStationService(StationService stationService) {
@@ -27,12 +27,10 @@ public class StationController {
     }
 
     @RequestMapping(value = "/admin/stations")
-    public String getAllStations(Model model, HttpSession session) {
-
+    public String getAllStations(Model model) {
         model.addAttribute("station", new Station());
         model.addAttribute("allStations", stationService.getAllStations());
-        logger.info("Loading all stations to the stations page");
-
+        LOGGER.info("Loading all stations to the stations page");
         return "stations";
     }
 
@@ -42,13 +40,14 @@ public class StationController {
 
         if (stationService.isExist(station.getName())) {
             session.setAttribute("existingStation", station.getName());
-            logger.info("Can't create station, already exists with the name " + station.getName());
+            LOGGER.info("Can't create station, already exists with the name "
+                    .concat(station.getName()));
             return "messages/snexception";
         }
 
         stationService.addStation(station);
-        logger.info("New station's created " + station);
-
+        LOGGER.info("New station's created "
+                .concat(station.getName()));
         return "redirect:/admin/stations";
     }
 }

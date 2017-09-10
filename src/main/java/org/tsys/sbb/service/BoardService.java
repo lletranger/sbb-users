@@ -15,7 +15,7 @@ public interface BoardService {
      * @param id integer
      * @return a single {@link Board} with the specified {@link Board#board_id} or null
      */
-    Board findBoardById(int id);
+    Board getBoardById(int id);
 
     /**
      * Gets all existing {@link Board}s from the database
@@ -24,7 +24,7 @@ public interface BoardService {
      * @param id integer
      * @return an array list of {@link Board}s or null
      */
-    List<Board> findBoardsByFrom(int id);
+    List<Board> getBoardsByFrom(int id);
 
     /**
      * Gets all existing {@link Board}s from the database
@@ -33,7 +33,7 @@ public interface BoardService {
      * @param id integer
      * @return an array list of {@link Board}s or null
      */
-    List<Board> findBoardsByTo(int id);
+    List<Board> getBoardsByTo(int id);
 
     /**
      * Gets all existing {@link Board}s from the database
@@ -44,7 +44,7 @@ public interface BoardService {
      * @param to_id   integer
      * @return an array list of {@link Board}s or null
      */
-    List<Board> findBoardsByFromAndTo(int from_id, int to_id);
+    List<Board> getBoardsByFromAndTo(int from_id, int to_id);
 
     /**
      * Gets all existing {@link Board}s from the database
@@ -63,7 +63,7 @@ public interface BoardService {
     /**
      * Gets all existing {@link Board}s from the database from some {@link Station}
      * or to some {@link Station} by its {@link Board#from_id} or {@link Board#to_id} by passing it
-     * to {@link #findBoardsByFrom(int)} and {@link #findBoardsByTo(int)} methods, and filters it by
+     * to {@link #getBoardsByFrom(int)} and {@link #getBoardsByTo(int)} methods, and filters it by
      * time of departing and/or arrival
      *
      * @param id1 integer

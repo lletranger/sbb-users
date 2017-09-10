@@ -17,14 +17,7 @@ public interface TicketService {
      * @param id integer
      * @return a single {@link Ticket} with the specified {@link Ticket#ticket_id} or null
      */
-    Ticket findTicketById(int id);
-
-    /**
-     * Gets all existing {@link Ticket}s from the database
-     *
-     * @return an array list of {@link TicketDto}s or null
-     */
-    List<TicketDto> findAllTickets();
+    Ticket getTicketById(int id);
 
     /**
      * Gets all existing {@link Ticket}s from the database
@@ -34,7 +27,7 @@ public interface TicketService {
      * @return an array list of {@link Ticket}s
      * with the specified {@link Board#board_id} or null
      */
-    List<Ticket> findTicketsByBoardId(int board_id);
+    List<Ticket> getTicketsByBoardId(int board_id);
 
     /**
      * Gets all existing {@link Ticket}s from the database
@@ -44,7 +37,14 @@ public interface TicketService {
      * @return an array list of {@link TicketDto}s
      * with the specified {@link User#user_id} or null
      */
-    List<TicketDto> findTicketsByUserId(int user_id);
+    List<TicketDto> getTicketsByUserId(int user_id);
+
+    /**
+     * Gets all existing {@link Ticket}s from the database
+     *
+     * @return an array list of {@link TicketDto}s or null
+     */
+    List<TicketDto> getAllTickets();
 
     /**
      * Saves a new {@link Ticket} to the database

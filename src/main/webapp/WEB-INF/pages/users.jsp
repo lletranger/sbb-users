@@ -95,6 +95,12 @@
                                 </button>
                             </td>
                         </c:if>
+                        <c:if test="${user.user_id eq 115}">
+                            <td colspan="2" style="color:red">This admin is uneditable</td>
+                        </c:if>
+                        <c:if test="${(user.user_id eq sessionUser.user_id) && (user.user_id ne 115)}">
+                            <td colspan="2" style="color:red">Current user is uneditable</td>
+                        </c:if>
                     </tr>
                 </c:forEach>
             </table>

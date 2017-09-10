@@ -29,8 +29,11 @@ public class BoardController {
     private DelayService delayService;
     private TicketService ticketService;
 
-    private static final String NO_BOARD ="There is no board with the requested ID";
-    private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+    private static final String NO_BOARD = "There is no board with the requested ID";
+    private static final String ERROR_MESSAGE = "errorMessage";
+    private static final String DELAY_MESSAGE = "messages/delayexc";
+    private static final String NOT_EXIST_MESSAGE = "messages/notexist";
+    private static final Logger LOGGER = LoggerFactory.getLogger(BoardController.class);
 
     @Autowired
     public void setBoardService(BoardService boardService) {
@@ -73,18 +76,21 @@ public class BoardController {
     @RequestMapping("/admin/boarddata/{id}")
     public String boardData(@PathVariable("id") int id, Model model, HttpSession session) {
 
-        Board board = boardService.findBoardById(id);
+        Board board = boardService.getBoardById(id);
 
         if (board == null) {
-            session.setAttribute("errorMessage", NO_BOARD);
-            return "messages/notexist";
+            session.setAttribute(ERROR_MESSAGE, NO_BOARD);
+            return NOT_EXIST_MESSAGE;
         }
 
-        List<PassengerDto> passengers = ticketService.findTicketsByBoardId(id).stream()
+        List<PassengerDto> passengers = ticketService.getTicketsByBoardId(id).stream()
                 .map(ticket -> PassengerDto.getDtoFromPassenger(ticket.getPassenger()))
                 .collect(Collectors.toList());
 
-        logger.info("Total number of passengers for board " + board.getName() + " is " + passengers.size());
+        LOGGER.info("Total number of passengers for board "
+                .concat(board.getName())
+                .concat(" is ")
+                .concat(String.valueOf(passengers.size())));
         model.addAttribute("passengers", passengers);
         model.addAttribute("boardDetailed", boardService.getDtoFromBoard(board));
         return "boarddata";
@@ -96,7 +102,6 @@ public class BoardController {
         model.addAttribute("boardDto", new BoardDto());
         model.addAttribute("stations", stationService.getAllStations());
         model.addAttribute("trains", trainService.getAllTrains());
-
         return "boardsadd";
     }
 
@@ -105,7 +110,7 @@ public class BoardController {
     public String addBoard(@ModelAttribute("boardDto") BoardDto boardDto) {
 
         if (boardDto.getFrom_id() == boardDto.getTo_id()) {
-            logger.info("Trying to add a board with same from and to stations!");
+            LOGGER.info("Trying to add a board with same from and to stations!");
             return "messages/tofromexception";
         }
 
@@ -118,24 +123,24 @@ public class BoardController {
     @RequestMapping(value = "/admin/delay/add/{board_id}")
     public String addDelay(@PathVariable("board_id") int id, Model model, HttpSession session) {
 
-        Board board = boardService.findBoardById(id);
+        Board board = boardService.getBoardById(id);
 
         if (board == null) {
-            session.setAttribute("errorMessage", NO_BOARD);
-            return "messages/notexist";
+            session.setAttribute(ERROR_MESSAGE, NO_BOARD);
+            return NOT_EXIST_MESSAGE;
         }
 
         Station from = stationService.getStationById(board.getFrom_id());
         Station to = stationService.getStationById(board.getTo_id());
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
-            logger.info("Trying to add a delay to an arrived board!");
-            return "messages/delayexc";
+            LOGGER.info("Trying to add a delay to an arrived board!");
+            return DELAY_MESSAGE;
         }
 
         if(!DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture())) {
-            logger.info("Trying to add a delay to a board that didn't depart yet!");
-            return "messages/delayexc";
+            LOGGER.info("Trying to add a delay to a board that didn't depart yet!");
+            return DELAY_MESSAGE;
         }
 
         model.addAttribute("delay", new DelayDto());
@@ -149,21 +154,21 @@ public class BoardController {
     @RequestMapping(value = "/admin/delay/add/{board_id}", method = RequestMethod.POST)
     public String registerDelay(@PathVariable("board_id") int id, @ModelAttribute("delay") DelayDto delayDto, HttpSession session) {
 
-        Board board = boardService.findBoardById(id);
+        Board board = boardService.getBoardById(id);
 
         if(board == null) {
-            session.setAttribute("errorMessage", NO_BOARD);
-            return "messages/notexist";
+            session.setAttribute(ERROR_MESSAGE, NO_BOARD);
+            return NOT_EXIST_MESSAGE;
         }
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
-            logger.info("Trying to add a delay to an arrived board!");
-            return "messages/delayexc";
+            LOGGER.info("Trying to add a delay to an arrived board!");
+            return DELAY_MESSAGE;
         }
 
         if(!DistanceAndTimeUtil.isDepartedOrArrived(board.getDeparture())){
-            logger.info("Trying to add a delay to a board that didn't depart yet!");
-            return "messages/delayexc";
+            LOGGER.info("Trying to add a delay to a board that didn't depart yet!");
+            return DELAY_MESSAGE;
         }
 
         delayService.addDelay(DelayDto.getDelayFromDto(delayDto, board));

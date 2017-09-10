@@ -32,8 +32,10 @@ public class TicketController {
     private StationService stationService;
     private UserService userService;
 
-    private static final String SU = "sessionUser";
-    private static final String NO_BOARD ="There is no board with the requested ID";
+    private static final String SESSION_USER = "sessionUser";
+    private static final String NO_BOARD = "There is no board with the requested ID";
+    private static final String NOT_EXIST_MESSAGE = "messages/notexist";
+    private static final String PASSENGER_DTO = "passengerDto";
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketController.class);
 
     @Autowired
@@ -59,11 +61,16 @@ public class TicketController {
     @RequestMapping(value = "/ticket/add/{board_id}")
     public String addTicket(@PathVariable("board_id") int id, Model model, HttpSession session) {
 
-        Board board = boardService.findBoardById(id);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByUsername(username);
+
+        session.setAttribute("sessionUser", user);
+
+        Board board = boardService.getBoardById(id);
 
         if (board == null) {
             session.setAttribute("errorMessage", NO_BOARD);
-            return "messages/notexist";
+            return NOT_EXIST_MESSAGE;
         }
 
         String from = stationService.getStationById(board.getFrom_id()).getName();
@@ -71,13 +78,13 @@ public class TicketController {
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
             LOGGER.info("Can't buy ticket, board's already arrived!");
-            return "messages/notexist";
+            return NOT_EXIST_MESSAGE;
         }
 
-        if (session.getAttribute("passengerDto") != null) {
-            model.addAttribute("passengerDto", (PassengerDto)session.getAttribute("passengerDto"));
+        if (session.getAttribute(PASSENGER_DTO) != null) {
+            model.addAttribute(PASSENGER_DTO, (PassengerDto)session.getAttribute(PASSENGER_DTO));
         } else {
-            model.addAttribute("passengerDto", new PassengerDto());
+            model.addAttribute(PASSENGER_DTO, new PassengerDto());
         }
 
         model.addAttribute("board", board);
@@ -89,16 +96,16 @@ public class TicketController {
 
     @Transactional
     @RequestMapping(value = "/ticket/add/{board_id}", method = RequestMethod.POST)
-    public String registerTicket(@PathVariable("board_id") int id, @ModelAttribute("passengerDto") PassengerDto passengerDto, HttpSession session) {
+    public String registerTicket(@PathVariable("board_id") int id, @ModelAttribute(PASSENGER_DTO) PassengerDto passengerDto, HttpSession session) {
 
         User user = userService.getUserByUsername(SecurityContextHolder.getContext()
                 .getAuthentication().getName());
 
-        Board board = boardService.findBoardById(id);
+        Board board = boardService.getBoardById(id);
 
         if (board == null) {
             session.setAttribute("errorMessage", NO_BOARD);
-            return "messages/notexist";
+            return NOT_EXIST_MESSAGE;
         }
 
         String from = stationService.getStationById(board.getFrom_id()).getName();
@@ -106,7 +113,7 @@ public class TicketController {
 
         if(DistanceAndTimeUtil.isAlreadyArrived(board.getDeparture(), boardService.findArrival(id))) {
             LOGGER.info("Can't buy ticket, board's already arrived!");
-            return "messages/notexist";
+            return NOT_EXIST_MESSAGE;
         }
 
         if (!boardService.isAvailable(id)) {
@@ -117,7 +124,7 @@ public class TicketController {
 
         if(boardService.passExists(id, passengerDto)) {
             session.setAttribute("dupePassenger", passengerDto);
-            session.setAttribute("passengerDto", passengerDto);
+            session.setAttribute(PASSENGER_DTO, passengerDto);
             session.setAttribute("dupeBoard", board);
             session.setAttribute("dupeFrom", from);
             session.setAttribute("dupeTo", to);
@@ -153,9 +160,9 @@ public class TicketController {
 
     @RequestMapping(value = "/mytickets")
     public String allTicket(Model model, HttpSession session) {
-
-        User user = (User) session.getAttribute(SU);
-        model.addAttribute("ticketsDto", ticketService.findTicketsByUserId(user.getUser_id()));
+        User user = (User) session.getAttribute(SESSION_USER);
+        session.setAttribute(SESSION_USER, user);
+        model.addAttribute("ticketsDto", ticketService.getTicketsByUserId(user.getUser_id()));
         LOGGER.info("Loading all tickets to passenger with login '"
                 .concat(user.getUsername())
                 .concat("'"));
@@ -166,9 +173,17 @@ public class TicketController {
     @RequestMapping(value = "/annulticket/{id}")
     public String annulTicket(@PathVariable("id") int id, HttpSession session) {
 
-        User user = (User) session.getAttribute(SU);
+        User user = (User) session.getAttribute(SESSION_USER);
+        Ticket ticket = ticketService.getTicketById(id);
+
+        if(DistanceAndTimeUtil.isDepartingOrArriving(ticket.getBoard().getDeparture())) {
+            LOGGER.info("Trying to delete ticket from board on route!");
+            return "messages/notpass";
+        }
+
         ticketService.deleteTicket(id);
-        LOGGER.info("Deleting ticket with ID = " + id);
+        LOGGER.info("Deleting ticket with ID = "
+                .concat(String.valueOf(id)));
         String message = "Your ticket with ID "
                 .concat(String.valueOf(id))
                 .concat(" was annulled. We're sad =(");
@@ -180,6 +195,6 @@ public class TicketController {
     @RequestMapping(value = "/tickets", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public List<TicketDto> getTickets() {
         LOGGER.info("Sending tickets in JSON");
-        return ticketService.findAllTickets();
+        return ticketService.getAllTickets();
     }
 }

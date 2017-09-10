@@ -7,6 +7,7 @@ import org.tsys.sbb.dao.PassengerDao;
 import org.tsys.sbb.model.Passenger;
 import org.tsys.sbb.service.PassengerService;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,12 +21,13 @@ public class PassengerServiceImpl implements PassengerService {
         this.passengerDao = passengerDao;
     }
 
-    public Passenger getPassById(int id) {
-        return passengerDao.getPassById(id);
+    public Passenger getPassengerById(int id) {
+        return passengerDao.getPassengerById(id);
     }
 
-    public List<Passenger> getPassByEverything(String name, String surname) {
-        return passengerDao.getPassByEverything(name, surname); }
+    public List<Passenger> getPassengerByEverything(String name, String surname, Date birthDate) {
+        return passengerDao.getPassengerByNameSurname(name, surname, birthDate);
+    }
 
     public void addPassenger(Passenger passenger) {
         passengerDao.addPassenger(passenger);

@@ -28,8 +28,8 @@
             <div class="col-md-4">
                 <div class="navbar-header page-scroll" style="margin-top: 8px">
                     <button class="btn btn-success"
-                            onclick="location.href='${pageContext.request.contextPath}/login'">
-                        Log in</button>
+                            onclick="location.href='${pageContext.request.contextPath}/index'">
+                        Main</button>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
     <div class="container" align="center">
         <h1 align="center" style="color: #49a827">You are registered!</h1>
         <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/Wheee.gif"></div>
-        <h2 align="center" style="color: #49a827">Please, <a href="${pageContext.request.contextPath}/login">login now</a></h2>
+        <h2 align="center" style="color: #49a827">You can go the <a href="${pageContext.request.contextPath}/index">main page</a></h2>
     </div>
 </section>
 

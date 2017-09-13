@@ -23,6 +23,7 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Boards page</title>
 
     <style>
@@ -82,7 +83,8 @@
                         </form:label>
                     </th>
                     <td>
-                        <form:input path="name" maxlength="10" required="required" placeholder="Board name"/>
+                        <form:input path="name" maxlength="10" required="required"
+                                    placeholder="Board name" pattern="[a-zA-Zа-яА-ЯёЁ0-9]+"/>
                     </td>
                 </tr>
                 <tr>

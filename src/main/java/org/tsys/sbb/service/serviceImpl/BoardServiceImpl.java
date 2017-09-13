@@ -51,10 +51,13 @@ public class BoardServiceImpl implements BoardService {
 
     public Board getBoardById(int id) {
 
-        Board board = null;
+        Board board;
 
-        try { board = boardDao.getBoardById(id);
-        } catch (Exception e) { }
+        try {
+            board = boardDao.getBoardById(id);
+        } catch (Exception e) {
+            board = null;
+        }
 
         return board;
     }

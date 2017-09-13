@@ -20,22 +20,19 @@ public class StationDaoImpl implements StationDao {
 
     public Station getStationById(int id) {
        Station station = em.find(Station.class, id);
-        LOGGER.info("Station loaded by its ID "
-                .concat(station.toString()));
+        LOGGER.info("Station loaded by its ID {}", station.toString());
         return station;
     }
 
     @SuppressWarnings("unchecked")
     public List<Station> getAllStations() {
         List<Station> list = em.createQuery("FROM Station").getResultList();
-        list.forEach(station -> LOGGER.info("Getting all stations, got one "
-                .concat(station.toString())));
+        list.forEach(station -> LOGGER.info("Getting all stations, got one {}", station.toString()));
         return list;
     }
 
     public void addStation(Station station) {
         em.persist(station);
-        LOGGER.info("Station added "
-                .concat(station.toString()));
+        LOGGER.info("Station added {}", station.toString());
     }
 }

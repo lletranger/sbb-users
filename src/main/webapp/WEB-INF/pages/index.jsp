@@ -3,7 +3,13 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+
+<%
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
 
 <html>
 
@@ -15,7 +21,6 @@
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico" />" rel="stylesheet" type="text/css">
-
     <title> | MeR</title>
 
     <style>
@@ -284,7 +289,7 @@
                                     <h4 style="color: #545454; margin: 0">Name</h4>
                                 </div>
                                 <div class="form-group">
-                                    <input id="e-name" name="e-name" placeholder="Name" required="required">
+                                    <input id="e-name" name="e-name" placeholder="Name">
                                 </div>
                                 <div class="form-group">
                                     <h4 style="color: #545454; margin: 15px 0 0 0">Your Email</h4>
@@ -296,7 +301,7 @@
                                     <h4 style="color: #545454; margin: 15px 0 0 0">Subject</h4>
                                 </div>
                                 <div class="form-group">
-                                    <input id="e-sbj" name="e-sbj" placeholder="Subject" required="required">
+                                    <input id="e-sbj" name="e-sbj" placeholder="Subject">
                                 </div>
                             </div>
 
@@ -306,7 +311,7 @@
                                     <h4 style="color: #545454; margin: 0">Message</h4>
                                 </div>
                                 <div class="form-group">
-                                    <textarea name="e-msg" id="e-msg" rows="7" cols="25" placeholder="Message Text" required="required" style="resize: none;"></textarea>
+                                    <textarea name="e-msg" id="e-msg" rows="7" cols="25" placeholder="Message Text" style="resize: none;"></textarea>
                                 </div>
                                 <div class="col-md-12">
                                     <button class="btn btn-success" style="width: 100%; margin: 15px 0 0 0">Send Message</button>

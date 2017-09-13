@@ -17,6 +17,7 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Search page</title>
 
     <style>

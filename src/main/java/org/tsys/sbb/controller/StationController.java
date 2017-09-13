@@ -46,6 +46,10 @@ public class StationController {
             return "messages/stationExists";
         }
 
+        String str = station.getName().toLowerCase();
+        String cap = str.substring(0, 1).toUpperCase()
+                .concat(str.substring(1));
+        station.setName(cap);
         stationService.addStation(station);
         LOGGER.info("New station's created {}", station.getName());
 

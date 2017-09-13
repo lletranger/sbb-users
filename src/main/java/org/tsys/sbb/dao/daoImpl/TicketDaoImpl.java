@@ -20,8 +20,7 @@ public class TicketDaoImpl implements TicketDao {
 
     public Ticket getTicketById(int id) {
         Ticket ticket = em.find(Ticket.class, id);
-        LOGGER.info("Ticket loaded by its ID "
-                .concat(ticket.toString()));
+        LOGGER.info("Ticket loaded by its ID {}", id);
         return ticket;
     }
 
@@ -30,8 +29,7 @@ public class TicketDaoImpl implements TicketDao {
         List<Ticket> list = em.createQuery("SELECT t FROM Ticket t WHERE board_id=:board_id")
                 .setParameter("board_id", board_id)
                 .getResultList();
-        list.forEach(ticket -> LOGGER.info("Getting all tickets by board ID, got one "
-                .concat(ticket.toString())));
+        list.forEach(ticket -> LOGGER.info("Getting all tickets by board ID, got one {}", ticket.toString()));
         return list;
     }
 
@@ -40,31 +38,28 @@ public class TicketDaoImpl implements TicketDao {
         List<Ticket> list = em.createQuery("SELECT t FROM Ticket t WHERE user_id=:user_id")
                 .setParameter("user_id", user_id)
                 .getResultList();
-        list.forEach(ticket -> LOGGER.info("Getting all tickets by user ID, got one "
-                .concat(ticket.toString())));
+        list.forEach(ticket -> LOGGER.info("Getting all tickets by user ID, got one {}", ticket.toString()));
+
         return list;
     }
 
     @SuppressWarnings("unchecked")
     public List<Ticket> getAllTickets() {
         List<Ticket> list = em.createQuery("FROM Ticket").getResultList();
-        list.forEach(ticket -> LOGGER.info("Getting all tickets, got one "
-                .concat(ticket.toString())));
+        list.forEach(ticket -> LOGGER.info("Getting all tickets, got one {}", ticket.toString()));
         return list;
     }
 
     public void addTicket(Ticket ticket) {
         em.persist(ticket);
-        LOGGER.info("Ticket added "
-                .concat(ticket.toString()));
+        LOGGER.info("Ticket added {}", ticket.toString());
     }
 
     public void deleteTicket(int id) {
         Ticket ticket = em.find(Ticket.class, id);
         if (ticket != null) {
             em.remove(ticket);
-            LOGGER.info("Ticket deleted, ID was "
-                    .concat(String.valueOf(id)));
+            LOGGER.info("Ticket deleted, ID was {}", id);
         }
     }
 }

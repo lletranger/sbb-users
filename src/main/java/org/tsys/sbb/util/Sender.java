@@ -15,6 +15,10 @@ public class Sender {
 
     private static final Logger logger = LoggerFactory.getLogger(Sender.class);
 
+
+    /**
+     * Sends a message to Active MQ server
+     */
     public void send() {
 
         Hashtable<String, String> props = new Hashtable<>();

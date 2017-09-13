@@ -69,7 +69,8 @@
                         </form:label>
                     </th>
                     <td>
-                        <form:input path="name" maxlength="45" required="required" placeholder="Name"/>
+                        <form:input path="name" maxlength="45" required="required"
+                                    placeholder="Name" pattern="[a-zA-Zа-яА-ЯёЁ0-9]+"/>
                     </td>
                 </tr>
                 <tr>
@@ -80,7 +81,7 @@
                     </th>
                     <td>
                             <form:input path="surname" maxlength="45" required="required"
-                                        placeholder="Surname"/>
+                                        placeholder="Surname" pattern="[a-zA-Zа-яА-ЯёЁ0-9]+"/>
                     </td>
                 </tr>
                 <tr>

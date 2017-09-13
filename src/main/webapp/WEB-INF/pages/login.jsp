@@ -1,9 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page session="true" %>
+
+<%
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
 
 <html>
 
@@ -17,6 +22,7 @@
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap-social.css"/>" rel="stylesheet">
     <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Login page</title>
 
     <style>
@@ -76,14 +82,14 @@
             <div class="row" style="color: #545454;">
                 <div lang="en" id="form-group-username" class="form-group col-lg-4 col-lg-offset-4">
                     <form:input path="username" minlength="4" maxlength="45"
-                                required="required" pattern="[a-zA-Z0-9]+" placeholder="Username"/>
+                                required="required" placeholder="Username"/>
                 </div>
             </div>
 
             <div class="row" style="color: #545454;">
                 <div id="form-group-password" class="form-group col-lg-4 col-lg-offset-4">
                     <form:password path="password" minlength="4" maxlength="45"
-                                   required="required" pattern="[a-zA-Z0-9]+" placeholder="Password"/>
+                                   required="required" placeholder="Password"/>
                 </div>
             </div>
 

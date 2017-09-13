@@ -23,14 +23,13 @@ public class DelayDaoImpl implements DelayDao {
         List<Delay> list = em.createQuery("SELECT d FROM Delay d WHERE board_id=:board_id")
                 .setParameter("board_id", board_id)
                 .getResultList();
-        list.forEach(delay -> LOGGER.info("Getting all delays by board ID, got one "
-                .concat(delay.toString())));
+        list.forEach(delay -> LOGGER.info("Getting all delays by board ID, got one {}",
+                delay.toString()));
         return list;
     }
 
     public void addDelay(Delay delay) {
         em.persist(delay);
-        LOGGER.info("Delay added "
-                .concat(delay.toString()));
+        LOGGER.info("Delay added {}", delay.toString());
     }
 }

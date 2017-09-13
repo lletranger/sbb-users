@@ -94,7 +94,7 @@
                     </th>
                     <td>
                         <form:input path="name" maxlength="45" required="required"
-                                    placeholder="Station name" style="width: 150px; font-weight: normal;"/>
+                                    placeholder="Station name" pattern="[a-zA-Zа-яА-ЯёЁ0-9]+"/>
                     </td>
                 </tr>
                 <tr>
@@ -103,7 +103,7 @@
                     </th>
                     <td>
                         <form:input path="x" pattern="^-?[0-9]{1,3}" required="required"
-                                    placeholder="-999 to 999 in km" style="width: 150px"/>
+                                    placeholder="-999 to 999 in km"/>
                     </td>
                 </tr>
                 <tr>
@@ -112,7 +112,7 @@
                     </th>
                     <td>
                         <form:input path="y" pattern="^-?[0-9]{1,3}" required="required"
-                                    placeholder="-999 to 999 in km" style="width: 150px;"/>
+                                    placeholder="-999 to 999 in km"/>
                     </td>
                 </tr>
                 <tr>

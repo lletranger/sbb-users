@@ -20,8 +20,7 @@ public class UserDaoImpl implements UserDao {
 
     public User getUserById(int id) {
         User user = em.find(User.class, id);
-        LOGGER.info("User loaded by its ID "
-                .concat(user.toString()));
+        LOGGER.info("User loaded by its ID {}", user.getUsername());
         return user;
     }
 
@@ -32,13 +31,12 @@ public class UserDaoImpl implements UserDao {
                 .getResultList();
 
         if (list.isEmpty()) {
-            LOGGER.info("No user found by username "
-                    .concat(username));
+            LOGGER.info("No user found by username {}", username);
             return null;
         }
 
-        LOGGER.info("User loaded by username "
-                .concat(username));
+        LOGGER.info("User loaded by username {}", username);
+
         return list.get(0);
     }
 
@@ -49,13 +47,12 @@ public class UserDaoImpl implements UserDao {
                 .getResultList();
 
         if (list.isEmpty()) {
-            LOGGER.info("No user found by email "
-                    .concat(email));
+            LOGGER.info("No user found by email {}", email);
             return null;
         }
 
-        LOGGER.info("User loaded by email "
-                .concat(email));
+        LOGGER.info("User loaded by email {}", email);
+
         return list.get(0);
     }
 
@@ -63,29 +60,25 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {
         List<User> list = em.createQuery("FROM User").getResultList();
-        list.forEach(user -> LOGGER.info("Getting all user, got one "
-                .concat(user.toString())));
+        list.forEach(user -> LOGGER.info("Getting all user, got one {}", user.toString()));
         return list;
     }
 
     public void addUser(User user) {
         em.persist(user);
-        LOGGER.info("User added "
-                .concat(user.toString()));
+        LOGGER.info("User added {}", user.toString());
     }
 
     public void editUser(User user) {
         em.merge(user);
-        LOGGER.info("User updated "
-                .concat(user.toString()));
+        LOGGER.info("User updated {}", user.toString());
     }
 
     public void deleteUser(int id) {
         User user = em.find(User.class, id);
         if (user != null) {
             em.remove(user);
-            LOGGER.info("User deleted, ID was "
-                    .concat(String.valueOf(id)));
+            LOGGER.info("User deleted, ID was {}", id);
         }
     }
 }

@@ -18,6 +18,7 @@ import javax.validation.Valid;
 @Controller
 public class RegistrationController {
 
+//    private SecurityService securityService;
     private UserService userService;
     private EmailSender emailSender;
 
@@ -32,6 +33,11 @@ public class RegistrationController {
     public void setEmailSender(EmailSender emailSender) {
         this.emailSender = emailSender;
     }
+
+//    @Autowired
+//    public void setSecurityService(SecurityService securityService) {
+//        this.securityService = securityService;
+//    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
@@ -62,6 +68,8 @@ public class RegistrationController {
         user.setRole("user");
         userService.addUser(user);
         LOGGER.info("New user's registered with username {}", user.getUsername());
+
+//        securityService.autoLogin(user.getUsername(), user.getPassword());
 
         emailSender.send(user.getEmail(), "Successful registration",
                 "You've successfully registered at mer.me with login '"

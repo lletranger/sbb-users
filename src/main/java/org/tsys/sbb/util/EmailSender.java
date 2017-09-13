@@ -14,6 +14,14 @@ public class EmailSender {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailSender.class);
 
+
+    /**
+     * Sends an email
+     *
+     * @param emailTo String sender email
+     * @param msgSubject String letter subject
+     * @param msgText String text
+     */
     public void send(String emailTo, String msgSubject, String msgText) {
 
         String s = "hmq-yqb-q5B-m8u";

@@ -15,7 +15,6 @@ import org.tsys.sbb.util.DistanceAndTimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -48,10 +47,13 @@ public class TicketServiceImpl implements TicketService {
 
     public Ticket getTicketById(int id) {
 
-        Ticket ticket = null;
+        Ticket ticket;
 
-        try { ticket = ticketDao.getTicketById(id);
-        } catch (Exception e) { }
+        try {
+            ticket = ticketDao.getTicketById(id);
+        } catch (Exception e) {
+            ticket = null;
+        }
 
         return ticket;
     }

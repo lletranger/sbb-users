@@ -20,8 +20,7 @@ public class PassengerDaoImpl implements PassengerDao {
     private EntityManager em;
     public Passenger getPassengerById(int id) {
         Passenger passenger = em.find(Passenger.class, id);
-        LOGGER.info("Passenger loaded by its ID "
-                .concat(passenger.toString()));
+        LOGGER.info("Passenger loaded by its ID {}", passenger.toString());
         return passenger;
     }
 
@@ -33,15 +32,14 @@ public class PassengerDaoImpl implements PassengerDao {
                 .setParameter("birthDate", birthDate)
                 .getResultList();
         list.forEach(passenger ->
-                LOGGER.info("Getting all passengers with required name and surname, got one "
-                        .concat(passenger.toString())));
+                LOGGER.info("Getting all passengers with required name and surname, got one {}",
+                        passenger.toString()));
         return list;
     }
 
     public void addPassenger(Passenger passenger) {
         em.persist(passenger);
-        LOGGER.info("Passenger added "
-                .concat(passenger.toString()));
+        LOGGER.info("Passenger added {}", passenger.toString());
     }
 
     public void deletePassenger(int id) {
@@ -49,7 +47,6 @@ public class PassengerDaoImpl implements PassengerDao {
         if (passenger != null) {
             em.remove(passenger);
         }
-        LOGGER.info("Passenger deleted, ID was "
-                .concat(String.valueOf(id)));
+        LOGGER.info("Passenger deleted, ID was {}", id);
     }
 }

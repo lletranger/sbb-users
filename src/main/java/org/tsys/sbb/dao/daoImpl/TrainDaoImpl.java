@@ -20,16 +20,14 @@ public class TrainDaoImpl implements TrainDao {
 
     public Train getTrainById(int id) {
         Train train = em.find(Train.class, id);
-        LOGGER.info("Train loaded by its ID "
-                .concat(train.toString()));
+        LOGGER.info("Train loaded by its ID {}", id);
         return train;
     }
 
     @SuppressWarnings("unchecked")
     public List<Train> getAllTrains() {
         List<Train> list = em.createQuery("FROM Train").getResultList();
-        list.forEach(train -> LOGGER.info("Getting all trains, got one "
-                .concat(train.toString())));
+        list.forEach(train -> LOGGER.info("Getting all trains, got one {}", train.toString()));
         return list;
     }
 }

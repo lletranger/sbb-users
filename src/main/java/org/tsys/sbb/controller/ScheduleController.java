@@ -17,7 +17,7 @@ public class ScheduleController {
     private StationService stationService;
     private ScheduleService scheduleService;
 
-    private static final Logger logger = LoggerFactory.getLogger(ScheduleController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleController.class);
 
     @Autowired
     public void setStationService(StationService stationService) {
@@ -29,17 +29,19 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    @RequestMapping(value = "/schedule/stations", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @RequestMapping(value = "/schedule/stations", produces = APPLICATION_JSON_VALUE,
+            method = RequestMethod.GET)
     public StationsDto getStations() {
+        LOGGER.info("Sending stations in JSON");
 
-        logger.info("Sending stations in JSON");
         return stationService.getAllStationsDto();
     }
 
-    @RequestMapping(value = "/schedule/station/{id}", produces = APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @RequestMapping(value = "/schedule/station/{id}", produces = APPLICATION_JSON_VALUE,
+            method = RequestMethod.GET)
     public ScheduleDto getSchedule(@PathVariable("id") int id) {
+        LOGGER.info("Sending schedule in JSON");
 
-        logger.info("Sending schedule in JSON");
         return scheduleService.getSchedule(id);
     }
 }

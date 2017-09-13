@@ -9,6 +9,7 @@
 
 <head>
 
+    <jsp:include page="../temps/navbar.jsp"/>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
@@ -16,31 +17,18 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
-    <title>Wheee!</title>
+    <title>Oups..!</title>
 
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
 
-<nav class="navbar navbar-custom navbar-fixed-top">
-    <div class="container">
-        <div class="row" align="center">
-            <div class="col-md-4">
-                <div class="navbar-header page-scroll" style="margin-top: 8px">
-                    <button class="btn btn-success"
-                            onclick="location.href='${pageContext.request.contextPath}/login'">
-                        Log in</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center" style="color: #49a827">You are registered!</h1>
-        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/Wheee.gif"></div>
-        <h2 align="center" style="color: #49a827">Please, <a href="${pageContext.request.contextPath}/login">login now</a></h2>
+        <h1 align="center" style="color: red">Something went wrong!</h1>
+        <h2 align="center" style="color: red">(on our site :)</h2>
+        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/WentWrong.gif"></div>
+        <h2 align="center" style="color: red">Please, come back later</h2>
     </div>
 </section>
 

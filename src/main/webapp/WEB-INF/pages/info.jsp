@@ -1,28 +1,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
-<%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
+
+    <jsp:include page="temps/navbar.jsp"/>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
-    <jsp:include page="temps/navbar.jsp"/>
+    <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico" />" rel="stylesheet" type="text/css">
 
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <title>My page</title>
+
     <style>
         body {
             background: linear-gradient(90deg, rgb(255, 255, 255) 10%, #ffffff 90%);
@@ -54,6 +51,9 @@
             padding-left: 25px;
         }
 
+         .myinfo {
+             color: #545454 !important;
+         }
     </style>
 </head>
 

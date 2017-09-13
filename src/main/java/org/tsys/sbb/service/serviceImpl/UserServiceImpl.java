@@ -1,5 +1,7 @@
 package org.tsys.sbb.service.serviceImpl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.tsys.sbb.dao.UserDao;
@@ -35,7 +37,13 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getUserById(int id) {
-        return userDao.getUserById(id);
+
+        User user = null;
+
+        try { user = userDao.getUserById(id);
+        } catch (Exception e) { }
+
+        return user;
     }
 
     public User getUserByUsername(String username) {

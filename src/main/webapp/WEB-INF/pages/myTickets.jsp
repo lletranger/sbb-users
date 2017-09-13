@@ -1,17 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
-<%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
 
     <jsp:include page="temps/navbar.jsp"/>
@@ -54,6 +49,9 @@
             width: 105px;
         }
 
+         .mytickets {
+             color: #545454 !important;
+         }
     </style>
 
 </head>
@@ -63,6 +61,10 @@
 <section class="content">
     <div class="container" align="center">
         <h1 align="center">My Tickets List</h1>
+
+        <c:if test="${empty ticketsDto}">
+            <h2 style="text-align: center; color: red">Somehow you have no tickets yet! =(</h2>
+        </c:if>
 
         <c:if test="${!empty ticketsDto}">
             <table class="sortable">

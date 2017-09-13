@@ -1,19 +1,19 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
+
+    <style>
+        .sbbnewboard {
+            color: #545454 !important;
+        }
+    </style>
 
     <jsp:include page="temps/navbar.jsp"/>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
@@ -69,7 +69,7 @@
 
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center" style="color: #49a827">Add Board</h1>
+        <h1 align="center" style="color: #49a827">New Board</h1>
 
         <c:url var="addBoard" value="/admin/boardsadd"/>
         <form:form action="${addBoard}" commandName="boardDto">
@@ -107,7 +107,7 @@
                         </form:label>
                     </th>
                     <td>
-                        <form:select path="from_id">
+                        <form:select id="one" path="from_id" required="required">
                             <c:forEach items="${stations}" var="station">
                                 <form:option value="${station.station_id}" label="${station.name}"/>
                             </c:forEach>
@@ -121,7 +121,7 @@
                         </form:label>
                     </th>
                     <td>
-                        <form:select path="to_id">
+                        <form:select id="two" path="to_id" required="required">
                             <c:forEach items="${stations}" var="station">
                                 <form:option value="${station.station_id}" label="${station.name}"/>
                             </c:forEach>
@@ -136,7 +136,7 @@
                         </form:label>
                     </th>
                     <td>
-                        <form:input path="departure"
+                        <form:input id="time1" data-format="HH:mm" data-template="HH:mm" path="departure"
                                     pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}"
                                     required="required" placeholder="HH:MM"/>
                     </td>
@@ -159,6 +159,21 @@
 <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
 <script src="<c:url value="/resources/js/custom.js"/>"></script>
 <script src="<c:url value="/resources/js/sorttable.js"/>"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#one").change(function (e) {
+            $("#two").empty();
+
+            var options =
+                $("#one option").filter(function(e){
+                    return $(this).attr("value") !== $("#one option:selected").val();
+                }).clone();
+
+            $("#two").append(options);
+        });
+    });
+</script>
 
 </body>
 </html>

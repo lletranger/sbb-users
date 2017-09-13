@@ -2,6 +2,7 @@ package org.tsys.sbb.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.jms.*;
 import javax.naming.Context;
@@ -9,6 +10,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Hashtable;
 
+@Component
 public class Sender {
 
     private static final Logger logger = LoggerFactory.getLogger(Sender.class);

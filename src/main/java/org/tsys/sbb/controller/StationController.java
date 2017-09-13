@@ -28,9 +28,11 @@ public class StationController {
 
     @RequestMapping(value = "/admin/stations")
     public String getAllStations(Model model) {
+
         model.addAttribute("station", new Station());
         model.addAttribute("allStations", stationService.getAllStations());
         LOGGER.info("Loading all stations to the stations page");
+
         return "stations";
     }
 
@@ -39,15 +41,14 @@ public class StationController {
     public String addStation(@ModelAttribute("station") Station station, HttpSession session) {
 
         if (stationService.isExist(station.getName())) {
+
             session.setAttribute("existingStation", station.getName());
-            LOGGER.info("Can't create station, already exists with the name "
-                    .concat(station.getName()));
-            return "messages/snexception";
+            return "messages/stationExists";
         }
 
         stationService.addStation(station);
-        LOGGER.info("New station's created "
-                .concat(station.getName()));
+        LOGGER.info("New station's created {}", station.getName());
+
         return "redirect:/admin/stations";
     }
 }

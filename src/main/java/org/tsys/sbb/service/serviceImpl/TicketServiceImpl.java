@@ -47,7 +47,13 @@ public class TicketServiceImpl implements TicketService {
     }
 
     public Ticket getTicketById(int id) {
-        return ticketDao.getTicketById(id);
+
+        Ticket ticket = null;
+
+        try { ticket = ticketDao.getTicketById(id);
+        } catch (Exception e) { }
+
+        return ticket;
     }
 
     public List<TicketDto> getAllTickets() {

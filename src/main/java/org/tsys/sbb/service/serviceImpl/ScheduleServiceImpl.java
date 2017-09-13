@@ -31,7 +31,6 @@ public class ScheduleServiceImpl implements ScheduleService {
         this.stationService = stationService;
     }
 
-
     public ScheduleDto getSchedule(int id) {
 
         ScheduleDto dto = new ScheduleDto();

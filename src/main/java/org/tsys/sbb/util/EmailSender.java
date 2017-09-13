@@ -2,12 +2,14 @@ package org.tsys.sbb.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+@Component
 public class EmailSender {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailSender.class);

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.tsys.sbb.model.User;
 import org.tsys.sbb.service.UserService;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.Set;
 

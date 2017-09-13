@@ -1,18 +1,12 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
 
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
@@ -22,7 +16,7 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
-    <title>Register page</title>
+    <title>Registration</title>
 
     <style>
 
@@ -84,7 +78,7 @@
             <div class="row" style="color: #545454;">
                 <div id="form-group-login" class="form-group col-lg-4 col-lg-offset-4">
                     <form:input path="username" minlength="4" maxlength="25" required="required"
-                                placeholder="Username"/>
+                                pattern="[a-zA-Z0-9]+" placeholder="Username"/>
                 </div>
             </div>
 
@@ -98,8 +92,8 @@
 
             <div class="row" style="color: #545454;">
                 <div id="form-group-password" class="form-group col-lg-4 col-lg-offset-4">
-                    <form:password path="password" minlength="4" maxlength="25"
-                                   required="required" placeholder="Password"/>
+                    <form:password path="password" minlength="4" maxlength="25" required="required"
+                                   pattern="[a-zA-Z0-9]+" placeholder="Password"/>
                 </div>
             </div>
 

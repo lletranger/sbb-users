@@ -1,18 +1,12 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
 
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
@@ -31,7 +25,6 @@
             background-color: rgba(255, 227, 1, 0);
             color: #545454;
             font-size: 20px;
-            /*font-weight: bold;*/
             cursor: default;
 
         }
@@ -59,7 +52,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
 
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
         <div class="row" align="center">
             <div class="col-md-4">
@@ -75,26 +68,22 @@
 
 <section class="content" style="vertical-align: middle">
     <div class="container" align="center">
-        <c:if test="${not empty errorMessage}">
-            <c:out value="${errorMessage}"/>
-        </c:if>
-
         <h2 align="center">Login</h2>
 
         <c:url var="getIn" value="/login"/>
         <form:form action="${getIn}" modelAttribute="loginUser">
 
             <div class="row" style="color: #545454;">
-                <div id="form-group-username" class="form-group col-lg-4 col-lg-offset-4">
+                <div lang="en" id="form-group-username" class="form-group col-lg-4 col-lg-offset-4">
                     <form:input path="username" minlength="4" maxlength="45"
-                                required="required" placeholder="Username"/>
+                                required="required" pattern="[a-zA-Z0-9]+" placeholder="Username"/>
                 </div>
             </div>
 
             <div class="row" style="color: #545454;">
                 <div id="form-group-password" class="form-group col-lg-4 col-lg-offset-4">
                     <form:password path="password" minlength="4" maxlength="45"
-                                   required="required" placeholder="Password"/>
+                                   required="required" pattern="[a-zA-Z0-9]+" placeholder="Password"/>
                 </div>
             </div>
 
@@ -114,11 +103,11 @@
                 </div>
 
                 <div class="form-group col-lg-4 col-lg-offset-4">
-                    <button type=button class="btn btn-facebook" style="width: 292px; float: none" onclick="location.href='${pageContext.request.contextPath}/authWithFacebook'">Login with Facebook</button>
+                    <button type=button class="btn btn-facebook" style="width: 292px; float: none">Login with Facebook</button>
                 </div>
 
                 <div class="form-group col-lg-4 col-lg-offset-4">
-                    <button type=button class="btn btn-vk" style="width: 292px; float: none" onclick="location.href='${pageContext.request.contextPath}/authWithVkontakte'">Login with VK</button>
+                    <button type=button class="btn btn-vk" style="width: 292px; float: none">Login with VK</button>
                 </div>
             </div>
 

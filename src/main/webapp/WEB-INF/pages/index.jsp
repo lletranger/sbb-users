@@ -1,24 +1,21 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
+
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/animate.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/blue.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
-    <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico" />" rel="stylesheet" type="text/css">
+
     <title> | MeR</title>
 
     <style>
@@ -89,6 +86,7 @@
                                     <a style="color:#49A827" href="${pageContext.request.contextPath}/admin/boardsadd">New board</a><br>
                                     <a style="color:#49A827" href="${pageContext.request.contextPath}/admin/users">Users</a><br>
                                 </sec:authorize>
+                                <a style="color:#49A827" href="#contact">Contact</a><br>
                                 <a style="color:#49A827" href="${pageContext.request.contextPath}/logout">Log out</a><br>
                             </div>
                         </div>
@@ -150,7 +148,7 @@
                                 <div class="fff">
                                     <div class="thumbnail">
                                         <a href="${pageContext.request.contextPath}/searchboards?id1=6&id2=0&time1=&time2=">
-                                            <img src="${pageContext.request.contextPath}/resources/img/shire.jpg"
+                                            <img src="${pageContext.request.contextPath}/resources/img/Shire.jpg"
                                                  alt="#"></a></div>
                                     <div class="caption">
                                         <h3>Shire</h3>
@@ -162,7 +160,7 @@
                                 <div class="fff">
                                     <div class="thumbnail">
                                         <a href="${pageContext.request.contextPath}/searchboards?id1=2&id2=0&time1=&time2=">
-                                            <img src="${pageContext.request.contextPath}/resources/img/isengard.jpg"
+                                            <img src="${pageContext.request.contextPath}/resources/img/Isengard.jpg"
                                                  alt="#"></a>
                                     </div>
                                     <div class="caption">
@@ -176,7 +174,7 @@
                                 <div class="fff">
                                     <div class="thumbnail">
                                         <a href="${pageContext.request.contextPath}/searchboards?id1=3&id2=0&time1=&time2=">
-                                            <img src="${pageContext.request.contextPath}/resources/img/mordor.jpg"
+                                            <img src="${pageContext.request.contextPath}/resources/img/Mordor.jpg"
                                                  alt=""></a>
                                     </div>
                                     <div class="caption">
@@ -190,7 +188,7 @@
                                 <div class="fff">
                                     <div class="thumbnail">
                                         <a href="${pageContext.request.contextPath}/searchboards?id1=5&id2=0&time1=&time2=">
-                                            <img src="${pageContext.request.contextPath}/resources/img/rohan.jpg"
+                                            <img src="${pageContext.request.contextPath}/resources/img/Rohan.jpg"
                                                  alt=""></a>
                                     </div>
                                     <div class="caption">
@@ -210,7 +208,7 @@
                                 <div class="fff">
                                     <div class="thumbnail">
                                         <a href="${pageContext.request.contextPath}/searchboards?id1=1&id2=0&time1=&time2=">
-                                            <img src="${pageContext.request.contextPath}/resources/img/gondor.jpg"
+                                            <img src="${pageContext.request.contextPath}/resources/img/Gondor.jpg"
                                                  alt=""></a>
                                     </div>
                                     <div class="caption">
@@ -223,7 +221,7 @@
                                 <div class="fff">
                                     <div class="thumbnail">
                                         <a href="${pageContext.request.contextPath}/searchboards?id1=4&id2=0&time1=&time2=">
-                                            <img src="${pageContext.request.contextPath}/resources/img/rivendell.jpg"
+                                            <img src="${pageContext.request.contextPath}/resources/img/Rivendell.jpg"
                                                  alt=""></a>
                                     </div>
                                     <div class="caption">

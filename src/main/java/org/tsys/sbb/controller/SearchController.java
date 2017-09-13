@@ -11,7 +11,6 @@ import org.tsys.sbb.dto.BoardDto;
 import org.tsys.sbb.model.*;
 import org.tsys.sbb.service.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,7 @@ public class SearchController {
     private BoardService boardService;
     private StationService stationService;
 
-    private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
 
     @Autowired
     public void setBoardService(BoardService boardService) {
@@ -34,19 +33,10 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(Model model, HttpSession session) {
-
-        User user = (User) session.getAttribute("sessionUser");
-
-        if (user == null) {
-            user = new User();
-            user.setRole("anon");
-            session.setAttribute("sessionUser", user);
-            logger.info("Creating new anonymous user at search page");
-        }
+    public String search(Model model) {
 
         model.addAttribute("stations", stationService.getAllStations());
-        logger.info("Creating new search form");
+        LOGGER.info("Creating new search form");
         return "search";
     }
 
@@ -69,7 +59,7 @@ public class SearchController {
         model.addAttribute("stations", stationService.getAllStations());
         model.addAttribute("dtos", dtos);
 
-        logger.info("Getting results of the search request");
+        LOGGER.info("Getting results of the search request");
         return "search";
     }
 }

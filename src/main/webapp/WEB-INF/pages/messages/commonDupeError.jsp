@@ -1,18 +1,12 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
 
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
@@ -22,7 +16,7 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
-    <title>Password error</title>
+    <title>Registration error</title>
 
 </head>
 
@@ -34,7 +28,7 @@
             <div class="col-md-4">
                 <div class="navbar-header page-scroll" style="margin-top: 8px">
                     <button class="btn btn-success"
-                            onclick="location.href='${pageContext.request.contextPath}/login'">
+                            onclick="location.href='${pageContext.request.contextPath}/register'">
                         Back</button>
                 </div>
             </div>
@@ -44,9 +38,10 @@
 
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center" style="color: #49a827">You've entered a wrong password!</h1>
-        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/gollum.gif"></div>
-        <h2 align="center" style="color: #49a827">Try to remember the correct one</h2>
+        <h1 align="center" style="color: #49a827">User with login '${existingUser}'</h1>
+        <h2 align="center" style="color: #49a827">already exists in the system!</h2>
+        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/Duplicates.jpg"></div>
+        <h2 align="center" style="color: #49a827">Please, choose another one</h2>
     </div>
 </section>
 

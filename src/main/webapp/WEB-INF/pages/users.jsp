@@ -1,18 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
-<%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
+
+    <style>
+        .sbbusers {
+            color: #545454 !important;
+        }
+    </style>
 
     <jsp:include page="temps/navbar.jsp"/>
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
@@ -74,7 +75,7 @@
                     <tr>
                         <td><a href="/admin/userdata/${user.user_id}">${user.username}</a></td>
                         <td>${user.role}</td>
-                        <c:if test="${(user.user_id ne sessionUser.user_id) && (user.user_id ne 115)}">
+                        <c:if test="${(user.user_id ne sessionUserId) && (user.user_id ne 115)}">
                             <td>
                                 <c:if test="${user.role ne 'admin'}">
                                     <button class="btn btn-success" style="width: 120px"
@@ -98,7 +99,7 @@
                         <c:if test="${user.user_id eq 115}">
                             <td colspan="2" style="color:red">This admin is uneditable</td>
                         </c:if>
-                        <c:if test="${(user.user_id eq sessionUser.user_id) && (user.user_id ne 115)}">
+                        <c:if test="${(user.user_id eq sessionUserId) && (user.user_id ne 115)}">
                             <td colspan="2" style="color:red">Current user is uneditable</td>
                         </c:if>
                     </tr>

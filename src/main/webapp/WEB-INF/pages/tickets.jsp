@@ -1,17 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix='form' uri='http://www.springframework.org/tags/form' %>
-<%@ taglib prefix='spring' uri='http://www.springframework.org/tags' %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
 
     <jsp:include page="temps/navbar.jsp"/>
@@ -26,6 +21,7 @@
     <title>New ticket</title>
 
     <style>
+
         body {
             background: linear-gradient(90deg, rgb(255, 255, 255) 10%, #ffffff 90%);
             color: #49a827;

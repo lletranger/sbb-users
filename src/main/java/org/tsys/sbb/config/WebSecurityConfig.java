@@ -44,9 +44,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/index").permitAll()
                 .antMatchers("/login").access("hasRole('ROLE_ANONYMOUS')")
-                .and().formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password");
+                .and().formLogin().loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .failureUrl("/autherror");
+
         http.logout()
                 .permitAll()
+                .logoutSuccessUrl("/index")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true);
     }

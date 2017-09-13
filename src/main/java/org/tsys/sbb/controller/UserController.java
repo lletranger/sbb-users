@@ -19,7 +19,10 @@ public class UserController {
     private UserService userService;
 
     private static final String REDIRECT_ADMIN_USERS = "redirect:/admin/users";
-    private static final String NOT_PASS = "messages/notpass";
+    private static final String USER_NOT_EXISTS = "This user doesn't exist";
+    private static final String ERROR_MESSAGE = "errorMessage";
+    private static final String COMMON_ERROR = "messages/commonError";
+    private static final String COMMON_NOT_FOUND = "messages/commonNotFound";
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
@@ -29,8 +32,14 @@ public class UserController {
 
     @RequestMapping(value = "/admin/users")
     public String getAllUsers(Model model) {
+
+        User sessionUser = userService.getUserByUsername(SecurityContextHolder.getContext()
+                .getAuthentication().getName());
+
         model.addAttribute("allUsers", userService.getAllUsers());
+        model.addAttribute("sessionUserId", sessionUser.getUser_id());
         LOGGER.info("Loading all users to the users page");
+
         return "users";
     }
 
@@ -38,60 +47,105 @@ public class UserController {
     @RequestMapping("/admin/remove/{id}")
     public String deleteUser(@PathVariable("id") int id, HttpSession session) {
 
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null || sessionUser.getUser_id() == id || id == 115) {
-            return NOT_PASS;
+        User sessionUser = userService.getUserByUsername(SecurityContextHolder.getContext()
+                .getAuthentication().getName());
+
+        if (sessionUser.getUser_id() == id) {
+            session.setAttribute(ERROR_MESSAGE, "You're trying to delete yourself");
+            return COMMON_ERROR;
+        }
+
+        if (id == 115) {
+            session.setAttribute(ERROR_MESSAGE, "You're trying to delete a main admin");
+            return COMMON_ERROR;
+        }
+
+        User user = userService.getUserById(id);
+
+        if (user == null) {
+            session.setAttribute(ERROR_MESSAGE, USER_NOT_EXISTS);
+            return COMMON_NOT_FOUND;
         }
 
         userService.deleteUser(id);
-        LOGGER.info("Deleting user with ID "
-                .concat(String.valueOf(id)));
+        LOGGER.info("Deleting user {}", user.getUsername());
+
         return REDIRECT_ADMIN_USERS;
     }
 
     @Transactional
     @RequestMapping("/admin/setadmin/{id}")
-    public String setAdmin(@PathVariable("id") int id) {
+    public String setAdmin(@PathVariable("id") int id, HttpSession session) {
+
         User user = userService.getUserById(id);
+
+        if (user == null) {
+            session.setAttribute(ERROR_MESSAGE, USER_NOT_EXISTS);
+            return COMMON_NOT_FOUND;
+        }
+
         user.setRole("admin");
         userService.editUser(user);
-        LOGGER.info("Setting admin role to user with ID "
-                .concat(String.valueOf(id)));
+        LOGGER.info("Setting admin role to user {}", user.getUsername());
+
         return REDIRECT_ADMIN_USERS;
     }
 
     @Transactional
     @RequestMapping("/admin/setuser/{id}")
     public String setUser(@PathVariable("id") int id, HttpSession session) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
 
-        if (sessionUser == null || sessionUser.getUser_id() == id || id == 115) {
-            return NOT_PASS;
+        User sessionUser = userService.getUserByUsername(SecurityContextHolder.getContext()
+                .getAuthentication().getName());
+
+        if (sessionUser.getUser_id() == id) {
+            session.setAttribute(ERROR_MESSAGE, "You're trying to set your role to user");
+            return COMMON_ERROR;
+        }
+
+        if (id == 115) {
+            session.setAttribute(ERROR_MESSAGE, "You're trying to set main admin role to user");
+            return COMMON_ERROR;
         }
 
         User user = userService.getUserById(id);
+
+        if (user == null) {
+            session.setAttribute(ERROR_MESSAGE, USER_NOT_EXISTS);
+            return COMMON_NOT_FOUND;
+        }
+
         user.setRole("user");
         userService.editUser(user);
-        LOGGER.info("Setting user role to user with ID "
-                .concat(String.valueOf(id)));
+        LOGGER.info("Setting user role to user {}", user.getUsername());
+
         return REDIRECT_ADMIN_USERS;
     }
 
     @RequestMapping("/admin/userdata/{id}")
-    public String userData(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        LOGGER.info("Getting info about user with ID "
-                .concat(String.valueOf(id)));
-        return "userdata";
+    public String userData(@PathVariable("id") int id, Model model, HttpSession session) {
+
+        User user = userService.getUserById(id);
+
+        if (user == null) {
+            session.setAttribute(ERROR_MESSAGE, USER_NOT_EXISTS);
+            return COMMON_NOT_FOUND;
+        }
+
+        model.addAttribute("user", user);
+        LOGGER.info("Getting info about user {} ", user.getUsername());
+
+        return "userData";
     }
 
     @RequestMapping("/info")
     public String userInfo(Model model) {
-        User currentUser = userService.getUserByUsername(SecurityContextHolder.getContext()
+
+        User user = userService.getUserByUsername(SecurityContextHolder.getContext()
                 .getAuthentication().getName());
-        model.addAttribute("editUser", currentUser);
-        LOGGER.info("Opening info to user "
-                .concat(currentUser.getUsername()));
+        model.addAttribute("editUser", user);
+        LOGGER.info("Opening info to user {} ", user.getUsername());
+
         return "info";
     }
 }

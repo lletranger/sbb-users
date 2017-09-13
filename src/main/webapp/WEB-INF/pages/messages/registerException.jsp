@@ -1,18 +1,12 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
+
 <head>
 
     <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
@@ -22,13 +16,13 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href="<c:url value="http://fonts.googleapis.com/css?family=Pacifico"/>" rel="stylesheet" type="text/css">
-    <title>Registration error</title>
+    <title>Exception</title>
 
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar">
 
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
         <div class="row" align="center">
             <div class="col-md-4">
@@ -44,8 +38,8 @@
 
 <section class="content">
     <div class="container" align="center">
-        <h1 align="center" style="color: #49a827">User with email '${existingEmail}' already exists!</h1>
-        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/logintaken.jpg"></div>
+        <h1 align="center" style="color: #49a827">${registerException}</h1>
+        <div style="margin-bottom: 20px"><img src="${pageContext.request.contextPath}/resources/img/Duplicates.jpg"></div>
         <h2 align="center" style="color: #49a827">Please, choose another one</h2>
     </div>
 </section>

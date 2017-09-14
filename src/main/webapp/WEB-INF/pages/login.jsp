@@ -82,14 +82,14 @@
             <div class="row" style="color: #545454;">
                 <div lang="en" id="form-group-username" class="form-group col-lg-4 col-lg-offset-4">
                     <form:input path="username" minlength="4" maxlength="45"
-                                required="required" placeholder="Username"/>
+                                required="required" placeholder="Username" pattern="[a-zA-Zа-яА-ЯёЁ0-9 -]+"/>
                 </div>
             </div>
 
             <div class="row" style="color: #545454;">
                 <div id="form-group-password" class="form-group col-lg-4 col-lg-offset-4">
                     <form:password path="password" minlength="4" maxlength="45"
-                                   required="required" placeholder="Password"/>
+                                   required="required" placeholder="Password" pattern="[a-zA-Zа-яА-ЯёЁ0-9 -]+"/>
                 </div>
             </div>
 
@@ -108,13 +108,13 @@
                     <button type=button class="btn btn-success" style="width: 133px" onclick="location.href='${pageContext.request.contextPath}/register'">Register</button>
                 </div>
 
-                <div class="form-group col-lg-4 col-lg-offset-4">
-                    <button type=button class="btn btn-facebook" style="width: 292px; float: none">Login with Facebook</button>
-                </div>
+                <%--<div class="form-group col-lg-4 col-lg-offset-4">--%>
+                    <%--<button type=button class="btn btn-facebook" style="width: 292px; float: none">Login with Facebook</button>--%>
+                <%--</div>--%>
 
-                <div class="form-group col-lg-4 col-lg-offset-4">
-                    <button type=button class="btn btn-vk" style="width: 292px; float: none">Login with VK</button>
-                </div>
+                <%--<div class="form-group col-lg-4 col-lg-offset-4">--%>
+                    <%--<button type=button class="btn btn-vk" style="width: 292px; float: none">Login with VK</button>--%>
+                <%--</div>--%>
             </div>
 
         </form:form>

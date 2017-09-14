@@ -84,7 +84,7 @@
                     </th>
                     <td>
                         <form:input path="name" maxlength="10" required="required"
-                                    placeholder="Board name" pattern="[a-zA-Zа-яА-ЯёЁ0-9]+"/>
+                                    placeholder="Board name" pattern="[a-zA-Zа-яА-ЯёЁ0-9 -]+"/>
                     </td>
                 </tr>
                 <tr>

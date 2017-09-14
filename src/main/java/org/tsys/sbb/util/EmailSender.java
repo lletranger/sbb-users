@@ -43,16 +43,18 @@ public class EmailSender {
             }
         });
 
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(fromEmail));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
-            message.setSubject(msgSubject);
-            message.setText(msgText);
-            Transport.send(message);
-            LOGGER.info("Email send successfully");
-        } catch (MessagingException mex) {
-            LOGGER.error(mex.toString());
-        }
+        new Thread(() -> {
+            try {
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(fromEmail));
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
+                message.setSubject(msgSubject);
+                message.setText(msgText);
+                Transport.send(message);
+                LOGGER.info("Email send successfully");
+            } catch (MessagingException mex) {
+                LOGGER.error(mex.toString());
+            }
+        }).start();
     }
 }

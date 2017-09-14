@@ -79,7 +79,7 @@
             <div class="row" style="color: #545454;">
                 <div id="form-group-login" class="form-group col-lg-4 col-lg-offset-4">
                     <form:input path="username" minlength="4" maxlength="25" required="required"
-                                pattern="[a-zA-Zа-яА-ЯёЁ0-9]+" placeholder="Username"/>
+                                pattern="[a-zA-Zа-яА-ЯёЁ0-9 -]+" placeholder="Username"/>
                 </div>
             </div>
 
@@ -94,7 +94,7 @@
             <div class="row" style="color: #545454;">
                 <div id="form-group-password" class="form-group col-lg-4 col-lg-offset-4">
                     <form:password path="password" minlength="4" maxlength="25" required="required"
-                                   pattern="[a-zA-Zа-яА-ЯёЁ0-9]+" placeholder="Password"/>
+                                   pattern="[a-zA-Zа-яА-ЯёЁ0-9 -]+" placeholder="Password"/>
                 </div>
             </div>
 

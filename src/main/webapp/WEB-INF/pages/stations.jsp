@@ -94,7 +94,7 @@
                     </th>
                     <td>
                         <form:input path="name" maxlength="45" required="required"
-                                    placeholder="Station name" pattern="[a-zA-Zа-яА-ЯёЁ0-9]+"/>
+                                    placeholder="Station name" pattern="[a-zA-Zа-яА-ЯёЁ0-9 -]+"/>
                     </td>
                 </tr>
                 <tr>

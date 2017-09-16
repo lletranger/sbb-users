@@ -63,20 +63,61 @@
         <h1 align="center" style="color: #49a827">Boards List</h1>
 
 
+        <%--<c:if test="${!empty dtos}">--%>
+            <%--<table class="sortable">--%>
+                <%--<tr>--%>
+                    <%--<th width="50">ID</th>--%>
+                    <%--<th width="50" class="sorttable_alpha">Board Name</th>--%>
+                    <%--<th width="50">From</th>--%>
+                    <%--<th width="50">To</th>--%>
+                    <%--<th width="50">Departure</th>--%>
+                    <%--<th width="50" class="sorttable_numeric">Journey Time</th>--%>
+                    <%--<th width="50">Expected Arrival</th>--%>
+                    <%--<th width="50" class="sorttable_numeric">Delay</th>--%>
+                    <%--<th width="50">Arrival</th>--%>
+                    <%--<th width="50">Delayable</th>--%>
+                <%--</tr>--%>
+                <%--<c:forEach items="${dtos}" var="dto">--%>
+                    <%--<tr>--%>
+                        <%--<td><a href="${pageContext.request.contextPath}/admin/boarddata/${dto.id}">${dto.id}</a></td>--%>
+                        <%--<td><a href="${pageContext.request.contextPath}/admin/boarddata/${dto.id}">${dto.name}</a></td>--%>
+                        <%--<td>${dto.from}</td>--%>
+                        <%--<td>${dto.to}</td>--%>
+                        <%--<td>${dto.departure}</td>--%>
+                        <%--<td>${dto.journeyTime}</td>--%>
+                        <%--<td>${dto.expectedArrival}</td>--%>
+                        <%--<td>${dto.delay}</td>--%>
+                        <%--<td>${dto.arrival}</td>--%>
+                        <%--<c:if test="${dto.canAddDelay ne 'false'}">--%>
+                            <%--<td>--%>
+                                <%--<button class="btn btn-success"--%>
+                                        <%--onclick="location.href = '${pageContext.request.contextPath}/admin/delay/add/${dto.id}'">--%>
+                                    <%--Add Delay--%>
+                                <%--</button>--%>
+                            <%--</td>--%>
+                        <%--</c:if>--%>
+                    <%--</tr>--%>
+                <%--</c:forEach>--%>
+            <%--</table>--%>
+        <%--</c:if>--%>
+
         <c:if test="${!empty dtos}">
-            <table class="sortable">
+            <table id="example" class="sortable" width="100%" cellspacing="0">
+                <thead>
                 <tr>
                     <th width="50">ID</th>
-                    <th width="50" class="sorttable_alpha">Board Name</th>
+                    <th width="50">Board Name</th>
                     <th width="50">From</th>
                     <th width="50">To</th>
                     <th width="50">Departure</th>
-                    <th width="50" class="sorttable_numeric">Journey Time</th>
+                    <th width="50">Journey Time</th>
                     <th width="50">Expected Arrival</th>
-                    <th width="50" class="sorttable_numeric">Delay</th>
+                    <th width="50">Delay</th>
                     <th width="50">Arrival</th>
                     <th width="50">Delayable</th>
                 </tr>
+                </thead>
+                <tbody>
                 <c:forEach items="${dtos}" var="dto">
                     <tr>
                         <td><a href="${pageContext.request.contextPath}/admin/boarddata/${dto.id}">${dto.id}</a></td>
@@ -88,58 +129,17 @@
                         <td>${dto.expectedArrival}</td>
                         <td>${dto.delay}</td>
                         <td>${dto.arrival}</td>
-                        <c:if test="${dto.canAddDelay ne 'false'}">
-                            <td>
-                                <button class="btn btn-success"
-                                        onclick="location.href = '${pageContext.request.contextPath}/admin/delay/add/${dto.id}'">
-                                    Add Delay
-                                </button>
-                            </td>
-                        </c:if>
+                        <td><c:if test="${dto.canAddDelay ne 'false'}">
+                            <button class="btn btn-success"
+                                    onclick="location.href = '${pageContext.request.contextPath}/admin/delay/add/${dto.id}'">
+                                Add Delay
+                            </button>
+                        </c:if></td>
                     </tr>
                 </c:forEach>
+                </tbody>
             </table>
         </c:if>
-
-        <%--<c:if test="${!empty dtos}">--%>
-        <%--<table id="example" class="sortable" width="100%" cellspacing="0">--%>
-        <%--<thead>--%>
-        <%--<tr>--%>
-        <%--<th width="50">ID</th>--%>
-        <%--<th width="50">Board Name</th>--%>
-        <%--<th width="50">From</th>--%>
-        <%--<th width="50">To</th>--%>
-        <%--<th width="50">Departure</th>--%>
-        <%--<th width="50">Journey Time</th>--%>
-        <%--<th width="50">Expected Arrival</th>--%>
-        <%--<th width="50">Delay</th>--%>
-        <%--<th width="50">Arrival</th>--%>
-        <%--<th width="50">Delayable</th>--%>
-        <%--</tr>--%>
-        <%--</thead>--%>
-        <%--<tbody>--%>
-        <%--<c:forEach items="${dtos}" var="dto">--%>
-        <%--<tr>--%>
-        <%--<td><a href="${pageContext.request.contextPath}/admin/boarddata/${dto.id}">${dto.id}</a></td>--%>
-        <%--<td><a href="${pageContext.request.contextPath}/admin/boarddata/${dto.id}">${dto.name}</a></td>--%>
-        <%--<td>${dto.from}</td>--%>
-        <%--<td>${dto.to}</td>--%>
-        <%--<td>${dto.departure}</td>--%>
-        <%--<td>${dto.journeyTime}</td>--%>
-        <%--<td>${dto.expectedArrival}</td>--%>
-        <%--<td>${dto.delay}</td>--%>
-        <%--<td>${dto.arrival}</td>--%>
-        <%--<td><c:if test="${dto.canAddDelay ne 'false'}">--%>
-        <%--<button class="btn btn-success"--%>
-        <%--onclick="location.href = '${pageContext.request.contextPath}/admin/delay/add/${dto.id}'">--%>
-        <%--Add Delay--%>
-        <%--</button>--%>
-        <%--</c:if></td>--%>
-        <%--</tr>--%>
-        <%--</c:forEach>--%>
-        <%--</tbody>--%>
-        <%--</table>--%>
-        <%--</c:if>--%>
 
     </div>
 </section>
@@ -158,7 +158,19 @@
 <script>
     $(function () {
         $("#example").dataTable({
-            "lengthMenu": [ [10, 25, -1], [10, 25, "All"] ]
+            "lengthMenu": [ [10, 25, -1], [10, 25, "All"] ],
+            "aoColumns":[
+                null,
+                {"sType":"string"},
+                null,
+                null,
+                null,
+                {"sType":"numeric"},
+                null,
+                {"sType":"numeric"},
+                null,
+                null
+            ]
         });
     })
 </script>
